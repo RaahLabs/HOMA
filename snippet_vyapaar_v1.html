@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vyapaar — Build Your Company</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07090E;
+      --card: #0D1117;
+      --card2: #131920;
+      --border: rgba(255,255,255,0.07);
+      --border-bright: rgba(255,255,255,0.14);
+      --text: #E2E0D8;
+      --text-muted: #7A7870;
+      --text-hint: #484644;
+      --amber: #E8961A;
+      --amber-dim: rgba(232,150,26,0.15);
+
+      --c-rev:  #00FF88;
+      --c-inn:  #00CFFF;
+      --c-team: #B06EFF;
+      --c-stab: #FFD166;
+      --c-bra:  #FF7B3A;
+      --c-imp:  #2ECC9A;
+    }
+
+    html, body { height: 100%; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── SCREENS ── */
+    .screen { display: none; min-height: 100vh; }
+    .screen.active { display: block; }
+
+    .container { max-width: 500px; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border: none; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+      cursor: pointer; transition: all 0.15s; padding: 13px 22px;
+    }
+    .btn-primary {
+      background: var(--amber); color: #0A0800;
+    }
+    .btn-primary:hover { filter: brightness(1.1); }
+    .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
+    .btn-ghost {
+      background: transparent; color: var(--text-muted);
+      border: 1px solid var(--border-bright);
+    }
+    .btn-ghost:hover { background: var(--card2); color: var(--text); }
+    .btn-full { width: 100%; padding: 15px; font-size: 16px; }
+
+    input[type="text"] {
+      width: 100%; padding: 14px 16px;
+      background: var(--card2); border: 1px solid var(--border-bright);
+      border-radius: 10px; color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 500;
+      outline: none; transition: border-color 0.15s;
+    }
+    input[type="text"]::placeholder { color: var(--text-hint); }
+    input[type="text"]:focus { border-color: var(--amber); }
+
+    /* ── INTRO SCREEN ── */
+    #screen-intro {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 2rem 1.25rem; text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(232,150,26,0.08) 0%, transparent 60%);
+    }
+    #screen-intro.active { display: flex; }
+
+    .intro-badge {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber);
+      background: var(--amber-dim); border: 1px solid rgba(232,150,26,0.25);
+      padding: 5px 14px; border-radius: 20px; margin-bottom: 2rem;
+    }
+    .intro-logo { font-size: 64px; margin-bottom: 1rem; filter: drop-shadow(0 0 20px rgba(232,150,26,0.4)); }
+    .intro-title { font-size: 36px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .intro-subtitle { font-size: 16px; color: var(--text-muted); max-width: 340px; line-height: 1.75; margin-bottom: 2.5rem; }
+
+    .intro-form { width: 100%; max-width: 380px; }
+    .intro-form label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .intro-stats {
+      display: flex; gap: 12px; justify-content: center;
+      margin-top: 2rem; flex-wrap: wrap;
+    }
+    .intro-stat {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 18px; text-align: center;
+    }
+    .intro-stat-val { font-size: 18px; font-weight: 500; color: var(--amber); }
+    .intro-stat-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 1px; }
+
+    /* ── GAME SCREEN ── */
+    #screen-game { display: none; }
+    #screen-game.active { display: block; }
+
+    /* Sticky header */
+    .game-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(7,9,14,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.875rem 1.25rem;
+    }
+    .game-header-top {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .company-name-label {
+      font-size: 14px; font-weight: 600; color: var(--text);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .company-name-label .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--c-rev); animation: blink 1.8s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .valuation-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px; font-weight: 500;
+      color: var(--amber);
+      background: var(--amber-dim);
+      padding: 4px 10px; border-radius: 6px;
+      transition: all 0.3s;
+    }
+    .valuation-badge.pop { animation: valPop 0.4s ease-out; }
+    @keyframes valPop { 0%{transform:scale(1)} 50%{transform:scale(1.15)} 100%{transform:scale(1)} }
+
+    .quarter-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* Metric bars in header */
+    .metrics-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+    }
+    .metric-item { position: relative; }
+    .metric-label-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 4px;
+    }
+    .metric-icon-label { font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+    .metric-val { font-size: 11px; font-weight: 500; font-family: 'DM Mono', monospace; }
+    .metric-bar-track {
+      height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden;
+      position: relative;
+    }
+    .metric-bar-fill {
+      height: 100%; border-radius: 2px;
+      transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+    }
+    /* Delta float labels */
+    .metric-delta {
+      position: absolute; right: 0; top: -20px;
+      font-size: 10px; font-weight: 600;
+      pointer-events: none; white-space: nowrap;
+      font-family: 'DM Mono', monospace;
+    }
+    .metric-delta.pos { color: var(--c-rev); animation: floatUp 1.8s ease-out forwards; }
+    .metric-delta.neg { color: #ff4444; animation: floatDown 1.8s ease-out forwards; }
+    @keyframes floatUp { 0%{opacity:1;transform:translateY(0)} 100%{opacity:0;transform:translateY(-28px)} }
+    @keyframes floatDown { 0%{opacity:1;transform:translateY(0)} 100%{opacity:0;transform:translateY(12px)} }
+
+    /* ── QUARTER TRANSITION OVERLAY ── */
+    #quarter-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    #quarter-overlay.visible { opacity: 1; pointer-events: all; }
+    .qo-num {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 10px;
+    }
+    .qo-title { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; }
+
+    /* ── SCENARIO AREA ── */
+    .scenario-area { padding: 1.25rem; }
+    .scenario-context-tag {
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--amber); margin-bottom: 8px;
+    }
+    .scenario-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      border-radius: 12px; padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .scenario-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .scenario-narrative { font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+
+    /* Choice cards */
+    .choices-area { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.25rem; }
+    .choice-card {
+      background: var(--card); border: 1px solid var(--border-bright);
+      border-radius: 12px; padding: 1rem 1.125rem;
+      cursor: pointer; transition: all 0.15s; text-align: left;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .choice-card:hover { border-color: rgba(232,150,26,0.5); background: var(--card2); }
+    .choice-card:active { transform: scale(0.99); }
+    .choice-card.disabled { pointer-events: none; }
+    .choice-card.selected {
+      border-color: var(--amber) !important;
+      background: rgba(232,150,26,0.06) !important;
+      transform: none !important;
+    }
+    .choice-card.faded { opacity: 0.3; }
+
+    .choice-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .choice-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+    .choice-arrow {
+      float: right; margin-left: 10px; margin-top: 2px;
+      font-size: 16px; color: var(--text-hint); transition: all 0.15s;
+    }
+    .choice-card:hover .choice-arrow { color: var(--amber); transform: translateX(3px); }
+
+    /* Outcome reveal */
+    .outcome-reveal {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem 1.125rem;
+      margin-bottom: 1rem; display: none;
+    }
+    .outcome-reveal.visible { display: block; animation: fadeSlide 0.35s ease-out; }
+    @keyframes fadeSlide { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    .outcome-label {
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--c-imp); margin-bottom: 6px;
+    }
+    .outcome-text { font-size: 14px; color: var(--text-muted); line-height: 1.75; font-style: italic; }
+
+    /* Next quarter button area */
+    #next-btn-area { display: none; padding: 0 0 1rem; }
+    #next-btn-area.visible { display: block; animation: fadeSlide 0.3s 0.2s ease-out both; }
+
+    /* ── SLOGAN TICKER ── */
+    #slogan-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+      background: rgba(7,9,14,0.95); border-top: 1px solid var(--border);
+      padding: 8px 1.25rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .slogan-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+    #slogan-text {
+      font-size: 12px; color: var(--text-muted); font-style: italic;
+      transition: opacity 0.5s;
+    }
+    #slogan-text.fade { opacity: 0; }
+
+    /* ── RESULTS SCREEN ── */
+    #screen-results { background: var(--bg); }
+    #screen-results.active { display: block; }
+
+    .results-hero {
+      background: radial-gradient(ellipse at 50% -20%, rgba(232,150,26,0.15) 0%, transparent 60%);
+      padding: 3rem 1.25rem 2rem; text-align: center;
+    }
+    .profile-icon { font-size: 56px; margin-bottom: 1rem; filter: drop-shadow(0 0 24px rgba(255,255,255,0.2)); }
+    .profile-tag {
+      font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--amber); margin-bottom: 10px;
+    }
+    .profile-name { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 14px; }
+    .profile-summary { font-size: 14px; color: var(--text-muted); line-height: 1.85; max-width: 380px; margin: 0 auto; }
+
+    .results-section { padding: 0 1.25rem 1.5rem; }
+    .section-label {
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-hint); margin-bottom: 12px;
+    }
+
+    .final-metric-row {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 10px;
+    }
+    .fmr-icon { font-size: 14px; width: 20px; text-align: center; flex-shrink: 0; }
+    .fmr-label { font-size: 13px; color: var(--text-muted); flex-shrink: 0; width: 90px; }
+    .fmr-bar-track { flex: 1; height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .fmr-bar-fill { height: 100%; border-radius: 3px; }
+    .fmr-val { font-size: 12px; font-family: 'DM Mono', monospace; font-weight: 500; width: 28px; text-align: right; }
+
+    .protected-sacrificed {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem;
+    }
+    .ps-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 14px;
+    }
+    .ps-card-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+    .ps-card.protected .ps-card-label { color: var(--c-imp); }
+    .ps-card.sacrificed .ps-card-label { color: #ff4444; }
+    .ps-item { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+    .ps-item:last-child { margin-bottom: 0; }
+
+    .final-val-display {
+      background: var(--card); border: 1px solid rgba(232,150,26,0.25);
+      border-radius: 12px; padding: 1.25rem; text-align: center; margin-bottom: 1.5rem;
+    }
+    .fvd-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .fvd-val { font-size: 38px; font-weight: 600; color: var(--amber); font-family: 'DM Mono', monospace; letter-spacing: -0.02em; }
+    .fvd-sub { font-size: 12px; color: var(--text-hint); margin-top: 4px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ SLOGAN BAR (always visible during game) ═══ -->
+<div id="slogan-bar" style="display:none;">
+  <div class="slogan-dot"></div>
+  <div id="slogan-text">"Culture is what you tolerate."</div>
+</div>
+
+<!-- ═══ QUARTER OVERLAY ═══ -->
+<div id="quarter-overlay">
+  <div>
+    <div class="qo-num" id="qo-num">Quarter 1 of 10</div>
+    <div class="qo-title" id="qo-title">Your First Hire</div>
+  </div>
+</div>
+
+<!-- ═══ INTRO ═══ -->
+<div id="screen-intro" class="screen active">
+  <div class="intro-badge">Raah Labs — Career Game</div>
+  <div class="intro-logo">🏗️</div>
+  <h1 class="intro-title">Vyapaar</h1>
+  <p class="intro-subtitle">You're a founder. ₹50L in the bank. 10 quarters to build something real. Every decision moves the needle — some in ways you won't expect.</p>
+
+  <div class="intro-form">
+    <label>What's your company called?</label>
+    <input type="text" id="company-input" placeholder="e.g. Nirmaan, Disha, Upaj..." maxlength="24" />
+    <div style="margin-top:12px;">
+      <button class="btn btn-primary btn-full" id="start-btn" onclick="beginGame()" disabled>
+        Start Building →
+      </button>
+    </div>
+  </div>
+
+  <div class="intro-stats">
+    <div class="intro-stat"><div class="intro-stat-val">10</div><div class="intro-stat-lbl">Quarters</div></div>
+    <div class="intro-stat"><div class="intro-stat-val">₹50L</div><div class="intro-stat-lbl">Seed Capital</div></div>
+    <div class="intro-stat"><div class="intro-stat-val">6</div><div class="intro-stat-lbl">Metrics</div></div>
+  </div>
+</div>
+
+<!-- ═══ GAME ═══ -->
+<div id="screen-game" class="screen">
+
+  <!-- Sticky header -->
+  <div class="game-header">
+    <div class="game-header-top">
+      <div class="company-name-label">
+        <div class="dot"></div>
+        <span id="hdr-company"></span>
+      </div>
+      <div class="valuation-badge" id="hdr-val">₹50L</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <div class="quarter-label" id="hdr-quarter">Quarter 1 of 10</div>
+      <div style="font-size:11px;color:var(--text-hint);" id="hdr-progress"></div>
+    </div>
+    <!-- Metric bars -->
+    <div class="metrics-grid" id="metrics-grid"></div>
+  </div>
+
+  <!-- Scenario area -->
+  <div class="scenario-area">
+    <div class="scenario-context-tag" id="sc-context-tag"></div>
+    <div class="scenario-card">
+      <div class="scenario-title" id="sc-title"></div>
+      <div class="scenario-narrative" id="sc-narrative"></div>
+    </div>
+
+    <div class="choices-area" id="choices-area"></div>
+
+    <div class="outcome-reveal" id="outcome-reveal">
+      <div class="outcome-label">What happens</div>
+      <div class="outcome-text" id="outcome-text"></div>
+    </div>
+
+    <div id="next-btn-area">
+      <button class="btn btn-primary btn-full" id="next-btn" onclick="advanceQuarter()">→</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ RESULTS ═══ -->
+<div id="screen-results" class="screen">
+  <div class="results-hero">
+    <div class="profile-tag">Your Founder Profile</div>
+    <div class="profile-icon" id="r-icon"></div>
+    <div class="profile-name" id="r-name"></div>
+    <div class="profile-summary" id="r-summary"></div>
+  </div>
+
+  <div class="results-section">
+    <div class="final-val-display">
+      <div class="fvd-label">Final Valuation</div>
+      <div class="fvd-val" id="r-valuation"></div>
+      <div class="fvd-sub" id="r-val-note"></div>
+    </div>
+
+    <div class="section-label">How your company ended up</div>
+    <div style="margin-bottom:1.5rem;" id="r-final-metrics"></div>
+
+    <div class="section-label">What you consistently protected vs sacrificed</div>
+    <div class="protected-sacrificed">
+      <div class="ps-card protected">
+        <div class="ps-card-label">↑ Protected</div>
+        <div id="r-protected"></div>
+      </div>
+      <div class="ps-card sacrificed">
+        <div class="ps-card-label">↓ Sacrificed</div>
+        <div id="r-sacrificed"></div>
+      </div>
+    </div>
+
+    <button class="btn btn-ghost btn-full" onclick="restartGame()">Play again</button>
+  </div>
+</div>
+
+
+<script>
+// ════════════════════════════════════════════════════
+// MOCKS
+// ════════════════════════════════════════════════════
+function saveScore(r){ console.log('saveScore', JSON.stringify(r, null, 2)); }
+
+// ════════════════════════════════════════════════════
+// SLOGANS
+// ════════════════════════════════════════════════════
+const SLOGANS = [
+  '"Culture is what you tolerate."',
+  '"Revenue hides bad decisions."',
+  '"The best teams outlast the best ideas."',
+  '"Burn rate is the clock ticking."',
+  '"Hire slow. Fire fast. Ship faster."',
+  '"Mission without margin is charity."',
+  '"Trust is the only moat that compounds."',
+  '"Clarity beats consensus."',
+  '"Every shortcut has an invoice."',
+  '"The market doesn\'t care about your vision."',
+  '"Build for 10 years. Ship in 10 days."',
+  '"Speed is a strategy. Slowness is too."',
+  '"Your team reflects you, whether you like it or not."',
+  '"The best product doesn\'t always win."',
+  '"Equity is just delayed certainty."',
+];
+let sloganIdx = 0;
+let sloganInterval = null;
+
+function startSlogans() {
+  document.getElementById('slogan-bar').style.display = 'flex';
+  rotateSloganNow();
+  sloganInterval = setInterval(rotateSlogan, 5000);
+}
+function rotateSloganNow() {
+  document.getElementById('slogan-text').textContent = SLOGANS[sloganIdx % SLOGANS.length];
+  sloganIdx++;
+}
+function rotateSlogan() {
+  const el = document.getElementById('slogan-text');
+  el.classList.add('fade');
+  setTimeout(() => {
+    el.textContent = SLOGANS[sloganIdx % SLOGANS.length];
+    sloganIdx++;
+    el.classList.remove('fade');
+  }, 500);
+}
+
+// ════════════════════════════════════════════════════
+// GAME DATA
+// ════════════════════════════════════════════════════
+const METRIC_DEFS = [
+  { key:'revenue',    icon:'💰', label:'Revenue',    color:'var(--c-rev)' },
+  { key:'innovation', icon:'🚀', label:'Innovate',   color:'var(--c-inn)' },
+  { key:'team',       icon:'👥', label:'Team',       color:'var(--c-team)' },
+  { key:'stability',  icon:'🛡', label:'Stability',  color:'var(--c-stab)' },
+  { key:'brand',      icon:'🏆', label:'Brand',      color:'var(--c-bra)' },
+  { key:'impact',     icon:'🌍', label:'Impact',     color:'var(--c-imp)' },
+];
+
+const QUARTERS = [
+  {
+    q:1, title:'Your First Hire', context:'Team & Culture',
+    narrative:"The product is working. You need real help. Three candidates made the final round. Runway is ₹50L. This hire sets the tone for everything that follows.",
+    choices:[
+      {
+        title:'Meera — IIT Bombay, no industry exp, ₹18L/yr',
+        desc:'Sharp, hungry, cheap. 3 months to ramp but high ceiling. Zero culture risk.',
+        outcome:'Meera takes longer than you\'d like to get going. But she asks the right questions from week one.',
+        deltas:{ revenue:-5, innovation:+15, team:+12, stability:+5, brand:0, impact:+5 },
+        secret:{ money:3, growth:8, team:7, stability:4, prestige:2, impact:5 }
+      },
+      {
+        title:'3 Pune freshers, ₹5L each — ₹15L total',
+        desc:'Volume play. Cheap, fast, chaotic. Coverage is wide. One of them might be exceptional.',
+        outcome:'Chaos, but productive chaos. The energy is real. Team cohesion is a problem for Q3.',
+        deltas:{ revenue:-5, innovation:+5, team:-10, stability:-12, brand:-5, impact:0 },
+        secret:{ money:7, growth:3, team:2, stability:1, prestige:1, impact:2 }
+      },
+      {
+        title:'Rahul — ex-Flipkart, 10 years, ₹32L/yr',
+        desc:'Expensive and experienced. Ships in week one, commands the room. Runway drops fast.',
+        outcome:'Rahul delivers immediately. Burn rate spikes. You check the runway calculator more than you\'d like.',
+        deltas:{ revenue:+12, innovation:+5, team:+5, stability:-18, brand:+12, impact:0 },
+        secret:{ money:6, growth:4, team:4, stability:2, prestige:8, impact:2 }
+      }
+    ]
+  },
+  {
+    q:2, title:'The Enterprise Trap', context:'Revenue Decision',
+    narrative:"Mahindra wants your software for their logistics arm. ₹28L contract, 6-month delivery. Executing it will pause everything you were building. This is your first real money.",
+    choices:[
+      {
+        title:'Take the ₹28L contract',
+        desc:'Revenue in the bank, credibility on the deck. Roadmap pauses but the lights stay on.',
+        outcome:'The money hits the account. The roadmap slides 6 months. You tell yourself it\'s temporary.',
+        deltas:{ revenue:+22, innovation:-15, team:-5, stability:+18, brand:+8, impact:-5 },
+        secret:{ money:9, growth:2, team:3, stability:7, prestige:5, impact:2 }
+      },
+      {
+        title:'Reject it — stay focused on the product',
+        desc:'Bold. You believe in what you\'re building. This deal bends the company toward someone else\'s problem.',
+        outcome:'Burn continues. The team respects the call. You need a strong next quarter.',
+        deltas:{ revenue:-10, innovation:+22, team:+12, stability:-12, brand:0, impact:+12 },
+        secret:{ money:2, growth:9, team:6, stability:2, prestige:3, impact:7 }
+      },
+      {
+        title:'Negotiate — 40% upfront, leaner scope',
+        desc:'Split the deal. ₹11.2L now, deliver a trimmed version in 4 months. Keeps optionality.',
+        outcome:'Mahindra agrees. The constraint forces you to build cleaner than you would have anyway.',
+        deltas:{ revenue:+10, innovation:+5, team:0, stability:+8, brand:+5, impact:0 },
+        secret:{ money:5, growth:4, team:4, stability:6, prestige:4, impact:3 }
+      }
+    ]
+  },
+  {
+    q:3, title:'The Toxic Rockstar', context:'People Problem',
+    narrative:"Arjun ships 3× faster than anyone on the team. He's also making two people quietly consider quitting. His PRs are brilliant. His Slack messages are not. You have the 1:1 tomorrow.",
+    choices:[
+      {
+        title:'Keep Arjun — manage around him',
+        desc:'The output is real. You\'ll protect the others informally. This is a business, not therapy.',
+        outcome:'Two quarters later, one of the people he was bullying leaves without saying why.',
+        deltas:{ revenue:+5, innovation:+18, team:-22, stability:-5, brand:+5, impact:-10 },
+        secret:{ money:7, growth:7, team:2, stability:4, prestige:5, impact:2 }
+      },
+      {
+        title:'Let Arjun go — protect the culture',
+        desc:'Hard call. Output drops. Morale spikes immediately. The team watches how you handle this.',
+        outcome:'The team breathes again. Someone you didn\'t expect steps up to fill the gap.',
+        deltas:{ revenue:-8, innovation:-8, team:+28, stability:+5, brand:+8, impact:+15 },
+        secret:{ money:2, growth:4, team:9, stability:5, prestige:2, impact:7 }
+      },
+      {
+        title:'30-day PIP — document it, give him a line',
+        desc:'Clear expectations, paper trail. If he crosses it, the next call becomes easier.',
+        outcome:'Arjun improves just enough. The tension doesn\'t fully leave. You kick the real call down the road.',
+        deltas:{ revenue:0, innovation:+5, team:+10, stability:+5, brand:0, impact:+5 },
+        secret:{ money:4, growth:4, team:6, stability:7, prestige:3, impact:4 }
+      }
+    ]
+  },
+  {
+    q:4, title:'The Press Moment', context:'Brand & Visibility',
+    narrative:"YourStory wants a founder feature. 20,000 readers, front page, startup-to-watch. You'd spend a week on it. Or you could ship the feature your best user has been asking for.",
+    choices:[
+      {
+        title:'Do the YourStory feature',
+        desc:'Brand moment. Inbound picks up, investors notice, team feels proud. Takes a week you don\'t have.',
+        outcome:'The article goes live. Two investors DM you. One customer says they found you through it.',
+        deltas:{ revenue:+5, innovation:-5, team:+5, stability:0, brand:+28, impact:+5 },
+        secret:{ money:5, growth:3, team:3, stability:3, prestige:9, impact:3 }
+      },
+      {
+        title:'Decline — ship the feature instead',
+        desc:'Let the product speak. Press is vanity, retention is sanity. Your best user gets what they asked for.',
+        outcome:'Your user upgrades to annual. The YourStory slot goes to a competitor. You don\'t lose sleep.',
+        deltas:{ revenue:+8, innovation:+22, team:+12, stability:+5, brand:-8, impact:+5 },
+        secret:{ money:3, growth:9, team:7, stability:4, prestige:2, impact:6 }
+      },
+      {
+        title:'Delegate it — your co-founder handles the piece',
+        desc:'Half the time cost, most of the upside. They write it, you review the final draft.',
+        outcome:'The article is good, not great. Enough to matter. Your co-founder enjoyed it more than expected.',
+        deltas:{ revenue:+3, innovation:+5, team:+5, stability:+3, brand:+15, impact:+5 },
+        secret:{ money:4, growth:4, team:5, stability:5, prestige:5, impact:4 }
+      }
+    ]
+  },
+  {
+    q:5, title:'Two Term Sheets', context:'Fundraising',
+    narrative:"Two VCs want to lead your Series A. The numbers differ significantly — so does the energy in the room when you met them.",
+    choices:[
+      {
+        title:'Peak Ventures — ₹3Cr, 25% equity, aggressive targets',
+        desc:'Tier-1 firm, sharp partners, serious money. They\'ll push hard. Valuation is strong, expectations stronger.',
+        outcome:'The money changes your company\'s posture. Everything accelerates. Some things break faster.',
+        deltas:{ revenue:+22, innovation:+10, team:-8, stability:-15, brand:+18, impact:-5 },
+        secret:{ money:8, growth:6, team:2, stability:2, prestige:8, impact:2 }
+      },
+      {
+        title:'Arora Family Office — ₹1.5Cr, 12% equity, mission-aligned',
+        desc:'Patient capital. They believe in the problem, not just the exit. Half the money, you keep the wheel.',
+        outcome:'Lower war chest, but you sleep differently. Decisions feel more like yours.',
+        deltas:{ revenue:+10, innovation:+5, team:+8, stability:+8, brand:+5, impact:+22 },
+        secret:{ money:3, growth:5, team:6, stability:7, prestige:3, impact:9 }
+      },
+      {
+        title:'Neither — push for revenue, stay bootstrapped',
+        desc:'Dilution is expensive. Constraint forces creativity. You back yourself.',
+        outcome:'Growth is slower. Control is total. Every rupee of revenue feels earned differently.',
+        deltas:{ revenue:+5, innovation:+8, team:+10, stability:+22, brand:0, impact:+10 },
+        secret:{ money:5, growth:4, team:6, stability:9, prestige:2, impact:5 }
+      }
+    ]
+  },
+  {
+    q:6, title:'Ship It Or Not', context:'Product Decision',
+    narrative:"The next release is ready — mostly. 4 known bugs. Two cosmetic. Two could cause data issues for a small user segment. Sales wants it live this week. Engineering says 6 more weeks.",
+    choices:[
+      {
+        title:'Ship now — patch next sprint',
+        desc:'Sales can close. Known issues get fixed fast. Speed is the whole game at this stage.',
+        outcome:'Three users hit the data bug. Two forgive you. One writes about it publicly.',
+        deltas:{ revenue:+20, innovation:+5, team:-8, stability:-12, brand:-12, impact:-5 },
+        secret:{ money:8, growth:5, team:3, stability:2, prestige:2, impact:2 }
+      },
+      {
+        title:'Wait 6 weeks — ship it right',
+        desc:'Your brand is the product. Ship something broken and it takes years to recover the trust.',
+        outcome:'The delay costs two deals. The product ships clean. One analyst calls it \'polished\'.',
+        deltas:{ revenue:-8, innovation:+10, team:+5, stability:+15, brand:+22, impact:+5 },
+        secret:{ money:2, growth:4, team:5, stability:7, prestige:8, impact:4 }
+      },
+      {
+        title:'Ship to 5 beta users only — fix then scale',
+        desc:'Controlled release. Real users find real bugs before they hit everyone.',
+        outcome:'Beta users find 2 more bugs you didn\'t know about. You ship better than you would have.',
+        deltas:{ revenue:+5, innovation:+15, team:+10, stability:+5, brand:+5, impact:+5 },
+        secret:{ money:4, growth:8, team:7, stability:5, prestige:4, impact:5 }
+      }
+    ]
+  },
+  {
+    q:7, title:'Flipkart Copied You', context:'Competitive Crisis',
+    narrative:"A Flipkart internal team launched something that does 60% of what you do. Not better — but the logo is there. Three of your prospects are now \'evaluating\'. Your team is rattled.",
+    choices:[
+      {
+        title:'Go public — David vs Goliath PR campaign',
+        desc:'Call it out. Startups win the press war every time. Make the comparison your advantage.',
+        outcome:'Three journalists cover it. Two investors reach out. Your team energises, then gets distracted.',
+        deltas:{ revenue:+5, innovation:-10, team:-5, stability:-8, brand:+25, impact:+5 },
+        secret:{ money:5, growth:2, team:3, stability:2, prestige:9, impact:4 }
+      },
+      {
+        title:'Ignore them — ship 3 features they can\'t copy',
+        desc:'Best response to a copycat is a product they can\'t reach. Head down, ship faster.',
+        outcome:'Two of the three prospects come back. The third chose Flipkart anyway. You were going to lose them.',
+        deltas:{ revenue:+8, innovation:+28, team:+18, stability:+5, brand:0, impact:+5 },
+        secret:{ money:3, growth:9, team:8, stability:4, prestige:2, impact:5 }
+      },
+      {
+        title:'Call their product head — explore partnership',
+        desc:'If they want your space, maybe they want your product. Bold, asymmetric, worth one call.',
+        outcome:'The call goes nowhere — but they stop actively selling against you. Détente of sorts.',
+        deltas:{ revenue:+18, innovation:0, team:+5, stability:+12, brand:+8, impact:0 },
+        secret:{ money:6, growth:4, team:4, stability:7, prestige:5, impact:3 }
+      }
+    ]
+  },
+  {
+    q:8, title:'The CTO Is Leaving', context:'Key Person Risk',
+    narrative:"Your CTO — the one who built the core of the product — just told you she has an offer from a Bangalore unicorn. ₹42L vs your ₹28L. She says money isn't everything, but it is something.",
+    choices:[
+      {
+        title:'Match the offer — ₹42L',
+        desc:'She built what you have. Losing her costs more than the salary gap. Pay what she\'s worth.',
+        outcome:'She stays. The rest of the team notices. Someone else comes in next month asking for a raise.',
+        deltas:{ revenue:-12, innovation:+12, team:+12, stability:+12, brand:+5, impact:0 },
+        secret:{ money:7, growth:4, team:7, stability:7, prestige:4, impact:3 }
+      },
+      {
+        title:'Let her go — equity vesting acceleration as goodbye',
+        desc:'You can\'t win a salary war with a unicorn. Give her dignity on the way out. Rebuild.',
+        outcome:'She leaves grateful. Someone internal steps up. It\'s harder for 6 months. Then it\'s not.',
+        deltas:{ revenue:-5, innovation:-10, team:+22, stability:+5, brand:+12, impact:+15 },
+        secret:{ money:2, growth:4, team:9, stability:4, prestige:3, impact:7 }
+      },
+      {
+        title:'Counter with equity — ₹35L + 1.5% additional vesting',
+        desc:'Less cash burn, more alignment. Bet on the future together.',
+        outcome:'She thinks about it for four days. Takes the counter. You both know the equity bet is real now.',
+        deltas:{ revenue:-5, innovation:+8, team:+8, stability:+8, brand:+5, impact:+5 },
+        secret:{ money:4, growth:6, team:6, stability:6, prestige:4, impact:4 }
+      }
+    ]
+  },
+  {
+    q:9, title:'The Rural Healthcare Project', context:'Mission vs Momentum',
+    narrative:"A non-profit running primary health centres in Jharkhand wants your software. 200 clinics. No budget. They\'ll give you a case study, a government reference, and genuine gratitude. It\'s three months of your best engineer's time.",
+    choices:[
+      {
+        title:'Take it — do it for free',
+        desc:'Some things matter more than the invoice. This is one of them.',
+        outcome:'Three months in, your engineer says it\'s the most meaningful thing they\'ve worked on.',
+        deltas:{ revenue:-18, innovation:+5, team:+18, stability:-12, brand:+12, impact:+35 },
+        secret:{ money:2, growth:5, team:7, stability:2, prestige:3, impact:10 }
+      },
+      {
+        title:'Paid pilot — ₹8L at cost',
+        desc:'Sustainability matters. You can do good and still charge for it. Right precedent to set.',
+        outcome:'They agree, grudgingly. The project runs well. You\'re not sure the ₹8L was the point.',
+        deltas:{ revenue:+5, innovation:+5, team:+10, stability:+5, brand:+8, impact:+18 },
+        secret:{ money:5, growth:5, team:5, stability:5, prestige:3, impact:6 }
+      },
+      {
+        title:'Decline — not core to the business',
+        desc:'Engineering bandwidth is the actual constraint. Good intentions don\'t ship product.',
+        outcome:'You move faster. Your best engineer brings it up once, two quarters later, and drops it.',
+        deltas:{ revenue:+12, innovation:0, team:-8, stability:+18, brand:0, impact:-15 },
+        secret:{ money:8, growth:4, team:2, stability:8, prestige:4, impact:1 }
+      }
+    ]
+  },
+  {
+    q:10, title:'The Reliance Call', context:'The Exit Decision',
+    narrative:"Your phone rings on a Tuesday. Reliance Ventures. They want to acquire you — ₹14Cr all-cash, team absorbed, you lead the business unit. Your Series A target was ₹18–22Cr. You have six months of runway.",
+    choices:[
+      {
+        title:'Take the ₹14Cr exit',
+        desc:'Certainty has a value spreadsheets can\'t model. The team is taken care of. You\'ve built something real.',
+        outcome:'The wire hits. You feel something you weren\'t expecting — not relief. Something more complicated.',
+        deltas:{ revenue:+55, innovation:-10, team:-8, stability:+35, brand:+15, impact:-5 },
+        secret:{ money:9, growth:2, team:3, stability:7, prestige:6, impact:2 }
+      },
+      {
+        title:'Reject — go raise Series A instead',
+        desc:'You\'re not done. The company you want to build doesn\'t exist yet. ₹14Cr isn\'t the number.',
+        outcome:'You get back in the room with three VCs. One term sheet in 8 weeks. The work continues.',
+        deltas:{ revenue:+8, innovation:+22, team:+12, stability:-12, brand:+20, impact:+20 },
+        secret:{ money:4, growth:9, team:6, stability:2, prestige:6, impact:7 }
+      },
+      {
+        title:'Negotiate — push for ₹18Cr + 2-year earnout',
+        desc:'Counter. You have six months of runway and leverage you\'re not fully using.',
+        outcome:'They come back at ₹16Cr. You take it. The earnout keeps you in the game for two more years.',
+        deltas:{ revenue:+32, innovation:+5, team:-5, stability:+12, brand:+22, impact:+5 },
+        secret:{ money:7, growth:5, team:3, stability:5, prestige:7, impact:4 }
+      }
+    ]
+  }
+];
+
+const PROFILES = {
+  money: {
+    name:'The Revenue-First Founder', icon:'💰',
+    summary:"You build to win, and winning is measurable. Revenue is the scoreboard, not a side effect. You\'re not mercenary — you\'re honest about what actually creates options. Most founders pretend this isn\'t true about themselves."
+  },
+  growth: {
+    name:'The Builder', icon:'🚀',
+    summary:"Learning is the engine, the company is the vehicle. You consistently chose the harder problem over the safer deal. The risk: runway runs out before the idea matures. The reward: you might actually change something."
+  },
+  team: {
+    name:'The Culture Architect', icon:'👥',
+    summary:"You bet on people over output, repeatedly. Most founders learn this lesson after a decade of painful turnover. You seem to already know it. The company you build will be slower to scale — and much harder to break."
+  },
+  stability: {
+    name:'The Operator', icon:'🛡️',
+    summary:"Predictable, sustainable, survivable. You don\'t romanticize the chaos that kills most companies. Steady hands in a volatile environment are genuinely rare — and genuinely underrated."
+  },
+  prestige: {
+    name:'The Brand Builder', icon:'🏆',
+    summary:"Narrative is product to you. What the world thinks your company is shapes what it actually becomes. Powerful when the story is authentic. Fragile when it runs ahead of reality."
+  },
+  impact: {
+    name:'The Idealist Founder', icon:'🌍',
+    summary:"You build because you actually believe the thing should exist. That\'s not naivety — it\'s the strongest possible fuel for the long stretches when nothing is working. Every investor will eventually ask if the mission is real. Yours is."
+  },
+  balanced: {
+    name:'The Integrated Founder', icon:'🔭',
+    summary:"You resisted simple optimization across all 10 quarters. You held revenue, culture, mission, and brand simultaneously without sacrificing any completely. That\'s either rare wisdom or productive complexity — the outcomes will tell you which."
+  }
+};
+
+// ════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════
+let companyName = '';
+let quarterIdx = 0;
+let valuation = 50; // in lakhs
+let metrics = { revenue:50, innovation:50, team:50, stability:50, brand:50, impact:50 };
+let secretAccum = { money:0, growth:0, team:0, stability:0, prestige:0, impact:0 };
+let allChoices = [];
+let animating = false;
+
+// ════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════
+document.getElementById('company-input').addEventListener('input', function() {
+  const val = this.value.trim();
+  document.getElementById('start-btn').disabled = val.length < 2;
+});
+document.getElementById('company-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && this.value.trim().length >= 2) beginGame();
+});
+
+function beginGame() {
+  companyName = document.getElementById('company-input').value.trim();
+  if (companyName.length < 2) return;
+
+  // Reset state
+  quarterIdx = 0;
+  valuation = 50;
+  metrics = { revenue:50, innovation:50, team:50, stability:50, brand:50, impact:50 };
+  secretAccum = { money:0, growth:0, team:0, stability:0, prestige:0, impact:0 };
+  allChoices = [];
+
+  // Setup game UI
+  document.getElementById('hdr-company').textContent = companyName;
+  renderMetricBars();
+  updateValDisplay();
+
+  startSlogans();
+  showScreen('game');
+  showQuarterOverlay(() => renderQuarter());
+}
+
+// ════════════════════════════════════════════════════
+// SCREEN CONTROL
+// ════════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ════════════════════════════════════════════════════
+// QUARTER OVERLAY
+// ════════════════════════════════════════════════════
+function showQuarterOverlay(cb) {
+  const q = QUARTERS[quarterIdx];
+  const overlay = document.getElementById('quarter-overlay');
+  document.getElementById('qo-num').textContent = `Quarter ${q.q} of 10`;
+  document.getElementById('qo-title').textContent = q.title;
+
+  overlay.classList.add('visible');
+  setTimeout(() => {
+    overlay.classList.remove('visible');
+    setTimeout(cb, 300);
+  }, 1600);
+}
+
+// ════════════════════════════════════════════════════
+// RENDER QUARTER
+// ════════════════════════════════════════════════════
+function renderQuarter() {
+  const q = QUARTERS[quarterIdx];
+
+  document.getElementById('hdr-quarter').textContent = `Quarter ${q.q} of 10`;
+  document.getElementById('hdr-progress').textContent = `${q.q}/10 complete`;
+
+  document.getElementById('sc-context-tag').textContent = q.context;
+  document.getElementById('sc-title').textContent = q.title;
+  document.getElementById('sc-narrative').textContent = q.narrative;
+
+  // Reset outcome + next button
+  const outcomeEl = document.getElementById('outcome-reveal');
+  outcomeEl.classList.remove('visible');
+  const nextArea = document.getElementById('next-btn-area');
+  nextArea.classList.remove('visible');
+
+  // Build choice cards
+  const choicesEl = document.getElementById('choices-area');
+  choicesEl.innerHTML = q.choices.map((c, i) => `
+    <div class="choice-card" id="choice-${i}" onclick="selectChoice(${i})">
+      <span class="choice-arrow">→</span>
+      <div class="choice-title">${c.title}</div>
+      <div class="choice-desc">${c.desc}</div>
+    </div>
+  `).join('');
+
+  animating = false;
+}
+
+// ════════════════════════════════════════════════════
+// CHOICE SELECTION
+// ════════════════════════════════════════════════════
+function selectChoice(idx) {
+  if (animating) return;
+  animating = true;
+
+  const q = QUARTERS[quarterIdx];
+  const choice = q.choices[idx];
+
+  // Visual: highlight selected, fade others
+  q.choices.forEach((_, i) => {
+    const card = document.getElementById('choice-' + i);
+    card.classList.add('disabled');
+    if (i === idx) {
+      card.classList.add('selected');
+    } else {
+      card.classList.add('faded');
+    }
+  });
+
+  // Track secret scores
+  Object.keys(choice.secret).forEach(k => {
+    secretAccum[k] = (secretAccum[k] || 0) + choice.secret[k];
+  });
+  allChoices.push({ quarter: q.q, choiceIdx: idx, choice });
+
+  // Show outcome text
+  setTimeout(() => {
+    document.getElementById('outcome-text').textContent = choice.outcome;
+    document.getElementById('outcome-reveal').classList.add('visible');
+  }, 300);
+
+  // Apply metric deltas with animation
+  setTimeout(() => {
+    applyDeltas(choice.deltas);
+    updateValuation(choice.deltas);
+  }, 700);
+
+  // Show next button
+  const isLast = quarterIdx === 9;
+  setTimeout(() => {
+    const btn = document.getElementById('next-btn');
+    btn.textContent = isLast ? '🏁  See your profile →' : `Quarter ${quarterIdx + 2} →`;
+    document.getElementById('next-btn-area').classList.add('visible');
+  }, 2200);
+}
+
+// ════════════════════════════════════════════════════
+// METRIC ANIMATIONS
+// ════════════════════════════════════════════════════
+function applyDeltas(deltas) {
+  Object.entries(deltas).forEach(([key, delta]) => {
+    if (delta === 0) return;
+
+    const oldVal = metrics[key];
+    const newVal = Math.max(0, Math.min(100, oldVal + delta));
+    metrics[key] = newVal;
+
+    // Update bar
+    const fill = document.getElementById(`mbar-fill-${key}`);
+    const valEl = document.getElementById(`mbar-val-${key}`);
+    if (fill) {
+      fill.style.width = newVal + '%';
+      // Glow pulse
+      const def = METRIC_DEFS.find(d => d.key === key);
+      if (def) {
+        fill.style.boxShadow = `0 0 10px ${def.color}`;
+        setTimeout(() => { fill.style.boxShadow = 'none'; }, 1000);
+      }
+    }
+    if (valEl) valEl.textContent = Math.round(newVal);
+
+    // Floating delta label
+    const metricRow = document.getElementById(`mbar-${key}`);
+    if (metricRow) {
+      const floatEl = document.createElement('div');
+      floatEl.className = `metric-delta ${delta > 0 ? 'pos' : 'neg'}`;
+      floatEl.textContent = (delta > 0 ? '+' : '') + delta;
+      metricRow.style.position = 'relative';
+      metricRow.appendChild(floatEl);
+      setTimeout(() => { if (floatEl.parentNode) floatEl.parentNode.removeChild(floatEl); }, 2000);
+    }
+  });
+}
+
+function updateValuation(deltas) {
+  const revBoost = (deltas.revenue || 0) * 1.5;
+  const brandBoost = (deltas.brand || 0) * 0.5;
+  const innBoost = (deltas.innovation || 0) * 0.3;
+  const change = (revBoost + brandBoost + innBoost) * 0.4;
+  valuation = Math.max(10, valuation + change);
+  updateValDisplay();
+}
+
+function updateValDisplay() {
+  const el = document.getElementById('hdr-val');
+  let str;
+  if (valuation >= 100) {
+    str = '₹' + (valuation / 100).toFixed(1) + 'Cr';
+  } else {
+    str = '₹' + Math.round(valuation) + 'L';
+  }
+  el.textContent = str;
+  el.classList.remove('pop');
+  void el.offsetWidth;
+  el.classList.add('pop');
+}
+
+// ════════════════════════════════════════════════════
+// METRIC BAR RENDERING
+// ════════════════════════════════════════════════════
+function renderMetricBars() {
+  const grid = document.getElementById('metrics-grid');
+  grid.innerHTML = METRIC_DEFS.map(d => `
+    <div class="metric-item" id="mbar-${d.key}">
+      <div class="metric-label-row">
+        <span class="metric-icon-label">${d.icon} ${d.label}</span>
+        <span class="metric-val" id="mbar-val-${d.key}" style="color:${d.color};">${metrics[d.key]}</span>
+      </div>
+      <div class="metric-bar-track">
+        <div class="metric-bar-fill" id="mbar-fill-${d.key}"
+          style="width:${metrics[d.key]}%;background:${d.color};"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ════════════════════════════════════════════════════
+// ADVANCE
+// ════════════════════════════════════════════════════
+function advanceQuarter() {
+  quarterIdx++;
+  if (quarterIdx >= QUARTERS.length) {
+    endGame();
+  } else {
+    window.scrollTo(0, 0);
+    showQuarterOverlay(() => renderQuarter());
+  }
+}
+
+// ════════════════════════════════════════════════════
+// END GAME
+// ════════════════════════════════════════════════════
+function endGame() {
+  clearInterval(sloganInterval);
+  document.getElementById('slogan-bar').style.display = 'none';
+
+  const profile = computeProfile();
+  const result = {
+    game: 'VYAPAAR',
+    company: companyName,
+    label: profile.name,
+    finalMetrics: { ...metrics },
+    finalValuation: Math.round(valuation),
+    secretScores: { ...secretAccum },
+    behaviorVector: computeBehaviorVector(),
+    allChoices,
+    date: new Date().toISOString()
+  };
+
+  saveScore(result);
+  renderResults(profile);
+  showScreen('results');
+}
+
+function computeProfile() {
+  // Normalize secret accum
+  const total = Object.values(secretAccum).reduce((s, v) => s + v, 0);
+  const norm = {};
+  Object.keys(secretAccum).forEach(k => { norm[k] = secretAccum[k] / total; });
+
+  // Find dominant dimension
+  const sorted = Object.entries(norm).sort((a, b) => b[1] - a[1]);
+  const top = sorted[0];
+  const spread = sorted[0][1] - sorted[2][1];
+
+  if (spread < 0.06) return PROFILES.balanced; // no clear dominant
+  return PROFILES[top[0]] || PROFILES.balanced;
+}
+
+function computeBehaviorVector() {
+  const total = Object.values(secretAccum).reduce((s, v) => s + v, 0);
+  if (total === 0) return {};
+  const bv = {};
+  Object.keys(secretAccum).forEach(k => {
+    bv[k + '_orientation'] = Math.round(secretAccum[k] / total * 100) / 100;
+  });
+  return bv;
+}
+
+function renderResults(profile) {
+  document.getElementById('r-icon').textContent = profile.icon;
+  document.getElementById('r-name').textContent = profile.name;
+  document.getElementById('r-summary').textContent = profile.summary;
+
+  // Valuation
+  let valStr;
+  if (valuation >= 100) valStr = '₹' + (valuation / 100).toFixed(2) + ' Cr';
+  else valStr = '₹' + Math.round(valuation) + 'L';
+  document.getElementById('r-valuation').textContent = valStr;
+  document.getElementById('r-val-note').textContent = valuation >= 500 ? '🔥 Unicorn territory' : valuation >= 200 ? '📈 Strong exit potential' : valuation >= 100 ? '✓ Respectable build' : 'Keep going';
+
+  // Final metric bars
+  const mEl = document.getElementById('r-final-metrics');
+  const sorted = [...METRIC_DEFS].sort((a, b) => metrics[b.key] - metrics[a.key]);
+  mEl.innerHTML = sorted.map(d => `
+    <div class="final-metric-row">
+      <div class="fmr-icon">${d.icon}</div>
+      <div class="fmr-label">${d.label}</div>
+      <div class="fmr-bar-track">
+        <div class="fmr-bar-fill" style="width:0%;background:${d.color};" data-w="${metrics[d.key]}%"></div>
+      </div>
+      <div class="fmr-val" style="color:${d.color};">${Math.round(metrics[d.key])}</div>
+    </div>
+  `).join('');
+
+  // Protected vs sacrificed
+  const topMetrics = sorted.slice(0, 3);
+  const botMetrics = sorted.slice(-3).reverse();
+
+  document.getElementById('r-protected').innerHTML = topMetrics.map(d =>
+    `<div class="ps-item">${d.icon} ${d.label} <span style="color:var(--c-imp);font-size:12px;">${Math.round(metrics[d.key])}</span></div>`
+  ).join('');
+  document.getElementById('r-sacrificed').innerHTML = botMetrics.map(d =>
+    `<div class="ps-item">${d.icon} ${d.label} <span style="color:#ff4444;font-size:12px;">${Math.round(metrics[d.key])}</span></div>`
+  ).join('');
+
+  // Animate bars
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.fmr-bar-fill').forEach(el => {
+      requestAnimationFrame(() => { el.style.width = el.dataset.w; el.style.transition = 'width 0.9s cubic-bezier(0.4,0,0.2,1)'; });
+    });
+  });
+}
+
+function restartGame() {
+  showScreen('intro');
+}
+</script>
+</body>
+</html>

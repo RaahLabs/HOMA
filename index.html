@@ -1,349 +1,376 @@
-bash
-
-cat > /home/claude/snippet_corporate_mazdoor_v1.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Corporate Mazdoor</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <title>Bazaar v2 — Snippet</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #FDFBF7;
-      --card: #FFFFFF;
-      --surface: #F5F2EC;
-      --border: rgba(0,0,0,0.08);
-      --border-strong: rgba(0,0,0,0.14);
-      --text: #1A1A16;
-      --text-muted: #6B6860;
-      --text-hint: #9A9890;
-      --amber: #BA7517;
-      --amber-light: #FAEEDA;
-      --amber-dark: #854F0B;
-      --teal: #0F6E56;
-      --teal-light: #E1F5EE;
-      --red: #A32D2D;
-      --radius: 12px;
-      --radius-lg: 16px;
+      --bg: #FAFAF7; --card: #FFFFFF; --surface: #F3F2EC;
+      --border: rgba(0,0,0,0.08); --border-strong: rgba(0,0,0,0.15);
+      --text: #181814; --text-muted: #6A6860; --text-hint: #9A9890;
+      --amber: #BA7517; --amber-light: #FAEEDA; --amber-dark: #7A4A0A;
+      --teal: #0F6E56; --teal-light: #E2F4EE;
+      --red: #A32D2D; --red-light: #FBEBEB;
+      --co-a: #2563EB; --co-b: #7C3AED; --co-c: #D97706;
+      --radius: 12px; --radius-lg: 18px;
     }
     html, body { height: 100%; }
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      font-size: 16px;
-      line-height: 1.65;
-    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
     .screen { display: none; min-height: 100vh; }
     .screen.active { display: block; }
-    .container { max-width: 520px; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+    .container { max-width: 500px; margin: 0 auto; padding: 0 1.25rem 6rem; }
 
-    /* BUTTONS */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      border: none; border-radius: var(--radius);
-      font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500;
-      cursor: pointer; transition: all 0.15s; padding: 13px 22px;
-    }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500; cursor: pointer; transition: all 0.15s; padding: 13px 22px; }
     .btn-primary { background: var(--amber); color: var(--amber-light); }
     .btn-primary:hover { background: var(--amber-dark); }
-    .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
+    .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
+    .btn-full { width: 100%; padding: 15px; font-size: 16px; }
     .btn-secondary { background: transparent; color: var(--text); border: 0.5px solid var(--border-strong); }
     .btn-secondary:hover { background: var(--surface); }
-    .btn-full { width: 100%; padding: 15px; font-size: 17px; }
 
-    /* INTRO */
-    #screen-intro.active {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 3rem 1.25rem; text-align: center;
-      background: linear-gradient(160deg, #FDFBF7 0%, #F5EDD8 100%);
-      min-height: 100vh;
-    }
-    .intro-pill {
-      display: inline-block; font-size: 11px; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--amber); background: var(--amber-light);
-      border: 1px solid rgba(186,117,23,0.25);
-      padding: 5px 14px; border-radius: 20px; margin-bottom: 1.5rem;
-    }
+    /* ── INTRO ── */
+    #screen-intro.active { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem 1.25rem; text-align: center; background: linear-gradient(160deg, #FAFAF7 0%, #F3EDD8 100%); min-height: 100vh; }
+    .intro-pill { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); background: var(--amber-light); border: 1px solid rgba(186,117,23,0.25); padding: 5px 14px; border-radius: 20px; margin-bottom: 1.75rem; }
     .intro-emoji { font-size: 64px; margin-bottom: 1rem; }
-    .intro-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 38px; letter-spacing: -0.01em;
-      margin-bottom: 8px; color: var(--text);
-    }
+    .intro-title { font-family: 'Instrument Serif', serif; font-size: 42px; margin-bottom: 8px; letter-spacing: -0.01em; }
     .intro-hindi { font-size: 14px; color: var(--text-muted); margin-bottom: 1.5rem; }
-    .intro-body {
-      font-size: 16px; color: var(--text-muted);
-      max-width: 360px; line-height: 1.85; margin-bottom: 2.5rem;
-    }
-    .intro-stats {
-      display: flex; gap: 12px; justify-content: center;
-      margin-top: 1.5rem; flex-wrap: wrap;
-    }
-    .intro-stat {
-      background: var(--card); border: 0.5px solid var(--border-strong);
-      border-radius: var(--radius); padding: 10px 18px; text-align: center;
-    }
+    .intro-body { font-size: 15px; color: var(--text-muted); max-width: 360px; line-height: 1.85; margin-bottom: 2rem; }
+
+    .fund-card { background: var(--card); border: 0.5px solid var(--border-strong); border-radius: var(--radius-lg); padding: 1.25rem; max-width: 360px; width: 100%; margin-bottom: 1.75rem; }
+    .fund-card-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-hint); margin-bottom: 12px; }
+    .fund-amount { font-family: 'DM Mono', monospace; font-size: 36px; font-weight: 600; color: var(--amber); margin-bottom: 4px; }
+    .fund-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+    .company-preview-row { display: flex; gap: 8px; }
+    .co-preview { flex: 1; background: var(--surface); border-radius: 8px; padding: 10px 8px; text-align: center; }
+    .co-preview-dot { width: 8px; height: 8px; border-radius: 50%; margin: 0 auto 6px; }
+    .co-preview-name { font-size: 11px; font-weight: 600; color: var(--text-muted); }
+    .co-preview-hint { font-size: 10px; color: var(--text-hint); margin-top: 2px; }
+
+    .how-card { background: var(--card); border: 0.5px solid var(--border-strong); border-radius: var(--radius); padding: 1.1rem 1.25rem; max-width: 360px; width: 100%; margin-bottom: 2rem; }
+    .how-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-hint); margin-bottom: 10px; }
+    .how-row { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; padding: 5px 0; border-bottom: 0.5px solid var(--border); }
+    .how-row:last-child { border-bottom: none; }
+    .how-num { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 600; color: var(--amber); flex-shrink: 0; width: 20px; }
+    .how-text { color: var(--text-muted); line-height: 1.55; }
+
+    .intro-stats { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .intro-stat { background: var(--card); border: 0.5px solid var(--border-strong); border-radius: var(--radius); padding: 10px 16px; text-align: center; }
     .intro-stat-val { font-size: 20px; font-weight: 600; color: var(--amber); }
     .intro-stat-lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
 
-    /* GAME SCREEN */
-    .game-top {
-      background: var(--bg); border-bottom: 0.5px solid var(--border);
-      padding: 1rem 1.25rem 0.875rem; position: sticky; top: 0; z-index: 10;
-    }
-    .chapter-row {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 10px;
-    }
-    .chapter-label {
-      font-size: 11px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.08em; color: var(--amber);
-    }
-    .chapter-dots { display: flex; gap: 5px; }
-    .cdot {
-      width: 8px; height: 8px; border-radius: 2px;
-      background: var(--border-strong); transition: all 0.3s;
-    }
-    .cdot.done { background: var(--amber); }
-    .cdot.current { background: var(--amber); box-shadow: 0 0 0 2px rgba(186,117,23,0.25); }
+    /* ── GAME HEADER ── */
+    .game-header { position: sticky; top: 0; z-index: 20; background: rgba(250,250,247,0.97); backdrop-filter: blur(12px); border-bottom: 0.5px solid var(--border-strong); padding: 0.875rem 1.25rem; }
+    .game-header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .year-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+    .year-label strong { color: var(--text); }
 
-    /* STORY CARD */
-    .story-area { padding: 1.5rem 1.25rem; }
-    @keyframes slideIn { from { opacity:0; transform:translateX(28px); } to { opacity:1; transform:translateX(0); } }
-    .story-card {
-      background: var(--card); border: 0.5px solid var(--border);
-      border-radius: var(--radius-lg); padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-      animation: slideIn 0.35s ease-out;
-    }
-    .scene-tag {
-      font-size: 11px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.09em; color: var(--amber); margin-bottom: 8px;
-    }
-    .scene-setter {
-      font-size: 13px; color: var(--text-hint); font-style: italic;
-      margin-bottom: 12px; line-height: 1.7;
-    }
-    .scenario-text {
-      font-size: 16px; color: var(--text); line-height: 1.85;
-      font-weight: 400;
-    }
+    /* P&L strip */
+    .pnl-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    .pnl-cell { background: var(--surface); border-radius: 7px; padding: 6px 8px; text-align: center; }
+    .pnl-val { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 600; line-height: 1; }
+    .pnl-lbl { font-size: 9px; color: var(--text-hint); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
 
-    /* CHOICE BUTTONS */
-    .choices-header {
-      font-size: 12px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.07em; color: var(--text-hint); margin-bottom: 10px;
-    }
-    .choices-area { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.5rem; }
-    .choice-btn {
-      background: var(--card); border: 0.5px solid var(--border-strong);
-      border-radius: var(--radius); padding: 1rem 1.125rem;
-      cursor: pointer; transition: all 0.15s; text-align: left;
-      font-family: 'DM Sans', sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .choice-btn:hover { border-color: var(--amber); background: var(--amber-light); transform: translateY(-1px); }
-    .choice-btn:active { transform: scale(0.99); }
-    .choice-btn.disabled { pointer-events: none; }
-    .choice-btn.selected { border-color: var(--amber) !important; background: var(--amber-light) !important; }
-    .choice-btn.faded { opacity: 0.22; }
-    .choice-letter {
-      font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.08em; color: var(--text-hint); margin-bottom: 4px;
-    }
-    .choice-text { font-size: 15px; color: var(--text); line-height: 1.65; }
+    /* ── COMPANY CARDS ── */
+    .companies-area { padding: 1.25rem 1.25rem 0; }
+    .co-card { background: var(--card); border: 0.5px solid var(--border-strong); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 10px; transition: border-color 0.2s; }
+    .co-card.has-alloc { border-width: 1.5px; }
+    .co-card.co-a.has-alloc { border-color: var(--co-a); }
+    .co-card.co-b.has-alloc { border-color: var(--co-b); }
+    .co-card.co-c.has-alloc { border-color: var(--co-c); }
 
-    /* OUTCOME STRIP */
-    .outcome-strip {
-      background: var(--teal-light); border: 0.5px solid rgba(15,110,86,0.2);
-      border-radius: var(--radius); padding: 1rem 1.125rem;
-      margin-bottom: 1.25rem; display: none;
-    }
-    .outcome-strip.visible { display: block; animation: fadeUp 0.4s ease-out; }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-    .outcome-label {
-      font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.08em; color: var(--teal); margin-bottom: 6px;
-    }
-    .outcome-text { font-size: 14px; color: var(--text-muted); line-height: 1.8; font-style: italic; }
+    .co-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+    .co-identity { display: flex; align-items: center; gap: 8px; }
+    .co-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .co-name { font-size: 14px; font-weight: 600; }
+    .co-sector { font-size: 11px; color: var(--text-hint); margin-top: 1px; }
+    .co-last-return { text-align: right; }
+    .co-last-val { font-family: 'DM Mono', monospace; font-size: 16px; font-weight: 600; line-height: 1; }
+    .co-last-lbl { font-size: 10px; color: var(--text-hint); text-transform: uppercase; margin-top: 2px; }
 
-    #next-btn-area { display: none; }
-    #next-btn-area.visible { display: block; animation: fadeUp 0.3s 0.1s ease-out both; }
+    /* Sparkline */
+    .sparkline-wrap { margin-bottom: 8px; height: 28px; }
+    .sparkline-canvas { width: 100%; height: 28px; display: block; }
 
-    /* B5 SCREEN */
+    /* Allocator */
+    .allocator { display: flex; align-items: center; gap: 0; }
+    .alloc-btn { width: 38px; height: 38px; border-radius: 8px; border: 0.5px solid var(--border-strong); background: var(--surface); font-size: 22px; font-weight: 400; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.1s; color: var(--text-muted); user-select: none; -webkit-tap-highlight-color: transparent; flex-shrink: 0; }
+    .alloc-btn:hover { background: var(--amber-light); border-color: var(--amber); color: var(--amber); }
+    .alloc-btn:active { transform: scale(0.92); }
+    .alloc-btn:disabled { opacity: 0.25; cursor: not-allowed; transform: none; }
+    .alloc-center { flex: 1; text-align: center; }
+    .alloc-display { font-family: 'DM Mono', monospace; font-size: 22px; font-weight: 600; line-height: 1; }
+    .alloc-unit { font-size: 11px; color: var(--text-hint); margin-top: 2px; }
+
+    /* ── INVEST BAR (sticky bottom) ── */
+    .invest-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 15; background: rgba(250,250,247,0.97); backdrop-filter: blur(12px); border-top: 0.5px solid var(--border-strong); padding: 10px 1.25rem 14px; max-width: 500px; margin: 0 auto; left: 50%; transform: translateX(-50%); width: 100%; }
+    .invest-summary { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .invest-label { font-size: 13px; color: var(--text-muted); }
+    .invest-remaining { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 600; }
+    .invest-remaining.zero { color: var(--teal); }
+    .invest-remaining.over { color: var(--red); }
+    .invest-remaining.under { color: var(--amber); }
+    .alloc-pips { display: flex; gap: 3px; margin-bottom: 8px; }
+    .pip { width: 100%; height: 5px; border-radius: 3px; background: var(--border-strong); transition: background 0.1s; flex: 1; }
+    .pip.filled { background: var(--amber); }
+
+    /* ── RESULT OVERLAY ── */
+    .result-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(250,250,247,0.94); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 1.25rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .result-overlay.visible { opacity: 1; pointer-events: all; }
+    .result-card { background: var(--card); border: 0.5px solid var(--border-strong); border-radius: var(--radius-lg); padding: 1.5rem; max-width: 380px; width: 100%; box-shadow: 0 8px 40px rgba(0,0,0,0.1); }
+    .result-year-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-hint); margin-bottom: 14px; }
+    .result-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+    .result-table th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-hint); padding: 4px 0; text-align: right; }
+    .result-table th:first-child { text-align: left; }
+    .result-table td { font-size: 13px; padding: 7px 0; border-top: 0.5px solid var(--border); text-align: right; font-family: 'DM Mono', monospace; font-weight: 500; }
+    .result-table td:first-child { text-align: left; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: 7px; }
+    .result-table tr.total-row td { font-weight: 700; font-size: 14px; border-top: 1px solid var(--border-strong); padding-top: 10px; }
+    .result-narrative { font-size: 13px; color: var(--text-muted); line-height: 1.75; font-style: italic; background: var(--surface); border-radius: 8px; padding: 10px 12px; margin-bottom: 14px; }
+
+    /* ── B5 ── */
     .b5-q-block { margin-bottom: 2rem; }
-    .b5-q-text { font-size: 17px; font-weight: 500; line-height: 1.55; margin-bottom: 14px; color: var(--text); }
+    .b5-q-text { font-size: 17px; font-weight: 500; line-height: 1.55; margin-bottom: 14px; }
     .b5-options { display: flex; flex-direction: column; gap: 8px; }
-    .b5-opt {
-      background: var(--card); border: 0.5px solid var(--border-strong);
-      border-radius: var(--radius); padding: 12px 14px;
-      cursor: pointer; font-family: 'DM Sans', sans-serif;
-      font-size: 14px; color: var(--text); transition: all 0.12s;
-      text-align: left; line-height: 1.5;
-    }
+    .b5-opt { background: var(--card); border: 0.5px solid var(--border-strong); border-radius: var(--radius); padding: 12px 14px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); transition: all 0.12s; text-align: left; line-height: 1.5; }
     .b5-opt:hover { border-color: var(--amber); background: var(--amber-light); }
     .b5-opt.selected { border-color: var(--amber); background: var(--amber-light); color: var(--amber-dark); }
 
-    /* RESULTS */
-    .results-hero {
-      background: linear-gradient(160deg, #FDFBF7 0%, #F5EDD8 100%);
-      padding: 2.5rem 1.25rem 2rem; text-align: center;
-      border-bottom: 0.5px solid var(--border);
-    }
-    .results-emoji { font-size: 52px; margin-bottom: 1rem; }
-    .results-tag {
-      font-size: 11px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.1em; color: var(--amber); margin-bottom: 8px;
-    }
-    .results-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 28px; margin-bottom: 12px; letter-spacing: -0.01em;
-    }
-    .results-summary { font-size: 15px; color: var(--text-muted); line-height: 1.85; max-width: 380px; margin: 0 auto; }
-    .results-section { padding: 1.5rem 1.25rem; }
-    .section-label {
-      font-size: 11px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.08em; color: var(--text-hint); margin-bottom: 14px;
-    }
+    /* ── RESULTS ── */
+    .results-hero { padding: 2.5rem 1.25rem 2rem; text-align: center; background: linear-gradient(170deg, #FAFAF7 0%, #F3EDD8 100%); border-bottom: 0.5px solid var(--border-strong); }
+    .results-icon { font-size: 52px; margin-bottom: 12px; }
+    .results-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber); margin-bottom: 8px; }
+    .results-name { font-family: 'Instrument Serif', serif; font-size: 30px; margin-bottom: 10px; }
+    .results-summary { font-size: 15px; color: var(--text-muted); max-width: 380px; margin: 0 auto; line-height: 1.85; }
+    .section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-hint); margin-bottom: 14px; }
 
-    /* V-DIMENSION BARS */
-    .vdim-row { margin-bottom: 16px; }
-    .vdim-header {
-      display: flex; justify-content: space-between;
-      margin-bottom: 6px; align-items: center;
-    }
-    .vdim-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-hint); margin-bottom: 4px; }
-    .vdim-track {
-      height: 8px; border-radius: 4px;
-      background: linear-gradient(to right, var(--surface), var(--surface));
-      position: relative; overflow: visible;
-    }
-    .vdim-track-inner {
-      height: 100%; border-radius: 4px;
-      background: linear-gradient(to right, #E8961A, #0F6E56);
-      opacity: 0.15; position: absolute; inset: 0;
-    }
-    .vdim-marker {
-      position: absolute; top: 50%; transform: translate(-50%,-50%);
-      width: 16px; height: 16px; border-radius: 50%;
-      background: var(--amber); border: 2px solid white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      transition: left 1s cubic-bezier(0.4,0,0.2,1);
-    }
-    .vdim-name { font-size: 13px; font-weight: 600; color: var(--text); }
-    .vdim-score-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    .final-pnl-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 1.25rem; }
+    .final-pnl-cell { background: var(--card); border: 0.5px solid var(--border-strong); border-radius: var(--radius); padding: 12px; text-align: center; }
+    .final-pnl-val { font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 600; }
+    .final-pnl-lbl { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
 
-    /* MISMATCH CARDS */
-    .mismatch-card {
-      background: var(--amber-light); border: 0.5px solid rgba(186,117,23,0.2);
-      border-radius: var(--radius); padding: 12px 14px; margin-bottom: 8px;
-    }
-    .mismatch-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--amber-dark); margin-bottom: 4px; }
-    .mismatch-text { font-size: 13px; color: var(--text-muted); line-height: 1.75; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 1.25rem; }
+    .stat-cell { background: var(--card); border: 0.5px solid var(--border-strong); border-radius: var(--radius); padding: 12px; text-align: center; }
+    .stat-val { font-size: 18px; font-weight: 600; }
+    .stat-lbl { font-size: 11px; color: var(--text-muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.05em; }
 
-    .summary-quote {
-      background: var(--surface); border-radius: var(--radius-lg);
-      padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
-      border-left: 3px solid var(--amber); text-align: center;
-    }
+    .dim-row { margin-bottom: 16px; }
+    .dim-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .dim-name { font-size: 13px; font-weight: 600; }
+    .dim-val { font-size: 12px; color: var(--amber); font-weight: 600; }
+    .dim-track { height: 7px; border-radius: 4px; background: var(--surface); overflow: hidden; }
+    .dim-fill { height: 100%; border-radius: 4px; background: var(--amber); transition: width 1s ease-out; }
+    .dim-fill.high { background: var(--teal); }
+    .dim-fill.low { background: var(--red); }
+    .dim-sub { font-size: 12px; color: var(--text-hint); margin-top: 4px; line-height: 1.5; }
+
+    .co-history-card { background: var(--card); border: 0.5px solid var(--border-strong); border-radius: var(--radius); padding: 1rem; margin-bottom: 10px; }
+    .co-hist-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .co-hist-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .co-hist-name { font-size: 13px; font-weight: 600; }
+    .co-hist-stats { display: flex; gap: 16px; font-size: 12px; color: var(--text-muted); }
+    .co-hist-stat span { font-weight: 600; color: var(--text); }
+
+    .insight-card { background: var(--surface); border-radius: var(--radius); padding: 1rem 1.125rem; margin-bottom: 10px; }
+    .insight-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-hint); margin-bottom: 6px; }
+    .insight-text { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
+
+    .mismatch-card { background: var(--amber-light); border: 0.5px solid rgba(186,117,23,0.2); border-radius: var(--radius); padding: 1rem 1.125rem; margin-bottom: 10px; }
+    .mismatch-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--amber-dark); margin-bottom: 6px; }
+    .mismatch-text { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
+
+    .summary-quote { background: var(--surface); border-left: 3px solid var(--amber); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin: 1.25rem 0; text-align: center; }
     .summary-quote p { font-size: 15px; color: var(--text-muted); line-height: 1.8; font-style: italic; }
   </style>
 </head>
 <body>
 
-<!-- INTRO -->
+<!-- RESULT OVERLAY -->
+<div class="result-overlay" id="result-overlay">
+  <div class="result-card">
+    <div class="result-year-label" id="ro-year-label">Year 1 of 20</div>
+    <table class="result-table">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Deployed</th>
+          <th>Returned</th>
+          <th>Net</th>
+        </tr>
+      </thead>
+      <tbody id="ro-table-body"></tbody>
+      <tfoot id="ro-table-foot"></tfoot>
+    </table>
+    <div class="result-narrative" id="ro-narrative"></div>
+    <button class="btn btn-primary btn-full" onclick="closeResultOverlay()">
+      Year <span id="ro-next-num">2</span> →
+    </button>
+  </div>
+</div>
+
+<!-- ═══ INTRO ═══ -->
 <div id="screen-intro" class="screen active">
-  <div class="intro-pill">Raah Labs · Values Game</div>
-  <div class="intro-emoji">💼</div>
-  <h1 class="intro-title">Corporate Mazdoor</h1>
-  <div class="intro-hindi">mazdoor — the worker, the one in the arena</div>
-  <p class="intro-body">Twelve real situations from the Indian corporate life. No right answers — just what you'd actually do. The pattern tells us more than any answer could.</p>
-  <button class="btn btn-primary btn-full" style="max-width:380px;" onclick="startGame()">Start →</button>
+  <div class="intro-pill">Raah Labs · Investment Game</div>
+  <div class="intro-emoji">📊</div>
+  <h1 class="intro-title">Bazaar</h1>
+  <div class="intro-hindi">bazaar — the market, where nothing stays still</div>
+
+  <div class="fund-card">
+    <div class="fund-card-label">Your portfolio</div>
+    <div class="fund-amount">₹99L</div>
+    <div class="fund-sub">Three companies. Twenty years. No guarantees.</div>
+    <div class="company-preview-row">
+      <div class="co-preview">
+        <div class="co-preview-dot" style="background:var(--co-a);"></div>
+        <div class="co-preview-name">Aakash Infra</div>
+        <div class="co-preview-hint">Infrastructure</div>
+      </div>
+      <div class="co-preview">
+        <div class="co-preview-dot" style="background:var(--co-b);"></div>
+        <div class="co-preview-name">Bharat Ventures</div>
+        <div class="co-preview-hint">New-age tech</div>
+      </div>
+      <div class="co-preview">
+        <div class="co-preview-dot" style="background:var(--co-c);"></div>
+        <div class="co-preview-name">Carnation FMCG</div>
+        <div class="co-preview-hint">Consumer goods</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="how-card">
+    <div class="how-label">How it works</div>
+    <div class="how-row"><div class="how-num">₹9L</div><div class="how-text">to invest each year, split across the three companies however you like</div></div>
+    <div class="how-row"><div class="how-num">↑↓</div><div class="how-text">each company returns money based on how the year went — sometimes more, sometimes less</div></div>
+    <div class="how-row"><div class="how-num">👁</div><div class="how-text">watch the returns, learn the patterns, and adapt. the market shifts without warning</div></div>
+    <div class="how-row"><div class="how-num">20</div><div class="how-text">years. your cumulative P&amp;L at the end tells the real story</div></div>
+  </div>
+
+  <button class="btn btn-primary btn-full" style="max-width:360px;margin-bottom:1.5rem;" onclick="startGame()">Start investing →</button>
+
   <div class="intro-stats">
-    <div class="intro-stat"><div class="intro-stat-val">12</div><div class="intro-stat-lbl">Scenarios</div></div>
-    <div class="intro-stat"><div class="intro-stat-val">~8</div><div class="intro-stat-lbl">Minutes</div></div>
-    <div class="intro-stat"><div class="intro-stat-val">5</div><div class="intro-stat-lbl">Dimensions</div></div>
+    <div class="intro-stat"><div class="intro-stat-val">₹99L</div><div class="intro-stat-lbl">Fund size</div></div>
+    <div class="intro-stat"><div class="intro-stat-val">20</div><div class="intro-stat-lbl">Years</div></div>
+    <div class="intro-stat"><div class="intro-stat-val">₹9L</div><div class="intro-stat-lbl">Per year</div></div>
   </div>
 </div>
 
-<!-- GAME -->
+<!-- ═══ GAME ═══ -->
 <div id="screen-game" class="screen">
-  <div class="game-top">
-    <div class="chapter-row">
-      <div class="chapter-label" id="chapter-label">Chapter 1 of 12</div>
-      <div class="chapter-dots" id="chapter-dots"></div>
+  <div class="game-header">
+    <div class="game-header-top">
+      <div class="year-label">Year <strong id="hdr-year">1</strong> of 20</div>
+      <div style="font-size:12px;color:var(--text-hint);">Allocate ₹9L across companies</div>
+    </div>
+    <div class="pnl-strip">
+      <div class="pnl-cell">
+        <div class="pnl-val" id="pnl-deployed" style="color:var(--text-muted);">₹0L</div>
+        <div class="pnl-lbl">Deployed</div>
+      </div>
+      <div class="pnl-cell">
+        <div class="pnl-val" id="pnl-returned" style="color:var(--teal);">₹0L</div>
+        <div class="pnl-lbl">Returned</div>
+      </div>
+      <div class="pnl-cell">
+        <div class="pnl-val" id="pnl-net" style="color:var(--text-muted);">₹0L</div>
+        <div class="pnl-lbl">Net P&amp;L</div>
+      </div>
     </div>
   </div>
-  <div class="story-area">
-    <div class="story-card">
-      <div class="scene-tag" id="sc-tag"></div>
-      <div class="scene-setter" id="sc-setter"></div>
-      <div class="scenario-text" id="sc-text"></div>
+
+  <div class="companies-area" id="companies-area">
+    <!-- rendered by JS -->
+  </div>
+
+  <!-- Invest bar -->
+  <div class="invest-bar">
+    <div class="invest-summary">
+      <div class="invest-label">Allocated</div>
+      <div>
+        <span class="invest-remaining" id="invest-placed">₹0L</span>
+        <span style="font-size:13px;color:var(--text-hint);"> / ₹9L &nbsp;·&nbsp; remaining: </span>
+        <span class="invest-remaining" id="invest-remaining" style="color:var(--amber);">₹9L</span>
+      </div>
     </div>
-    <div class="choices-header">What do you do?</div>
-    <div class="choices-area" id="choices-area"></div>
-    <div class="outcome-strip" id="outcome-strip">
-      <div class="outcome-label">What follows</div>
-      <div class="outcome-text" id="outcome-text"></div>
-    </div>
-    <div id="next-btn-area">
-      <button class="btn btn-primary btn-full" id="next-btn" onclick="advanceScenario()">→</button>
-    </div>
+    <div class="alloc-pips" id="alloc-pips"></div>
+    <button class="btn btn-primary btn-full" id="invest-btn" onclick="executeTrade()">
+      Invest →
+    </button>
   </div>
 </div>
 
-<!-- B5 -->
+<!-- ═══ B5 ═══ -->
 <div id="screen-b5" class="screen">
-  <div class="container">
+  <div class="container" style="padding-top:2rem;">
     <div style="display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);background:var(--amber-light);padding:4px 12px;border-radius:20px;margin-bottom:1.5rem;">One moment</div>
     <h2 style="font-size:22px;font-weight:600;margin-bottom:8px;">Before we show you the results</h2>
-    <p style="color:var(--text-muted);font-size:15px;margin-bottom:2rem;line-height:1.75;">Two questions. No right answers. Answer what actually comes to mind first.</p>
+    <p style="color:var(--text-muted);font-size:15px;margin-bottom:2rem;line-height:1.75;">Two questions. First instinct counts.</p>
     <div id="b5-container"></div>
-    <div id="b5-submit-wrap" style="display:none;">
-      <button class="btn btn-primary btn-full" onclick="submitB5()">See your profile →</button>
+    <div id="b5-submit" style="display:none;">
+      <button class="btn btn-primary btn-full" onclick="computeAndShow()">See your profile →</button>
     </div>
-    <p style="font-size:12px;color:var(--text-hint);text-align:center;margin-top:10px;">Answer both to continue</p>
   </div>
 </div>
 
-<!-- RESULTS -->
+<!-- ═══ RESULTS ═══ -->
 <div id="screen-results" class="screen">
   <div class="results-hero">
-    <div class="results-emoji" id="r-emoji"></div>
-    <div class="results-tag">Your Work Persona</div>
+    <div class="results-tag">📊 Bazaar · Investment Profile</div>
+    <div class="results-icon" id="r-icon"></div>
     <div class="results-name" id="r-name"></div>
     <div class="results-summary" id="r-summary"></div>
   </div>
+  <div class="container" style="padding-top:1.5rem;">
 
-  <div class="results-section">
-    <div class="section-label">What drives your decisions</div>
-    <div id="r-vdims"></div>
-  </div>
+    <div style="margin-bottom:1.5rem;">
+      <div class="section-label">Your 20-year P&L</div>
+      <div class="final-pnl-row">
+        <div class="final-pnl-cell">
+          <div class="final-pnl-val" id="r-deployed" style="color:var(--text-muted);"></div>
+          <div class="final-pnl-lbl">Total Deployed</div>
+        </div>
+        <div class="final-pnl-cell">
+          <div class="final-pnl-val" id="r-returned" style="color:var(--teal);"></div>
+          <div class="final-pnl-lbl">Total Returned</div>
+        </div>
+        <div class="final-pnl-cell">
+          <div class="final-pnl-val" id="r-net-pnl"></div>
+          <div class="final-pnl-lbl">Net P&L</div>
+        </div>
+      </div>
+    </div>
 
-  <div class="results-section" id="r-mismatch-section" style="display:none;padding-top:0;">
-    <div class="section-label">Your self-image vs your choices</div>
-    <div id="r-mismatches"></div>
-  </div>
+    <div style="margin-bottom:1.5rem;border-top:0.5px solid var(--border);padding-top:1.5rem;">
+      <div class="section-label">How you approached each company</div>
+      <div id="r-co-history"></div>
+    </div>
 
-  <div class="results-section" style="padding-top:0;">
+    <div style="margin-bottom:1.5rem;border-top:0.5px solid var(--border);padding-top:1.5rem;">
+      <div class="section-label">Behavioral dimensions</div>
+      <div id="r-dims"></div>
+    </div>
+
+    <div style="border-top:0.5px solid var(--border);padding-top:1.5rem;margin-bottom:1.5rem;">
+      <div class="section-label">What the pattern reveals</div>
+      <div id="r-insights"></div>
+    </div>
+
+    <div id="r-mismatch-section" style="display:none;border-top:0.5px solid var(--border);padding-top:1.5rem;margin-bottom:1.5rem;">
+      <div class="section-label">What you said vs what you did</div>
+      <div id="r-mismatches"></div>
+    </div>
+
     <div class="summary-quote"><p id="r-quote"></p></div>
-    <button class="btn btn-secondary btn-full" onclick="enterDashboard()">← Back to dashboard</button>
+    <button class="btn btn-secondary btn-full" onclick="resetGame()">← Play again</button>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════
+// ════════════════════════════════════════════
 // MOCKS
-// ═══════════════════════════════════════════════
+// ════════════════════════════════════════════
 function saveScore(r) { console.log('saveScore', JSON.stringify(r, null, 2)); }
-function enterDashboard() { showScreen('intro'); resetGame(); }
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
@@ -352,599 +379,454 @@ function showScreen(id) {
   window.scrollTo(0, 0);
 }
 
-// ═══════════════════════════════════════════════
-// V-DIMENSION SCORING
-// Each option accumulates scores on both poles of each dimension.
-// Final score = pole_B / (pole_A + pole_B)  → 0 to 1
-// V1: money(A) vs meaning(B)
-// V2: comfort(A) vs ambition(B)
-// V3: security(A) vs adventure(B)
-// V4: prestige(A) vs authenticity(B)
-// V5: self(A) vs others(B)
-// D3_c: counter-measure trust in real cost situations
-// D6_c: counter-measure fairness when it costs you
-// ═══════════════════════════════════════════════
-
-// ═══════════════════════════════════════════════
-// SCENARIO POOL
-// ═══════════════════════════════════════════════
-const SCENARIOS = {
-
-  // ── FIXED S1: Universal entry ──────────────────
-  s1: {
-    tag: 'Monday morning · Your phone lights up',
-    setter: 'You\'ve been at your current company two years. The team is good. The work is decent. Yesterday a college contact messaged — there\'s a role at a faster company. ₹4L more. Bigger title. Your manager just mentioned, informally, that you\'re being considered for the cross-functional project you\'ve wanted since you joined.',
-    text: 'The offer call is scheduled for tomorrow. What do you do?',
-    choices: [
-      { letter:'A', text:'Take the call seriously. ₹4L and a stronger title — this is how careers move.', outcome:'You go into the call knowing what you want. The conversation is efficient. You\'re not pretending to be passive.',
-        scores:{ money:3, comfort:1, security:2, prestige:2 }, branch:'money_path' },
-      { letter:'B', text:'Stay focused. The project is why you\'re here. If you deliver, the money follows.', outcome:'You decline the call politely. It costs you something. It also tells you something about what you actually want.',
-        scores:{ meaning:3, ambition:2, adventure:1 }, branch:'meaning_path' },
-      { letter:'C', text:'Tell your manager about the offer. Have an honest conversation before the call happens.', outcome:'Your manager listens. More carefully than you expected. The conversation changes something between you.',
-        scores:{ authenticity:2, others:1, meaning:1 }, branch:'balanced_path' }
-    ]
-  },
-
-  // ── MONEY PATH: S2–S5 ─────────────────────────
-  m1: {
-    tag: 'Rating season · HR has sent the forms',
-    setter: 'It\'s the annual review cycle. The manager conversations are done.',
-    text: 'You\'ve just found out your rating is "Meets Expectations." Two colleagues who did visibly less got "Exceeds." The appeal window closes tomorrow at 5pm.',
-    choices: [
-      { letter:'A', text:'Send the email. Document your contributions, make the case. You earned better.', outcome:'Your manager is surprised you pushed back. They revisit it. The outcome isn\'t guaranteed but you\'ve established that you notice.',
-        scores:{ ambition:2, authenticity:2, d6c:2 } },
-      { letter:'B', text:'Let it go. One rating doesn\'t define a career and the relationship matters more.', outcome:'You decide it\'s not worth the friction. That decision sits with you longer than the rating does.',
-        scores:{ comfort:2, security:2, others:1 } },
-      { letter:'C', text:'Mention it once, conversationally. Not an appeal — just let them know you noticed.', outcome:'Your manager acknowledges it and says nothing concrete. You\'ve flagged it without making it a confrontation.',
-        scores:{ authenticity:1, d6c:1, security:1 } }
-    ]
-  },
-  m2: {
-    tag: 'Thursday · Post-presentation in the corridor',
-    setter: 'You led a three-week project. Your senior presented the output to leadership.',
-    text: 'They referred to it throughout as "our work" — no mention of your specific role. Leadership praised them. Two colleagues saw it happen and said nothing.',
-    choices: [
-      { letter:'A', text:'Send a follow-up email to leadership recapping your contributions. Professional, factual, not petty.', outcome:'Leadership noticed. So did your senior. The dynamic shifts slightly — in a direction that\'s yours to manage.',
-        scores:{ ambition:2, authenticity:2, d6c:2 } },
-      { letter:'B', text:'Speak to your senior directly. Privately, and soon.', outcome:'The conversation is uncomfortable. They apologise in a way that\'s half-genuine. You decide what to do with that.',
-        scores:{ authenticity:3, d3c:2, d6c:1 } },
-      { letter:'C', text:'Move on. Visibility compounds over time — you don\'t need to fight for every acknowledgement.', outcome:'You tell yourself it was strategic. It was also uncomfortable to absorb.',
-        scores:{ comfort:2, security:1, prestige:1 } }
-    ]
-  },
-  m3: {
-    tag: 'Wednesday 11:17pm · Your phone buzzes',
-    setter: 'Your manager messages. "Client presentation moved to 8am tomorrow. Can you update the deck tonight?"',
-    text: 'You have a 7am school run you absolutely cannot miss. The deck is 60% done. You could finish it — badly — by midnight, or do it properly by 6:30am.',
-    choices: [
-      { letter:'A', text:'Do it tonight. This is what showing up looks like when it actually matters.', outcome:'You finish at 1:30am. The work is fine, not your best. Your manager seems pleased. You feel the cost of it tomorrow.',
-        scores:{ ambition:2, money:1, comfort:-1 } },
-      { letter:'B', text:'Reply now: "I can get it done by 6:30am — giving you my best work, not my midnight version."', outcome:'Your manager takes thirty seconds to respond. "That works." You sleep. The deck is better than it would have been.',
-        scores:{ authenticity:3, adventure:1, security:1 } },
-      { letter:'C', text:'Do what you can tonight, send it with a note about what\'s left.', outcome:'Half a deck lands in their inbox at midnight. They fill in the rest. Neither of you mentions it.',
-        scores:{ others:1, security:1, d3c:1 } }
-    ]
-  },
-  m4: {
-    tag: 'Friday afternoon · An interesting conversation',
-    setter: 'A different team in your company has a role opening. Same level, slightly higher pay, genuinely more interesting scope. You\'ve heard good things about the manager.',
-    text: 'Moving means leaving your current team mid-project. They\'re already stretched and would struggle to find a replacement quickly.',
-    choices: [
-      { letter:'A', text:'Pursue it. Your career development can\'t wait on someone else\'s resourcing problem.', outcome:'You apply. You get it. The guilt is real for about three weeks. Then it\'s just your new job.',
-        scores:{ ambition:2, money:1, self:2 } },
-      { letter:'B', text:'Finish the project first — then explore. Six to eight weeks won\'t change the outcome.', outcome:'You wait. The role may or may not still be available. You chose the team over the opportunity, consciously.',
-        scores:{ others:3, d3c:2, security:1 } },
-      { letter:'C', text:'Have a conversation with your manager about a transition plan. Make the move properly.', outcome:'Your manager is disappointed but professional about it. You leave on terms you can live with.',
-        scores:{ authenticity:2, d3c:1, others:1 } }
-    ]
-  },
-
-  // ── MEANING PATH: S2–S5 ───────────────────────
-  x1: {
-    tag: 'A management conversation · Your manager\'s office',
-    setter: 'Your company wants to move you into a team lead role. More pay, better title, six people reporting to you.',
-    text: 'You\'ve seen what team leads actually do here — most of their time is admin, coordination, protecting the team from process. Less actual work. Your best work is still ahead of you technically.',
-    choices: [
-      { letter:'A', text:'Turn it down. Tell them honestly you want to go deeper in the work, not broader in responsibilities.', outcome:'Your manager looks surprised. Not upset — surprised. "We\'ll revisit in a year," they say. You know what you chose.',
-        scores:{ meaning:3, authenticity:3, adventure:1 } },
-      { letter:'B', text:'Take it. You can always shape what the role actually means once you\'re in it.', outcome:'You\'re in the role. You discover the shape you can give it is smaller than you thought. You manage.',
-        scores:{ ambition:2, security:1, comfort:1 } },
-      { letter:'C', text:'Ask to understand what the role actually involves before deciding.', outcome:'They walk you through it. It\'s exactly what you feared. The conversation is useful regardless of what you decide.',
-        scores:{ authenticity:1, d3c:1, meaning:1 } }
-    ]
-  },
-  x2: {
-    tag: 'Company news · Slack is unusually quiet',
-    setter: 'Your company just signed a major contract with a client you have real ethical concerns about. Nothing illegal. Just something you care about.',
-    text: 'The work itself is interesting. Your colleagues are genuinely unbothered. No one is raising it.',
-    choices: [
-      { letter:'A', text:'Start looking quietly. You can\'t do your best work in an environment you don\'t believe in.', outcome:'You begin looking. It takes time. You stay professional throughout. When you leave, you know why.',
-        scores:{ meaning:3, authenticity:3, adventure:2 } },
-      { letter:'B', text:'Stay and do the best possible work within it. Every company has grey areas.', outcome:'You tell yourself it\'s pragmatic. Sometimes you believe it.',
-        scores:{ security:2, comfort:2, money:1 } },
-      { letter:'C', text:'Raise it with your manager — not as an ultimatum, as a genuine concern.', outcome:'Your manager listens, says the decision is above both of you, and thanks you for saying something. The situation doesn\'t change.',
-        scores:{ authenticity:2, d3c:2, d6c:1, meaning:1 } }
-    ]
-  },
-  x3: {
-    tag: 'L&D portal · Two programs available',
-    setter: 'Your company sponsors two development programs. You can only do one.',
-    text: 'Program A: a leadership cohort — good for career optics, many senior people have been through it. Program B: a technical certification — less visible internally, directly relevant to what you\'re building.',
-    choices: [
-      { letter:'A', text:'Program B. Learn what you actually need — not what looks good.', outcome:'You learn more than you expected and have almost no one to talk to about it in the building. That\'s fine.',
-        scores:{ meaning:2, authenticity:2, ambition:1 } },
-      { letter:'B', text:'Program A. Network and visibility compound — skills alone don\'t.', outcome:'The cohort is useful. The relationships are useful. You\'ve traded a skill gap for a network gain.',
-        scores:{ prestige:2, ambition:1, money:1 } },
-      { letter:'C', text:'Ask if you can do Program B now and Program A in the next cycle.', outcome:'HR says yes. You\'re moderately surprised. You get both, eventually.',
-        scores:{ ambition:1, authenticity:1, security:1 } }
-    ]
-  },
-  x4: {
-    tag: 'Project allocation · Two accounts, one choice',
-    setter: 'Your company is allocating resources. Two options come up for you.',
-    text: 'Account A: large, prestigious client, well-understood problem, good for the CV. Account B: smaller client, genuinely complex problem, lower billable value, manager says it\'s optional.',
-    choices: [
-      { letter:'A', text:'Ask to be on Account B. You\'re here to do interesting work.', outcome:'The work is as good as you thought. The visibility is as low as you expected. You don\'t regret it.',
-        scores:{ meaning:3, ambition:1, authenticity:1 } },
-      { letter:'B', text:'Take Account A. Credibility and exposure now — interesting problems later.', outcome:'The work is competent. The CV line is real. You\'re already thinking about what comes after.',
-        scores:{ prestige:2, money:1, security:1 } },
-      { letter:'C', text:'Split time if the team allows it. Best of both.', outcome:'You get sixty percent of Account A and some time on B. The interesting parts of B happen when you\'re on A.',
-        scores:{ security:1, ambition:1, d3c:1 } }
-    ]
-  },
-
-  // ── BALANCED PATH: S2–S5 ──────────────────────
-  b1: {
-    tag: 'Corridor conversation · You heard something',
-    setter: 'Two senior colleagues were discussing a teammate. You overheard enough.',
-    text: 'What they said is partly true and mostly unkind. If it spreads — and it might — it could affect your teammate\'s upcoming performance review.',
-    choices: [
-      { letter:'A', text:'Say something to the colleagues directly. "Let\'s not go there." Short and clear.', outcome:'They\'re briefly surprised. The conversation ends. You don\'t know if it helped or just paused it.',
-        scores:{ d6c:2, others:2, authenticity:1 } },
-      { letter:'B', text:'Tell your teammate quietly. They should know.', outcome:'Your teammate is grateful and shaken. They now have information they can\'t unknow.',
-        scores:{ others:3, d3c:2, authenticity:1 } },
-      { letter:'C', text:'Stay out of it. You heard fragments — you don\'t have the full picture.', outcome:'You don\'t intervene. You spend the next week wondering if you should have.',
-        scores:{ security:2, comfort:1 } }
-    ]
-  },
-  b2: {
-    tag: 'WhatsApp message · An old colleague',
-    setter: 'A former colleague is applying for a new role and has asked you to be a reference.',
-    text: 'Honest assessment: they\'re solid but had a pattern of letting small things slip under pressure. You\'d work with them again, but not on everything. They don\'t know you know this about them.',
-    choices: [
-      { letter:'A', text:'Give the reference — and if asked for a specific assessment, be straightforwardly honest.', outcome:'The call happens. You answer honestly. They get or don\'t get the role. Either way, you said something real.',
-        scores:{ authenticity:3, d6c:1, d3c:1 } },
-      { letter:'B', text:'Decline. A lukewarm reference is worse than none and better for both of you to know it.', outcome:'You decline carefully. They\'re briefly stung. It\'s the more honest thing to do.',
-        scores:{ authenticity:2, d6c:2, d3c:1 } },
-      { letter:'C', text:'Give a warm reference. The relationship matters and the gaps weren\'t career-defining.', outcome:'You give the reference. It\'s positive. You\'re not sure how accurate.',
-        scores:{ others:2, d3c:2, security:1 } }
-    ]
-  },
-  b3: {
-    tag: 'Friday evening · The offsite begins',
-    setter: 'Annual team dinner. Everyone is expected to be present and "on." Open bar, good food, the social performance that comes with it.',
-    text: 'You\'ve had a genuinely difficult week personally. The energy to perform sociability feels heavier than usual.',
-    choices: [
-      { letter:'A', text:'Show up, be present, be real about being tired. No performance tonight.', outcome:'People notice you\'re quieter than usual. Some check in. You feel more like yourself than you have all week.',
-        scores:{ authenticity:3, d3c:1 } },
-      { letter:'B', text:'Go fully — do the thing. The team needs this after a difficult quarter.', outcome:'You show up, perform well, and feel the cost of it in the morning.',
-        scores:{ others:2, d3c:1, comfort:1 } },
-      { letter:'C', text:'Make an appearance, be present for the first hour, excuse yourself at a reasonable point.', outcome:'A graceful exit. No one makes it difficult. You get home earlier than expected.',
-        scores:{ security:1, authenticity:1, self:1 } }
-    ]
-  },
-  b4: {
-    tag: 'Client meeting · Something doesn\'t add up',
-    setter: 'You\'re in a client meeting. The client says something factually wrong and is about to make a decision based on it.',
-    text: 'Correcting them will be awkward. Your manager caught your eye briefly: let it go.',
-    choices: [
-      { letter:'A', text:'Correct them — gently, clearly. They hired you to tell them the truth.', outcome:'There\'s a pause. The client resets. Your manager says nothing in the moment. They mention it later, as a positive.',
-        scores:{ authenticity:3, d6c:2, meaning:1 } },
-      { letter:'B', text:'Let it go in the room. Follow up in writing after — framed as additional context.', outcome:'The follow-up email is read. The decision gets corrected before it matters. Nobody knows the original meeting had the error.',
-        scores:{ d3c:1, security:1, others:1 } },
-      { letter:'C', text:'Follow your manager\'s read. You can\'t always choose the hill.', outcome:'The decision proceeds on incorrect information. You carry that one for a while.',
-        scores:{ security:2, comfort:1, prestige:1 } }
-    ]
-  },
-
-  // ── FIXED S6: Midpoint anchor ─────────────────
-  s6: {
-    tag: 'Thursday afternoon · The room goes quiet',
-    setter: 'Project allocation just came through. Two colleagues will be working through Diwali — the project timing couldn\'t be changed.',
-    text: 'Your manager asks if anyone wants to volunteer to take some of the load. The room is silent. You had plans that week — personal, not essential.',
-    choices: [
-      { letter:'A', text:'Volunteer. That\'s what a team is.', outcome:'Your colleagues notice. They don\'t say much. Later, one of them asks how they can return the favour.',
-        scores:{ others:3, d3c:2 }, branch:'high_others' },
-      { letter:'B', text:'Don\'t. Your time matters too and you didn\'t create this situation.', outcome:'Someone else eventually steps up. You feel the weight of the silence for a moment, then it passes.',
-        scores:{ self:2, security:1 }, branch:'high_self' },
-      { letter:'C', text:'Offer to take one specific deliverable — not the whole problem.', outcome:'It\'s a partial answer. The team makes it work. You contributed something without giving everything.',
-        scores:{ others:1, d3c:1, security:1 }, branch:'high_others' }
-    ]
-  },
-
-  // ── PRESSURE POOL: P1–P6 (3 served per user) ─
-  p1: {
-    tag: 'Something you noticed · Third time this month',
-    setter: 'A senior colleague has twice presented a junior team member\'s ideas in reports upward — without attribution.',
-    text: 'The junior hasn\'t said anything. It\'s not illegal. You\'ve watched it happen twice.',
-    choices: [
-      { letter:'A', text:'Speak to the senior colleague directly. Privately, and soon.', outcome:'The conversation is uncomfortable. They\'re defensive first, then something shifts. You\'re not sure it stops.',
-        scores:{ d6c:2, authenticity:2, d3c:1 } },
-      { letter:'B', text:'Mention it to the junior quietly. Let them decide what to do.', outcome:'Your junior thanks you. They sit with it for a week. Then they bring it up themselves.',
-        scores:{ others:3, d3c:2 } },
-      { letter:'C', text:'Not your business unless the junior brings it to you.', outcome:'They don\'t bring it to you. You wonder if you gave them enough signal that they could have.',
-        scores:{ security:2, comfort:1 } }
-    ]
-  },
-  p2: {
-    tag: 'A skip-level conversation · Unusual invitation',
-    setter: 'Your skip-level manager has asked, informally, if you\'d be interested in a role that\'s two levels up.',
-    text: 'It would mean leaving your current team in a project crunch, no replacement lined up. If it works, it\'s a significant leap. If it doesn\'t, you\'re exposed.',
-    choices: [
-      { letter:'A', text:'Go for it. Manufactured readiness doesn\'t exist — you grow into these things.', outcome:'You take it. It\'s harder than anything you\'ve done. Some of it breaks. Most of it holds.',
-        scores:{ ambition:3, adventure:3, meaning:1 } },
-      { letter:'B', text:'Ask for three months to stabilise the current team first.', outcome:'They agree. You use the time well. You arrive at the new role having done the right thing before leaving.',
-        scores:{ others:2, d3c:2, security:1 } },
-      { letter:'C', text:'Decline. The conditions aren\'t right and pushing into a bad setup doesn\'t help anyone.', outcome:'You turn it down. They respect it. The next conversation like this comes eighteen months later.',
-        scores:{ security:2, authenticity:1, comfort:1 } }
-    ]
-  },
-  p3: {
-    tag: 'Review prep · Something you found out',
-    setter: 'You discovered, accidentally, that a colleague at the same level is earning ₹3L more than you. Same role, joined after you. Your annual review is next week.',
-    text: 'You can raise it — but you\'d be revealing how you found out, which is mildly awkward. Or you can build the case on market data instead.',
-    choices: [
-      { letter:'A', text:'Bring it up directly. Equity is a fair ask and you know the number.', outcome:'Your manager is briefly surprised. They say they\'ll look into it. You\'ve put yourself in the conversation.',
-        scores:{ d6c:3, ambition:2, authenticity:2, money:2 } },
-      { letter:'B', text:'Build the case on market benchmarks — same ask, cleaner foundation.', outcome:'The case is tighter and harder to deflect. Your manager takes it seriously. You get a partial response.',
-        scores:{ authenticity:1, ambition:2, d6c:2, money:1 } },
-      { letter:'C', text:'Let it sit. Compensation conversations rarely go as planned.', outcome:'You don\'t raise it. The number stays in your head for longer than you\'d like.',
-        scores:{ security:2, comfort:2 } }
-    ]
-  },
-  p4: {
-    tag: 'Something you keep thinking about · Late evening',
-    setter: 'You\'re three years into a stable corporate finance track. There\'s a design bootcamp you\'d genuinely love — six months, full-time, requires a sabbatical or resignation.',
-    text: 'You could come back to finance after. Probably. The company here won\'t hold the role.',
-    choices: [
-      { letter:'A', text:'Do it. Three years in at 27 — if not now, when does that question get easier?', outcome:'You go. It\'s the hardest and most alive you\'ve felt professionally. The path forward is less clear and more yours.',
-        scores:{ adventure:3, meaning:3, ambition:2 } },
-      { letter:'B', text:'Keep the job, do evenings and weekends. Build toward it without the risk.', outcome:'You make progress. Slower than you\'d like. The half-commitment costs you in both directions.',
-        scores:{ security:2, comfort:2, ambition:1 } },
-      { letter:'C', text:'Ask if a sabbatical is possible first — no need to quit without trying.', outcome:'HR says they\'ve done it before. The conversation opens something you thought was closed.',
-        scores:{ authenticity:1, d3c:1, security:1, adventure:1 } }
-    ]
-  },
-  p5: {
-    tag: 'After the reorg · Your team changed',
-    setter: 'The reorg put you under a new manager you\'ve heard mixed things about. Two weeks in, your instinct is that the mixed things were understated.',
-    text: 'You have equity vesting in eight months. Nothing is technically wrong — it\'s just not right.',
-    choices: [
-      { letter:'A', text:'Have the conversation early. Name what you\'re seeing and what you need.', outcome:'It goes better than expected. Or worse. You have information either way.',
-        scores:{ authenticity:3, d3c:2, ambition:1 } },
-      { letter:'B', text:'Eight months is not forever. Keep your head down, vest, then reassess.', outcome:'You stay. The equity lands. You leave shortly after. You knew you would.',
-        scores:{ money:2, security:2, comfort:2 } },
-      { letter:'C', text:'Start looking quietly. No need to burn anything while you figure out what\'s next.', outcome:'You look. It takes four months. You leave before the vest date, which surprises you.',
-        scores:{ adventure:1, self:2, meaning:1 } }
-    ]
-  },
-  p6: {
-    tag: 'A request · Someone you like',
-    setter: 'A colleague you respect and like — not a close friend, but someone you\'d back in most situations — needs a favour that bends an internal process slightly. Not illegal, not seriously wrong, just grey.',
-    text: 'They wouldn\'t ask if they weren\'t stuck. You have the access to help.',
-    choices: [
-      { letter:'A', text:'Help them. The relationship matters and the rules have some give.', outcome:'You help. It works out. You don\'t think about it again until the next time someone needs a similar favour.',
-        scores:{ d3c:2, others:2, comfort:1 } },
-      { letter:'B', text:'Tell them you can\'t — but help them find a legitimate route instead.', outcome:'It takes longer. They get what they need through the right channel. The relationship holds.',
-        scores:{ authenticity:2, d6c:2, d3c:1 } },
-      { letter:'C', text:'Decline clearly. Grey areas compound and you don\'t want to start.', outcome:'They\'re a little surprised. Not upset — surprised. You\'ve told them something about yourself.',
-        scores:{ authenticity:3, d6c:2 } }
-    ]
-  },
-
-  // ── FIXED S10-S11: Pressure tests ─────────────
-  s10: {
-    tag: 'The conversation you\'ve been avoiding · Your manager, again',
-    setter: 'You\'ve been offered, quietly, a chance to go on record saying that a colleague\'s performance was below expectations — in a process that could affect their employment.',
-    text: 'Your actual assessment: they underperformed in one area, not across the board. What you say will be taken as a full read.',
-    choices: [
-      { letter:'A', text:'Give the precise, nuanced assessment — not the simplified version they seem to want.', outcome:'It complicates the process. Your manager seems faintly annoyed. You said what was true.',
-        scores:{ authenticity:3, d6c:3, meaning:1 } },
-      { letter:'B', text:'Give the simplified version. One underperforming area is enough.', outcome:'The process moves forward cleanly. You wonder what exactly you just did.',
-        scores:{ security:2, comfort:2, self:1 } },
-      { letter:'C', text:'Decline to be part of the process. You don\'t have enough information to be a reliable voice.', outcome:'Your manager notes it. You\'re off the record. The process continues without you.',
-        scores:{ authenticity:2, d6c:1, d3c:1 } }
-    ]
-  },
-  s11: {
-    tag: 'Late Friday · An email you didn\'t expect',
-    setter: 'A competing company has reached out — not through a recruiter, directly. They name a number. It\'s significantly more than you earn.',
-    text: 'The company\'s culture has a reputation. Some people thrive there. You know someone who didn\'t. The number is real.',
-    choices: [
-      { letter:'A', text:'Take the first call. Numbers like this don\'t come twice.', outcome:'You take the call. The opportunity is real. So is what they\'re asking for in return.',
-        scores:{ money:3, ambition:2, self:2 } },
-      { letter:'B', text:'Research properly before deciding if it\'s worth your time.', outcome:'What you find is mixed. The number stays attractive. The culture concerns stay real.',
-        scores:{ authenticity:1, security:1, ambition:1 } },
-      { letter:'C', text:'Don\'t engage. You know enough about the culture to know the money isn\'t the whole story.', outcome:'You don\'t respond. The number fades. Something else was always going to decide this for you.',
-        scores:{ authenticity:2, meaning:2, security:1 } }
-    ]
-  },
-
-  // ── FIXED S12: Final ──────────────────────────
-  s12: {
-    tag: 'The call you didn\'t expect · Your manager, off the record',
-    setter: 'The company is restructuring. Your manager calls you, after hours. They speak carefully.',
-    text: '"I can protect one person from the redundancy list. Not two. I\'m not supposed to be having this conversation with you." They trust you. You have twenty-four hours.',
-    choices: [
-      { letter:'A', text:'"Protect me. I have my own responsibilities to take care of."', outcome:'Your colleague finds out later. You never talk about this conversation. Neither does your manager.',
-        scores:{ self:3, money:2, security:3 } },
-      { letter:'B', text:'"Protect them. I\'ll find something — they\'re further from that option than I am."', outcome:'Your manager is quiet for a moment. They say they\'ll do what they can. You start updating your CV that night.',
-        scores:{ others:3, d6c:2, meaning:2 } },
-      { letter:'C', text:'"I can\'t make this call on information I wasn\'t supposed to have. Do what\'s right by the company."', outcome:'Your manager nods. They make the decision. You never find out which way it went.',
-        scores:{ authenticity:3, d3c:3, d6c:1 } }
-    ]
-  }
-};
-
-// ═══════════════════════════════════════════════
-// B5 QUESTIONS
-// ═══════════════════════════════════════════════
-const B5_QS = [
+// ════════════════════════════════════════════
+// COMPANIES
+// ════════════════════════════════════════════
+const COMPANIES = [
   {
-    key: 'b5_v1',
-    text: 'When you imagine a job you\'d be genuinely proud of in ten years, what comes to mind first?',
-    options: [
-      { text: 'Earning significantly more than I do now', scores:{ money:2 } },
-      { text: 'Leading something larger or more visible', scores:{ prestige:2 } },
-      { text: 'Working on something I actually believe in', scores:{ meaning:2 } },
-      { text: 'Having more time and energy outside work', scores:{ comfort:2 } },
-      { text: 'Being genuinely good at something rare', scores:{ ambition:2 } }
-    ]
+    id: 'A',
+    name: 'Aakash Infrastructure Ltd.',
+    shortName: 'Aakash Infra',
+    sector: 'Infrastructure · Roads, Ports, Power',
+    color: 'var(--co-a)',
+    hex: '#2563EB',
+    cssClass: 'co-a'
   },
   {
-    key: 'b5_v4',
-    text: 'A colleague you\'ve always found competitive praises your work in front of leadership. What\'s your first reaction?',
-    options: [
-      { text: 'Pleased — but I\'d want to understand the angle', scores:{ self:1, prestige:1 } },
-      { text: 'Genuinely glad — recognition is recognition regardless of who gives it', scores:{ authenticity:1, others:1 } },
-      { text: 'Mildly suspicious of the motive', scores:{ self:2 } },
-      { text: 'Satisfied — it\'s good that leadership noticed', scores:{ prestige:2 } },
-      { text: 'Indifferent, honestly — the work matters more than who praised it', scores:{ authenticity:2, meaning:1 } }
-    ]
+    id: 'B',
+    name: 'Bharat Ventures Capital',
+    shortName: 'Bharat Ventures',
+    sector: 'New-age Tech · SaaS, Fintech, D2C',
+    color: 'var(--co-b)',
+    hex: '#7C3AED',
+    cssClass: 'co-b'
+  },
+  {
+    id: 'C',
+    name: 'Carnation Consumer FMCG',
+    shortName: 'Carnation',
+    sector: 'Consumer Goods · Food, Personal Care',
+    color: 'var(--co-c)',
+    hex: '#D97706',
+    cssClass: 'co-c'
   }
 ];
 
-// ═══════════════════════════════════════════════
-// WORK PERSONAS
-// ═══════════════════════════════════════════════
-const PERSONAS = [
-  {
-    name: 'The Quiet Climber', emoji: '📈',
-    test: s => s.V1 < 0.4 && s.V4 < 0.45 && s.V5 < 0.45,
-    summary: 'You know exactly what you want and you get it without making noise about it. The ambition is real — it just doesn\'t need an audience. You\'re often further ahead than people realise, which is precisely how you prefer it.',
-    quote: 'The people who underestimate you are doing you a favour. You\'re in no rush to correct them.'
-  },
-  {
-    name: 'The True Believer', emoji: '🌱',
-    test: s => s.V1 > 0.65 && s.V5 > 0.55,
-    summary: 'You build your career around things you actually care about. That\'s not idealism — it\'s a very specific kind of discipline. You\'ll leave when the mission goes. You\'ll stay when it costs you.',
-    quote: 'You\'ve never convinced yourself that a number makes up for work you don\'t believe in. You\'re right not to have tried.'
-  },
-  {
-    name: 'The Principled One', emoji: '⚖️',
-    test: s => s.V4 > 0.65 && s.D6c > 0.55,
-    summary: 'You won\'t bend on the things that matter — even when it\'s expensive. Your career has moments where that cost was real and visible. You made those choices anyway. That\'s harder than it sounds.',
-    quote: 'Some people know their price. You\'ve spent time figuring out what isn\'t for sale.'
-  },
-  {
-    name: 'The Connector', emoji: '🤝',
-    test: s => s.V5 > 0.62 && s.D3c > 0.55,
-    summary: 'You move through organisations on relationships — not in a calculated way, but because other people\'s situations genuinely register for you. The goodwill you\'ve built is not an accident. It compounds.',
-    quote: 'You\'ve noticed that the people who helped without keeping score tend to end up somewhere interesting.'
-  },
-  {
-    name: 'The Maverick', emoji: '🚀',
-    test: s => s.V2 > 0.65 && s.V3 > 0.55,
-    summary: 'You chase difficulty. Comfortable situations make you restless in a way that\'s hard to explain to people who don\'t feel it. You\'ve bet on yourself more than once. You\'ll do it again.',
-    quote: 'The jobs that looked risky from the outside felt like the only sensible option from where you were standing.'
-  },
-  {
-    name: 'The Pragmatist', emoji: '🛡️',
-    test: s => s.V3 < 0.42 && s.V2 < 0.5,
-    summary: 'You keep your options open and don\'t over-commit. That\'s not caution — it\'s a very deliberate approach to uncertainty. You tend to survive the things that flatten people who bet everything on one outcome.',
-    quote: 'You\'ve watched enough people burn their bridges to know which ones are worth keeping.'
-  },
-  {
-    name: 'The Operator', emoji: '⚙️',
-    test: s => s.V2 > 0.55 && s.V3 < 0.45 && s.V5 < 0.5,
-    summary: 'You get things done, protect your lane, and don\'t moralize about it. The work is the work. You\'re reliable in the way that actually matters — when the situation is bad and needs someone who won\'t complicate it.',
-    quote: 'The team calls you when something needs to actually get done. That\'s a specific kind of trust.'
-  },
-  {
-    name: 'The Grounded Idealist', emoji: '🔬',
-    test: s => s.V1 > 0.55 && s.V4 > 0.55 && s.V5 > 0.5,
-    summary: 'You want to do good work, do it honestly, and have it matter to someone beyond yourself. You\'re not naive about trade-offs — you just make them in a particular order, consistently.',
-    quote: 'You don\'t talk about your values much. They mostly just show up in what you do.'
-  }
-];
+const DEPLOY_PER_ROUND = 9; // 9 lacs per year
+const TOTAL_ROUNDS = 20;
 
-// ═══════════════════════════════════════════════
+// ════════════════════════════════════════════
+// RETURN ENGINE
+// Phase 1 (years 0 to shiftAt-1): Aakash Infra is best
+// Phase 2 (years shiftAt to 19): Bharat Ventures is best
+// Carnation: always low, brief spike in years 17-19
+// ════════════════════════════════════════════
+function sampleReturn(compId, round, shiftAt) {
+  const isPhase2 = round >= shiftAt;
+  const isCSpike = round >= 17;
+
+  let multiplier;
+  switch (compId) {
+    case 'A':
+      // Phase 1: solid 1.25–1.65x | Phase 2: weakens 0.85–1.20x
+      multiplier = isPhase2
+        ? 0.85 + Math.random() * 0.35
+        : 1.25 + Math.random() * 0.40;
+      break;
+    case 'B':
+      // Phase 1: volatile — 50% chance 0, 50% chance 1.80–2.30x
+      // Phase 2: becomes the winner 1.40–1.85x
+      if (isPhase2) {
+        multiplier = 1.40 + Math.random() * 0.45;
+      } else {
+        multiplier = Math.random() < 0.50 ? 0 : 1.80 + Math.random() * 0.50;
+      }
+      break;
+    case 'C':
+      // Always low 0.65–1.10x, brief spike 1.20–1.55x in last 3 years
+      multiplier = isCSpike
+        ? 1.20 + Math.random() * 0.35
+        : 0.65 + Math.random() * 0.45;
+      break;
+  }
+  return parseFloat(multiplier.toFixed(3));
+}
+
+// ════════════════════════════════════════════
 // STATE
-// ═══════════════════════════════════════════════
-let scores = {};
-let sequenceIds = [];
-let currentIdx = 0;
+// ════════════════════════════════════════════
+let roundNum = 0;
+let shiftAt = 9 + Math.floor(Math.random() * 5); // shift at year 9–13
+let allocation = { A: 3, B: 3, C: 3 };
+let history = [];
+let totalDeployed = 0;
+let totalReturned = 0;
 let b5Answers = {};
-let animating = false;
 
-const V_DIMS = {
-  money: 0, meaning: 0, comfort: 0, ambition: 0,
-  security: 0, adventure: 0, prestige: 0, authenticity: 0,
-  self: 0, others: 0, d3c: 0, d6c: 0
-};
+// ════════════════════════════════════════════
+// AUTO-FILL REMAINING (A → B → C cycling)
+// ════════════════════════════════════════════
+function autoFillRemaining() {
+  const placed = allocation.A + allocation.B + allocation.C;
+  let remaining = DEPLOY_PER_ROUND - placed;
+  if (remaining <= 0) return;
+
+  const order = ['A', 'B', 'C'];
+  let i = 0;
+  while (remaining > 0) {
+    allocation[order[i % 3]]++;
+    remaining--;
+    i++;
+  }
+}
+
+// ════════════════════════════════════════════
+// START
+// ════════════════════════════════════════════
+function startGame() {
+  shiftAt = 9 + Math.floor(Math.random() * 5);
+  roundNum = 0;
+  allocation = { A: 3, B: 3, C: 3 };
+  history = [];
+  totalDeployed = 0;
+  totalReturned = 0;
+  showScreen('game');
+  renderCompanies();
+  renderPips();
+  updateInvestBar();
+  updatePnL();
+}
 
 function resetGame() {
-  scores = { ...V_DIMS };
-  sequenceIds = [];
-  currentIdx = 0;
-  b5Answers = {};
-  animating = false;
+  startGame();
+  showScreen('intro');
 }
 
-// ═══════════════════════════════════════════════
-// GAME FLOW
-// ═══════════════════════════════════════════════
-function startGame() {
-  resetGame();
-  buildDots();
-  showScreen('game');
-  renderScenario();
+// ════════════════════════════════════════════
+// RENDER COMPANIES
+// ════════════════════════════════════════════
+function renderCompanies() {
+  const area = document.getElementById('companies-area');
+  area.innerHTML = COMPANIES.map(co => {
+    const hist = history.map(h => h.returns[co.id]);
+    const lastEntry = hist.length > 0 ? history[history.length - 1] : null;
+    const hasAlloc = allocation[co.id] > 0;
+
+    let lastReturnHTML = '';
+    if (lastEntry) {
+      const r = lastEntry.returns[co.id];
+      const netStr = r.net >= 0 ? '+₹' + Math.abs(r.net).toFixed(2) + 'L' : '-₹' + Math.abs(r.net).toFixed(2) + 'L';
+      const netColor = r.net >= 0 ? 'var(--teal)' : 'var(--red)';
+      lastReturnHTML = `
+        <div class="co-last-return">
+          <div class="co-last-val" style="color:${netColor};">${netStr}</div>
+          <div class="co-last-lbl">Last year</div>
+        </div>`;
+    } else {
+      lastReturnHTML = `
+        <div class="co-last-return">
+          <div class="co-last-val" style="color:var(--text-hint);">—</div>
+          <div class="co-last-lbl">No data</div>
+        </div>`;
+    }
+
+    const allocColor = hasAlloc ? co.color : 'var(--text-hint)';
+
+    return `
+      <div class="co-card ${co.cssClass} ${hasAlloc ? 'has-alloc' : ''}" id="co-card-${co.id}">
+        <div class="co-header">
+          <div class="co-identity">
+            <div class="co-dot" style="background:${co.color};"></div>
+            <div>
+              <div class="co-name">${co.shortName}</div>
+              <div class="co-sector">${co.sector}</div>
+            </div>
+          </div>
+          ${lastReturnHTML}
+        </div>
+        <div class="sparkline-wrap">
+          <canvas class="sparkline-canvas" id="spark-${co.id}" height="28"></canvas>
+        </div>
+        <div class="allocator">
+          <button class="alloc-btn" onclick="changeAlloc('${co.id}', -1)" id="btn-minus-${co.id}">−</button>
+          <div class="alloc-center">
+            <div class="alloc-display" id="alloc-${co.id}" style="color:${allocColor};">₹${allocation[co.id]}L</div>
+            <div class="alloc-unit">lacs this year</div>
+          </div>
+          <button class="alloc-btn" onclick="changeAlloc('${co.id}', +1)" id="btn-plus-${co.id}">+</button>
+        </div>
+      </div>`;
+  }).join('');
+
+  COMPANIES.forEach(co => drawSparkline(co.id, co.hex));
+  updateAllocButtons();
+  document.getElementById('hdr-year').textContent = roundNum + 1;
 }
 
-function buildSequence(branch1, branch2) {
-  // Pool mapping
-  const pools = {
-    money_path:   ['m1','m2','m3','m4'],
-    meaning_path: ['x1','x2','x3','x4'],
-    balanced_path:['b1','b2','b3','b4'],
-    high_others:  ['p1','p2','p5'],
-    high_self:    ['p3','p4','p6']
-  };
+function drawSparkline(coId, hexColor) {
+  const canvas = document.getElementById('spark-' + coId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 260;
+  canvas.width = W * window.devicePixelRatio;
+  canvas.height = 28 * window.devicePixelRatio;
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  ctx.clearRect(0, 0, W, 28);
 
-  const act1Pool = pools[branch1] || pools.balanced_path;
-  const pressurePool = pools[branch2] || pools.high_self;
-
-  // Shuffle pools
-  const shuffled1 = shuffle([...act1Pool]).slice(0, 4);
-  const shuffledP = shuffle([...pressurePool]).slice(0, 3);
-
-  return ['s1', ...shuffled1, 's6', ...shuffledP, 's10', 's11', 's12'];
-}
-
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+  // Net returns per round for this company
+  const vals = history.map(h => h.returns[coId].net);
+  if (vals.length < 2) {
+    ctx.fillStyle = 'rgba(0,0,0,0.06)';
+    ctx.fillRect(0, 13, W, 2);
+    return;
   }
-  return arr;
+
+  const min = Math.min(-1, ...vals);
+  const max = Math.max(1, ...vals);
+  const scaleY = v => 22 - ((v - min) / (max - min)) * 18;
+  const stepX = W / (vals.length - 1);
+
+  // Zero line
+  ctx.beginPath();
+  ctx.moveTo(0, scaleY(0));
+  ctx.lineTo(W, scaleY(0));
+  ctx.strokeStyle = 'rgba(0,0,0,0.08)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  // Data line
+  ctx.beginPath();
+  ctx.moveTo(0, scaleY(vals[0]));
+  vals.forEach((v, i) => { if (i > 0) ctx.lineTo(i * stepX, scaleY(v)); });
+  ctx.strokeStyle = hexColor;
+  ctx.lineWidth = 1.8;
+  ctx.stroke();
+
+  // Fill
+  ctx.lineTo((vals.length - 1) * stepX, 28);
+  ctx.lineTo(0, 28);
+  ctx.closePath();
+  ctx.fillStyle = hexColor + '22';
+  ctx.fill();
 }
 
-function buildDots() {
-  const el = document.getElementById('chapter-dots');
+// ════════════════════════════════════════════
+// ALLOCATION
+// ════════════════════════════════════════════
+function changeAlloc(coId, delta) {
+  const total = allocation.A + allocation.B + allocation.C;
+  if (delta > 0 && total >= DEPLOY_PER_ROUND) return;
+  if (delta < 0 && allocation[coId] <= 0) return;
+  allocation[coId] = Math.max(0, allocation[coId] + delta);
+  updateAllocDisplay(coId);
+  renderPips();
+  updateInvestBar();
+}
+
+function updateAllocDisplay(coId) {
+  const co = COMPANIES.find(c => c.id === coId);
+  const el = document.getElementById('alloc-' + coId);
+  const card = document.getElementById('co-card-' + coId);
+  if (el) {
+    el.textContent = '₹' + allocation[coId] + 'L';
+    el.style.color = allocation[coId] > 0 ? co.color : 'var(--text-hint)';
+  }
+  if (card) {
+    if (allocation[coId] > 0) card.classList.add('has-alloc');
+    else card.classList.remove('has-alloc');
+  }
+  updateAllocButtons();
+}
+
+function updateAllocButtons() {
+  const total = allocation.A + allocation.B + allocation.C;
+  COMPANIES.forEach(co => {
+    const btnPlus = document.getElementById('btn-plus-' + co.id);
+    const btnMinus = document.getElementById('btn-minus-' + co.id);
+    if (btnPlus) btnPlus.disabled = total >= DEPLOY_PER_ROUND;
+    if (btnMinus) btnMinus.disabled = allocation[co.id] <= 0;
+  });
+}
+
+function renderPips() {
+  const el = document.getElementById('alloc-pips');
   if (!el) return;
-  el.innerHTML = Array(12).fill(0).map((_, i) =>
-    `<div class="cdot" id="cdot-${i}"></div>`
+  const total = allocation.A + allocation.B + allocation.C;
+  el.innerHTML = Array(DEPLOY_PER_ROUND).fill(0).map((_, i) =>
+    `<div class="pip ${i < total ? 'filled' : ''}"></div>`
   ).join('');
 }
 
-function updateDots() {
-  for (let i = 0; i < 12; i++) {
-    const el = document.getElementById('cdot-' + i);
-    if (!el) continue;
-    el.classList.remove('done', 'current');
-    if (i < currentIdx) el.classList.add('done');
-    else if (i === currentIdx) el.classList.add('current');
+function updateInvestBar() {
+  const placed = allocation.A + allocation.B + allocation.C;
+  const remaining = DEPLOY_PER_ROUND - placed;
+  const placedEl = document.getElementById('invest-placed');
+  const remEl = document.getElementById('invest-remaining');
+  if (placedEl) placedEl.textContent = '₹' + placed + 'L';
+  if (remEl) {
+    remEl.textContent = '₹' + remaining + 'L';
+    remEl.className = 'invest-remaining ' + (remaining === 0 ? 'zero' : remaining < 0 ? 'over' : 'under');
   }
 }
 
-function renderScenario() {
-  animating = false;
-  const id = sequenceIds[currentIdx];
-  const s = SCENARIOS[id];
-  if (!s) return;
-
-  document.getElementById('chapter-label').textContent = `Chapter ${currentIdx + 1} of 12`;
-  updateDots();
-
-  document.getElementById('sc-tag').textContent = s.tag;
-  document.getElementById('sc-setter').textContent = s.setter;
-  document.getElementById('sc-text').textContent = s.text;
-
-  document.getElementById('outcome-strip').classList.remove('visible');
-  document.getElementById('next-btn-area').classList.remove('visible');
-
-  const choicesEl = document.getElementById('choices-area');
-  choicesEl.innerHTML = s.choices.map((c, i) => `
-    <div class="choice-btn" id="ch-${i}" onclick="selectChoice(${i})">
-      <div class="choice-letter">Option ${c.letter}</div>
-      <div class="choice-text">${c.text}</div>
-    </div>
-  `).join('');
+function updatePnL() {
+  const net = parseFloat((totalReturned - totalDeployed).toFixed(2));
+  document.getElementById('pnl-deployed').textContent = '₹' + totalDeployed.toFixed(1) + 'L';
+  document.getElementById('pnl-returned').textContent = '₹' + totalReturned.toFixed(1) + 'L';
+  const netEl = document.getElementById('pnl-net');
+  netEl.textContent = (net >= 0 ? '+' : '') + '₹' + net.toFixed(1) + 'L';
+  netEl.style.color = net > 0 ? 'var(--teal)' : net < 0 ? 'var(--red)' : 'var(--text-muted)';
 }
 
-function selectChoice(idx) {
-  if (animating) return;
-  animating = true;
+// ════════════════════════════════════════════
+// EXECUTE TRADE
+// ════════════════════════════════════════════
+function executeTrade() {
+  // Auto-fill remaining before executing
+  autoFillRemaining();
+  updateAllocDisplay('A');
+  updateAllocDisplay('B');
+  updateAllocDisplay('C');
 
-  const id = sequenceIds[currentIdx];
-  const s = SCENARIOS[id];
-  const choice = s.choices[idx];
+  const returns = {};
+  let roundReturned = 0;
 
-  // Visual feedback
-  s.choices.forEach((_, i) => {
-    const el = document.getElementById('ch-' + i);
-    if (!el) return;
-    el.classList.add('disabled');
-    if (i === idx) el.classList.add('selected');
-    else el.classList.add('faded');
+  COMPANIES.forEach(co => {
+    const mult = sampleReturn(co.id, roundNum, shiftAt);
+    const invested = allocation[co.id];
+    const returned = parseFloat((invested * mult).toFixed(2));
+    const net = parseFloat((returned - invested).toFixed(2));
+    returns[co.id] = { multiplier: mult, invested, returned, net };
+    roundReturned += returned;
   });
 
-  // Accumulate scores
-  if (choice.scores) {
-    Object.entries(choice.scores).forEach(([k, v]) => {
-      scores[k] = (scores[k] || 0) + v;
-    });
-  }
+  const roundDeployed = DEPLOY_PER_ROUND;
+  const roundNet = parseFloat((roundReturned - roundDeployed).toFixed(2));
 
-  // Handle branching
-  if (choice.branch && currentIdx === 0) {
-    // S1 choice — build full sequence now
-    sequenceIds = buildSequence(choice.branch, 'high_others');
-    buildDots();
-  }
-  if (choice.branch && id === 's6') {
-    // S6 choice — update pressure pool selection
-    const pressurePools = {
-      high_others: ['p1','p2','p5'],
-      high_self:   ['p3','p4','p6']
-    };
-    const pressurePool = pressurePools[choice.branch] || pressurePools.high_others;
-    const shuffledP = shuffle([...pressurePool]).slice(0, 3);
-    sequenceIds = [...sequenceIds.slice(0, 6), ...shuffledP, 's10', 's11', 's12'];
-  }
+  totalDeployed += roundDeployed;
+  totalReturned += parseFloat(roundReturned.toFixed(2));
 
-  // Show outcome
-  setTimeout(() => {
-    document.getElementById('outcome-text').textContent = choice.outcome;
-    document.getElementById('outcome-strip').classList.add('visible');
-  }, 350);
+  history.push({
+    round: roundNum,
+    alloc: { ...allocation },
+    returns,
+    net: roundNet
+  });
 
-  // Show next button
-  const isLast = currentIdx >= 11;
-  setTimeout(() => {
-    const btn = document.getElementById('next-btn');
-    btn.textContent = isLast ? 'See your profile →' : `Chapter ${currentIdx + 2} →`;
-    document.getElementById('next-btn-area').classList.add('visible');
-  }, 1600);
+  updatePnL();
+  showResultOverlay(returns, roundNet, roundNum);
 }
 
-function advanceScenario() {
-  currentIdx++;
-  if (currentIdx >= 12) {
+// ════════════════════════════════════════════
+// RESULT OVERLAY
+// ════════════════════════════════════════════
+function showResultOverlay(returns, roundNet, round) {
+  document.getElementById('ro-year-label').textContent = `Year ${round + 1} of ${TOTAL_ROUNDS}`;
+  document.getElementById('ro-next-num').textContent = round + 2 <= TOTAL_ROUNDS ? round + 2 : '—';
+
+  // Table rows
+  let tableBody = '';
+  COMPANIES.forEach(co => {
+    const r = returns[co.id];
+    const netStr = (r.net >= 0 ? '+' : '') + '₹' + Math.abs(r.net).toFixed(2) + 'L';
+    const netColor = r.net > 0 ? 'var(--teal)' : r.net < 0 ? 'var(--red)' : 'var(--text-muted)';
+    tableBody += `
+      <tr>
+        <td><span style="width:8px;height:8px;border-radius:50%;background:${co.color};display:inline-block;flex-shrink:0;"></span>${co.shortName}</td>
+        <td>₹${r.invested}L</td>
+        <td>₹${r.returned.toFixed(2)}L</td>
+        <td style="color:${netColor};">${netStr}</td>
+      </tr>`;
+  });
+  document.getElementById('ro-table-body').innerHTML = tableBody;
+
+  const totalNetColor = roundNet > 0 ? 'var(--teal)' : roundNet < 0 ? 'var(--red)' : 'var(--text-muted)';
+  const totalNetStr = (roundNet >= 0 ? '+' : '') + '₹' + Math.abs(roundNet).toFixed(2) + 'L';
+  document.getElementById('ro-table-foot').innerHTML = `
+    <tr class="total-row">
+      <td>Total</td>
+      <td>₹9L</td>
+      <td>₹${(roundNet + 9).toFixed(2)}L</td>
+      <td style="color:${totalNetColor};">${totalNetStr}</td>
+    </tr>`;
+
+  document.getElementById('ro-narrative').textContent = getRoundNarrative(returns, allocation, round, shiftAt);
+
+  const overlay = document.getElementById('result-overlay');
+  overlay.classList.add('visible');
+}
+
+function getRoundNarrative(returns, alloc, round, shiftAt) {
+  const nets = COMPANIES.map(co => ({ id: co.id, net: returns[co.id].net, alloc: alloc[co.id] }));
+  const bestCo = [...nets].sort((a, b) => b.net - a.net)[0];
+  const worstCo = [...nets].sort((a, b) => a.net - b.net)[0];
+  const spreadCount = nets.filter(n => n.alloc > 0).length;
+  const totalNet = nets.reduce((s, n) => s + n.net, 0);
+  const userBestAlloc = [...nets].sort((a, b) => b.alloc - a.alloc)[0];
+  const bVenturesZero = returns['B'].multiplier === 0;
+
+  if (round === shiftAt)
+    return 'Market conditions shifted this year. What worked before may not hold going forward.';
+  if (round === 17)
+    return 'Carnation just put up unusual numbers. Whether that\'s a new trend or a one-off — only the next year will tell.';
+  if (bVenturesZero && alloc['B'] >= 3)
+    return `Bharat Ventures had a bad year — returned nothing. ₹${alloc['B']}L deployed, ₹0 back. These years happen.`;
+  if (totalNet > 3)
+    return `Strong year. You deployed ₹9L and came back with ₹${(totalNet + 9).toFixed(2)}L. The allocation worked.`;
+  if (totalNet < -2)
+    return `Tough year — net loss of ₹${Math.abs(totalNet).toFixed(2)}L. The market didn't cooperate.`;
+  if (spreadCount === 3)
+    return 'Spread across all three companies. You\'re still building the picture — not committed yet.';
+  if (userBestAlloc.alloc >= 7)
+    return `Heavy bet on ${COMPANIES.find(c => c.id === userBestAlloc.id).shortName}. ₹${userBestAlloc.alloc}L of ₹9L. Conviction play.`;
+  if (bestCo.id !== userBestAlloc.id && bestCo.net > 0)
+    return `${COMPANIES.find(c => c.id === bestCo.id).shortName} was the best returner this year. Your heaviest allocation was in ${COMPANIES.find(c => c.id === userBestAlloc.id).shortName}.`;
+  return 'Year complete. Watch the trends.';
+}
+
+function closeResultOverlay() {
+  document.getElementById('result-overlay').classList.remove('visible');
+  roundNum++;
+
+  if (roundNum >= TOTAL_ROUNDS) {
     showScreen('b5');
     renderB5();
-  } else {
-    window.scrollTo(0, 0);
-    renderScenario();
+    return;
   }
+
+  // Reset allocation to equal default for next year
+  allocation = { A: 3, B: 3, C: 3 };
+  renderCompanies();
+  renderPips();
+  updateInvestBar();
 }
 
-// ═══════════════════════════════════════════════
+// ════════════════════════════════════════════
 // B5
-// ═══════════════════════════════════════════════
+// ════════════════════════════════════════════
+const B5_QS = [
+  {
+    key: 'b5_explore',
+    text: 'When something is working well for you, what\'s your natural instinct?',
+    options: [
+      { text: 'Stay with it. Why look elsewhere when you\'ve found the edge?', val: 0.15 },
+      { text: 'Mostly stay, but keep one eye out for something better.', val: 0.50 },
+      { text: 'Keep exploring. There\'s usually a better option out there.', val: 0.82 }
+    ]
+  },
+  {
+    key: 'b5_change',
+    text: 'When conditions shift and your usual approach stops delivering, how do you typically respond?',
+    options: [
+      { text: 'I pick it up early and move fast — adapting is where I\'m comfortable.', val: 0.88 },
+      { text: 'I wait to confirm the shift is real before changing what\'s been working.', val: 0.52 },
+      { text: 'Slowly. I need to be very sure before I walk away from a proven strategy.', val: 0.18 }
+    ]
+  }
+];
+
 function renderB5() {
-  const el = document.getElementById('b5-container');
-  el.innerHTML = B5_QS.map((q, qi) => `
+  document.getElementById('b5-container').innerHTML = B5_QS.map((q, qi) => `
     <div class="b5-q-block">
       <div class="b5-q-text">${q.text}</div>
       <div class="b5-options">
@@ -953,139 +835,291 @@ function renderB5() {
             ${o.text}
           </button>`).join('')}
       </div>
-    </div>
-  `).join('');
-  document.getElementById('b5-submit-wrap').style.display = 'none';
+    </div>`).join('');
+  document.getElementById('b5-submit').style.display = 'none';
 }
 
 function selectB5(qi, key, oi) {
-  const q = B5_QS[qi];
-  // Deselect
-  q.options.forEach((_, i) => {
-    const el = document.getElementById(`b5-${qi}-${i}`);
-    if (el) el.classList.remove('selected');
+  B5_QS[qi].options.forEach((_, i) => {
+    document.getElementById(`b5-${qi}-${i}`)?.classList.remove('selected');
   });
-  const el = document.getElementById(`b5-${qi}-${oi}`);
-  if (el) el.classList.add('selected');
-
-  b5Answers[key] = { optionIdx: oi, scores: q.options[oi].scores };
-
-  // Apply B5 scores
-  if (q.options[oi].scores) {
-    Object.entries(q.options[oi].scores).forEach(([k, v]) => {
-      scores[k] = (scores[k] || 0) + v;
-    });
-  }
-
+  document.getElementById(`b5-${qi}-${oi}`)?.classList.add('selected');
+  b5Answers[key] = B5_QS[qi].options[oi].val;
   if (Object.keys(b5Answers).length >= B5_QS.length) {
-    document.getElementById('b5-submit-wrap').style.display = 'block';
+    document.getElementById('b5-submit').style.display = 'block';
   }
 }
 
-function submitB5() { computeAndShow(); }
+// ════════════════════════════════════════════
+// DIMENSIONS
+// ════════════════════════════════════════════
+function computeDimensions() {
+  const nonEmpty = history.filter(h => !h.timeout);
+  if (!nonEmpty.length) return {};
 
-// ═══════════════════════════════════════════════
-// COMPUTE
-// ═══════════════════════════════════════════════
-function computeAndShow() {
-  const s = scores;
+  // 1. explore_rate — entropy of early allocation (first 6 years)
+  const early = nonEmpty.slice(0, 6);
+  const sumAlloc = { A: 0, B: 0, C: 0 };
+  early.forEach(h => { sumAlloc.A += h.alloc.A; sumAlloc.B += h.alloc.B; sumAlloc.C += h.alloc.C; });
+  const earlyTotal = sumAlloc.A + sumAlloc.B + sumAlloc.C || 1;
+  const entropy = Object.values(sumAlloc).reduce((s, v) => {
+    const p = v / earlyTotal;
+    return s - (p > 0 ? p * Math.log2(p) : 0);
+  }, 0) / Math.log2(3);
+  const explore_rate = Math.min(1, entropy);
 
-  // Normalize each V-dimension
-  const safe = (a, b) => (a + b) > 0 ? a / (a + b) : 0.5;
+  // 2. learning_speed — how fast did they lock onto Aakash Infra in phase 1?
+  let lockRound = -1;
+  for (let i = 2; i < Math.min(shiftAt, nonEmpty.length - 2); i++) {
+    if (nonEmpty[i].alloc.A >= 5 && nonEmpty[i-1].alloc.A >= 5 && nonEmpty[i-2].alloc.A >= 5) {
+      lockRound = i; break;
+    }
+  }
+  const learning_speed = lockRound >= 0 ? Math.max(0, 1 - lockRound / shiftAt) : 0.1;
 
-  const vScores = {
-    V1: safe(s.meaning || 0, s.money || 0),     // 1 = meaning-driven
-    V2: safe(s.ambition || 0, s.comfort || 0),   // 1 = ambition-driven
-    V3: safe(s.adventure || 0, s.security || 0), // 1 = adventure-seeking
-    V4: safe(s.authenticity || 0, s.prestige || 0), // 1 = authentic
-    V5: safe(s.others || 0, s.self || 0),        // 1 = others-oriented
-    D3c: Math.min(1, (s.d3c || 0) / 8),
-    D6c: Math.min(1, (s.d6c || 0) / 8),
+  // 3. adaptability — how fast did they shift to Bharat Ventures after regime shift?
+  const postShift = nonEmpty.slice(shiftAt);
+  let adaptRound = -1;
+  for (let i = 0; i < postShift.length - 1; i++) {
+    if (postShift[i].alloc.B >= 5 && (postShift[i + 1] && postShift[i + 1].alloc.B >= 4)) {
+      adaptRound = i; break;
+    }
+  }
+  const adaptability = adaptRound >= 0 ? Math.max(0, 1 - adaptRound / 8) : 0.1;
+
+  // 4. strategy — does next-year allocation follow this year's return signals?
+  let stratHits = 0, stratTotal = 0;
+  nonEmpty.forEach((h, i) => {
+    if (i >= nonEmpty.length - 1) return;
+    const next = nonEmpty[i + 1];
+    COMPANIES.forEach(co => {
+      const goodReturn = h.returns[co.id].net > 0.5;
+      const badReturn = h.returns[co.id].net < -0.5;
+      const increasedNext = next.alloc[co.id] > h.alloc[co.id];
+      const decreasedNext = next.alloc[co.id] < h.alloc[co.id];
+      if (goodReturn && increasedNext) stratHits++;
+      if (badReturn && decreasedNext) stratHits++;
+      if (goodReturn || badReturn) stratTotal++;
+    });
+  });
+  const strategy = stratTotal > 0 ? Math.min(1, stratHits / stratTotal) : 0.5;
+
+  // 5. decoy_response — did Carnation spike pull allocation in years 17-19?
+  const cSpikeYears = nonEmpty.filter(h => h.round >= 17);
+  const decoy_response = cSpikeYears.length > 0
+    ? cSpikeYears.reduce((s, h) => s + h.alloc.C, 0) / (cSpikeYears.length * DEPLOY_PER_ROUND)
+    : 0;
+
+  // 6. consistency — stability of allocation patterns
+  const aAllocs = nonEmpty.map(h => h.alloc.A);
+  const avgA = aAllocs.reduce((s, v) => s + v, 0) / (aAllocs.length || 1);
+  const varA = aAllocs.reduce((s, v) => s + (v - avgA) ** 2, 0) / (aAllocs.length || 1);
+  const consistency = Math.max(0, 1 - varA / 16);
+
+  return { explore_rate, learning_speed, adaptability, strategy, decoy_response, consistency };
+}
+
+// ════════════════════════════════════════════
+// PROFILES
+// ════════════════════════════════════════════
+const PROFILES = [
+  {
+    name: 'The Sharp Adapter', icon: '🎯',
+    test: s => s.learning_speed >= 0.55 && s.adaptability >= 0.60,
+    summary: 'You found the signal, committed to it, and updated when the market changed. That\'s the full sequence — most people get one part right. The combination of conviction and willingness to be wrong is genuinely rare.',
+    quote: 'You didn\'t need the market to hit you over the head. You noticed when things changed and moved before the evidence was overwhelming.'
+  },
+  {
+    name: 'The Fast Learner', icon: '⚡',
+    test: s => s.learning_speed >= 0.65 && s.explore_rate < 0.45,
+    summary: 'You locked in quickly and stayed locked in. Low exploration, high accuracy on the initial read. That works until the environment shifts. The question is whether you caught the regime change as fast as you caught the first pattern.',
+    quote: 'You\'re efficient. The thing to watch: the same certainty that helped you commit can make it harder to walk away when the game changes.'
+  },
+  {
+    name: 'The Explorer', icon: '🔭',
+    test: s => s.explore_rate >= 0.65 && s.adaptability >= 0.50,
+    summary: 'You kept sampling long after most people would have committed. Your total returns are probably lower — but you mapped the landscape. That instinct finds things that pure exploitation permanently misses.',
+    quote: 'You stayed curious past the point where it was comfortable. Less common than it sounds.'
+  },
+  {
+    name: 'The Regime Reader', icon: '🔀',
+    test: s => s.adaptability >= 0.72 && s.learning_speed < 0.55,
+    summary: 'You might have taken time to find the first signal — but when the market shifted, you updated quickly. Adaptability is the harder and rarer skill of the two. The first read can be corrected. Staying stuck in the old model can\'t.',
+    quote: 'A lot of people find the best option. Fewer let go of it when it stops being the best. You did the harder thing.'
+  },
+  {
+    name: 'The Anchored Investor', icon: '⚓',
+    test: s => s.adaptability < 0.35 && s.learning_speed >= 0.50,
+    summary: 'You found what worked early and stayed committed — past the point where it was still working. Not stubbornness, exactly. The shift was subtle and you missed it. That happens. The pattern worth understanding is why the exit signal didn\'t register.',
+    quote: 'The thing that made the strategy work also made it hard to leave. That\'s a specific tension — worth knowing when it shows up in other decisions.'
+  },
+  {
+    name: 'The Systematic', icon: '📐',
+    test: s => s.strategy >= 0.62 && s.consistency >= 0.55,
+    summary: 'Your allocation followed the return signals consistently — high returns, increase position; poor returns, reduce. You built and maintained a feedback loop. That discipline is what separates people who get lucky once from people who perform over time.',
+    quote: 'You let the data change your mind. That sounds obvious. It isn\'t.'
+  },
+  {
+    name: 'The Decoy Chaser', icon: '🪤',
+    test: s => s.decoy_response > 0.55,
+    summary: 'Carnation\'s late-game spike pulled you off your strategy. A short-term positive signal interrupted a longer-term approach that was probably working. That pattern — chasing what just improved rather than what\'s consistently strongest — appears in a lot of decisions beyond investment.',
+    quote: 'The market showed you something shiny and you looked. Most people do. The question is whether you noticed you were looking.'
+  },
+  {
+    name: 'The Drifter', icon: '🌀',
+    test: s => s.consistency < 0.28,
+    summary: 'Your allocations shifted frequently without a clear pattern underneath. Not pure exploration, not pure exploitation — more like reacting to noise. The underlying question: was there a hypothesis driving each change, or were you following the most recent data point?',
+    quote: 'High variance in allocation isn\'t wrong — but it should be in service of something. A theory, a test, a signal you\'re tracking.'
+  }
+];
+
+function getProfile(dims) {
+  const match = PROFILES.find(p => p.test(dims));
+  return match || {
+    name: 'The Observer', icon: '👁️',
+    summary: 'Your allocation pattern doesn\'t fit cleanly into one profile — which is data itself. The dimension breakdown below tells the more precise story.',
+    quote: 'Patterns that don\'t fit the boxes are often the most interesting ones. The dimensions below are more useful than the label.'
   };
+}
 
-  const persona = PERSONAS.find(p => p.test(vScores)) || PERSONAS[PERSONAS.length - 1];
+// ════════════════════════════════════════════
+// COMPUTE AND SHOW RESULTS
+// ════════════════════════════════════════════
+function computeAndShow() {
+  const dims = computeDimensions();
+  const profile = getProfile(dims);
+  const mismatches = detectMismatches(dims, b5Answers);
+  const netPnL = parseFloat((totalReturned - totalDeployed).toFixed(2));
 
-  // B5 mismatch detection
-  const mismatches = detectMismatches(vScores, b5Answers);
+  // Per-company stats
+  const coStats = {};
+  COMPANIES.forEach(co => {
+    const coHistory = history.filter(h => h.alloc[co.id] > 0);
+    const totalInvested = history.reduce((s, h) => s + h.alloc[co.id], 0);
+    const totalBack = history.reduce((s, h) => s + h.returns[co.id].returned, 0);
+    const avgAlloc = parseFloat((totalInvested / history.length).toFixed(1));
+    coStats[co.id] = { totalInvested, totalBack: parseFloat(totalBack.toFixed(2)), avgAlloc, net: parseFloat((totalBack - totalInvested).toFixed(2)) };
+  });
 
   const result = {
-    game: 'CORP_MAZDOOR',
-    label: persona.name,
-    vScores,
-    rawScores: { ...scores },
-    b5Answers,
-    mismatches,
+    game: 'BAZAAR',
+    label: profile.name,
+    dimensions: dims,
+    totalDeployed, totalReturned, netPnL,
+    coStats, history, b5Answers, shiftAt,
     date: new Date().toISOString()
   };
-
   saveScore(result);
-  renderResults(persona, vScores, mismatches);
+  renderResults(profile, dims, mismatches, coStats, netPnL);
   showScreen('results');
 }
 
-function detectMismatches(v, b5) {
+function detectMismatches(dims, b5) {
   const mm = [];
-  if (b5.b5_v1) {
-    const b5Scores = b5.b5_v1.scores;
-    if (b5Scores.meaning && v.V1 < 0.42) {
-      mm.push({ label:'Meaning vs Money', text:'You said work you believe in comes first. Your choices consistently weighted security and financial outcome more heavily. That gap between the stated priority and the revealed one is worth sitting with.' });
+  const b5Explore = b5['b5_explore'];
+  const b5Change = b5['b5_change'];
+
+  if (b5Explore !== undefined) {
+    if (b5Explore < 0.35 && dims.explore_rate > 0.62) {
+      mm.push({ label: 'Exploration — you said stay put, you kept sampling', text: 'You described your instinct as sticking with what works. Your actual allocations showed high diversity in the early years — you were still sampling well past the point of certainty. The stated preference and the revealed behavior point different ways.' });
     }
-    if (b5Scores.money && v.V1 > 0.62) {
-      mm.push({ label:'Money vs Meaning', text:'When asked, earning more came to mind first. But your actual choices over twelve scenarios leaned toward meaning over money. Your instinct under real cost is different from your stated answer.' });
-    }
-  }
-  if (b5.b5_v4) {
-    const b5Scores = b5.b5_v4.scores;
-    if (b5Scores.prestige && v.V4 > 0.62) {
-      mm.push({ label:'Recognition vs Authenticity', text:'The instinct was to notice the prestige signal — but your choices consistently prioritised authenticity over external validation. Something runs deeper than what you reached for in the moment.' });
-    }
-    if (b5Scores.authenticity && v.V4 < 0.40) {
-      mm.push({ label:'Authenticity vs Prestige', text:'You said the work matters more than who praised it. Your choices showed a repeated preference for what looks good over what feels right. Possibly situational. Worth noticing.' });
+    if (b5Explore > 0.65 && dims.explore_rate < 0.35) {
+      mm.push({ label: 'Exploration — you said keep looking, you locked in early', text: 'You described yourself as someone who keeps looking for something better. Your allocations showed early lock-in with low exploration across the years. What you said about yourself and what you did aren\'t the same pattern.' });
     }
   }
+
+  if (b5Change !== undefined) {
+    if (b5Change > 0.75 && dims.adaptability < 0.32) {
+      mm.push({ label: 'Adaptability — you said fast, you moved slow', text: 'You described yourself as someone who picks up signals early and adapts quickly. After the regime shift, your allocations took significantly longer to update than that self-description would predict.' });
+    }
+    if (b5Change < 0.30 && dims.adaptability > 0.65) {
+      mm.push({ label: 'Adaptability — you said cautious, you moved fast', text: 'You said you wait to be sure before changing a working strategy. Your actual behavior after the regime shift showed you updating quickly — faster than you\'d probably credit yourself for.' });
+    }
+  }
+
   return mm;
 }
 
-// ═══════════════════════════════════════════════
-// RENDER RESULTS
-// ═══════════════════════════════════════════════
-function renderResults(persona, v, mismatches) {
-  document.getElementById('r-emoji').textContent = persona.emoji;
-  document.getElementById('r-name').textContent = persona.name;
-  document.getElementById('r-summary').textContent = persona.summary;
-  document.getElementById('r-quote').textContent = persona.quote;
+function renderResults(profile, dims, mismatches, coStats, netPnL) {
+  document.getElementById('r-icon').textContent = profile.icon;
+  document.getElementById('r-name').textContent = profile.name;
+  document.getElementById('r-summary').textContent = profile.summary;
+  document.getElementById('r-quote').textContent = profile.quote;
 
-  // V-dimension bars
-  const dims = [
-    { label:'V1', lo:'Money-driven', hi:'Meaning-driven', val:v.V1 },
-    { label:'V2', lo:'Comfort-seeking', hi:'Ambition-seeking', val:v.V2 },
-    { label:'V3', lo:'Security-seeking', hi:'Adventure-seeking', val:v.V3 },
-    { label:'V4', lo:'Prestige-oriented', hi:'Authenticity-led', val:v.V4 },
-    { label:'V5', lo:'Self-focused', hi:'Others-oriented', val:v.V5 },
+  // P&L
+  document.getElementById('r-deployed').textContent = '₹' + totalDeployed.toFixed(1) + 'L';
+  document.getElementById('r-returned').textContent = '₹' + totalReturned.toFixed(1) + 'L';
+  const netEl = document.getElementById('r-net-pnl');
+  netEl.textContent = (netPnL >= 0 ? '+' : '') + '₹' + Math.abs(netPnL).toFixed(1) + 'L';
+  netEl.style.color = netPnL > 0 ? 'var(--teal)' : netPnL < 0 ? 'var(--red)' : 'var(--text-muted)';
+
+  // Company history
+  document.getElementById('r-co-history').innerHTML = COMPANIES.map(co => {
+    const s = coStats[co.id];
+    const netColor = s.net > 0 ? 'var(--teal)' : s.net < 0 ? 'var(--red)' : 'var(--text-muted)';
+    return `
+      <div class="co-history-card">
+        <div class="co-hist-header">
+          <div class="co-hist-dot" style="background:${co.color};"></div>
+          <div class="co-hist-name">${co.shortName}</div>
+        </div>
+        <div class="co-hist-stats">
+          <span>Avg ₹<span>${s.avgAlloc}L</span>/yr</span>
+          <span>Deployed: ₹<span>${s.totalInvested}L</span></span>
+          <span>Net: <span style="color:${netColor};">${s.net >= 0 ? '+' : ''}₹${s.net}L</span></span>
+        </div>
+      </div>`;
+  }).join('');
+
+  // Dimension bars
+  const dimDefs = [
+    { key: 'explore_rate', name: 'Explore vs Exploit', lo: 'Locks in early', hi: 'Keeps sampling', isNeg: false },
+    { key: 'learning_speed', name: 'Signal detection', lo: 'Slow to read market', hi: 'Fast pattern reader', isNeg: false },
+    { key: 'adaptability', name: 'Adapts to change', lo: 'Missed the shift', hi: 'Updated fast', isNeg: false },
+    { key: 'strategy', name: 'Feedback-driven', lo: 'Ignores returns', hi: 'Follows the signal', isNeg: false },
+    { key: 'decoy_response', name: 'Distracted by noise', lo: 'Ignored late spike', hi: 'Chased late spike', isNeg: true },
+    { key: 'consistency', name: 'Allocation discipline', lo: 'Erratic', hi: 'Steady', isNeg: false },
   ];
 
-  const dimNames = {
-    'V1': 'What drives you', 'V2': 'Ambition gradient',
-    'V3': 'Risk comfort', 'V4': 'Validation source', 'V5': 'Orientation'
-  };
-
-  const vEl = document.getElementById('r-vdims');
-  vEl.innerHTML = dims.map(d => {
-    const pct = Math.round(d.val * 100);
-    const side = pct >= 65 ? d.hi : pct <= 35 ? d.lo : 'Balanced';
-    const col = pct >= 65 ? 'var(--teal)' : pct <= 35 ? 'var(--amber-dark)' : 'var(--text-muted)';
-    return `<div class="vdim-row">
-      <div class="vdim-header">
-        <span class="vdim-name">${dimNames[d.label]}</span>
-        <span class="vdim-score-label" style="color:${col};">${side}</span>
-      </div>
-      <div class="vdim-labels"><span>${d.lo}</span><span>${d.hi}</span></div>
-      <div class="vdim-track">
-        <div class="vdim-track-inner"></div>
-        <div class="vdim-marker" id="vmarker-${d.label}" style="left:${pct}%;"></div>
-      </div>
-    </div>`;
+  document.getElementById('r-dims').innerHTML = dimDefs.map(d => {
+    const val = dims[d.key] || 0;
+    const pct = Math.round(val * 100);
+    const colClass = d.isNeg ? (pct >= 55 ? 'low' : '') : (pct >= 65 ? 'high' : pct <= 30 ? 'low' : '');
+    const side = pct >= 65 ? d.hi : pct <= 35 ? d.lo : 'Moderate';
+    return `
+      <div class="dim-row">
+        <div class="dim-header">
+          <span class="dim-name">${d.name}</span>
+          <span class="dim-val">${side}</span>
+        </div>
+        <div class="dim-track">
+          <div class="dim-fill ${colClass}" style="width:0%;" data-w="${pct}%"></div>
+        </div>
+        <div class="dim-sub">${d.lo} ← → ${d.hi}</div>
+      </div>`;
   }).join('');
+
+  // Insights
+  const insights = [];
+  if (dims.adaptability < 0.35) {
+    insights.push({ label: 'Regime shift — late or missed', text: `The market shifted around year ${shiftAt + 1}. Your allocations toward Bharat Ventures — the new stronger performer — were slow to follow. Whether that's caution or pattern-lock is worth knowing.` });
+  } else {
+    insights.push({ label: 'Regime shift — detected', text: `You picked up the shift around year ${shiftAt + 1} and reallocated toward Bharat Ventures within a few years. Rapid model-updating under ambiguity is the harder half of good investing.` });
+  }
+  if (dims.decoy_response > 0.50) {
+    insights.push({ label: 'Carnation spike — it pulled you', text: 'Carnation\'s late improvement drew meaningful allocation away from your established position. A short-term positive interrupted a longer-term strategy. That pattern shows up in a lot of decisions beyond investment.' });
+  }
+  if (dims.strategy >= 0.60) {
+    insights.push({ label: 'Feedback loop — you built one', text: 'Your allocations consistently followed return signals — up when a company performed, down when it didn\'t. That systematic feedback integration is what separates people who get lucky from people who perform over time.' });
+  } else {
+    insights.push({ label: 'Feedback loop — weak signal', text: 'Your allocation changes didn\'t track closely with actual returns year-to-year. You may have been making decisions on intuition or expectation rather than what the companies were actually showing.' });
+  }
+
+  document.getElementById('r-insights').innerHTML = insights.map(i => `
+    <div class="insight-card">
+      <div class="insight-label">${i.label}</div>
+      <div class="insight-text">${i.text}</div>
+    </div>`).join('');
 
   // Mismatches
   const mmSec = document.getElementById('r-mismatch-section');
@@ -1095,38 +1129,17 @@ function renderResults(persona, v, mismatches) {
       <div class="mismatch-card">
         <div class="mismatch-label">${m.label}</div>
         <div class="mismatch-text">${m.text}</div>
-      </div>
-    `).join('');
-  } else {
-    mmSec.style.display = 'none';
+      </div>`).join('');
   }
 
-  // Animate markers
+  // Animate bars
   requestAnimationFrame(() => {
-    dims.forEach(d => {
-      const el = document.getElementById('vmarker-' + d.label);
-      if (el) {
-        el.style.left = '50%';
-        requestAnimationFrame(() => {
-          el.style.transition = 'left 1.2s cubic-bezier(0.4,0,0.2,1)';
-          el.style.left = Math.round(d.val * 100) + '%';
-        });
-      }
+    document.querySelectorAll('.dim-fill').forEach(el => {
+      el.style.transition = 'width 1s ease-out';
+      requestAnimationFrame(() => { el.style.width = el.dataset.w; });
     });
   });
 }
-
-// ═══════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════
-(function init() {
-  // Build initial sequence with balanced path as default
-  // Will be rebuilt after S1 choice
-  sequenceIds = buildSequence('balanced_path', 'high_others');
-  buildDots();
-})();
 </script>
 </body>
 </html>
-HTMLEOF
-echo "Done: $(wc -l < /home/claude/snippet_corporate_mazdoor_v1.html) lines"

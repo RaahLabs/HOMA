@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raah Labs — Know Your Path</title>
+  <meta name="description" content="7 science-backed games. ~35 minutes. Discover the careers you're built for." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════════
+       RESET + TOKENS
+    ═══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --amber: #BA7517; --amber-light: #FAEEDA; --amber-dark: #854F0B; --amber-deep: #633806;
+      --teal: #0F6E56; --teal-light: #E1F5EE;
+      --red: #A32D2D; --red-light: #FCEBEB;
+      --bg: #FAFAF8; --bg-desktop: #F0EDE4;
+      --surface: #F2F0EA; --card: #FFFFFF;
+      --border: rgba(0,0,0,0.08); --border-strong: rgba(0,0,0,0.15);
+      --text: #1A1A18; --text-muted: #6B6B66; --text-hint: #9A9A94;
+      --radius: 10px; --radius-lg: 16px; --radius-xl: 24px;
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+      --shadow-float: 0 12px 56px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #17171A; --bg-desktop: #111114; --surface: #1F1F24; --card: #28282E;
+        --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.14);
+        --text: #F0EFE8; --text-muted: #9A9A94; --text-hint: #6B6B66;
+        --amber-light: #2A1E0A; --teal-light: #0A1E18; --red-light: #1E0A0A;
+      }
+    }
+    html { font-size: 17px; }
+    @media (max-width: 767px) { html { font-size: 15px; } }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════════
+       SCREEN SYSTEM
+    ═══════════════════════════════════════════════ */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ═══════════════════════════════════════════════
+       DESKTOP LAYOUT — floating card on warm bg
+    ═══════════════════════════════════════════════ */
+    @media (min-width: 768px) {
+      body { background: var(--bg-desktop); }
+      .page-bg {
+        min-height: 100vh;
+        background: var(--bg-desktop);
+      }
+      .game-canvas {
+        max-width: 680px;
+        width: 100%;
+        margin: 2rem auto;
+        background: var(--card);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-float);
+        padding: 2.5rem;
+      }
+      .wide-canvas {
+        max-width: 960px;
+        margin: 2rem auto;
+        background: var(--card);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-float);
+        padding: 2.5rem;
+      }
+      .container { max-width: 640px; margin: 0 auto; padding: 0 2rem 4rem; }
+      .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    }
+    @media (max-width: 767px) {
+      .game-canvas { padding: 1.25rem; }
+      .wide-canvas { padding: 1.25rem; }
+      .container { max-width: 100%; padding: 0 1.25rem 4rem; }
+      .dash-grid { display: flex; flex-direction: column; gap: 10px; }
+      .report-grid { display: flex; flex-direction: column; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════════ */
+    .nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 0.5px solid var(--border);
+      background: var(--bg-desktop);
+      position: sticky; top: 0; z-index: 50;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
+    .logo-badge {
+      width: 34px; height: 34px; background: var(--amber); border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--amber-light); font-size: 17px; font-weight: 600;
+    }
+    .logo-name { font-size: 16px; font-weight: 600; color: var(--text); }
+
+    /* ═══════════════════════════════════════════════
+       SHARED COMPONENTS
+    ═══════════════════════════════════════════════ */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 500; cursor: pointer; transition: all 0.15s;
+      padding: 11px 22px;
+    }
+    .btn-primary { background: var(--amber); color: var(--amber-light); }
+    .btn-primary:hover { background: var(--amber-dark); }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-secondary { background: transparent; color: var(--text); border: 0.5px solid var(--border-strong); }
+    .btn-secondary:hover { background: var(--surface); }
+    .btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-full { width: 100%; padding: 14px 22px; font-size: 1.05rem; }
+    .btn-sm { padding: 7px 14px; font-size: 0.82rem; }
+
+    .card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; }
+    .surface { background: var(--surface); border-radius: var(--radius); padding: 1rem; }
+    .pill {
+      display: inline-block; font-size: 0.68rem; font-weight: 600; padding: 3px 10px;
+      border-radius: 20px; background: var(--amber-light); color: var(--amber-dark);
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .section-label {
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.09em; color: var(--text-hint); margin-bottom: 12px;
+    }
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px; }
+    input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
+      width: 100%; padding: 11px 14px; border: 0.5px solid var(--border-strong);
+      border-radius: var(--radius); background: var(--bg); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 1rem; outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(186,117,23,0.1); }
+    .err-box {
+      background: var(--red-light); color: var(--red); font-size: 0.82rem;
+      border-radius: var(--radius); padding: 9px 13px; margin-bottom: 12px; display: none;
+    }
+    .progress-track { background: var(--surface); border-radius: 4px; height: 5px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--amber); border-radius: 4px; transition: width 0.4s ease; }
+    .back-btn {
+      background: none; border: none; color: var(--text-muted); font-size: 0.82rem;
+      cursor: pointer; font-family: 'DM Sans', sans-serif; padding: 0;
+      margin-bottom: 1.25rem; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .back-btn:hover { color: var(--text); }
+    .stat-grid { display: grid; gap: 10px; }
+    .stat-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .stat-cell { background: var(--surface); border-radius: var(--radius); padding: 14px; text-align: center; }
+    .stat-val { font-size: 1.25rem; font-weight: 500; color: var(--text); }
+    .stat-lbl { font-size: 0.68rem; color: var(--text-muted); margin-top: 3px; }
+    .tab-bar { display: flex; border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
+    .tab-bar button {
+      flex: 1; padding: 10px; border: none; background: transparent;
+      color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+      font-weight: 500; cursor: pointer; transition: all 0.15s;
+    }
+    .tab-bar button.active { background: var(--amber); color: var(--amber-light); }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    .fade-in { animation: fadeIn 0.25s ease-out; }
+    .summary-card { background: var(--surface); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; text-align: center; }
+    .summary-card p { font-size: 0.94rem; color: var(--text-muted); line-height: 1.8; font-style: italic; }
+    .game-name-hindi { font-family: 'Instrument Serif', serif; font-size: 2rem; margin: 8px 0 2px; }
+    .game-name-sub { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .game-intro-para { color: var(--text-muted); line-height: 1.8; font-size: 0.94rem; margin-bottom: 1.5rem; }
+    .phone-row { display: flex; gap: 8px; }
+    .cc-badge { padding: 11px 14px; background: var(--surface); border: 0.5px solid var(--border-strong); border-radius: var(--radius); font-size: 0.94rem; color: var(--text); white-space: nowrap; flex-shrink: 0; }
+
+    /* ═══════════════════════════════════════════════
+       LANDING
+    ═══════════════════════════════════════════════ */
+    .landing-wrap {
+      max-width: 960px; margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    @media (min-width: 768px) {
+      .landing-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    }
+    .landing-hero-tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--amber); margin-bottom: 16px; }
+    .landing-h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.2; margin-bottom: 20px; }
+    .landing-p { font-size: 1rem; color: var(--text-muted); line-height: 1.85; margin-bottom: 12px; }
+
+    /* ═══════════════════════════════════════════════
+       DASHBOARD
+    ═══════════════════════════════════════════════ */
+    .game-card {
+      background: var(--card); border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.25rem;
+      box-shadow: var(--shadow-card);
+    }
+    .game-card.highlight { border: 1.5px solid var(--amber); cursor: pointer; }
+    .game-card.highlight:hover { background: var(--amber-light); }
+    .game-card.done { border: 1.5px solid var(--teal); }
+    .game-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+
+    /* ═══════════════════════════════════════════════
+       TEASER SCREEN
+    ═══════════════════════════════════════════════ */
+    .teaser-wrap {
+      min-height: 80vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 3rem 1.5rem;
+    }
+    .teaser-game-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .teaser-line { font-family: 'Instrument Serif', serif; font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.4; max-width: 480px; margin-bottom: 2rem; }
+
+    /* ═══════════════════════════════════════════════
+       B5 QUESTION
+    ═══════════════════════════════════════════════ */
+    .b5-q { font-size: 1.15rem; font-weight: 500; line-height: 1.45; margin: 1.5rem 0; }
+    .b5-opt {
+      width: 100%; padding: 18px 20px; border-radius: var(--radius); border: 0.5px solid var(--border-strong);
+      background: var(--card); color: var(--text); font-family: 'DM Sans', sans-serif;
+      font-size: 0.94rem; cursor: pointer; transition: all 0.15s; text-align: left; margin-bottom: 10px; line-height: 1.5;
+    }
+    .b5-opt:hover { border-color: var(--amber); background: var(--amber-light); }
+
+    /* ═══════════════════════════════════════════════
+       DUM GAME STYLES
+    ═══════════════════════════════════════════════ */
+    #balloon-wrap { transition: transform 0.12s ease-out; transform-origin: bottom center; }
+    #g-timer-track { height: 4px; border-radius: 4px; background: var(--surface); overflow: hidden; margin-bottom: 1rem; }
+    #g-timer-fill { height: 100%; width: 100%; border-radius: 4px; }
+    @keyframes timerPulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .timer-urgent { animation: timerPulse 0.5s ease infinite; }
+    .collect-ready { background: var(--amber) !important; color: var(--amber-light) !important; }
+    .color-legend { display: flex; justify-content: center; gap: 20px; font-size: 0.76rem; color: var(--text-muted); margin-top: 8px; }
+    .color-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 5px; vertical-align: middle; }
+    .vec-row { margin-bottom: 10px; }
+    .vec-label-row { display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--text-muted); margin-bottom: 4px; }
+    .vec-bar-track { height: 5px; background: var(--surface); border-radius: 3px; overflow: hidden; }
+    .vec-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+    #g-badge { display: inline-block; font-size: 0.76rem; font-weight: 500; padding: 4px 14px; border-radius: 20px; transition: all 0.2s; }
+    .archetype-block { text-align: center; padding: 1.75rem; background: var(--surface); border-radius: var(--radius-lg); margin-bottom: 1rem; }
+
+    /* ═══════════════════════════════════════════════
+       REPORT STYLES
+    ═══════════════════════════════════════════════ */
+    .report-hero {
+      padding: 3rem 1.5rem 2.5rem; text-align: center;
+      background: linear-gradient(170deg, var(--bg) 0%, #F3EDD8 100%);
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+    @media (prefers-color-scheme: dark) { .report-hero { background: linear-gradient(170deg, var(--bg) 0%, #1A1408 100%); } }
+    .report-hero-name { font-family: 'Instrument Serif', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 10px; }
+    .report-hero-sub { font-size: 1rem; color: var(--text-muted); max-width: 420px; margin: 0 auto; line-height: 1.85; }
+    .dim-track {
+      height: 8px; border-radius: 4px;
+      background: linear-gradient(to right, rgba(186,117,23,0.15) 0%, rgba(186,117,23,0.04) 45%, rgba(15,110,86,0.04) 55%, rgba(15,110,86,0.15) 100%);
+      position: relative; margin: 5px 0;
+    }
+    .dim-marker {
+      position: absolute; top: 50%; transform: translate(-50%,-50%);
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--card); border: 2.5px solid var(--amber);
+      box-shadow: 0 2px 8px rgba(186,117,23,0.3);
+      transition: left 1.2s cubic-bezier(0.4,0,0.2,1);
+    }
+    .dim-marker.high { border-color: var(--teal); box-shadow: 0 2px 8px rgba(15,110,86,0.3); }
+    .dim-endpoints { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-hint); margin-bottom: 4px; }
+    .role-card-report {
+      background: var(--card); border: 0.5px solid var(--border-strong);
+      border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 10px;
+      position: relative; overflow: hidden;
+    }
+    .role-card-report.top { border-color: rgba(186,117,23,0.3); }
+    .role-card-report.top::before {
+      content: 'Best fit'; position: absolute; top: 0; right: 0;
+      font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+      color: white; background: var(--amber); padding: 3px 10px;
+      border-radius: 0 var(--radius-lg) 0 var(--radius);
+    }
+    .gap-card { background: var(--amber-light); border: 0.5px solid rgba(186,117,23,0.2); border-radius: var(--radius); padding: 1rem 1.125rem; margin-bottom: 10px; }
+    .gap-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--amber-dark); margin-bottom: 5px; }
+    .gap-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.75; }
+    .report-tab-bar {
+      display: flex; border-bottom: 0.5px solid var(--border);
+      background: var(--card); position: sticky; top: 0; z-index: 10;
+    }
+    .report-tab {
+      flex: 1; padding: 14px 8px; border: none; background: transparent;
+      font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 500;
+      color: var(--text-muted); cursor: pointer; transition: all 0.2s; position: relative;
+    }
+    .report-tab.active { color: var(--amber); }
+    .report-tab.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--amber); }
+    .report-pane { display: none; padding: 2rem 1.5rem; }
+    .report-pane.active { display: block; }
+    .locked-overlay {
+      background: linear-gradient(135deg, #18181A 0%, #2A1A08 100%);
+      border-radius: var(--radius-lg); padding: 2rem; text-align: center; margin-top: 2rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       STUB GAME STYLES
+    ═══════════════════════════════════════════════ */
+    .stub-coming {
+      text-align: center; padding: 3rem 1.5rem;
+      background: var(--surface); border-radius: var(--radius-lg);
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="main-nav">
+  <div class="logo" onclick="goHome()">
+    <div class="logo-badge">R</div>
+    <span class="logo-name">Raah Labs</span>
+  </div>
+  <div id="nav-right">
+    <button class="btn btn-secondary btn-sm" onclick="showAuth('login')">Login</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     LANDING
+═══════════════════════════════════════════════ -->
+<div id="screen-landing" class="screen">
+  <div class="landing-wrap">
+    <div id="landing-continue" style="display:none;margin-bottom:2rem;padding:1.25rem;background:var(--surface);border-radius:var(--radius-lg);">
+      <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:10px;">You're already logged in. Pick up where you left off.</p>
+      <button class="btn btn-primary" onclick="enterDashboard()">Continue →</button>
+    </div>
+    <div class="landing-inner">
+      <div>
+        <p class="landing-hero-tag">Raah Labs</p>
+        <h1 class="landing-h1">Stop guessing what career suits you. Play 7 games and find out.</h1>
+        <p class="landing-p">Every company that's serious about hiring uses behavioral games — Pymetrics, Hogan, SHL. The same tools cost ₹8,000–40,000 per person when a company buys them.</p>
+        <p class="landing-p">Raah is the same science at ₹499. One-time. Built for people who can't wait for a company to assess them.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin:2rem 0;">
+          <button class="btn btn-primary" onclick="showAuth('signup')">Start free →</button>
+          <button class="btn btn-secondary" onclick="showAuth('login')">Login</button>
+        </div>
+        <div class="stat-grid stat-grid-3" style="max-width:320px;">
+          <div class="stat-cell"><div class="stat-val">7</div><div class="stat-lbl">games</div></div>
+          <div class="stat-cell"><div class="stat-val">~35</div><div class="stat-lbl">minutes</div></div>
+          <div class="stat-cell"><div class="stat-val" style="color:var(--amber);">₹499</div><div class="stat-lbl">one-time</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:1rem;">
+          <p style="font-size:0.72rem;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:14px;">What happens in 35 minutes</p>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <span style="font-size:1.2rem;flex-shrink:0;line-height:1.4;">🎈</span>
+              <div><span style="font-size:0.94rem;font-weight:500;">Games, not questions.</span><span style="font-size:0.94rem;color:var(--text-muted);"> You can lie on a questionnaire. You can't fake a balloon.</span></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <span style="font-size:1.2rem;flex-shrink:0;line-height:1.4;">🧠</span>
+              <div><span style="font-size:0.94rem;font-weight:500;">8 dimensions.</span><span style="font-size:0.94rem;color:var(--text-muted);"> Risk, trust, focus, fairness, exploration, context-sensitivity, self-awareness, and values.</span></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <span style="font-size:1.2rem;flex-shrink:0;line-height:1.4;">📋</span>
+              <div><span style="font-size:0.94rem;font-weight:500;">A real profile.</span><span style="font-size:0.94rem;color:var(--text-muted);"> What you're actually like, not what you say you are.</span></div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:0.76rem;color:var(--text-hint);line-height:1.7;">First 3 games are free. Pay once to unlock the full report.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     AUTH
+═══════════════════════════════════════════════ -->
+<div id="screen-auth" class="screen">
+  <div style="max-width:460px;margin:0 auto;padding:2rem 1.25rem;">
+    <button class="back-btn" onclick="showScreen('landing')">← Back</button>
+    <div class="tab-bar">
+      <button id="tab-su" class="active" onclick="switchTab('signup')">Sign up</button>
+      <button id="tab-li" onclick="switchTab('login')">Login</button>
+    </div>
+    <div id="form-signup">
+      <div class="field"><label>Full name</label><input type="text" id="su-name" placeholder="Your name" /></div>
+      <div class="field"><label>Email</label><input type="email" id="su-email" placeholder="you@email.com" /></div>
+      <div class="field">
+        <label>Mobile number</label>
+        <div class="phone-row">
+          <span class="cc-badge">🇮🇳 +91</span>
+          <input type="tel" id="su-mobile" placeholder="9876543210" maxlength="10" style="flex:1;" />
+        </div>
+      </div>
+      <div class="field"><label>Password</label><input type="password" id="su-pw" placeholder="Min. 6 characters" /></div>
+      <div class="err-box" id="su-err"></div>
+      <button class="btn btn-primary btn-full" id="su-btn" onclick="handleSignup()">Create account →</button>
+    </div>
+    <div id="form-login" style="display:none;">
+      <div class="field"><label>Email or mobile</label><input type="text" id="li-id" placeholder="you@email.com or 9876543210" /></div>
+      <div class="field"><label>Password</label><input type="password" id="li-pw" placeholder="••••••••" /></div>
+      <div class="err-box" id="li-err"></div>
+      <button class="btn btn-primary btn-full" id="li-btn" onclick="handleLogin()">Login →</button>
+      <p style="font-size:0.82rem;color:var(--text-muted);text-align:center;margin-top:14px;">No account? <a href="#" onclick="switchTab('signup')" style="color:var(--amber);text-decoration:none;">Sign up free</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     DASHBOARD
+═══════════════════════════════════════════════ -->
+<div id="screen-dashboard" class="screen">
+  <div style="max-width:960px;margin:0 auto;padding:2rem 1.5rem 5rem;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap;gap:12px;">
+      <div>
+        <p id="dash-greet" style="font-size:1.35rem;font-weight:500;margin-bottom:4px;"></p>
+        <p style="color:var(--text-muted);font-size:0.88rem;">Complete all 7 games to unlock your full career profile.</p>
+      </div>
+      <div id="dash-profile-btn-wrap" style="display:none;">
+        <button class="btn btn-primary" onclick="showScreen('report')">See your profile →</button>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div style="margin-bottom:2rem;">
+      <div style="display:flex;justify-content:space-between;font-size:0.76rem;color:var(--text-muted);margin-bottom:6px;">
+        <span>Overall progress</span><span id="prog-txt">0 / 7 games</span>
+      </div>
+      <div class="progress-track"><div id="prog-fill" class="progress-fill" style="width:0%;"></div></div>
+    </div>
+
+    <!-- Game grid -->
+    <div class="dash-grid" id="dash-game-grid">
+      <!-- rendered by JS -->
+    </div>
+
+    <!-- Synthesis card -->
+    <div id="dash-synthesis-card" style="display:none;margin-top:1.5rem;" class="card">
+      <p style="font-size:0.72rem;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;">What we're seeing so far</p>
+      <p id="dash-synthesis-text" style="font-size:0.88rem;color:var(--text-muted);line-height:1.75;"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     DUM — GAME 1 INTRO
+═══════════════════════════════════════════════ -->
+<div id="screen-dum-intro" class="screen">
+  <div class="game-canvas">
+    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+    <span class="pill">Game 1 of 7</span>
+    <div class="game-name-hindi">🎈 Dum</div>
+    <div class="game-name-sub">dum — breath, guts</div>
+    <div style="display:flex;justify-content:center;margin-bottom:1.5rem;">
+      <svg width="80" height="100" viewBox="0 0 90 110">
+        <ellipse cx="45" cy="46" rx="36" ry="42" fill="#dc2626"/>
+        <ellipse cx="31" cy="28" rx="13" ry="9" fill="#fca5a5" opacity="0.55"/>
+        <path d="M45 88 Q42 98 45 104" stroke="#991b1b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <p class="game-intro-para">30 balloons. Three colors — each with different risk and payout. Pump to earn. Hit <strong style="color:var(--text);">Collect</strong> to bank it. If it pops before you collect, that balloon's money is gone.</p>
+    <div class="card" style="margin-bottom:1.25rem;">
+      <p style="font-size:0.76rem;color:var(--text-muted);font-weight:600;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;">How colors work</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;font-size:0.88rem;"><div style="width:14px;height:14px;border-radius:50%;background:#dc2626;flex-shrink:0;"></div><div><strong>Red</strong> — ₹5 per pump. Volatile. Can pop very early.</div></div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:0.88rem;"><div style="width:14px;height:14px;border-radius:50%;background:#d97706;flex-shrink:0;"></div><div><strong>Gold</strong> — ₹3 per pump. Medium risk.</div></div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:0.88rem;"><div style="width:14px;height:14px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></div><div><strong>Blue</strong> — ₹2 per pump. Safer, can survive many pumps.</div></div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:1.5rem;background:var(--amber-light);border-color:rgba(186,117,23,0.25);">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:1.2rem;flex-shrink:0;">⏱</span>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;"><strong style="color:var(--text);">3 seconds per decision.</strong> The timer resets after each pump. If time runs out with pumps in — we auto-collect.</p>
+      </div>
+    </div>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1.5rem;">
+      <div class="stat-cell"><div class="stat-val">30</div><div class="stat-lbl">balloons</div></div>
+      <div class="stat-cell"><div class="stat-val">3s</div><div class="stat-lbl">per decision</div></div>
+      <div class="stat-cell"><div class="stat-val">3</div><div class="stat-lbl">colors</div></div>
+    </div>
+    <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startDumGame()">Start →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     DUM — GAME PLAY
+═══════════════════════════════════════════════ -->
+<div id="screen-dum-play" class="screen">
+  <div class="game-canvas">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <span style="font-size:0.82rem;color:var(--text-muted);">Balloon <span id="g-num">1</span> of 30</span>
+      <span style="font-size:0.82rem;color:var(--text-muted);">Banked: <strong id="g-banked" style="color:var(--text);">₹0</strong></span>
+    </div>
+    <div class="progress-track" style="margin-bottom:1rem;"><div id="g-prog" class="progress-fill" style="width:3.33%;"></div></div>
+    <div id="g-timer-track"><div id="g-timer-fill" style="background:var(--amber);"></div></div>
+    <div style="display:flex;justify-content:center;min-height:180px;align-items:center;position:relative;margin-bottom:0.75rem;">
+      <div id="balloon-wrap">
+        <svg width="110" height="140" viewBox="0 0 110 140">
+          <ellipse id="b-body" cx="55" cy="58" rx="44" ry="52" fill="#EF9F27"/>
+          <ellipse id="b-shine" cx="38" cy="35" rx="15" ry="10" fill="#FAC775" opacity="0.5"/>
+          <path d="M55 110 Q52 122 55 128" stroke="#BA7517" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div id="g-boom" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:60px;line-height:1;">💥</div>
+    </div>
+    <div style="text-align:center;margin-bottom:8px;"><span id="g-badge"></span></div>
+    <div style="text-align:center;margin-bottom:1.25rem;">
+      <div style="font-size:0.76rem;color:var(--text-muted);margin-bottom:4px;">This balloon worth &nbsp;<span id="g-reward-hint" style="font-weight:500;color:var(--text);"></span></div>
+      <div id="g-earn" style="font-size:2.4rem;font-weight:500;color:var(--amber);line-height:1.1;">₹0</div>
+      <div style="font-size:0.76rem;color:var(--text-muted);margin-top:5px;">Pumps: <span id="g-pumps">0</span></div>
+    </div>
+    <button id="g-pbtn" class="btn btn-secondary btn-full" style="padding:20px;font-size:1.1rem;margin-bottom:10px;" onclick="dumPump()">Pump 🎈</button>
+    <button id="g-cbtn" class="btn btn-secondary btn-full" style="padding:14px;" onclick="dumCollect()">Collect ₹<span id="g-camt">0</span></button>
+    <div class="color-legend" style="margin-top:14px;">
+      <span><span class="color-dot" style="background:#dc2626;"></span>Red ₹5</span>
+      <span><span class="color-dot" style="background:#d97706;"></span>Gold ₹3</span>
+      <span><span class="color-dot" style="background:#3b82f6;"></span>Blue ₹2</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     DUM — RESULTS
+═══════════════════════════════════════════════ -->
+<div id="screen-dum-results" class="screen">
+  <div class="game-canvas fade-in">
+    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <div style="font-size:3rem;margin-bottom:10px;">🎈</div>
+      <h1 style="font-size:1.4rem;font-weight:500;margin-bottom:4px;">Dum — complete!</h1>
+      <p style="color:var(--text-muted);font-size:0.88rem;">Game 1 · Risk &amp; Behavioral Profile</p>
+    </div>
+    <div class="archetype-block">
+      <div id="r-archetype-icon" style="font-size:2.5rem;margin-bottom:10px;"></div>
+      <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;">Your risk profile</div>
+      <div id="r-archetype-name" style="font-size:1.4rem;font-weight:500;color:var(--text);margin-bottom:6px;"></div>
+      <div id="r-label" style="display:none;"></div>
+      <div id="r-score" style="display:none;"></div>
+    </div>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1.25rem;">
+      <div class="stat-cell"><div id="r-banked" class="stat-val"></div><div class="stat-lbl">Banked</div></div>
+      <div class="stat-cell"><div id="r-pops" class="stat-val"></div><div class="stat-lbl">Pops</div></div>
+      <div class="stat-cell"><div id="r-trend" class="stat-val" style="font-size:0.88rem;"></div><div class="stat-lbl">Trend</div></div>
+    </div>
+    <div style="margin-bottom:1.25rem;">
+      <p class="section-label">Behavioral dimensions</p>
+      <div id="r-vector-bars"></div>
+    </div>
+    <div class="summary-card"><p id="r-summary"></p></div>
+    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="goToTeaser('BART')">Continue →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     STUB GAMES — 2 to 7
+═══════════════════════════════════════════════ -->
+<!-- RANG -->
+<div id="screen-rang-intro" class="screen">
+  <div class="game-canvas">
+    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+    <span class="pill">Game 2 of 7</span>
+    <div class="game-name-hindi">🎨 Rang</div>
+    <div class="game-name-sub">rang — color</div>
+    <div style="display:flex;justify-content:center;align-items:center;gap:32px;margin-bottom:1.5rem;padding:1.5rem;background:#FFFFFF;border-radius:var(--radius-lg);">
+      <div style="text-align:center;"><div style="font-size:2.5rem;font-weight:700;color:#dc2626;line-height:1;margin-bottom:6px;">RED</div><div style="font-size:0.7rem;color:var(--teal);">easy — matches</div></div>
+      <div style="font-size:1.5rem;color:var(--text-hint);">vs</div>
+      <div style="text-align:center;"><div style="font-size:2.5rem;font-weight:700;color:#3b82f6;line-height:1;margin-bottom:6px;">RED</div><div style="font-size:0.7rem;color:var(--red);">hard — conflicts</div></div>
+    </div>
+    <p class="game-intro-para">A word appears. Ignore what it says. Tap the color it's <em>written in</em>. 8 practice rounds then 24 scored.</p>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1.5rem;">
+      <div class="stat-cell"><div class="stat-val">24</div><div class="stat-lbl">scored trials</div></div>
+      <div class="stat-cell"><div class="stat-val">~3</div><div class="stat-lbl">minutes</div></div>
+      <div class="stat-cell"><div class="stat-val">4</div><div class="stat-lbl">colors</div></div>
+    </div>
+    <div class="stub-coming">
+      <div style="font-size:2rem;margin-bottom:12px;">🚧</div>
+      <p style="font-weight:500;margin-bottom:6px;">Rang is being wired in next build</p>
+      <p style="font-size:0.82rem;color:var(--text-muted);">Game logic is complete — stitching into this file in Session 18.</p>
+      <button class="btn btn-secondary" style="margin-top:16px;" onclick="stubSkipGame('FER')">Skip for now (dev mode)</button>
+    </div>
+  </div>
+</div>
+
+<!-- RUK -->
+<div id="screen-ruk-intro" class="screen">
+  <div class="game-canvas">
+    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+    <span class="pill">Game 3 of 7</span>
+    <div class="game-name-hindi">⚡ Ruk</div>
+    <div class="game-name-sub">ruk — stop</div>
+    <p class="game-intro-para">Shapes flash on screen. Circle — tap. Bomb — don't. 40 trials across 4 rounds. Round 4 flips the rules completely.</p>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1.5rem;">
+      <div class="stat-cell"><div class="stat-val">40</div><div class="stat-lbl">trials</div></div>
+      <div class="stat-cell"><div class="stat-val">4</div><div class="stat-lbl">rounds</div></div>
+      <div class="stat-cell"><div class="stat-val">~5</div><div class="stat-lbl">minutes</div></div>
+    </div>
+    <div class="stub-coming">
+      <div style="font-size:2rem;margin-bottom:12px;">🚧</div>
+      <p style="font-weight:500;margin-bottom:6px;">Ruk is being wired in next build</p>
+      <button class="btn btn-secondary" style="margin-top:16px;" onclick="stubSkipGame('GNG')">Skip for now (dev mode)</button>
+    </div>
+  </div>
+</div>
+
+<!-- SAUDAA -->
+<div id="screen-saudaa-intro" class="screen">
+  <div class="game-canvas">
+    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+    <span class="pill">Game 4 of 7</span>
+    <div class="game-name-hindi">⚖️ Saudaa</div>
+    <div class="game-name-sub">saudaa — deal, bargain</div>
+    <p class="game-intro-para">Pure odds, then framing, then fairness. 30 trials across 3 rounds that measure how you make decisions under uncertainty.</p>
+    <div class="stub-coming">
+      <div style="font-size:2rem;margin-bottom:12px;">🚧</div>
+      <p style="font-weight:500;margin-bottom:6px;">Saudaa is being wired in next build</p>
+      <button class="btn btn-secondary" style="margin-top:16px;" onclick="stubSkipGame('PROB_SAUDA')">Skip for now (dev mode)</button>
+    </div>
+  </div>
+</div>
+
+<!-- MILAAN -->
+<div id="screen-milaan-intro" class="screen">
+  <div class="game-canvas">
+    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+    <span class="pill">Game 5 of 7</span>
+    <div class="game-name-hindi">🤝 Milaan</div>
+    <div class="game-name-sub">milaan — encounter</div>
+    <p class="game-intro-para">Five professional relationships. Three decisions each. Same payoff math — different people, different context.</p>
+    <div class="stub-coming">
+      <div style="font-size:2rem;margin-bottom:12px;">🚧</div>
+      <p style="font-weight:500;margin-bottom:6px;">Milaan is being wired in next build</p>
+      <button class="btn btn-secondary" style="margin-top:16px;" onclick="stubSkipGame('MILAAN')">Skip for now (dev mode)</button>
+    </div>
+  </div>
+</div>
+
+<!-- BAZAAR -->
+<div id="screen-bazaar-intro" class="screen">
+  <div class="game-canvas">
+    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+    <span class="pill">Game 6 of 7</span>
+    <div class="game-name-hindi">📊 Bazaar</div>
+    <div class="game-name-sub">bazaar — the market</div>
+    <p class="game-intro-para">Three companies. 20 years. ₹9L to allocate each year. No explanations — just returns. Figure out which performs best. Then watch the market shift.</p>
+    <div class="stub-coming">
+      <div style="font-size:2rem;margin-bottom:12px;">🚧</div>
+      <p style="font-weight:500;margin-bottom:6px;">Bazaar is being wired in next build</p>
+      <button class="btn btn-secondary" style="margin-top:16px;" onclick="stubSkipGame('BAZAAR')">Skip for now (dev mode)</button>
+    </div>
+  </div>
+</div>
+
+<!-- CORPORATE MAZDOOR -->
+<div id="screen-mazdoor-intro" class="screen">
+  <div class="game-canvas">
+    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+    <span class="pill">Game 7 of 7</span>
+    <div class="game-name-hindi">💼 Corporate Mazdoor</div>
+    <div class="game-name-sub">mazdoor — the worker, in the arena</div>
+    <p class="game-intro-para">Twelve real situations from Indian corporate life. No right answers — just what you'd actually do. The pattern tells us more than any answer could.</p>
+    <div class="stub-coming">
+      <div style="font-size:2rem;margin-bottom:12px;">🚧</div>
+      <p style="font-weight:500;margin-bottom:6px;">Mazdoor is being wired in next build</p>
+      <button class="btn btn-secondary" style="margin-top:16px;" onclick="stubSkipGame('CORP_MAZDOOR')">Skip for now (dev mode)</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TEASER SCREEN (shared, content swapped)
+═══════════════════════════════════════════════ -->
+<div id="screen-teaser" class="screen">
+  <div class="game-canvas">
+    <div class="teaser-wrap">
+      <div class="teaser-game-icon" id="teaser-icon">🎈</div>
+      <p class="teaser-line" id="teaser-line">Most people say they are bold. You just proved it with a balloon.</p>
+      <button class="btn btn-primary" style="padding:14px 32px;" onclick="goToB5()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     B5 QUESTION (shared)
+═══════════════════════════════════════════════ -->
+<div id="screen-b5" class="screen">
+  <div class="game-canvas" style="padding-top:2.5rem;">
+    <span class="pill" id="b5-pill">Quick question</span>
+    <p class="b5-q" id="b5-question"></p>
+    <div id="b5-options"></div>
+    <p style="font-size:0.76rem;color:var(--text-hint);margin-top:1rem;">No right answers. This tells us how you see yourself — the games tell us what you actually do.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     REPORT SCREEN
+═══════════════════════════════════════════════ -->
+<div id="screen-report" class="screen">
+  <div style="max-width:960px;margin:0 auto;">
+    <!-- Hero -->
+    <div class="report-hero">
+      <div style="font-size:3.5rem;margin-bottom:1rem;" id="report-profile-icon">🤝</div>
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:8px;">Your Profile</div>
+      <h1 class="report-hero-name" id="report-profile-name">The Connector</h1>
+      <div style="font-size:1rem;color:var(--amber);font-weight:500;margin-bottom:12px;" id="report-profile-sub">— The Bridge Builder</div>
+      <p class="report-hero-sub" id="report-hero-summary"></p>
+    </div>
+
+    <!-- Tab bar -->
+    <div class="report-tab-bar">
+      <button class="report-tab active" onclick="switchReportTab('brief')" id="rtab-brief">Brief Report</button>
+      <button class="report-tab" onclick="switchReportTab('full')" id="rtab-full">Full Report 🔒</button>
+    </div>
+
+    <!-- Brief pane -->
+    <div id="report-pane-brief" class="report-pane active">
+      <div class="report-grid">
+        <!-- Left col: headline + dims -->
+        <div>
+          <div class="section-label">What the games show, together</div>
+          <div style="background:var(--surface);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:1.5rem;border-left:3px solid var(--amber);">
+            <p id="report-headline" style="font-family:'Instrument Serif',serif;font-size:1.15rem;color:var(--text);line-height:1.5;margin-bottom:8px;"></p>
+            <p id="report-summary-text" style="font-size:0.88rem;color:var(--text-muted);line-height:1.85;"></p>
+          </div>
+          <div class="section-label">Behavioral gradients</div>
+          <div id="report-dim-bars"></div>
+        </div>
+        <!-- Right col: roles + gaps -->
+        <div>
+          <div class="section-label">Where you'll likely land well</div>
+          <div id="report-role-cards"></div>
+          <div id="report-gaps-wrap" style="display:none;margin-top:1.5rem;">
+            <div class="section-label">Your self-image vs your choices</div>
+            <div id="report-gap-cards"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Premium CTA -->
+      <div class="locked-overlay">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:10px;">Full Report</div>
+        <div style="font-family:'Instrument Serif',serif;font-size:1.5rem;color:#FFFFFF;margin-bottom:8px;line-height:1.3;">The complete picture, not the summary</div>
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.75;margin-bottom:1.5rem;">Sub-roles, manager dynamics, peer dynamics, the full self-perception breakdown, what your profile typically struggles with.</div>
+        <button class="btn btn-primary btn-full" style="max-width:280px;padding:14px;" onclick="switchReportTab('full')">Unlock for ₹499 →</button>
+        <p style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-top:8px;">One-time. No subscription.</p>
+      </div>
+    </div>
+
+    <!-- Full pane (paywall for now) -->
+    <div id="report-pane-full" class="report-pane">
+      <div style="text-align:center;padding:4rem 2rem;">
+        <div style="font-size:3rem;margin-bottom:1rem;">🔒</div>
+        <h2 style="font-family:'Instrument Serif',serif;font-size:1.8rem;margin-bottom:12px;">Payment coming soon</h2>
+        <p style="color:var(--text-muted);line-height:1.8;max-width:400px;margin:0 auto;">The full report — sub-roles, dynamics, D8 breakdown — will unlock here once payment is wired in. Coming in Session 20.</p>
+        <button class="btn btn-secondary" style="margin-top:2rem;" onclick="switchReportTab('brief')">← Back to brief</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════ */-->
+<script>
+
+// ═══════════════════════════════════════════════════════════
+// CORE UTILS
+// ═══════════════════════════════════════════════════════════
+const clamp01 = v => Math.max(0, Math.min(1, v));
+const avg = arr => arr.length ? arr.reduce((s,v) => s+v, 0) / arr.length : 0;
+const stdDev = arr => {
+  if(arr.length < 2) return 0;
+  const m = avg(arr);
+  return Math.sqrt(arr.reduce((s,v) => s+(v-m)**2, 0) / arr.length);
+};
+
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+function safeKey(p,v){ return p+v.toLowerCase().replace(/[^a-z0-9]/g,'_'); }
+
+let user = null;
+
+// ═══════════════════════════════════════════════════════════
+// ROUTING
+// ═══════════════════════════════════════════════════════════
+const SCREENS = ['landing','auth','dashboard','dum-intro','dum-play','dum-results',
+  'rang-intro','ruk-intro','saudaa-intro','milaan-intro','bazaar-intro','mazdoor-intro',
+  'teaser','b5','report'];
+
+function showScreen(id) {
+  SCREENS.forEach(s => {
+    const el = document.getElementById('screen-'+s);
+    if(el) el.classList.remove('active');
+  });
+  const t = document.getElementById('screen-'+id);
+  if(t) t.classList.add('active');
+  window.scrollTo(0, 0);
+  updateNav(id);
+}
+
+function updateNav(id) {
+  const nr = document.getElementById('nav-right');
+  const loggedIn = ['dashboard','dum-intro','dum-play','dum-results','rang-intro','ruk-intro',
+    'saudaa-intro','milaan-intro','bazaar-intro','mazdoor-intro','teaser','b5','report'];
+  if(loggedIn.includes(id)) {
+    nr.innerHTML = `<div style="display:flex;gap:8px;align-items:center;">
+      <button class="btn btn-secondary btn-sm" onclick="goHome()">Home</button>
+      <button class="btn btn-secondary btn-sm" onclick="handleLogout()">Logout</button>
+    </div>`;
+  } else {
+    nr.innerHTML = `<button class="btn btn-secondary btn-sm" onclick="showAuth('login')">Login</button>`;
+  }
+}
+
+function goHome() {
+  const el = document.getElementById('landing-continue');
+  if(el) el.style.display = user ? 'block' : 'none';
+  showScreen('landing');
+}
+
+// ═══════════════════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════════════════
+function showAuth(tab) { showScreen('auth'); switchTab(tab); }
+function switchTab(tab) {
+  document.getElementById('form-signup').style.display = tab==='signup' ? 'block' : 'none';
+  document.getElementById('form-login').style.display = tab==='login' ? 'block' : 'none';
+  document.getElementById('tab-su').classList.toggle('active', tab==='signup');
+  document.getElementById('tab-li').classList.toggle('active', tab==='login');
+}
+function showErr(id,msg){ const e=document.getElementById(id); if(e){e.textContent=msg;e.style.display='block';} }
+function clrErr(id){ const e=document.getElementById(id); if(e) e.style.display='none'; }
+
+function handleSignup() {
+  clrErr('su-err');
+  const name = document.getElementById('su-name').value.trim();
+  const email = document.getElementById('su-email').value.trim().toLowerCase();
+  const mobile = document.getElementById('su-mobile').value.replace(/\s/g,'');
+  const pw = document.getElementById('su-pw').value;
+  if(!name) { showErr('su-err','Enter your name.'); return; }
+  if(!email||!email.includes('@')) { showErr('su-err','Enter a valid email.'); return; }
+  if(!mobile||mobile.length!==10||!/^\d+$/.test(mobile)) { showErr('su-err','10-digit mobile number.'); return; }
+  if(!pw||pw.length<6) { showErr('su-err','Password must be 6+ characters.'); return; }
+  const btn = document.getElementById('su-btn'); btn.disabled=true; btn.textContent='Creating…';
+  const ek = safeKey('rl_ue_',email);
+  const mk = safeKey('rl_um_',mobile);
+  if(lsGet(ek)) { showErr('su-err','Email already registered.'); btn.disabled=false; btn.textContent='Create account →'; return; }
+  if(lsGet(mk)) { showErr('su-err','Mobile already registered.'); btn.disabled=false; btn.textContent='Create account →'; return; }
+  const u = {name, email, mobile, password:pw, scores:[], b5self:{}, createdAt:new Date().toISOString()};
+  lsSet(ek, JSON.stringify(u));
+  lsSet(mk, JSON.stringify({emailKey:ek}));
+  lsSet('rl_session', JSON.stringify({emailKey:ek, name}));
+  user = u; btn.disabled=false; btn.textContent='Create account →';
+  enterDashboard();
+}
+
+function handleLogin() {
+  clrErr('li-err');
+  const id = document.getElementById('li-id').value.trim().toLowerCase();
+  const pw = document.getElementById('li-pw').value;
+  if(!id) { showErr('li-err','Enter email or mobile.'); return; }
+  if(!pw) { showErr('li-err','Enter password.'); return; }
+  const btn = document.getElementById('li-btn'); btn.disabled=true; btn.textContent='Logging in…';
+  let uData = null;
+  const clean = id.replace(/\s/g,'');
+  if(/^\d{10}$/.test(clean)) {
+    const mref = lsGet(safeKey('rl_um_',clean));
+    if(!mref) { showErr('li-err','No account with this mobile.'); btn.disabled=false; btn.textContent='Login →'; return; }
+    const ur = lsGet(JSON.parse(mref).emailKey); if(ur) uData = JSON.parse(ur);
+  } else {
+    const ur = lsGet(safeKey('rl_ue_',id)); if(ur) uData = JSON.parse(ur);
+  }
+  if(!uData) { showErr('li-err','No account found.'); btn.disabled=false; btn.textContent='Login →'; return; }
+  if(uData.password !== pw) { showErr('li-err','Incorrect password.'); btn.disabled=false; btn.textContent='Login →'; return; }
+  const ek = safeKey('rl_ue_',uData.email);
+  lsSet('rl_session', JSON.stringify({emailKey:ek, name:uData.name}));
+  user = uData; btn.disabled=false; btn.textContent='Login →';
+  enterDashboard();
+}
+
+function handleLogout() { lsDel('rl_session'); user=null; showScreen('landing'); }
+
+// ═══════════════════════════════════════════════════════════
+// SAVE SCORE
+// ═══════════════════════════════════════════════════════════
+function saveScore(result) {
+  if(!user) return;
+  const ek = safeKey('rl_ue_',user.email);
+  const ud = JSON.parse(lsGet(ek) || JSON.stringify({...user, scores:[], b5self:{}}));
+  ud.scores = (ud.scores||[]).filter(s => s.game !== result.game);
+  ud.scores.push(result);
+  lsSet(ek, JSON.stringify(ud));
+  user = ud;
+}
+
+function saveB5(gameCode, dimKey, val) {
+  if(!user) return;
+  const ek = safeKey('rl_ue_',user.email);
+  const ud = JSON.parse(lsGet(ek) || JSON.stringify(user));
+  if(!ud.b5self) ud.b5self = {};
+  ud.b5self[gameCode] = {dim:dimKey, val};
+  lsSet(ek, JSON.stringify(ud));
+  user = ud;
+}
+
+// ═══════════════════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════════════════
+const GAME_DEFS = [
+  { code:'BART',        name:'Dum',              emoji:'🎈', desc:'Risk · Impulse · Calibration',    screen:'dum-intro',     scoreField:'bartScore',      scoreLabel: s => `${s.archetype||s.label} · Score ${s.bartScore}` },
+  { code:'FER',         name:'Rang',             emoji:'🎨', desc:'Attention · Cognitive control',   screen:'rang-intro',    scoreField:'stroopScore',    scoreLabel: s => `${s.label} · Score ${s.stroopScore||'—'}` },
+  { code:'GNG',         name:'Ruk',              emoji:'⚡', desc:'Impulse control · Focus',          screen:'ruk-intro',     scoreField:'gngScore',       scoreLabel: s => `${s.label} · Score ${s.gngScore}` },
+  { code:'PROB_SAUDA',  name:'Saudaa',           emoji:'⚖️', desc:'Risk · Framing · Fairness',        screen:'saudaa-intro',  scoreField:'fairnessScore',  scoreLabel: s => `${s.label||s.psProfile}` },
+  { code:'MILAAN',      name:'Milaan',           emoji:'🤝', desc:'Trust · Context · Relationships', screen:'milaan-intro',  scoreField:'totalScore',     scoreLabel: s => `${s.label} · ${s.totalScore} pts` },
+  { code:'BAZAAR',      name:'Bazaar',           emoji:'📊', desc:'Exploration · Adaptation',         screen:'bazaar-intro',  scoreField:'netPnL',         scoreLabel: s => `${s.label}` },
+  { code:'CORP_MAZDOOR',name:'Corporate Mazdoor',emoji:'💼', desc:'Values · Direction',               screen:'mazdoor-intro', scoreField:'label',          scoreLabel: s => `${s.label}` },
+];
+
+function enterDashboard() {
+  if(!user) return;
+  document.getElementById('dash-greet').textContent = `Hey, ${user.name.split(' ')[0]} 👋`;
+  const scores = user.scores || [];
+  const doneCodes = new Set(scores.map(s => s.game));
+  const count = doneCodes.size;
+
+  document.getElementById('prog-txt').textContent = `${count} / 7 games`;
+  document.getElementById('prog-fill').style.width = (count/7*100)+'%';
+
+  // Show profile button once all done
+  const profileBtnWrap = document.getElementById('dash-profile-btn-wrap');
+  if(profileBtnWrap) profileBtnWrap.style.display = count >= 7 ? 'block' : 'none';
+
+  // Render game grid — find first undone game
+  const firstUndoneIdx = GAME_DEFS.findIndex(g => !doneCodes.has(g.code));
+
+  const grid = document.getElementById('dash-game-grid');
+  grid.innerHTML = GAME_DEFS.map((g, i) => {
+    const done = doneCodes.has(g.code);
+    const scoreData = scores.find(s => s.game === g.code);
+    const isNext = !done && i === firstUndoneIdx;
+    const isLocked = !done && !isNext; // future games greyed
+
+    if(done && scoreData) {
+      return `<div class="game-card done">
+        <div class="game-card-header">
+          <div>
+            <div style="font-size:1.25rem;font-weight:500;margin-bottom:2px;">${g.emoji} ${g.name}</div>
+            <div style="font-size:0.76rem;color:var(--teal);">${g.scoreLabel(scoreData)}</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="showScreen('${g.screen}')">Replay</button>
+        </div>
+        <div style="font-size:0.76rem;color:var(--text-hint);margin-top:6px;">✓ Complete</div>
+      </div>`;
+    } else if(isNext) {
+      return `<div class="game-card highlight" onclick="showScreen('${g.screen}')">
+        <div class="game-card-header">
+          <div>
+            <div class="pill" style="margin-bottom:8px;">Game ${i+1} of 7 · Up next</div>
+            <div style="font-size:1.25rem;font-weight:500;margin-bottom:2px;">${g.emoji} ${g.name}</div>
+            <div style="font-size:0.82rem;color:var(--text-muted);">${g.desc}</div>
+          </div>
+          <button class="btn btn-primary btn-sm" style="flex-shrink:0;" onclick="event.stopPropagation();showScreen('${g.screen}')">Play →</button>
+        </div>
+      </div>`;
+    } else {
+      return `<div class="game-card" style="opacity:0.5;">
+        <div style="font-size:1rem;font-weight:500;margin-bottom:2px;">${g.emoji} ${g.name}</div>
+        <div style="font-size:0.76rem;color:var(--text-muted);">${g.desc}</div>
+        <div style="font-size:0.7rem;color:var(--text-hint);margin-top:6px;">Unlocks after previous game</div>
+      </div>`;
+    }
+  }).join('');
+
+  // Synthesis
+  renderDashSynthesis(scores);
+  showScreen('dashboard');
+}
+
+function renderDashSynthesis(scores) {
+  const card = document.getElementById('dash-synthesis-card');
+  const text = document.getElementById('dash-synthesis-text');
+  if(!scores.length) { card.style.display='none'; return; }
+  const bart = scores.find(s=>s.game==='BART');
+  const milaan = scores.find(s=>s.game==='MILAAN');
+  const bazaar = scores.find(s=>s.game==='BAZAAR');
+  let line = '';
+  if(bart) {
+    const v = bart.behaviorVector || {};
+    if((v.risk_appetite||0) > 0.6) line = 'High risk appetite is the opening signal. The next games will tell us how it plays with trust, focus, and the decisions you make under pressure.';
+    else if((v.risk_appetite||0) < 0.3) line = 'Careful from the start. You protect the downside before chasing the upside — the rest of the games will show how that pairs with everything else.';
+    else line = 'Measured risk appetite off the bat. Not reckless, not timid — let\'s see how that holds across the other dimensions.';
+  }
+  if(!line) line = 'Keep going — the picture sharpens with each game.';
+  text.textContent = line;
+  card.style.display = 'block';
+}
+
+// ═══════════════════════════════════════════════════════════
+// TEASER + B5 FLOW
+// ═══════════════════════════════════════════════════════════
+const GAME_ICONS = { BART:'🎈', FER:'🎨', GNG:'⚡', PROB_SAUDA:'⚖️', MILAAN:'🤝', BAZAAR:'📊', CORP_MAZDOOR:'💼' };
+
+let currentTeaserGame = null;
+
+function goToTeaser(gameCode) {
+  currentTeaserGame = gameCode;
+  const scoreData = (user.scores||[]).find(s=>s.game===gameCode);
+  const teaser = getPostGameTeaser(gameCode, scoreData);
+  document.getElementById('teaser-icon').textContent = GAME_ICONS[gameCode] || '🎮';
+  document.getElementById('teaser-line').textContent = teaser;
+  showScreen('teaser');
+}
+
+const B5_QUESTIONS = {
+  BART: {
+    pill:'After Dum', dim:'risk',
+    q:'Honestly — how do you see yourself when it comes to taking risks?',
+    opts:[
+      {label:'I take risks. Sometimes more than I probably should.', val:'high'},
+      {label:'Depends on the situation. I can go either way.', val:'mid'},
+      {label:'I tend to play it safe. I like knowing what I\'m walking into.', val:'low'},
+    ]
+  },
+  FER: {
+    pill:'After Rang', dim:'focus',
+    q:'When two things pull at you at once — what you know and what you feel — which wins?',
+    opts:[
+      {label:'What I feel. Gut instinct is usually right.', val:'high'},
+      {label:'Depends. I try to weigh both.', val:'mid'},
+      {label:'What I know. Feelings muddy the picture.', val:'low'},
+    ]
+  },
+  GNG: {
+    pill:'After Ruk', dim:'impulse',
+    q:'In real life — do you act first and think after, or think before you move?',
+    opts:[
+      {label:'I act on instinct. Thinking too long makes me miss the moment.', val:'high'},
+      {label:'Depends on the stakes.', val:'mid'},
+      {label:'I think it through first. Acting without thinking makes me anxious.', val:'low'},
+    ]
+  },
+  PROB_SAUDA: {
+    pill:'After Saudaa', dim:'fairness',
+    q:'When you get a raw deal — do you walk away on principle, or take what you can get?',
+    opts:[
+      {label:'Walk away. Some things are worth more than the money.', val:'high'},
+      {label:'Depends how bad the deal actually is.', val:'mid'},
+      {label:'Take what\'s on the table. Holding out costs more than it gives.', val:'low'},
+    ]
+  },
+  MILAAN: {
+    pill:'After Milaan', dim:'trust',
+    q:'When you meet someone new professionally — trust first, or wait and see?',
+    opts:[
+      {label:'Trust first. I\'ll adjust if they give me a reason to.', val:'high'},
+      {label:'Neutral. I watch how they behave before I decide.', val:'mid'},
+      {label:'Wait and see. Trust is earned, not given.', val:'low'},
+    ]
+  },
+  BAZAAR: {
+    pill:'After Bazaar', dim:'explore',
+    q:'When something is working well, what\'s your instinct?',
+    opts:[
+      {label:'Stay with it. Why look elsewhere when you\'ve found the edge?', val:'low'},
+      {label:'Mostly stay, but keep one eye out for something better.', val:'mid'},
+      {label:'Keep exploring. There\'s usually a better option out there.', val:'high'},
+    ]
+  },
+  CORP_MAZDOOR: {
+    pill:'After Mazdoor', dim:'values',
+    q:'When you imagine a job you\'d be genuinely proud of in ten years, what comes to mind first?',
+    opts:[
+      {label:'Earning significantly more than I do now.', val:'money'},
+      {label:'Leading something larger or more visible.', val:'prestige'},
+      {label:'Working on something I actually believe in.', val:'meaning'},
+      {label:'Having more time and energy outside work.', val:'comfort'},
+    ]
+  },
+};
+
+function goToB5() {
+  if(!currentTeaserGame) { enterDashboard(); return; }
+  const q = B5_QUESTIONS[currentTeaserGame];
+  if(!q) { enterDashboard(); return; }
+  document.getElementById('b5-pill').textContent = q.pill;
+  document.getElementById('b5-question').textContent = q.q;
+  document.getElementById('b5-options').innerHTML = q.opts.map(o =>
+    `<button class="b5-opt" onclick="handleB5Answer('${o.val}')">${o.label}</button>`
+  ).join('');
+  showScreen('b5');
+}
+
+function handleB5Answer(val) {
+  if(!currentTeaserGame) { enterDashboard(); return; }
+  const q = B5_QUESTIONS[currentTeaserGame];
+  saveB5(currentTeaserGame, q.dim, val);
+  currentTeaserGame = null;
+  enterDashboard();
+}
+
+// ═══════════════════════════════════════════════════════════
+// STUB GAME SKIP (dev mode)
+// ═══════════════════════════════════════════════════════════
+function stubSkipGame(gameCode) {
+  // Save a placeholder score so dashboard advances
+  const stubs = {
+    FER:         { game:'FER',         stroopScore:62, label:'The Focused One',      interference:85, conflict_accuracy:0.78, error_recovery:0.80 },
+    GNG:         { game:'GNG',         gngScore:70,    label:'The Steady One',       behaviorVector:{ inhibition:0.72, false_alarm_rate:0.12, block4_accuracy:0.68 } },
+    PROB_SAUDA:  { game:'PROB_SAUDA',  label:'The Rational Optimizer', behaviorVector:{ ev_alignment:0.70, unfair_reject_rate:0.60, emotional_override:0.40 } },
+    MILAAN:      { game:'MILAAN',      label:'The Reciprocator', totalScore:24, coopRates:{stranger:0.67,trusted:0.78,betrayer:0.44,friend:0.89,competitor:0.33}, playerMoves:{betrayer:['D','C','C']}, b5Answers:{} },
+    BAZAAR:      { game:'BAZAAR',      label:'The Sharp Adapter', dimensions:{ explore_rate:0.52, learning_speed:0.60, adaptability:0.65, strategy:0.58, decoy_response:0.22, consistency:0.60 } },
+    CORP_MAZDOOR:{ game:'CORP_MAZDOOR',label:'The Principled One', vScores:{ V1:0.60, V2:0.55, V3:0.45, V4:0.68, V5:0.60 }, rawScores:{ meaning:8, money:4, comfort:3, ambition:7, security:4, adventure:3, prestige:3, authenticity:9, self:4, others:7 } },
+  };
+  const stub = stubs[gameCode];
+  if(stub) { stub.date = new Date().toISOString(); saveScore(stub); }
+  goToTeaser(gameCode);
+}
+
+// ═══════════════════════════════════════════════════════════
+// GET DIMENSION SCORES — the cross-game scoring function
+// ═══════════════════════════════════════════════════════════
+function getDimensionScores(scores, b5self) {
+  if(!scores || !scores.length) return null;
+  const gf = code => scores.find(s => s.game === code);
+
+  const bart = gf('BART');
+  const fer  = gf('FER');
+  const gng  = gf('GNG');
+  const sauda = gf('PROB_SAUDA');
+  const milaan = gf('MILAAN');
+  const bazaar = gf('BAZAAR');
+  const mazdoor = gf('CORP_MAZDOOR');
+
+  // ── D1: Risk appetite ──
+  let D1 = 0.5;
+  if(bart) {
+    const bv = bart.behaviorVector || {};
+    const relative_pump = clamp01(bv.risk_appetite || 0.5);
+    const loss_sens = clamp01(bv.loss_sensitivity || 0.5);
+    const ev_align = sauda && sauda.behaviorVector ? clamp01(sauda.behaviorVector.ev_alignment || 0.5) : 0.5;
+    D1 = relative_pump*0.55 + clamp01(1 - loss_sens)*0.25 + ev_align*0.20;
+  }
+
+  // ── D2: Impulse control (deliberateness) ──
+  let D2 = 0.5;
+  if(gng || fer) {
+    const gv = gng && gng.behaviorVector ? gng.behaviorVector : {};
+    const inhibition = clamp01(gv.inhibition !== undefined ? gv.inhibition : (gng ? (1 - (gng.falseAlarms||0)/10) : 0.5));
+    const fa_rate = clamp01(gv.false_alarm_rate !== undefined ? gv.false_alarm_rate : (gng ? (gng.falseAlarms||0)/10 : 0.5));
+    const D2_ruk = inhibition*0.60 + (1-fa_rate)*0.40;
+    const fv = fer && fer.behaviorVector ? fer.behaviorVector : {};
+    const interference_cost = (fv.interference !== undefined) ? fv.interference : (fer ? (fer.interference||120)/600 : 0.3);
+    const D2_rang = clamp01(1 - interference_cost);
+    D2 = (gng ? D2_ruk*0.65 : 0) + (fer ? D2_rang*0.35 : 0);
+    if(!gng && fer)  D2 = D2_rang;
+    if(!fer && gng)  D2 = D2_ruk;
+  }
+
+  // ── D3: Trust baseline ──
+  let D3 = 0.5;
+  if(milaan) {
+    const cr = milaan.coopRates || {};
+    const baseline_trust = clamp01(cr.stranger || 0.5);
+    const rep_boost = clamp01((cr.trusted||0.5) - (cr.stranger||0.5) + 0.5);
+    const pm = milaan.playerMoves && milaan.playerMoves.betrayer || [];
+    const forgiveness = pm.length >= 3 ? clamp01((pm[2]==='C' ? 1:0) + 0.5) : 0.5;
+    D3 = baseline_trust*0.40 + rep_boost*0.35 + forgiveness*0.25;
+  }
+
+  // ── D4: Context sensitivity ──
+  let D4 = 0.5;
+  if(milaan || bazaar) {
+    let D4_milaan = 0.5;
+    if(milaan) {
+      const cr = milaan.coopRates || {};
+      const rates = Object.values(cr).filter(v => v !== undefined);
+      D4_milaan = rates.length > 1 ? clamp01(stdDev(rates) / 0.40) : 0.5;
+    }
+    const D4_bazaar = bazaar && bazaar.dimensions ? clamp01(bazaar.dimensions.adaptability || 0.5) : 0.5;
+    D4 = (milaan ? D4_milaan*0.60 : 0) + (bazaar ? D4_bazaar*0.40 : 0);
+    if(!milaan) D4 = D4_bazaar;
+    if(!bazaar) D4 = D4_milaan;
+  }
+
+  // ── D5: Cognitive control / focus ──
+  let D5 = 0.5;
+  if(fer || gng) {
+    const fv = fer && fer.behaviorVector ? fer.behaviorVector : {};
+    const conflict_acc = clamp01(fv.conflict_accuracy !== undefined ? fv.conflict_accuracy : (fer ? (fer.accuracy||70)/100 : 0.5));
+    const interference = clamp01(fv.interference !== undefined ? fv.interference : 0.3);
+    const error_rec = clamp01(fv.error_recovery !== undefined ? fv.error_recovery : 0.7);
+    const D5_rang = conflict_acc*0.50 + clamp01(1-interference)*0.35 + error_rec*0.15;
+    const gv = gng && gng.behaviorVector ? gng.behaviorVector : {};
+    const D5_ruk = clamp01(gv.block4_accuracy !== undefined ? gv.block4_accuracy : (gng ? gng.gngScore/100 : 0.5));
+    D5 = (fer ? D5_rang*0.70 : 0) + (gng ? D5_ruk*0.30 : 0);
+    if(!fer) D5 = D5_ruk;
+    if(!gng) D5 = D5_rang;
+  }
+
+  // ── D6: Fairness threshold ──
+  let D6 = 0.5;
+  if(sauda || milaan) {
+    const sv = sauda && sauda.behaviorVector ? sauda.behaviorVector : {};
+    const unfair_rej = clamp01(sv.unfair_reject_rate !== undefined ? sv.unfair_reject_rate : 0.5);
+    const emo_override = clamp01(sv.emotional_override !== undefined ? sv.emotional_override : 0.5);
+    const D6_sauda = unfair_rej*0.55 + emo_override*0.45;
+    const pm = milaan && milaan.playerMoves && milaan.playerMoves.betrayer || [];
+    const retaliation = pm.length > 0 ? clamp01(pm[0]==='D' ? 1 : 0) : 0.5;
+    const D6_milaan = retaliation;
+    D6 = (sauda ? D6_sauda*0.65 : 0) + (milaan ? D6_milaan*0.35 : 0);
+    if(!sauda) D6 = D6_milaan;
+    if(!milaan) D6 = D6_sauda;
+  }
+
+  // ── D7: Exploration tendency ──
+  let D7 = 0.5;
+  if(bazaar || bart) {
+    const bz = bazaar && bazaar.dimensions ? bazaar.dimensions : {};
+    const D7_bazaar = clamp01(
+      (bz.explore_rate||0.5)*0.20 +
+      (bz.learning_speed||0.5)*0.25 +
+      (bz.adaptability||0.5)*0.30 +
+      (bz.strategy||0.5)*0.15 +
+      clamp01(1-(bz.decoy_response||0.3))*0.10
+    );
+    const bv = bart && bart.behaviorVector ? bart.behaviorVector : {};
+    const D7_bart = clamp01(bv.exploration_exploitation || 0.5);
+    D7 = (bazaar ? D7_bazaar*0.75 : 0) + (bart ? D7_bart*0.25 : 0);
+    if(!bazaar) D7 = D7_bart;
+    if(!bart)   D7 = D7_bazaar;
+  }
+
+  // ── D8: Self-awareness gap ──
+  let D8 = 0.5;
+  const b5 = b5self || {};
+  const valToNum = v => v==='high'?0.8:v==='low'?0.2:0.5;
+  const b8gaps = [];
+  if(b5.BART)        b8gaps.push(Math.abs(valToNum(b5.BART.val) - D1));
+  if(b5.GNG)         b8gaps.push(Math.abs(valToNum(b5.GNG.val)  - (1-D2))); // high val = impulsive = low D2
+  if(b5.MILAAN)      b8gaps.push(Math.abs(valToNum(b5.MILAAN.val) - D3));
+  if(b5.PROB_SAUDA)  b8gaps.push(Math.abs(valToNum(b5.PROB_SAUDA.val) - D6));
+  if(b5.BAZAAR)      b8gaps.push(Math.abs(valToNum(b5.BAZAAR.val) - D7));
+  if(b8gaps.length)  D8 = clamp01(1 - avg(b8gaps));
+
+  // ── V1–V5 from Corporate Mazdoor ──
+  let V1=0.5, V2=0.5, V3=0.5, V4=0.5, V5=0.5;
+  if(mazdoor && mazdoor.vScores) {
+    V1 = clamp01(mazdoor.vScores.V1||0.5);
+    V2 = clamp01(mazdoor.vScores.V2||0.5);
+    V3 = clamp01(mazdoor.vScores.V3||0.5);
+    V4 = clamp01(mazdoor.vScores.V4||0.5);
+    V5 = clamp01(mazdoor.vScores.V5||0.5);
+  } else if(mazdoor && mazdoor.rawScores) {
+    const rs = mazdoor.rawScores;
+    const safe = (a,b) => (a+b)>0 ? a/(a+b) : 0.5;
+    V1 = safe(rs.meaning||0, rs.money||0);
+    V2 = safe(rs.ambition||0, rs.comfort||0);
+    V3 = safe(rs.adventure||0, rs.security||0);
+    V4 = safe(rs.authenticity||0, rs.prestige||0);
+    V5 = safe(rs.others||0, rs.self||0);
+  }
+
+  return { D1:clamp01(D1), D2:clamp01(D2), D3:clamp01(D3), D4:clamp01(D4),
+           D5:clamp01(D5), D6:clamp01(D6), D7:clamp01(D7), D8:clamp01(D8),
+           V1, V2, V3, V4, V5 };
+}
+
+// ═══════════════════════════════════════════════════════════
+// SCORING ENGINE — profiles, headlines, summaries, roles
+// (extracted + adapted from raah_scoring_engine.html)
+// ═══════════════════════════════════════════════════════════
+function bucket(v){ return v>=0.65?'high':v<=0.35?'low':'mid'; }
+function b(dims,key){ return bucket(dims[key]||0.5); }
+
+const BLOCK_A={'low-low':"You protect the downside and you act fast — sometimes undercommitting in slow situations and overcommitting in fast ones.",'low-mid':"You protect the downside and take your time. Rarely the first to move — and rarely the one who later regrets it.",'low-high':"Cautious appetite, deliberate execution. You think longer than most before committing and lose less than most because of it.",'mid-low':"You have real risk appetite but the brake engages quickly — sometimes you move before the picture is fully clear.",'mid-mid':"Measured on both risk and reaction. You evaluate before moving and stop before it becomes reckless. That balance is rarer than it sounds.",'mid-high':"You take calculated risks — appetite exists but you hold longer before pulling the trigger. Environments that reward patience suit you.",'high-low':"High risk appetite, fast trigger. You move before the map is complete and adjust after. Some of your best outcomes came from that.",'high-mid':"You seek the upside and know when to stop. That gap between appetite and recklessness is what most people cannot maintain.",'high-high':"You actively seek the edge and do not flinch when you get there. Deliberate under pressure — bold but not chaotic."};
+const BLOCK_B={'low-low':"Socially, you are guarded and apply that standard consistently regardless of who is in the room.",'low-mid':"You start guarded but read situations. With some people you open faster than others.",'low-high':"Your trust varies significantly by context — guarded with strangers, more open with people who have earned something.",'mid-low':"You reciprocate — give what you get, pull back when it stops. Predictable in a useful way.",'mid-mid':"Neither rigid nor naive — the balance of someone who has been burned before and learned from it.",'mid-high':"You read different contexts well. With the right person in the right situation you go further than most would.",'high-low':"You lead with trust regardless of who is in the room. That consistency is a specific kind of integrity — and exposure.",'high-mid':"You extend trust freely and adapt how you do it by situation. People feel seen rather than processed.",'high-high':"Your behaviour shifts significantly by context — generous with some, careful with others — but always from a default of openness."};
+const BLOCK_C={'low':"Cognitively, noise gets through. Under sustained pressure, accuracy drops more than it should. Worth knowing — not catastrophising.",'mid':"Cognitive control is solid in normal conditions. Under sustained pressure you slow down — which is actually the right response.",'high':"You filter cleanly under pressure. When there is noise or conflicting signals, you maintain accuracy. That is the cognitive foundation for high-stakes work."};
+const BLOCK_D={'low-low':"On fairness and what drives you — outcomes-focused. You take the deal that works and keep moving.",'low-mid':"Pragmatic on terms but you want work that matters. You will accept an imperfect deal but not an empty job.",'low-high':"You will walk away from soul-destroying work but not from a tough deal. The principle is about the substance.",'mid-low':"You have a floor on fairness and know where it is. Money is a significant driver — honest about that is its own clarity.",'mid-mid':"You have principles and hold them — but you are not rigid. The work matters, the terms matter, and you weigh both.",'mid-high':"Principled and meaning-driven. You will push back on unfair terms and will not do work you do not believe in.",'high-low':"Fairness is a threshold, not a preference. You walk rather than accept bad terms. Money matters too.",'high-mid':"You reject the unfair deal and want work that is worth showing up for. Both bars are real.",'high-high':"Fairness is non-negotiable and meaning matters above almost everything else. That creates a high bar."};
+const BLOCK_E={'low-low':"You exploit what works and are not in a rush to grow. Once you find something that delivers, you stay.",'low-mid':"You exploit what works and are ambitious about getting more from it. Deep rather than wide.",'low-high':"You exploit known opportunities aggressively. Being the best at what you do is more interesting than exploring.",'mid-low':"You sample enough to know the landscape and commit enough to extract value.",'mid-mid':"You balance exploration and exploitation with ambition behind both.",'mid-high':"Ambitious and adaptive — you keep looking for better options even when something is working.",'high-low':"You explore actively even when something is working. Curious rather than hungry. That keeps you ahead of changes.",'high-mid':"You explore actively and have real ambition behind the search. Looking for the better thing and will recognise it.",'high-high':"Ambitious explorer — you keep sampling even when you have found something good, and move fast when you find better."};
+const BLOCK_F={'low':"One thing worth flagging: the gap between how you see yourself and what your choices show is notable. Data, not verdict.",'mid':"",'high':"Your self-model is accurate. What you said about yourself and what your choices showed closely align."};
+
+function buildHeadline(dims){
+  const D1=b(dims,'D1'),D2=b(dims,'D2'),D3=b(dims,'D3'),D5=b(dims,'D5'),D6=b(dims,'D6'),D7=b(dims,'D7'),V1=b(dims,'V1'),V2=b(dims,'V2');
+  if(D1==='high'&&D3==='high') return"Bold, trusting, and hard to rattle — three things that rarely come together.";
+  if(D1==='high'&&D2==='high') return"High appetite, clean brakes — you take risk deliberately without losing your head.";
+  if(D1==='high'&&D3==='low')  return"You take risk on your own terms, rarely waiting for group buy-in.";
+  if(D3==='high'&&D6==='high') return"You build real trust and hold the line on fairness — a combination rarer than either alone.";
+  if(D5==='high'&&D2==='high') return"Focused and deliberate — you filter noise and hold the line simultaneously.";
+  if(D6==='high'&&V1==='high') return"Principled and meaning-driven — the two things you will not compromise on tend to be the same thing.";
+  if(D7==='high'&&D3==='high') return"Curious and trusting — you explore widely and bring people along while you do it.";
+  if(D1==='low'&&D5==='high')  return"You protect the downside and filter noise. A specific kind of reliability that compounds over time.";
+  if(V1==='high'&&V2==='high') return"Ambitious about meaningful work — you want to go somewhere and want it to matter when you get there.";
+  return"A profile that resists simple labels — which usually means something more interesting is going on.";
+}
+
+function buildSummary(dims){
+  const a=BLOCK_A[`${b(dims,'D1')}-${b(dims,'D2')}`]||'';
+  const bk=BLOCK_B[`${b(dims,'D3')}-${b(dims,'D4')}`]||'';
+  const c=BLOCK_C[b(dims,'D5')]||'';
+  const d=BLOCK_D[`${b(dims,'D6')}-${b(dims,'V1')}`]||'';
+  const e=BLOCK_E[`${b(dims,'D7')}-${b(dims,'V2')}`]||'';
+  const f=b(dims,'D8')!=='mid'?(' '+BLOCK_F[b(dims,'D8')]):'';
+  return [a,bk,c,d,e].filter(Boolean).join(' ')+f;
+}
+
+function buildQuote(dims){
+  const keys=['D1','D2','D3','D5','D6','D7'];
+  const top=keys.sort((a,z)=>Math.abs((dims[z]||.5)-.5)-Math.abs((dims[a]||.5)-.5))[0];
+  const bkt=bucket(dims[top]||.5);
+  const quotes={D1:{high:"The upside has always been worth the exposure.",low:"Caution is not the same as cowardice."},D2:{high:"You make fewer decisions you later regret. The pause is load-bearing.",low:"You move before the analysis is done. Sometimes that is the only way."},D3:{high:"You have given people more than they gave you. Most of the time, that has compounded.",low:"You have not given someone the wrong thing to use against you in a while."},D5:{high:"You do your best work when the situation is noisiest.",low:"Perfect conditions are rare. That self-knowledge is more useful than the conditions."},D6:{high:"Some things are not for sale. You have found out what they are.",low:"You take what is on the table and keep moving."},D7:{high:"You stayed curious past the point of obvious comfort.",low:"Once you find something that works, you extract from it. The discipline compounds."}};
+  return (quotes[top]&&quotes[top][bkt])||"The most useful thing about this profile is not the label — it is the specific pattern of choices underneath it.";
+}
+
+const PROFILES_ENGINE = [
+  {label:'The Founder',icon:'🚀',test:d=>d.D1>0.60&&d.D7>0.55&&d.V2>0.55,
+   subTypes:[{sub:'The Calculated Bet',test:d=>d.D2>0.60,desc:"Big swings, after thinking them through."},{sub:'The Mission-Driven',test:d=>d.V1>0.60,desc:"Not building for the exit."},{sub:'The Instinctive',test:d=>d.D2<0.45,desc:"Acts before the map is complete."},{sub:'The Founder',test:()=>true,desc:"Risk appetite plus exploratory instinct."}]},
+  {label:'The Operator',icon:'⚙️',test:d=>d.D2>0.60&&d.D5>0.55&&d.D1<0.50,
+   subTypes:[{sub:'The Quiet Engine',test:d=>d.D4<0.45,desc:"Same system in every room."},{sub:'The Principled One',test:d=>d.D6>0.60,desc:"Runs the process correctly even when shortcuts are faster."},{sub:'The Improver',test:d=>d.D7>0.55,desc:"Runs the system and looks for a better one."},{sub:'The Operator',test:()=>true,desc:"Deliberate, consistent, reliable."}]},
+  {label:'The Connector',icon:'🤝',test:d=>d.D3>0.60&&d.D4>0.50&&d.V5>0.55,
+   subTypes:[{sub:'The Bridge Builder',test:d=>d.D6>0.60,desc:"Connects people and holds the line on fairness."},{sub:'The Open Door',test:d=>d.D3>0.75,desc:"Trust before it has been earned."},{sub:'The Diplomatic One',test:d=>d.D2>0.60,desc:"Builds trust deliberately, not in a rush."},{sub:'The Connector',test:()=>true,desc:"Trust and context sensitivity combined."}]},
+  {label:'The Analyst',icon:'🔬',test:d=>d.D5>0.60&&d.D2>0.55&&d.D1<0.55,
+   subTypes:[{sub:'The Deep Diver',test:d=>d.D7<0.40,desc:"Very deep on very few things."},{sub:'The Pattern Reader',test:d=>d.D7>0.55,desc:"Explores widely and analyses rigorously."},{sub:'The Principled Voice',test:d=>d.D6>0.60,desc:"Will not massage findings."},{sub:'The Analyst',test:()=>true,desc:"Cognitive control plus deliberateness."}]},
+  {label:'The Negotiator',icon:'⚖️',test:d=>d.D6>0.60&&d.D3>0.50&&d.D1>0.40&&d.D1<0.70,
+   subTypes:[{sub:'The Fair Closer',test:d=>d.D1<0.50,desc:"Negotiates toward fair, not maximum."},{sub:'The Deliberate One',test:d=>d.D2>0.65,desc:"Patience to let silence work."},{sub:'The Negotiator',test:()=>true,desc:"Fairness plus measured risk."}]},
+  {label:'The Executor',icon:'🎯',test:d=>d.D2>0.60&&d.D5>0.55&&d.D7<0.45,
+   subTypes:[{sub:'The Quiet Finisher',test:d=>d.D3<0.45,desc:"Delivers. Does not need the applause."},{sub:'The Trusted Pair',test:d=>d.D3>0.60,desc:"Delivers and people know it."},{sub:'The Executor',test:()=>true,desc:"Commit and follow through."}]},
+  {label:'The Maverick',icon:'⚡',test:d=>d.D1>0.65&&d.D7>0.60&&d.D3<0.50,
+   subTypes:[{sub:'The Calculated One',test:d=>d.D2>0.60,desc:"Big bets, thought through."},{sub:'The Curious Bet',test:d=>d.D7>0.75,desc:"Explores first, bets second."},{sub:'The Maverick',test:()=>true,desc:"High appetite, independent."}]},
+  {label:'The Empath-Leader',icon:'🌱',test:d=>d.D3>0.60&&d.D6>0.55&&d.V5>0.55,
+   subTypes:[{sub:'The Steady Hand',test:d=>d.D2>0.65,desc:"Warmth and no reactive decisions."},{sub:'The Room Reader',test:d=>d.D4>0.65,desc:"Adapts to each person."},{sub:'The Empath-Leader',test:()=>true,desc:"Trust plus fairness plus others-orientation."}]},
+  {label:'The Technician',icon:'🔧',test:d=>d.D5>0.65&&d.D2>0.60&&d.D4<0.50,
+   subTypes:[{sub:'The Deep Expert',test:d=>d.D7<0.40,desc:"Knows one thing at a level almost nobody else does."},{sub:'The Learning Machine',test:d=>d.D7>0.60,desc:"High standards that keep moving."},{sub:'The Technician',test:()=>true,desc:"Cognitive control plus deliberateness."}]},
+  {label:'The Strategist',icon:'🧭',test:d=>d.D7>0.55&&d.D5>0.55&&d.D1>0.40&&d.D1<0.70,
+   subTypes:[{sub:'The Systems Thinker',test:d=>d.D2>0.65,desc:"Maps how things connect before deciding where to move."},{sub:'The Opportunity Finder',test:d=>d.D1>0.58,desc:"Scans widely and willing to move."},{sub:'The Strategist',test:()=>true,desc:"Exploration plus cognitive control."}]},
+];
+const FALLBACK_PROFILE = {label:'The Grounded Professional',icon:'🛡️',subTypes:[{sub:'The Steady Contributor',test:()=>true,desc:"Balanced across dimensions — reliable, considered, difficult to rattle."}]};
+
+function assignProfile(dims) {
+  const p = PROFILES_ENGINE.find(p=>p.test(dims)) || FALLBACK_PROFILE;
+  const sub = p.subTypes.find(s=>s.test(dims)) || p.subTypes[p.subTypes.length-1];
+  return {...p, subLabel:sub.sub, subDesc:sub.desc};
+}
+
+const ROLE_FAMILIES_SHORT = [
+  {name:'Sales & Business Development',icon:'🤝',dims:{D3:0.6,D4:0.5,D1:0.45},
+   why:d=>{const p=[];if(d.D3>0.60)p.push("trust-building");if(d.D4>0.55)p.push("context-reading");if(d.D1>0.55)p.push("risk appetite");return p.length?p.join(", ")+" make this a natural fit.":"relationship-driven roles suit this profile.";},
+   caution:d=>d.D6>0.65?"High fairness threshold may slow commercial negotiation.":null},
+  {name:'HR & People Operations',icon:'👥',dims:{D3:0.6,D6:0.5,V5:0.6},
+   why:d=>{const p=[];if(d.D3>0.60)p.push("people trust you");if(d.D6>0.55)p.push("fairness instinct");if(d.V5>0.55)p.push("genuine others-orientation");return p.length?p.join(", ")+".":"people-focused roles suit this profile.";},
+   caution:d=>d.D2<0.40?"Reactive decisions complicate performance conversations.":null},
+  {name:'Strategy & Consulting',icon:'🧭',dims:{D5:0.6,D7:0.5,D2:0.55},
+   why:d=>{const p=[];if(d.D5>0.60)p.push("maintains accuracy under noisy data");if(d.D7>0.55)p.push("explores widely before concluding");if(d.D3>0.50)p.push("reads the room, not just the deck");return p.length?p.join(", ")+".":"analytical advisory roles suit this profile.";},
+   caution:d=>d.D6>0.65?"Fairness instinct can slow delivery of hard truths.":null},
+  {name:'Finance & Investment',icon:'📈',dims:{D2:0.6,D1:0.5,D5:0.55},
+   why:d=>{const p=[];if(d.D1>0.50)p.push("risk appetite");if(d.D2>0.60)p.push("deliberateness");if(d.D5>0.55)p.push("analytical discipline under pressure");return p.length?p.join(", ")+".":"finance roles suit this profile.";},
+   caution:d=>d.D3>0.70?"High trust baseline can be a liability in adversarial deal contexts.":null},
+  {name:'Product Management',icon:'📱',dims:{D4:0.55,D5:0.55,D3:0.50},
+   why:d=>{const p=[];if(d.D4>0.55)p.push("reads stakeholders accurately");if(d.D5>0.55)p.push("maintains clarity when teams pull in different directions");if(d.D3>0.50)p.push("engineers give you the real problems");return p.length?p.join(", ")+".":"product roles suit this profile.";},
+   caution:d=>d.D6>0.65?"Fairness instinct can slow decisive calls.":null},
+  {name:'Technology & Engineering',icon:'🔧',dims:{D5:0.65,D2:0.60,D7:0.50},
+   why:d=>{const p=[];if(d.D5>0.65)p.push("cognitive precision");if(d.D2>0.60)p.push("deliberate decisions");if(d.D7>0.55)p.push("exploration keeps you current");return p.length?p.join(", ")+".":"technical roles suit this profile.";},
+   caution:d=>d.D4<0.40?"Low context sensitivity makes cross-functional work draining.":null},
+  {name:'Entrepreneurship & Founding',icon:'🚀',dims:{D1:0.65,D7:0.60,D3:0.50},
+   why:d=>{const p=[];if(d.D1>0.65)p.push("risk appetite for uncertain outcomes");if(d.D7>0.60)p.push("active exploration");if(d.D3>0.50&&d.V5>0.45)p.push("builds teams people want to be part of");return p.length?p.join(", ")+".":"founding roles suit this profile.";},
+   caution:d=>d.D2<0.40?"Fast trigger can create avoidable crises in early-stage environments.":null},
+];
+
+function scoreRole(r,dims) {
+  let s=0;
+  Object.entries(r.dims).forEach(([k,min])=>{const a=dims[k]||0.5;s+=a>=min?(a-min+0.1):-(min-a);});
+  return s;
+}
+function getTopRoles(dims,n=3) {
+  return ROLE_FAMILIES_SHORT.map(r=>({...r,score:scoreRole(r,dims)})).sort((a,b)=>b.score-a.score).slice(0,n);
+}
+
+function getPostGameTeaser(gameCode, result) {
+  const teasers = {
+    BART:(r)=>{if(!r)return"Noted.";const s=r.bartScore||0;if(s>20)return"Most people say they are bold. You just proved it with a balloon.";if(s<10)return"You collected early and slept well. The data has that noted.";return"Not reckless, not timid. Somewhere in the middle where most interesting decisions live.";},
+    FER:(r)=>{if(!r)return"Noted.";const s=r.stroopScore||50;if(s>75)return"Your brain reads one thing and does another, cleanly. That is not easy.";if(s<35)return"The word kept winning. It does for most people — the interesting part is how much.";return"The gap between what you saw and what you did has been measured to the millisecond.";},
+    GNG:(r)=>{if(!r)return"Noted.";const s=r.gngScore||50;if(s>75)return"You tapped when you should and stopped when you should. Sounds simple. It is not.";if(s<35)return"The tap button was very persuasive. We have noted exactly how persuasive.";return"Forty decisions, made in under a second each. The pattern across them is revealing.";},
+    PROB_SAUDA:(r)=>{if(!r)return"Noted.";return"Your floor on fairness is now a number, not a feeling.";},
+    MILAAN:(r)=>{if(!r)return"Noted.";const bl=r&&r.scores&&r.scores.baseline||0.5;if(bl>0.70)return"Five relationships, consistently open. That is a pattern.";if(bl<0.35)return"Five relationships, consistently guarded. That is a pattern too.";return"How you behave with a stranger versus a friend versus a competitor — that gap is now data.";},
+    BAZAAR:(r)=>{if(!r)return"Noted.";if((r.label||'').includes('Adapter'))return"You found it, committed, and updated when it stopped working. That is the whole thing, done correctly.";return"Twenty years of investment decisions compressed into seven minutes.";},
+    CORP_MAZDOOR:(r)=>{return"Twelve scenarios designed to be uncomfortable. What you chose when nobody was grading you — that is the data.";},
+  };
+  const fn=teasers[gameCode];
+  return fn ? fn(result) : "Noted. Keep going.";
+}
+
+// ═══════════════════════════════════════════════════════════
+// REPORT RENDER
+// ═══════════════════════════════════════════════════════════
+const DIM_META_REPORT = [
+  {key:'D1',label:'Risk appetite',          lo:'Protects downside',    hi:'Seeks upside'},
+  {key:'D2',label:'Acts before thinking',   lo:'Reactive',             hi:'Deliberate'},
+  {key:'D3',label:'How freely you trust',   lo:'Guarded',              hi:'Extends freely'},
+  {key:'D4',label:'Context shapes you',     lo:'Consistent regardless',hi:'Adapts to situation'},
+  {key:'D5',label:'Focus under pressure',   lo:'Noise gets through',   hi:'Filters cleanly'},
+  {key:'D6',label:'Your fairness line',     lo:'Takes the deal',       hi:'Walks on principle'},
+  {key:'D7',label:'Exploring vs exploiting',lo:'Exploits what works',  hi:'Explores actively'},
+];
+
+function renderReport() {
+  const scores = user && user.scores || [];
+  if(!scores.length) { showScreen('dashboard'); return; }
+
+  const dims = getDimensionScores(scores, user.b5self || {});
+  if(!dims) { showScreen('dashboard'); return; }
+
+  const profile = assignProfile(dims);
+  const roles = getTopRoles(dims, 3);
+
+  // Hero
+  document.getElementById('report-profile-icon').textContent = profile.icon;
+  document.getElementById('report-profile-name').textContent = profile.label;
+  document.getElementById('report-profile-sub').textContent = '— ' + profile.subLabel;
+  document.getElementById('report-hero-summary').textContent = profile.subDesc;
+
+  // Headline + summary
+  document.getElementById('report-headline').textContent = buildHeadline(dims);
+  document.getElementById('report-summary-text').textContent = buildSummary(dims);
+
+  // Dim bars
+  document.getElementById('report-dim-bars').innerHTML = DIM_META_REPORT.map(d => {
+    const v = dims[d.key]; const pct = Math.round(v*100);
+    const bkt = bucket(v);
+    const markerCls = bkt==='high' ? 'dim-marker high' : 'dim-marker';
+    const posLabel = bkt==='high' ? d.hi : bkt==='low' ? d.lo : '—';
+    const posColor = bkt==='high' ? 'var(--teal)' : bkt==='low' ? 'var(--red)' : 'var(--text-muted)';
+    return `<div style="margin-bottom:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+        <span style="font-size:0.82rem;font-weight:600;">${d.label}</span>
+        <span style="font-size:0.76rem;color:${posColor};font-weight:500;">${posLabel} · ${pct}/100</span>
+      </div>
+      <div class="dim-endpoints"><span>${d.lo}</span><span>${d.hi}</span></div>
+      <div class="dim-track"><div class="${markerCls}" style="left:${pct}%" id="dm-${d.key}"></div></div>
+    </div>`;
+  }).join('');
+
+  // Role cards
+  document.getElementById('report-role-cards').innerHTML = roles.map((r,i) => {
+    const why = r.why(dims); const caution = r.caution(dims);
+    return `<div class="role-card-report ${i===0?'top':''}">
+      <div style="font-size:1rem;font-weight:600;margin-bottom:5px;">${r.icon} ${r.name}</div>
+      <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;">${why}</div>
+      ${caution?`<div style="font-size:0.76rem;color:var(--text-hint);margin-top:5px;">⚠ ${caution}</div>`:''}
+    </div>`;
+  }).join('');
+
+  // D8 gap cards
+  const b5 = user.b5self || {};
+  const valToNum = v => v==='high'?0.8:v==='low'?0.2:0.5;
+  const gaps = [];
+  if(b5.BART){ const diff=(valToNum(b5.BART.val)-dims.D1); if(Math.abs(diff)>0.28) gaps.push({label:`Risk — you said ${b5.BART.val}, games say ${dims.D1>0.55?'bold':dims.D1<0.40?'cautious':'measured'}`,text:diff<0?`You called yourself a risk-taker. Dum says otherwise. That gap is data, not judgment.`:`You said you play it safe. Your balloon scores say something different.`}); }
+  if(b5.MILAAN){ const diff=(valToNum(b5.MILAAN.val)-dims.D3); if(Math.abs(diff)>0.28) gaps.push({label:`Trust — you said ${b5.MILAAN.val}, games say ${dims.D3>0.6?'generous':dims.D3<0.4?'guarded':'calibrated'}`,text:diff<0?`You said trust comes first. Milaan shows a more guarded pattern across five relationships.`:`You said you wait and see. Milaan shows you extending trust earlier than that.`}); }
+  if(b5.PROB_SAUDA){ const diff=(valToNum(b5.PROB_SAUDA.val)-dims.D6); if(Math.abs(diff)>0.28) gaps.push({label:`Fairness — you said ${b5.PROB_SAUDA.val}, games say ${dims.D6>0.6?'principled':'pragmatic'}`,text:diff<0?`You said you'd walk on principle. Saudaa says you took most deals.`:`You said you take what's on the table. Saudaa says you walked more than that.`}); }
+
+  const gapsWrap = document.getElementById('report-gaps-wrap');
+  if(gaps.length) {
+    gapsWrap.style.display = 'block';
+    document.getElementById('report-gap-cards').innerHTML = gaps.map(g => `
+      <div class="gap-card"><div class="gap-label">${g.label}</div><div class="gap-text">${g.text}</div></div>
+    `).join('');
+  }
+
+  showScreen('report');
+
+  // Animate markers
+  setTimeout(() => {
+    document.querySelectorAll('.dim-marker').forEach(m => {
+      const finalLeft = m.style.left;
+      m.style.left = '50%'; m.style.transition = 'none';
+      setTimeout(() => { m.style.transition = 'left 1.2s cubic-bezier(0.4,0,0.2,1)'; m.style.left = finalLeft; }, 100);
+    });
+  }, 200);
+}
+
+function switchReportTab(tab) {
+  document.querySelectorAll('.report-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.report-pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('rtab-'+tab).classList.add('active');
+  document.getElementById('report-pane-'+tab).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// Override dashboard profile button to render report
+document.addEventListener('DOMContentLoaded',()=>{
+  const btn = document.getElementById('dash-profile-btn-wrap');
+  if(btn) {
+    const b = btn.querySelector('button');
+    if(b) b.onclick = () => renderReport();
+  }
+});
+
+// ═══════════════════════════════════════════════════════════
+// DUM GAME v2 — full implementation
+// ═══════════════════════════════════════════════════════════
+const B2 = {
+  TOTAL:30, DECISION_MS:3000,
+  COLORS:{
+    red:  {fill:'#dc2626',shine:'#fca5a5',reward:5,bg:'#FEE2E2',tc:'#991b1b',label:'Red — volatile',    baseNMin:15,baseNMax:20,earlyProb:0.62,earlyLo:1,earlyHi:5,lateStart:6},
+    gold: {fill:'#d97706',shine:'#fcd34d',reward:3,bg:'#FEF3C7',tc:'#92400e',label:'Gold — medium',     baseNMin:25,baseNMax:35,earlyProb:0.65,earlyLo:1,earlyHi:15,lateStart:16},
+    blue: {fill:'#3b82f6',shine:'#93c5fd',reward:2,bg:'#EFF6FF',tc:'#1e40af',label:'Blue — safer',      baseNMin:40,baseNMax:50,earlyProb:0.60,earlyLo:1,earlyHi:25,lateStart:26},
+  },
+  MAX_TRAPS:2, MIN_LUCKY:3, TRAP_MAX_POINT:3, LUCKY_FRACTION:0.85,
+  MAX_ADAPT_SHIFT:0.15, ADAPT_LOW:0.35, ADAPT_HIGH:0.65,
+};
+const COLOR_OPTIMAL={red:0.22,gold:0.38,blue:0.50};
+
+let b2Balloons=[],b2Idx=0,b2Banked=0,b2Trials=[];
+let b2Pumps=0,b2Color='',b2Active=false,b2BalloonStart=0;
+let b2PumpRTs=[],b2LastActionAt=0;
+let b2TimerTimeout=null,b2TimerWarning=null;
+
+const ri=(lo,hi)=>Math.floor(Math.random()*(hi-lo+1))+lo;
+const rf=(lo,hi)=>lo+Math.random()*(hi-lo);
+const avgB=arr=>arr.length?arr.reduce((s,v)=>s+v,0)/arr.length:0;
+const sdB=arr=>{if(arr.length<2)return 0;const m=avgB(arr);return Math.sqrt(arr.reduce((s,v)=>s+(v-m)**2,0)/arr.length);};
+const pearson=(x,y)=>{const n=x.length;if(n<2)return 0;const mx=avgB(x),my=avgB(y);const num=x.reduce((s,xi,i)=>s+(xi-mx)*(y[i]-my),0);const dX=Math.sqrt(x.reduce((s,xi)=>s+(xi-mx)**2,0));const dY=Math.sqrt(y.reduce((s,yi)=>s+(yi-my)**2,0));return(dX*dY===0)?0:num/(dX*dY);};
+function shuffleB(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+
+function buildTypeSequence(){const base=Array(10).fill('fixed');let tail=[...Array(10).fill('fixed'),...Array(10).fill('adaptive')];let tries=0;do{shuffleB(tail);tries++;}while(tail.some((t,i)=>i>0&&t==='adaptive'&&tail[i-1]==='adaptive')&&tries<2000);return[...base,...tail];}
+
+function sampleExplosionPoint(cfg,N){const useEarly=Math.random()<cfg.earlyProb;if(useEarly)return{point:ri(cfg.earlyLo,Math.min(cfg.earlyHi,N)),dist:'early'};const lo=cfg.lateStart,hi=N;if(lo>hi)return{point:N,dist:'late'};return{point:ri(lo,hi),dist:'late'};}
+
+function generateSession(){
+  const typeSeq=buildTypeSequence();
+  const colors=shuffleB([...Array(10).fill('red'),...Array(10).fill('gold'),...Array(10).fill('blue')]);
+  const balloons=[];let trapCount=0,luckyFirst10=false;
+  for(let i=0;i<30;i++){
+    const color=colors[i],type=typeSeq[i],cfg=B2.COLORS[color],baseN=ri(cfg.baseNMin,cfg.baseNMax);
+    let ep,dist,attempts=0;
+    do{const s=sampleExplosionPoint(cfg,baseN);ep=s.point;dist=s.dist;const isTrap=ep<=B2.TRAP_MAX_POINT;const prevIsTrap=balloons.length>0&&balloons[balloons.length-1].isTrap;let valid=true;if(isTrap&&i<5)valid=false;if(isTrap&&trapCount>=B2.MAX_TRAPS)valid=false;if(isTrap&&prevIsTrap)valid=false;if(valid){if(isTrap)trapCount++;break;}attempts++;}while(attempts<60);
+    const isLucky=ep>=Math.floor(B2.LUCKY_FRACTION*baseN);if(isLucky&&i<10)luckyFirst10=true;
+    balloons.push({idx:i,color,type,baseN,adjustedN:baseN,expPoint:ep,distribType:dist,isTrap:ep<=B2.TRAP_MAX_POINT,isLucky});
+  }
+  if(!luckyFirst10){for(let i=0;i<10;i++){if(!balloons[i].isTrap){const N=balloons[i].baseN;const luckThresh=Math.floor(B2.LUCKY_FRACTION*N);balloons[i].expPoint=ri(luckThresh,N);balloons[i].isLucky=true;break;}}}
+  return balloons;
+}
+
+function getAdaptiveN(baseN){
+  const last5=b2Trials.slice(-5).filter(t=>!t.popped);if(last5.length<2)return baseN;
+  const meanRel=avgB(last5.map(t=>t.pumps/t.adjustedN));let shift=0;
+  if(meanRel<B2.ADAPT_LOW)shift=rf(0.08,B2.MAX_ADAPT_SHIFT);
+  else if(meanRel>B2.ADAPT_HIGH)shift=-rf(0.08,B2.MAX_ADAPT_SHIFT);
+  const adj=Math.round(baseN*(1+shift));const lo=Math.round(baseN*(1-B2.MAX_ADAPT_SHIFT)),hi=Math.round(baseN*(1+B2.MAX_ADAPT_SHIFT));
+  return Math.max(lo,Math.min(hi,adj));
+}
+
+function startDumGame(){
+  b2Balloons=generateSession();b2Idx=0;b2Banked=0;b2Trials=[];b2Pumps=0;b2Active=false;
+  showScreen('dum-play');setTimeout(dumSetupBalloon,300);
+}
+
+function dumSetupBalloon(){
+  if(b2Idx>=30){dumEndGame();return;}
+  clearTimeout(b2TimerTimeout);clearTimeout(b2TimerWarning);
+  const balloon=b2Balloons[b2Idx];
+  if(balloon.type==='adaptive'){
+    balloon.adjustedN=getAdaptiveN(balloon.baseN);
+    const cfg=B2.COLORS[balloon.color];const s=sampleExplosionPoint(cfg,balloon.adjustedN);
+    balloon.expPoint=s.point;balloon.distribType=s.dist;balloon.isTrap=balloon.expPoint<=B2.TRAP_MAX_POINT;balloon.isLucky=balloon.expPoint>=Math.floor(B2.LUCKY_FRACTION*balloon.adjustedN);
+  }
+  b2Color=balloon.color;b2Pumps=0;b2PumpRTs=[];b2BalloonStart=Date.now();b2LastActionAt=Date.now();b2Active=true;
+  dumRenderBalloonUI(balloon);dumStartPumpTimer();
+}
+
+function dumRenderBalloonUI(balloon){
+  const cfg=B2.COLORS[b2Color];
+  document.getElementById('g-num').textContent=b2Idx+1;
+  document.getElementById('g-banked').textContent='₹'+b2Banked;
+  document.getElementById('g-earn').textContent='₹0';
+  document.getElementById('g-camt').textContent='0';
+  document.getElementById('g-pumps').textContent='0';
+  document.getElementById('g-boom').style.display='none';
+  document.getElementById('balloon-wrap').style.display='block';
+  document.getElementById('balloon-wrap').style.transform='scale(1)';
+  document.getElementById('g-prog').style.width=((b2Idx+1)/30*100)+'%';
+  document.getElementById('g-pbtn').disabled=false;
+  document.getElementById('g-cbtn').disabled=false;
+  document.getElementById('g-cbtn').classList.remove('collect-ready');
+  document.getElementById('b-body').setAttribute('fill',cfg.fill);
+  document.getElementById('b-shine').setAttribute('fill',cfg.shine);
+  const badge=document.getElementById('g-badge');
+  badge.textContent=cfg.label;badge.style.background=cfg.bg;badge.style.color=cfg.tc;badge.classList.remove('timer-urgent');
+  document.getElementById('g-reward-hint').textContent='₹'+cfg.reward+' per pump';
+}
+
+function dumStartPumpTimer(){
+  dumStopTimer();
+  const fill=document.getElementById('g-timer-fill');const cfg=B2.COLORS[b2Color];
+  fill.style.transition='none';fill.style.background=cfg.fill;fill.style.width='100%';fill.offsetWidth;
+  fill.style.transition=`width ${B2.DECISION_MS}ms linear`;fill.style.width='0%';
+  b2TimerWarning=setTimeout(()=>{document.getElementById('g-badge').classList.add('timer-urgent');},B2.DECISION_MS-1000);
+  b2TimerTimeout=setTimeout(dumOnTimerExpired,B2.DECISION_MS);
+}
+
+function dumStopTimer(){
+  clearTimeout(b2TimerTimeout);clearTimeout(b2TimerWarning);b2TimerTimeout=null;b2TimerWarning=null;
+  const fill=document.getElementById('g-timer-fill');fill.style.transition='none';document.getElementById('g-badge').classList.remove('timer-urgent');
+}
+
+function dumOnTimerExpired(){
+  if(!b2Active)return;
+  if(b2Pumps===0){b2Active=false;const balloon=b2Balloons[b2Idx];b2Trials.push({...balloon,pumps:0,popped:false,earned:0,pumpRTs:[],totalTime:B2.DECISION_MS,timeout:true});b2Idx++;dumSetupBalloon();}
+  else{dumDoCollect(true);}
+}
+
+function dumPump(){
+  if(!b2Active)return;
+  const balloon=b2Balloons[b2Idx];const cfg=B2.COLORS[b2Color];
+  const rt=Date.now()-b2LastActionAt;b2PumpRTs.push(rt);b2LastActionAt=Date.now();
+  if(b2Pumps===0)document.getElementById('g-cbtn').classList.add('collect-ready');
+  b2Pumps++;const earned=b2Pumps*cfg.reward;
+  document.getElementById('g-earn').textContent='₹'+earned;document.getElementById('g-camt').textContent=earned;document.getElementById('g-pumps').textContent=b2Pumps;
+  const sc=1+(b2Pumps/balloon.adjustedN)*1.5;document.getElementById('balloon-wrap').style.transform='scale('+Math.min(sc,2.3)+')';
+  if(b2Pumps>=balloon.expPoint){dumExplodeBalloon();return;}
+  dumStartPumpTimer();
+}
+
+function dumExplodeBalloon(){
+  b2Active=false;dumStopTimer();const balloon=b2Balloons[b2Idx];const totalTime=Date.now()-b2BalloonStart;
+  b2Trials.push({...balloon,pumps:b2Pumps,popped:true,earned:0,pumpRTs:[...b2PumpRTs],totalTime,timeout:false});
+  document.getElementById('balloon-wrap').style.display='none';document.getElementById('g-boom').style.display='block';
+  document.getElementById('g-earn').textContent='💥 Popped!';document.getElementById('g-pbtn').disabled=true;document.getElementById('g-cbtn').disabled=true;
+  setTimeout(()=>{document.getElementById('g-boom').style.display='none';document.getElementById('balloon-wrap').style.display='block';b2Idx++;dumSetupBalloon();},1300);
+}
+
+function dumCollect(){if(!b2Active||b2Pumps===0)return;b2PumpRTs.push(Date.now()-b2LastActionAt);dumDoCollect(false);}
+
+function dumDoCollect(isTimeout){
+  b2Active=false;dumStopTimer();const balloon=b2Balloons[b2Idx];const cfg=B2.COLORS[b2Color];
+  const earned=b2Pumps*cfg.reward;b2Banked+=earned;const totalTime=Date.now()-b2BalloonStart;
+  b2Trials.push({...balloon,pumps:b2Pumps,popped:false,earned,pumpRTs:[...b2PumpRTs],totalTime,timeout:isTimeout});
+  document.getElementById('g-pbtn').disabled=true;document.getElementById('g-cbtn').disabled=true;document.getElementById('g-banked').textContent='₹'+b2Banked;
+  if(isTimeout){const badge=document.getElementById('g-badge');const prev=badge.textContent;badge.textContent='⏱ Auto-saved ₹'+earned;setTimeout(()=>{badge.textContent=prev;},700);}
+  setTimeout(()=>{b2Idx++;dumSetupBalloon();},450);
+}
+
+function computeBehaviorVector(trials){
+  const fixed=trials.filter(t=>t.type==='fixed'),adaptive=trials.filter(t=>t.type==='adaptive');
+  const fixedOk=fixed.filter(t=>!t.popped),adaptOk=adaptive.filter(t=>!t.popped);
+  const relP=t=>t.adjustedN>0?t.pumps/t.adjustedN:0;
+  const risk_appetite=fixedOk.length>0?clamp01(avgB(fixedOk.map(relP))):0.5;
+  const poppedIdxs=trials.map((t,i)=>t.popped?i:-1).filter(i=>i>=0&&i<trials.length-1);
+  const lossSens=poppedIdxs.map(pi=>{const bS=trials.slice(Math.max(0,pi-3),pi).filter(t=>!t.popped);if(!bS.length)return null;const before=avgB(bS.map(relP));const after=relP(trials[pi+1]);return before>0?clamp01((before-after)/before):null;}).filter(v=>v!==null);
+  const loss_sensitivity=lossSens.length>0?clamp01(avgB(lossSens)):0;
+  const allRel=trials.map(relP);const idxArr=trials.map((_,i)=>i);
+  const learning_rate=clamp01(Math.abs(pearson(idxArr,allRel)));
+  const risk_volatility=clamp01(sdB(allRel)/0.32);
+  const allPumpRTs=trials.flatMap(t=>(t.pumpRTs||[]).filter(rt=>rt>80&&rt<B2.DECISION_MS));
+  const impulsivity=allPumpRTs.length>0?clamp01(allPumpRTs.filter(rt=>rt<1200).length/allPumpRTs.length):0.5;
+  const evErrors=trials.map(t=>Math.abs(relP(t)-COLOR_OPTIMAL[t.color]));
+  const EV_alignment=clamp01(1-avgB(evErrors)*1.8);
+  const avgFixed=fixedOk.length>0?avgB(fixedOk.map(relP)):0.5;
+  const avgAdapt=adaptOk.length>0?avgB(adaptOk.map(relP)):avgFixed;
+  const exploration_exploitation=avgFixed>0?clamp01((avgAdapt/avgFixed)/2):0.5;
+  const recoveries=poppedIdxs.map(pi=>{if(pi<2||pi>=trials.length-1)return null;const before=avgB([trials[pi-2],trials[pi-1]].map(relP));if(before<=0)return null;return clamp01(relP(trials[pi+1])/before);}).filter(v=>v!==null);
+  const recovery_speed=recoveries.length>0?clamp01(avgB(recoveries)):0.5;
+  const fastPump=trials.filter(t=>{const rts=(t.pumpRTs||[]).filter(r=>r>80&&r<B2.DECISION_MS);return rts.length>0&&avgB(rts)<1200;});
+  const slowPump=trials.filter(t=>{const rts=(t.pumpRTs||[]).filter(r=>r>80&&r<B2.DECISION_MS);return rts.length>0&&avgB(rts)>2000;});
+  const time_pressure_sensitivity=(fastPump.length>0&&slowPump.length>0)?clamp01(Math.abs(avgB(fastPump.map(relP))-avgB(slowPump.map(relP)))*2):0.5;
+  return{risk_appetite,loss_sensitivity,learning_rate,risk_volatility,impulsivity,EV_alignment,exploration_exploitation,recovery_speed,time_pressure_sensitivity};
+}
+
+function getArchetype(v){
+  const scores={
+    'Strategic Risk-Taker':(v.risk_appetite>0.55?3:v.risk_appetite>0.42?1:0)+(v.EV_alignment>0.55?3:v.EV_alignment>0.40?1:0)+(v.risk_volatility<0.45?2:0)+(v.impulsivity<0.55?1:0)+(v.loss_sensitivity<0.40?1:0),
+    'Controlled Planner':(v.risk_appetite>0.25&&v.risk_appetite<0.62?2:0)+(v.learning_rate>0.38?3:v.learning_rate>0.22?1:0)+(v.risk_volatility<0.35?3:v.risk_volatility<0.50?1:0)+(v.impulsivity<0.42?1:0)+(v.recovery_speed>0.50?1:0),
+    'Reactive Gambler':(v.risk_appetite>0.60?3:v.risk_appetite>0.50?1:0)+(v.impulsivity>0.58?3:v.impulsivity>0.42?1:0)+(v.risk_volatility>0.55?3:v.risk_volatility>0.40?1:0)+(v.EV_alignment<0.38?2:0)+(v.loss_sensitivity<0.30?1:0),
+    'Conservative Avoider':(v.risk_appetite<0.28?4:v.risk_appetite<0.42?2:0)+(v.loss_sensitivity>0.50?3:v.loss_sensitivity>0.30?1:0)+(v.impulsivity<0.38?1:0)+(v.recovery_speed<0.42?1:0),
+    'Volatile Explorer':(v.risk_volatility>0.62?4:v.risk_volatility>0.48?2:0)+(v.exploration_exploitation>0.58?3:v.exploration_exploitation>0.45?1:0)+(v.impulsivity>0.50?1:0)+(v.learning_rate<0.25?1:0),
+  };
+  return Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
+}
+
+const ARCHETYPE_INFO={
+  'Strategic Risk-Taker':{icon:'🎯',summary:"You take real risks, but they're calculated. You read the color, adjusted the pumps, and didn't flinch when it popped. That gap between appetite and recklessness is what most people can't maintain."},
+  'Controlled Planner':{icon:'🧭',summary:"You adapted your strategy as you learned the environment — consistent, updating based on evidence. That's the signature of someone who gets better at systems over time."},
+  'Reactive Gambler':{icon:'⚡',summary:"You moved fast, went big, and the variance was high. That's not a judgment — it's a pattern. Some environments reward exactly that. Others punish it hard."},
+  'Conservative Avoider':{icon:'🛡️',summary:"You protect what you have. Loss lands differently for you than for most — a pop affects the next balloon more than it should. Not a flaw; a calibration that shows up in how you respond to setbacks."},
+  'Volatile Explorer':{icon:'🌀',summary:"Your behavior was hard to predict. High variance can mean experimenting — or reacting to noise. The games ahead will tell us which."},
+};
+
+function dumEndGame(){
+  clearTimeout(b2TimerTimeout);clearTimeout(b2TimerWarning);
+  const vector=computeBehaviorVector(b2Trials);const archetype=getArchetype(vector);const info=ARCHETYPE_INFO[archetype];
+  const pops=b2Trials.filter(t=>t.popped).length;const timeouts=b2Trials.filter(t=>t.timeout).length;
+  const allRel=b2Trials.map(t=>t.adjustedN>0?t.pumps/t.adjustedN:0);
+  const firstHalf=avgB(allRel.slice(0,15));const secondHalf=avgB(allRel.slice(15));
+  const li=firstHalf>0?secondHalf/firstHalf:1;
+  const trendLabel=li>1.12?'↑ Escalating':li<0.88?'↓ Calibrating':'→ Steady';
+  const bartScore=Math.round(vector.risk_appetite*40);
+  const result={game:'BART',bartScore,label:archetype,archetype,learningIndex:Math.round(li*100)/100,totalBanked:b2Banked,pops,timeouts,behaviorVector:vector,date:new Date().toISOString()};
+  saveScore(result);
+  document.getElementById('r-archetype-icon').textContent=info.icon;
+  document.getElementById('r-archetype-name').textContent=archetype;
+  document.getElementById('r-summary').textContent=info.summary;
+  document.getElementById('r-score').textContent=bartScore;
+  document.getElementById('r-label').textContent=archetype;
+  document.getElementById('r-banked').textContent='₹'+b2Banked;
+  document.getElementById('r-pops').textContent=pops;
+  document.getElementById('r-trend').textContent=trendLabel;
+  renderDumVectorBars(vector);
+  showScreen('dum-results');
+}
+
+function renderDumVectorBars(v){
+  const dims=[
+    {key:'risk_appetite',label:'Risk appetite',lo:'Cautious',hi:'Bold'},
+    {key:'EV_alignment',label:'Decision calibration',lo:'Uncalibrated',hi:'Sharp'},
+    {key:'impulsivity',label:'Impulsivity',lo:'Deliberate',hi:'Reactive'},
+    {key:'loss_sensitivity',label:'Loss sensitivity',lo:'Resilient',hi:'Sensitive'},
+    {key:'risk_volatility',label:'Consistency',lo:'Variable',hi:'Consistent',invert:true},
+    {key:'learning_rate',label:'Adaptability',lo:'Fixed',hi:'Adaptive'},
+    {key:'recovery_speed',label:'Recovery after loss',lo:'Slow',hi:'Fast'},
+    {key:'exploration_exploitation',label:'Exploration tendency',lo:'Conservative',hi:'Exploratory'},
+  ];
+  document.getElementById('r-vector-bars').innerHTML=dims.map(d=>{
+    const raw=v[d.key];const val=d.invert?(1-raw):raw;const pct=Math.round(clamp01(val)*100);
+    const barCol=pct>=65?'var(--teal)':pct>=35?'var(--amber)':'var(--text-muted)';const side=pct>=65?d.hi:pct<=35?d.lo:'—';
+    return`<div class="vec-row"><div class="vec-label-row"><span style="font-weight:500;">${d.label}</span><span style="font-size:0.76rem;color:${barCol};font-weight:500;">${side}</span></div><div class="vec-bar-track"><div class="vec-bar-fill" style="width:${pct}%;background:${barCol};"></div></div></div>`;
+  }).join('');
+  requestAnimationFrame(()=>{document.querySelectorAll('.vec-bar-fill').forEach(el=>{const w=el.style.width;el.style.width='0%';requestAnimationFrame(()=>{el.style.width=w;});});});
+}
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+(function init(){
+  const session=lsGet('rl_session');
+  if(session){
+    const sd=JSON.parse(session);const ur=lsGet(sd.emailKey);
+    user=ur?JSON.parse(ur):{name:sd.name,email:'',scores:[],b5self:{}};
+    const el=document.getElementById('landing-continue');if(el)el.style.display='block';
+    showScreen('landing');return;
+  }
+  showScreen('landing');
+})();
+</script>
+</body>
+</html>

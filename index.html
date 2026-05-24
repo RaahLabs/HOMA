@@ -303,6 +303,80 @@
       border-radius: var(--radius-lg); padding: 2rem; text-align: center; margin-top: 2rem;
     }
 
+    /* ═══ RANG ═══ */
+    .rang-word-display { display:flex; align-items:center; justify-content:center; min-height:150px; user-select:none; background:#FFFFFF; border-radius:var(--radius-lg); margin-bottom:4px; }
+    .rang-word { font-size:68px; font-weight:700; letter-spacing:-2px; line-height:1; }
+    .rang-btn-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .rang-btn { padding:18px 10px; border-radius:var(--radius); border:2px solid var(--border-strong); background:var(--card); font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all 0.1s; width:100%; -webkit-tap-highlight-color:transparent; }
+    .rang-btn:hover:not(:disabled) { background:var(--surface); transform:scale(1.02); }
+    .rang-btn:active:not(:disabled) { transform:scale(0.97); }
+    .rang-btn:disabled { cursor:not-allowed; opacity:0.6; }
+    .rang-btn.correct { background:var(--teal-light)!important; border-color:var(--teal)!important; }
+    .rang-btn.wrong   { background:var(--red-light)!important;  border-color:var(--red)!important;  }
+    .rang-feedback { text-align:center; font-size:13px; font-weight:500; height:22px; margin:8px 0; transition:opacity 0.15s; }
+    .rang-phase-pill { display:inline-block; font-size:11px; font-weight:500; padding:3px 10px; border-radius:20px; background:var(--surface); color:var(--text-muted); letter-spacing:.04em; text-transform:uppercase; }
+    .rt-compare { display:flex; gap:10px; margin-bottom:1.25rem; }
+    .rt-col { flex:1; background:var(--surface); border-radius:var(--radius); padding:14px; text-align:center; }
+    .rt-col-val { font-size:22px; font-weight:500; line-height:1; }
+    .rt-col-lbl { font-size:11px; color:var(--text-muted); margin-top:4px; }
+    .rt-col-sub { font-size:11px; color:var(--text-hint); margin-top:2px; }
+
+    /* ═══ RUK ═══ */
+    .ruk-arena { min-height:220px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; user-select:none; border-radius:var(--radius-lg); background:var(--surface); margin-bottom:1rem; overflow:hidden; }
+    .ruk-stim-wrap { display:flex; align-items:center; justify-content:center; width:130px; height:130px; }
+    .ruk-stim-wrap svg { width:110px; height:110px; }
+    .ruk-tap-btn { width:100%; padding:22px; font-size:18px; font-weight:500; border-radius:var(--radius-lg); border:none; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all 0.1s; background:var(--amber); color:var(--amber-light); -webkit-tap-highlight-color:transparent; }
+    .ruk-tap-btn:active { transform:scale(0.97); }
+    .ruk-tap-btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+    @keyframes rukCorrect { 0%{background:rgba(15,110,86,0.18)} 100%{background:var(--surface)} }
+    @keyframes rukWrong   { 0%{background:rgba(163,45,45,0.18)}  100%{background:var(--surface)} }
+    .ruk-flash-correct { animation:rukCorrect 0.4s ease-out forwards; }
+    .ruk-flash-wrong   { animation:rukWrong   0.4s ease-out forwards; }
+    .ruk-feedback-strip { font-size:13px; font-weight:500; height:20px; margin:6px 0; text-align:center; transition:opacity 0.2s; }
+    .ruk-stat-bar { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:0.75rem; }
+    .ruk-stat-cell { background:var(--surface); border-radius:var(--radius); padding:10px 8px; text-align:center; }
+    .ruk-stat-val { font-size:20px; font-weight:500; color:var(--text); line-height:1; }
+    .ruk-stat-lbl { font-size:11px; color:var(--text-muted); margin-top:3px; }
+    .ruk-dots { display:flex; flex-wrap:wrap; gap:4px; justify-content:center; margin:0.5rem 0; }
+    .ruk-dot { width:9px; height:9px; border-radius:50%; background:var(--border-strong); }
+    .ruk-dot.hit  { background:#0F6E56; }
+    .ruk-dot.miss { background:#9A9A94; }
+    .ruk-dot.fa   { background:#A32D2D; }
+    .ruk-dot.cr   { background:var(--surface); border:1.5px solid var(--border-strong); }
+    #ruk-timer-track { height:3px; background:var(--surface); border-radius:3px; margin-bottom:0.5rem; overflow:hidden; }
+    #ruk-timer-fill  { height:100%; border-radius:3px; background:var(--amber); width:100%; }
+    .block-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; z-index:100; }
+    .block-card { background:var(--card); border-radius:var(--radius-lg); padding:2rem 1.75rem; max-width:360px; width:90%; text-align:center; box-shadow:0 8px 40px rgba(0,0,0,0.2); }
+    .stim-preview-row { display:flex; justify-content:center; gap:28px; margin-bottom:1.5rem; }
+    .stim-preview-cell { text-align:center; }
+    .stim-preview-cell svg { width:60px; height:60px; }
+    .stim-preview-label { font-size:12px; margin-top:6px; font-weight:500; }
+    .go-label { color:#0F6E56; } .nogo-label { color:#A32D2D; }
+
+    /* ═══ SAUDA ═══ */
+    .choice-row-ps { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:10px; }
+    .choice-card-ps { background:var(--card); border:1.5px solid var(--border-strong); border-radius:var(--radius-lg); padding:1.25rem 0.875rem; cursor:pointer; transition:all 0.15s; text-align:center; position:relative; overflow:hidden; min-height:180px; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; -webkit-tap-highlight-color:transparent; }
+    .choice-card-ps:hover:not(.ps-disabled) { border-color:var(--amber); background:var(--amber-light); transform:translateY(-1px); }
+    .choice-card-ps.ps-disabled { pointer-events:none; }
+    .choice-card-ps.picked-safe  { border-color:var(--teal)!important; background:var(--teal-light)!important; }
+    .choice-card-ps.picked-risky { border-color:var(--amber)!important; background:var(--amber-light)!important; }
+    .prob-bar-track { height:5px; background:var(--surface); border-radius:3px; margin:8px 0 4px; overflow:hidden; width:100%; }
+    .prob-bar-fill  { height:100%; border-radius:3px; background:var(--amber); }
+    .rec-badge { position:absolute; top:-1px; right:-1px; background:var(--teal); color:white; font-size:9px; font-weight:700; padding:3px 8px; border-radius:0 var(--radius-lg) 0 var(--radius); letter-spacing:.04em; text-transform:uppercase; }
+    #ps-timer-track { height:3px; border-radius:3px; background:var(--surface); margin-bottom:1rem; overflow:hidden; }
+    #ps-timer-fill  { height:100%; border-radius:3px; background:var(--amber); width:100%; }
+    .offer-display { background:var(--surface); border-radius:var(--radius-lg); padding:1.75rem 1.25rem; text-align:center; margin-bottom:1.25rem; }
+    .offer-amount  { font-size:52px; font-weight:500; color:var(--amber); line-height:1; margin-bottom:4px; }
+    .offer-split-bar { display:flex; height:10px; border-radius:5px; overflow:hidden; margin:14px 0 8px; }
+    .offer-split-you { background:var(--amber); transition:width 0.4s ease; }
+    .offer-split-them { background:var(--border-strong); flex:1; }
+    .fair-btn-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .fair-btn { padding:20px 10px; border-radius:var(--radius-lg); border:1.5px solid var(--border-strong); background:var(--card); font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500; cursor:pointer; transition:all 0.15s; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; -webkit-tap-highlight-color:transparent; }
+    .fair-btn:active { transform:scale(0.97); }
+    .fair-btn.ps-disabled { pointer-events:none; opacity:0.5; }
+    .fair-btn-accept { background:var(--amber); color:var(--amber-light); border-color:transparent; }
+    .ps-feedback { text-align:center; font-size:13px; font-weight:500; height:22px; margin:8px 0 6px; }
+
     /* ═══════════════════════════════════════════════
        STUB GAME STYLES
     ═══════════════════════════════════════════════ */
@@ -557,83 +631,405 @@
 <!-- ═══════════════════════════════════════════════
      STUB GAMES — 2 to 7
 ═══════════════════════════════════════════════ -->
-<!-- RANG -->
+<!-- RANG INTRO -->
 <div id="screen-rang-intro" class="screen">
   <div class="game-canvas">
     <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
     <span class="pill">Game 2 of 7</span>
     <div class="game-name-hindi">🎨 Rang</div>
     <div class="game-name-sub">rang — color</div>
-    <div style="display:flex;justify-content:center;align-items:center;gap:32px;margin-bottom:1.5rem;padding:1.5rem;background:#FFFFFF;border-radius:var(--radius-lg);">
-      <div style="text-align:center;"><div style="font-size:2.5rem;font-weight:700;color:#dc2626;line-height:1;margin-bottom:6px;">RED</div><div style="font-size:0.7rem;color:var(--teal);">easy — matches</div></div>
-      <div style="font-size:1.5rem;color:var(--text-hint);">vs</div>
-      <div style="text-align:center;"><div style="font-size:2.5rem;font-weight:700;color:#3b82f6;line-height:1;margin-bottom:6px;">RED</div><div style="font-size:0.7rem;color:var(--red);">hard — conflicts</div></div>
+    <div style="display:flex;justify-content:center;align-items:center;gap:28px;margin-bottom:1.5rem;padding:1.5rem;background:#FFFFFF;border-radius:var(--radius-lg);">
+      <div style="text-align:center;"><div style="font-size:40px;font-weight:700;color:#dc2626;line-height:1;margin-bottom:6px;">RED</div><div style="font-size:11px;color:#0F6E56;font-weight:500;">Easy — matches</div></div>
+      <div style="font-size:20px;color:var(--text-hint);">vs</div>
+      <div style="text-align:center;"><div style="font-size:40px;font-weight:700;color:#3b82f6;line-height:1;margin-bottom:6px;">RED</div><div style="font-size:11px;color:#A32D2D;font-weight:500;">Hard — conflicts</div></div>
     </div>
-    <p class="game-intro-para">A word appears. Ignore what it says. Tap the color it's <em>written in</em>. 8 practice rounds then 24 scored.</p>
+    <p class="game-intro-para">A color word appears. Ignore what it says. Tap the color it's <em>written in</em>. 8 practice rounds first, then 24 scored. Speed matters — so does accuracy.</p>
+    <div style="background:var(--amber-light);border:0.5px solid rgba(186,117,23,0.25);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:12px;align-items:flex-start;">
+      <span style="font-size:18px;flex-shrink:0;">👆</span>
+      <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;"><strong style="color:var(--text);">Tap the ink color — not the word.</strong> Half the trials have a mismatch. That's where your brain fights you.</p>
+    </div>
     <div class="stat-grid stat-grid-3" style="margin-bottom:1.5rem;">
       <div class="stat-cell"><div class="stat-val">24</div><div class="stat-lbl">scored trials</div></div>
       <div class="stat-cell"><div class="stat-val">~3</div><div class="stat-lbl">minutes</div></div>
       <div class="stat-cell"><div class="stat-val">4</div><div class="stat-lbl">colors</div></div>
     </div>
-    <div class="stub-coming">
-      <div style="font-size:2rem;margin-bottom:12px;">🚧</div>
-      <p style="font-weight:500;margin-bottom:6px;">Rang is being wired in next build</p>
-      <p style="font-size:0.82rem;color:var(--text-muted);">Game logic is complete — stitching into this file in Session 18.</p>
-      <button class="btn btn-secondary" style="margin-top:16px;" onclick="stubSkipGame('FER')">Skip for now (dev mode)</button>
-    </div>
+    <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startRang()">Start →</button>
   </div>
 </div>
 
-<!-- RUK -->
+<!-- RANG GAME -->
+<div id="screen-rang-game" class="screen">
+  <div class="game-canvas">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <span style="font-size:0.82rem;color:var(--text-muted);">Trial <span id="rang-num">1</span> of <span id="rang-total">8</span></span>
+      <span id="rang-phase-pill" class="rang-phase-pill">Practice</span>
+    </div>
+    <div class="progress-track" style="margin-bottom:1.5rem;"><div id="rang-prog" class="progress-fill" style="width:0%;"></div></div>
+    <div class="rang-word-display"><div id="rang-word" class="rang-word"></div></div>
+    <p style="text-align:center;font-size:0.88rem;color:var(--text-muted);margin:8px 0 4px;font-weight:500;">What color is this word written in?</p>
+    <div class="rang-feedback" id="rang-feedback"></div>
+    <div class="rang-btn-grid" id="rang-opts"></div>
+    <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;margin-top:12px;">Ignore the word — tap the ink color</p>
+  </div>
+</div>
+
+<!-- RANG RESULTS -->
+<div id="screen-rang-results" class="screen">
+  <div class="game-canvas fade-in">
+    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <div style="font-size:3rem;margin-bottom:10px;">🎨</div>
+      <h1 style="font-size:1.4rem;font-weight:500;margin-bottom:4px;">Rang — complete!</h1>
+      <p style="color:var(--text-muted);font-size:0.88rem;">Game 2 · Cognitive Control &amp; Focus</p>
+    </div>
+    <div style="background:var(--surface);border-radius:var(--radius-lg);padding:1.75rem;margin-bottom:1rem;text-align:center;">
+      <div id="rang-r-icon" style="font-size:2.2rem;margin-bottom:10px;"></div>
+      <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">Focus profile</div>
+      <div id="rang-r-label" style="font-size:1.4rem;font-weight:500;color:var(--text);"></div>
+    </div>
+    <div class="rt-compare">
+      <div class="rt-col"><div class="rt-col-val" id="rang-r-conrt" style="color:#0F6E56;"></div><div class="rt-col-lbl">Congruent RT</div><div class="rt-col-sub">word = ink</div></div>
+      <div class="rt-col" style="flex:0.7;"><div class="rt-col-val" id="rang-r-gap" style="color:var(--amber);font-size:18px;"></div><div class="rt-col-lbl">Gap (ms)</div></div>
+      <div class="rt-col"><div class="rt-col-val" id="rang-r-incrt" style="color:#A32D2D;"></div><div class="rt-col-lbl">Conflict RT</div><div class="rt-col-sub">word ≠ ink</div></div>
+    </div>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1.25rem;">
+      <div class="stat-cell"><div id="rang-r-acc-con" class="stat-val" style="color:#0F6E56;"></div><div class="stat-lbl">Congruent acc</div></div>
+      <div class="stat-cell"><div id="rang-r-acc-inc" class="stat-val" style="color:#A32D2D;"></div><div class="stat-lbl">Conflict acc</div></div>
+      <div class="stat-cell"><div id="rang-r-recovery" class="stat-val" style="font-size:14px;"></div><div class="stat-lbl">Error recovery</div></div>
+    </div>
+    <div style="margin-bottom:1.25rem;">
+      <p class="section-label">Behavioral dimensions</p>
+      <div id="rang-r-vec-bars"></div>
+    </div>
+    <div class="summary-card"><p id="rang-r-summary"></p></div>
+    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="goToTeaser('FER')">Continue →</button>
+  </div>
+</div>
+
+<!-- RUK BLOCK OVERLAY -->
+<div id="ruk-block-overlay" class="block-overlay" style="display:none;">
+  <div class="block-card">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--amber);margin-bottom:12px;" id="ruk-ov-badge"></div>
+    <div style="font-size:1.25rem;font-weight:500;margin-bottom:10px;" id="ruk-ov-title"></div>
+    <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.5rem;" id="ruk-ov-rule"></p>
+    <div class="stim-preview-row" id="ruk-ov-preview"></div>
+    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="rukDismissOverlay()">Got it →</button>
+  </div>
+</div>
+
+<!-- RUK INTRO -->
 <div id="screen-ruk-intro" class="screen">
   <div class="game-canvas">
     <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
     <span class="pill">Game 3 of 7</span>
     <div class="game-name-hindi">⚡ Ruk</div>
     <div class="game-name-sub">ruk — stop</div>
-    <p class="game-intro-para">Shapes flash on screen. Circle — tap. Bomb — don't. 40 trials across 4 rounds. Round 4 flips the rules completely.</p>
+    <div style="display:flex;justify-content:center;gap:28px;margin-bottom:1.5rem;padding:1.25rem;background:var(--surface);border-radius:var(--radius-lg);">
+      <div style="text-align:center;">
+        <svg width="64" height="64" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" fill="#d97706"/><circle cx="50" cy="50" r="35" fill="none" stroke="#fcd34d" stroke-width="3.5"/><text x="50" y="58" text-anchor="middle" font-size="28" fill="#fef3c7" font-family="sans-serif" font-weight="700">₹</text></svg>
+        <div style="font-size:0.82rem;font-weight:500;color:#0F6E56;margin-top:8px;">TAP ✓</div>
+        <div style="font-size:0.72rem;color:var(--text-muted);">Go signal</div>
+      </div>
+      <div style="font-size:1.5rem;color:var(--text-hint);display:flex;align-items:center;">vs</div>
+      <div style="text-align:center;">
+        <svg width="64" height="64" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="57" r="32" fill="#374151"/><circle cx="50" cy="57" r="26" fill="#1f2937"/><path d="M50 26 Q55 20 62 14" stroke="#6b7280" stroke-width="3.5" stroke-linecap="round" fill="none"/><circle cx="64" cy="12" r="5.5" fill="#f59e0b"/><ellipse cx="40" cy="48" rx="8" ry="5" fill="white" opacity="0.12" transform="rotate(-30 40 48)"/></svg>
+        <div style="font-size:0.82rem;font-weight:500;color:#A32D2D;margin-top:8px;">HOLD BACK ✗</div>
+        <div style="font-size:0.72rem;color:var(--text-muted);">No-Go signal</div>
+      </div>
+    </div>
+    <p class="game-intro-para">Signals appear on screen. Some say tap. Some say stop. 4 rounds — including one where the rules flip completely. 40 trials total.</p>
+    <div style="background:var(--amber-light);border:0.5px solid rgba(186,117,23,0.25);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:12px;align-items:flex-start;">
+      <span style="font-size:1.1rem;flex-shrink:0;">🔀</span>
+      <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;"><strong style="color:var(--text);">Round 4 flips the rules.</strong> No warning — you'll see the instruction before it starts.</p>
+    </div>
     <div class="stat-grid stat-grid-3" style="margin-bottom:1.5rem;">
       <div class="stat-cell"><div class="stat-val">40</div><div class="stat-lbl">trials</div></div>
       <div class="stat-cell"><div class="stat-val">4</div><div class="stat-lbl">rounds</div></div>
       <div class="stat-cell"><div class="stat-val">~5</div><div class="stat-lbl">minutes</div></div>
     </div>
-    <div class="stub-coming">
-      <div style="font-size:2rem;margin-bottom:12px;">🚧</div>
-      <p style="font-weight:500;margin-bottom:6px;">Ruk is being wired in next build</p>
-      <button class="btn btn-secondary" style="margin-top:16px;" onclick="stubSkipGame('GNG')">Skip for now (dev mode)</button>
-    </div>
+    <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startRuk()">Start →</button>
   </div>
 </div>
 
-<!-- SAUDAA -->
+<!-- RUK GAME -->
+<div id="screen-ruk-game" class="screen">
+  <div class="game-canvas">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <span style="font-size:0.82rem;color:var(--text-muted);">Trial <span id="ruk-trial-num">1</span> of 40</span>
+      <span id="ruk-block-label" style="font-size:0.7rem;font-weight:600;color:var(--amber);letter-spacing:.05em;text-transform:uppercase;"></span>
+    </div>
+    <div class="progress-track" style="margin-bottom:0.75rem;"><div id="ruk-prog" class="progress-fill" style="width:0%;"></div></div>
+    <div id="ruk-timer-track"><div id="ruk-timer-fill"></div></div>
+    <div class="ruk-stat-bar">
+      <div class="ruk-stat-cell"><div class="ruk-stat-val" id="ruk-score-display" style="color:var(--text);">0</div><div class="ruk-stat-lbl">score</div></div>
+      <div class="ruk-stat-cell"><div class="ruk-stat-val" id="ruk-hits-display" style="color:#0F6E56;">0</div><div class="ruk-stat-lbl">hits</div></div>
+      <div class="ruk-stat-cell"><div class="ruk-stat-val" id="ruk-fa-display" style="color:#A32D2D;">0</div><div class="ruk-stat-lbl">false alarms</div></div>
+    </div>
+    <div class="ruk-dots" id="ruk-dots"></div>
+    <div class="ruk-arena" id="ruk-arena">
+      <div class="ruk-stim-wrap" id="ruk-stim-wrap"></div>
+    </div>
+    <div class="ruk-feedback-strip" id="ruk-feedback"></div>
+    <button class="ruk-tap-btn" id="ruk-tap-btn" onclick="rukTap()">TAP</button>
+    <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;margin-top:10px;" id="ruk-rule-hint"></p>
+  </div>
+</div>
+
+<!-- RUK RESULTS -->
+<div id="screen-ruk-results" class="screen">
+  <div class="game-canvas fade-in">
+    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <div style="font-size:3rem;margin-bottom:10px;">⚡</div>
+      <h1 style="font-size:1.4rem;font-weight:500;margin-bottom:4px;">Ruk — complete!</h1>
+      <p style="color:var(--text-muted);font-size:0.88rem;">Game 3 · Impulse Control &amp; Attention</p>
+    </div>
+    <div style="background:var(--surface);border-radius:var(--radius-lg);padding:1.75rem;margin-bottom:1rem;text-align:center;">
+      <div id="ruk-r-icon" style="font-size:2.2rem;margin-bottom:10px;"></div>
+      <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">Control profile</div>
+      <div id="ruk-r-label" style="font-size:1.4rem;font-weight:500;color:var(--text);"></div>
+    </div>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1rem;">
+      <div class="stat-cell"><div id="ruk-r-hits" class="stat-val"></div><div class="stat-lbl">Hits</div></div>
+      <div class="stat-cell"><div id="ruk-r-fa" class="stat-val" style="color:#A32D2D;"></div><div class="stat-lbl">False alarms</div></div>
+      <div class="stat-cell"><div id="ruk-r-rt" class="stat-val"></div><div class="stat-lbl">Avg RT (ms)</div></div>
+    </div>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1.25rem;">
+      <div class="stat-cell"><div id="ruk-r-score-val" class="stat-val"></div><div class="stat-lbl">Total score</div></div>
+      <div class="stat-cell"><div id="ruk-r-switch" class="stat-val" style="font-size:14px;"></div><div class="stat-lbl">Rule-switch</div></div>
+      <div class="stat-cell"><div id="ruk-r-stability" class="stat-val"></div><div class="stat-lbl">Stability</div></div>
+    </div>
+    <div style="margin-bottom:1.25rem;">
+      <p class="section-label">Behavioral dimensions</p>
+      <div id="ruk-r-vec-bars"></div>
+    </div>
+    <div style="margin-bottom:1.25rem;">
+      <p class="section-label">By round</p>
+      <div id="ruk-r-blocks"></div>
+    </div>
+    <div class="summary-card"><p id="ruk-r-summary"></p></div>
+    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="goToTeaser('GNG')">Continue →</button>
+  </div>
+</div>
+
+<!-- SAUDAA BLOCK OVERLAY -->
+<div id="ps-block-overlay" class="block-overlay" style="display:none;">
+  <div class="block-card">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--amber);margin-bottom:12px;" id="ps-ov-badge"></div>
+    <div style="font-size:1.25rem;font-weight:500;margin-bottom:10px;" id="ps-ov-title"></div>
+    <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.5rem;" id="ps-ov-desc"></p>
+    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="psDismissOverlay()">Got it →</button>
+  </div>
+</div>
+
+<!-- SAUDAA INTRO -->
 <div id="screen-saudaa-intro" class="screen">
   <div class="game-canvas">
     <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
     <span class="pill">Game 4 of 7</span>
     <div class="game-name-hindi">⚖️ Saudaa</div>
     <div class="game-name-sub">saudaa — deal, bargain</div>
-    <p class="game-intro-para">Pure odds, then framing, then fairness. 30 trials across 3 rounds that measure how you make decisions under uncertainty.</p>
-    <div class="stub-coming">
-      <div style="font-size:2rem;margin-bottom:12px;">🚧</div>
-      <p style="font-weight:500;margin-bottom:6px;">Saudaa is being wired in next build</p>
-      <button class="btn btn-secondary" style="margin-top:16px;" onclick="stubSkipGame('PROB_SAUDA')">Skip for now (dev mode)</button>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem;">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:1rem;background:var(--surface);border-radius:var(--radius);">
+        <span style="font-size:1.1rem;flex-shrink:0;">🎲</span>
+        <div><span style="font-size:0.88rem;font-weight:500;">Round 1 — Pure odds.</span><span style="font-size:0.88rem;color:var(--text-muted);"> Safe payout vs a gamble. Exact probabilities shown.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:1rem;background:var(--surface);border-radius:var(--radius);">
+        <span style="font-size:1.1rem;flex-shrink:0;">🏷️</span>
+        <div><span style="font-size:0.88rem;font-weight:500;">Round 2 — Same math, different skin.</span><span style="font-size:0.88rem;color:var(--text-muted);"> Labels appear. Do they change your choice?</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:1rem;background:var(--surface);border-radius:var(--radius);">
+        <span style="font-size:1.1rem;flex-shrink:0;">🤝</span>
+        <div><span style="font-size:0.88rem;font-weight:500;">Round 3 — Someone else's offer.</span><span style="font-size:0.88rem;color:var(--text-muted);"> Accept or reject. Both walk if you say no.</span></div>
+      </div>
+    </div>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1.5rem;">
+      <div class="stat-cell"><div class="stat-val">30</div><div class="stat-lbl">trials</div></div>
+      <div class="stat-cell"><div class="stat-val">3</div><div class="stat-lbl">rounds</div></div>
+      <div class="stat-cell"><div class="stat-val">~6</div><div class="stat-lbl">minutes</div></div>
+    </div>
+    <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startPS()">Start →</button>
+  </div>
+</div>
+
+<!-- SAUDAA GAME -->
+<div id="screen-ps-game" class="screen">
+  <div class="game-canvas">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <span style="font-size:0.82rem;color:var(--text-muted);">Trial <span id="ps-trial-num">1</span> of 30</span>
+      <span id="ps-block-badge" style="font-size:0.7rem;font-weight:600;color:var(--amber);text-transform:uppercase;letter-spacing:.06em;"></span>
+    </div>
+    <div class="progress-track" style="margin-bottom:8px;"><div id="ps-prog" class="progress-fill" style="width:0%;"></div></div>
+    <div id="ps-timer-track"><div id="ps-timer-fill"></div></div>
+
+    <!-- Probability UI (Rounds 1+2) -->
+    <div id="ps-prob-ui">
+      <p style="text-align:center;font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem;font-weight:500;">Which do you choose?</p>
+      <div class="choice-row-ps" id="ps-choice-row"></div>
+      <div class="ps-feedback" id="ps-prob-feedback"></div>
+    </div>
+
+    <!-- Fairness UI (Round 3) -->
+    <div id="ps-fair-ui" style="display:none;">
+      <p style="font-size:0.82rem;color:var(--text-muted);text-align:center;margin-bottom:0.875rem;font-weight:500;">You've been offered a share of 100 points</p>
+      <div class="offer-display">
+        <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;">You receive</div>
+        <div class="offer-amount" id="fair-offer-amount"></div>
+        <div style="font-size:0.82rem;font-weight:500;margin-top:4px;" id="fair-offer-label"></div>
+        <div style="height:10px;border-radius:5px;overflow:hidden;margin:14px 0 8px;display:flex;">
+          <div id="fair-bar-you" style="background:var(--amber);transition:width .4s ease;"></div>
+          <div style="flex:1;background:var(--border-strong);"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-hint);">
+          <span id="fair-split-you-pct"></span><span id="fair-split-them-pct"></span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:1rem;">
+        <button class="fair-btn" onclick="psChooseFair(false)" id="btn-reject">
+          <span style="font-size:1.6rem;">❌</span><span style="font-weight:500;font-size:0.88rem;">Reject</span><span style="font-size:0.72rem;color:var(--text-hint);">Both get 0</span>
+        </button>
+        <button class="fair-btn fair-btn-accept" onclick="psChooseFair(true)" id="btn-accept">
+          <span style="font-size:1.6rem;">✅</span><span style="font-weight:500;font-size:0.88rem;">Accept</span><span style="font-size:0.72rem;opacity:.8;">Bank your share</span>
+        </button>
+      </div>
+      <div class="ps-feedback" id="ps-fair-feedback" style="margin-top:10px;"></div>
     </div>
   </div>
 </div>
 
-<!-- MILAAN -->
+<!-- SAUDAA RESULTS -->
+<div id="screen-ps-results" class="screen">
+  <div class="game-canvas fade-in">
+    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <div style="font-size:3rem;margin-bottom:10px;">⚖️</div>
+      <h1 style="font-size:1.4rem;font-weight:500;margin-bottom:4px;">Saudaa — complete!</h1>
+      <p style="color:var(--text-muted);font-size:0.88rem;">Game 4 · Risk, Rationality &amp; Fairness</p>
+    </div>
+    <div style="background:var(--surface);border-radius:var(--radius-lg);padding:1.75rem;margin-bottom:1rem;text-align:center;">
+      <div id="ps-r-icon" style="font-size:2.2rem;margin-bottom:10px;"></div>
+      <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">Decision profile</div>
+      <div id="ps-r-label" style="font-size:1.4rem;font-weight:500;color:var(--text);"></div>
+    </div>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1.25rem;">
+      <div class="stat-cell"><div id="ps-r-risky-pct" class="stat-val"></div><div class="stat-lbl">Chose risky</div></div>
+      <div class="stat-cell"><div id="ps-r-ev-align" class="stat-val" style="color:var(--teal);"></div><div class="stat-lbl">EV correct</div></div>
+      <div class="stat-cell"><div id="ps-r-fair-rej" class="stat-val" style="color:var(--red);"></div><div class="stat-lbl">Rejected B3</div></div>
+    </div>
+    <div style="margin-bottom:1.25rem;">
+      <p class="section-label">Behavioral dimensions</p>
+      <div id="ps-r-vec-bars"></div>
+    </div>
+    <div style="margin-bottom:1.25rem;">
+      <p class="section-label">Round comparison</p>
+      <div id="ps-r-block-compare"></div>
+    </div>
+    <div class="summary-card"><p id="ps-r-summary"></p></div>
+    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="goToTeaser('PROB_SAUDA')">Continue →</button>
+  </div>
+</div>
+
+<!-- MILAAN RELATIONSHIP OVERLAY -->
+<div id="milaan-rel-overlay" style="position:fixed;inset:0;z-index:200;background:rgba(250,250,247,.97);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;text-align:center;padding:1.25rem;">
+  <div style="max-width:360px;">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:10px;" id="mro-num"></div>
+    <div style="font-size:3.2rem;margin-bottom:12px;" id="mro-avatar"></div>
+    <div style="font-family:'Georgia',serif;font-size:1.75rem;margin-bottom:6px;" id="mro-name"></div>
+    <div style="font-size:0.9rem;color:var(--text-muted);line-height:1.8;margin-bottom:1.5rem;" id="mro-context"></div>
+    <div style="width:36px;height:3px;background:var(--amber);border-radius:2px;margin:0 auto 1.5rem;"></div>
+    <button class="btn btn-primary" onclick="milaanDismissOverlay()">Begin →</button>
+  </div>
+</div>
+
+<!-- MILAAN INTRO -->
 <div id="screen-milaan-intro" class="screen">
   <div class="game-canvas">
     <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
     <span class="pill">Game 5 of 7</span>
     <div class="game-name-hindi">🤝 Milaan</div>
-    <div class="game-name-sub">milaan — encounter</div>
-    <p class="game-intro-para">Five professional relationships. Three decisions each. Same payoff math — different people, different context.</p>
-    <div class="stub-coming">
-      <div style="font-size:2rem;margin-bottom:12px;">🚧</div>
-      <p style="font-weight:500;margin-bottom:6px;">Milaan is being wired in next build</p>
-      <button class="btn btn-secondary" style="margin-top:16px;" onclick="stubSkipGame('MILAAN')">Skip for now (dev mode)</button>
+    <div class="game-name-sub">milaan — encounter, where two people take each other's measure</div>
+    <p class="game-intro-para">Five professional relationships. Three decisions each. Same payoff math — different people, different context. Every choice shapes what happens next.</p>
+    <div class="card" style="margin-bottom:1.25rem;">
+      <p style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-hint);margin-bottom:10px;">How points work</p>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;padding:5px 0;border-bottom:.5px solid var(--border);"><span>Both open up</span><span style="color:var(--teal);font-weight:500;">+3 each 🤝</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;padding:5px 0;border-bottom:.5px solid var(--border);"><span>You open, they hold back</span><span style="color:var(--red);font-weight:500;">+0 you, +5 them</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;padding:5px 0;border-bottom:.5px solid var(--border);"><span>You hold back, they open</span><span style="color:var(--amber);font-weight:500;">+5 you, +0 them</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;padding:5px 0;"><span>Both hold back</span><span style="color:var(--text-muted);font-weight:500;">+1 each</span></div>
+      </div>
     </div>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1.5rem;">
+      <div class="stat-cell"><div class="stat-val">5</div><div class="stat-lbl">People</div></div>
+      <div class="stat-cell"><div class="stat-val">15</div><div class="stat-lbl">Decisions</div></div>
+      <div class="stat-cell"><div class="stat-val">~8</div><div class="stat-lbl">Minutes</div></div>
+    </div>
+    <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startMilaan()">Start →</button>
+  </div>
+</div>
+
+<!-- MILAAN GAME -->
+<div id="screen-milaan-game" class="screen">
+  <div style="position:sticky;top:0;z-index:10;background:rgba(250,250,247,.96);backdrop-filter:blur(12px);border-bottom:.5px solid var(--border-strong);padding:.875rem 1.25rem;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--amber);" id="milaan-hdr-label">Relationship 1 of 5</div>
+      <div style="font-size:0.82rem;color:var(--text-muted);">Score: <strong id="milaan-hdr-score">0</strong></div>
+    </div>
+    <div style="display:flex;gap:4px;" id="milaan-progress-dots"></div>
+  </div>
+  <div class="game-canvas" style="padding-top:1.25rem;">
+    <div id="milaan-history-strip" style="margin-bottom:1.25rem;"></div>
+    <div style="background:var(--card);border:.5px solid var(--border-strong);border-radius:var(--radius-lg);padding:1.375rem;margin-bottom:1.25rem;box-shadow:0 2px 12px rgba(0,0,0,.05);">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--amber);margin-bottom:8px;" id="milaan-round-tag"></div>
+      <div style="font-size:0.94rem;color:var(--text);line-height:1.85;" id="milaan-scenario-text"></div>
+    </div>
+    <div style="font-size:0.76rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-hint);margin-bottom:10px;">What do you do?</div>
+    <div id="milaan-choices" style="display:flex;flex-direction:column;gap:10px;margin-bottom:1.25rem;"></div>
+    <div id="milaan-reveal-card" style="background:var(--surface);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:1.25rem;display:none;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-hint);margin-bottom:6px;" id="milaan-reveal-label"></div>
+      <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;" id="milaan-reveal-text"></div>
+    </div>
+    <div id="milaan-outcome-strip" style="display:none;border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:1.25rem;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;" id="milaan-outcome-label"></div>
+      <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;" id="milaan-outcome-text"></div>
+      <div style="display:flex;gap:8px;margin-top:10px;">
+        <div style="flex:1;text-align:center;padding:7px 6px;border-radius:8px;background:rgba(0,0,0,.04);"><div style="font-size:10px;color:var(--text-hint);text-transform:uppercase;">You</div><div style="font-size:1.1rem;font-weight:700;margin-top:2px;" id="milaan-payoff-you">+0</div></div>
+        <div style="flex:1;text-align:center;padding:7px 6px;border-radius:8px;background:rgba(0,0,0,.04);"><div style="font-size:10px;color:var(--text-hint);text-transform:uppercase;">Them</div><div style="font-size:1.1rem;font-weight:700;margin-top:2px;" id="milaan-payoff-them">+0</div></div>
+      </div>
+    </div>
+    <div id="milaan-next-wrap" style="display:none;">
+      <button class="btn btn-primary btn-full" id="milaan-next-btn" onclick="milaanAdvance()">→</button>
+    </div>
+  </div>
+</div>
+
+<!-- MILAAN RESULTS -->
+<div id="screen-milaan-results" class="screen">
+  <div class="game-canvas fade-in">
+    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <div style="font-size:3rem;margin-bottom:10px;">🤝</div>
+      <h1 style="font-size:1.4rem;font-weight:500;margin-bottom:4px;">Milaan — complete!</h1>
+      <p style="color:var(--text-muted);font-size:0.88rem;">Game 5 · Trust &amp; Relationships</p>
+    </div>
+    <div style="background:var(--surface);border-radius:var(--radius-lg);padding:1.75rem;margin-bottom:1rem;text-align:center;">
+      <div id="milaan-r-icon" style="font-size:2.2rem;margin-bottom:10px;"></div>
+      <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">Trust profile</div>
+      <div id="milaan-r-name" style="font-size:1.4rem;font-weight:500;color:var(--text);"></div>
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <p class="section-label">How open you were, per relationship</p>
+      <div id="milaan-r-trust-bars"></div>
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <p class="section-label">What the pattern reveals</p>
+      <div id="milaan-r-insights"></div>
+    </div>
+    <div id="milaan-r-mismatch-section" style="display:none;margin-bottom:1.5rem;">
+      <p class="section-label">What you said vs what you chose</p>
+      <div id="milaan-r-mismatches"></div>
+    </div>
+    <div class="summary-card"><p id="milaan-r-quote"></p></div>
+    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="goToTeaser('MILAAN')">Continue →</button>
   </div>
 </div>
 
@@ -787,7 +1183,11 @@ let user = null;
 // ROUTING
 // ═══════════════════════════════════════════════════════════
 const SCREENS = ['landing','auth','dashboard','dum-intro','dum-play','dum-results',
-  'rang-intro','ruk-intro','saudaa-intro','milaan-intro','bazaar-intro','mazdoor-intro',
+  'rang-intro','rang-game','rang-results',
+  'ruk-intro','ruk-game','ruk-results',
+  'saudaa-intro','ps-game','ps-results',
+  'milaan-intro','milaan-game','milaan-results',
+  'bazaar-intro','mazdoor-intro',
   'teaser','b5','report'];
 
 function showScreen(id) {
@@ -1099,6 +1499,783 @@ function handleB5Answer(val) {
   saveB5(currentTeaserGame, q.dim, val);
   currentTeaserGame = null;
   enterDashboard();
+}
+
+// ═══════════════════════════════════════════════════════════
+// RANG — STROOP (Game 2)
+// ═══════════════════════════════════════════════════════════
+const RANG_COLORS  = ['RED','BLUE','GREEN','BLACK'];
+const RANG_HEX     = {RED:'#dc2626',BLUE:'#3b82f6',GREEN:'#16a34a',BLACK:'#111827'};
+const RANG_PRACTICE = 8, RANG_SCORED = 24, RANG_FEEDBACK_MS = 650;
+let rangAllTrials=[], rangTrialIdx=0, rangScoredResults=[], rangAnswered=false, rangStimOnset=0, rangAdvTimer=null;
+
+function buildRangTrials() {
+  const t = [];
+  RANG_COLORS.forEach(c => { for(let i=0;i<2;i++) t.push({word:c,ink:c,type:'congruent',practice:true}); });
+  RANG_COLORS.forEach(c => { const o=RANG_COLORS.filter(x=>x!==c); t.push({word:c,ink:o[Math.floor(Math.random()*o.length)],type:'incongruent',practice:true}); });
+  const scored=[];
+  RANG_COLORS.forEach(c => { for(let i=0;i<3;i++) scored.push({word:c,ink:c,type:'congruent',practice:false}); });
+  RANG_COLORS.forEach(c => { RANG_COLORS.filter(x=>x!==c).forEach(ink=>scored.push({word:c,ink,type:'incongruent',practice:false})); });
+  let tries=0; do { shuffleArr(scored); tries++; } while(hasRun(scored,r=>r.type==='incongruent',4)&&tries<300);
+  return [...t,...scored];
+}
+function hasRun(arr,pred,n){let r=0;for(const x of arr){if(pred(x)){r++;if(r>=n)return true;}else r=0;}return false;}
+
+function startRang() {
+  rangAllTrials = buildRangTrials(); rangTrialIdx=0; rangScoredResults=[]; rangAnswered=false;
+  clearTimeout(rangAdvTimer);
+  showScreen('rang-game'); rangRenderTrial();
+}
+function rangRenderTrial() {
+  rangAnswered=false;
+  const t=rangAllTrials[rangTrialIdx]; const isPrac=t.practice;
+  const scoredIdx=rangTrialIdx-RANG_PRACTICE;
+  document.getElementById('rang-prog').style.width=(isPrac?0:Math.round((scoredIdx+1)/RANG_SCORED*100))+'%';
+  document.getElementById('rang-num').textContent=isPrac?rangTrialIdx+1:scoredIdx+1;
+  document.getElementById('rang-total').textContent=isPrac?RANG_PRACTICE:RANG_SCORED;
+  const pill=document.getElementById('rang-phase-pill');
+  pill.textContent=isPrac?'Practice':'Live';
+  pill.style.background=isPrac?'var(--surface)':'var(--amber-light)';
+  pill.style.color=isPrac?'var(--text-muted)':'var(--amber-dark)';
+  const fb=document.getElementById('rang-feedback'); fb.textContent=''; fb.style.opacity='0';
+  const wd=document.getElementById('rang-word'); wd.textContent=t.word; wd.style.color=RANG_HEX[t.ink];
+  const shuffled=shuffleArr([...RANG_COLORS]);
+  document.getElementById('rang-opts').innerHTML=shuffled.map(c=>{
+    const isBlack=c==='BLACK';
+    return`<button id="rb-${c}" class="rang-btn" style="color:${RANG_HEX[c]};${isBlack?'background:#FFF;':''}" onclick="rangAnswer('${c}')">${c}</button>`;
+  }).join('');
+  rangStimOnset=performance.now();
+}
+function rangAnswer(chosen) {
+  if(rangAnswered) return; rangAnswered=true;
+  const t=rangAllTrials[rangTrialIdx]; const correct=chosen===t.ink;
+  const rt=Math.round(performance.now()-rangStimOnset);
+  if(!t.practice) rangScoredResults.push({word:t.word,ink:t.ink,chosen,correct,rt,type:t.type});
+  document.querySelectorAll('.rang-btn').forEach(btn=>{
+    btn.disabled=true;
+    const c=btn.id.replace('rb-','');
+    if(c===t.ink) btn.classList.add('correct');
+    else if(c===chosen&&!correct) btn.classList.add('wrong');
+  });
+  const fb=document.getElementById('rang-feedback');
+  fb.textContent=correct?'✓ Correct':'✗ It was '+t.ink; fb.style.color=correct?'#0F6E56':'#A32D2D'; fb.style.opacity='1';
+  const wd=document.getElementById('rang-word'); wd.classList.remove('rang-pop'); void wd.offsetWidth; wd.classList.add('rang-pop');
+  clearTimeout(rangAdvTimer);
+  rangAdvTimer=setTimeout(()=>{ rangTrialIdx++; if(rangTrialIdx>=rangAllTrials.length) rangEndGame(); else rangRenderTrial(); }, RANG_FEEDBACK_MS);
+}
+function rangEndGame() {
+  const res=rangScoredResults;
+  const con=res.filter(r=>r.type==='congruent'), inc=res.filter(r=>r.type==='incongruent');
+  const conRTs=con.filter(r=>r.correct&&r.rt>50&&r.rt<3000).map(r=>r.rt);
+  const incRTs=inc.filter(r=>r.correct&&r.rt>50&&r.rt<3000).map(r=>r.rt);
+  const conRT=conRTs.length?Math.round(avgArr(conRTs)):500;
+  const incRT=incRTs.length?Math.round(avgArr(incRTs)):700;
+  const gap=Math.max(0,incRT-conRT);
+  const conAcc=con.length?Math.round(con.filter(r=>r.correct).length/con.length*100):0;
+  const incAcc=inc.length?Math.round(inc.filter(r=>r.correct).length/inc.length*100):0;
+  const stroopScore=Math.max(0,Math.min(100,Math.round(100-gap/3)));
+  // error recovery
+  const errIdxs=res.map((r,i)=>(!r.correct?i:-1)).filter(i=>i>=0&&i<res.length-2);
+  const recoveries=errIdxs.map(ei=>{const n=res.slice(ei+1,ei+3);return n.filter(r=>r.correct).length/n.length;});
+  const errRecovery=recoveries.length?clamp01(avgArr(recoveries)):0.75;
+  const interference_cost=conRT>0?(incRT-conRT)/conRT:0;
+  const vector={conflict_accuracy:incAcc/100,interference:clamp01(interference_cost/0.6),error_recovery:errRecovery,reaction_speed:clamp01(1-(conRT-200)/700),consistency:0.6};
+  const profiles=[
+    {label:'The Filter',icon:'🎯',test:v=>v.interference<=0.22&&v.conflict_accuracy>=0.82,summary:"Your brain suppresses the word meaning before it lands. The filter is just faster in you — this level of clean inhibition is genuinely rare."},
+    {label:'The Efficient One',icon:'⚡',test:v=>v.reaction_speed>=0.55&&v.conflict_accuracy>=0.75,summary:"Fast, accurate, consistent under conflict. You pay a small RT cost on incongruent trials but don't let it become errors."},
+    {label:'The Deliberate',icon:'🧭',test:v=>v.conflict_accuracy>=0.80&&v.reaction_speed<0.50,summary:"You slow down when there's conflict — not a flaw, a strategy. Your accuracy on incongruent trials stays high because you give yourself time."},
+    {label:'The Speed Trader',icon:'💨',test:v=>v.reaction_speed>=0.55&&v.conflict_accuracy<0.72,summary:"You move fast. When word and color conflict, you pay for that speed in errors. Slowing slightly would sharply cut your error rate."},
+    {label:'The Conflict Sensitive',icon:'🌀',test:v=>v.interference>=0.55,summary:"The interference effect is strong — the gap between easy and hard trials is large. Your brain reads the word faster than it processes the ink."},
+  ];
+  const profile=profiles.find(p=>p.test(vector))||{label:'The Mixed Processor',icon:'🔬',summary:"Your profile doesn't fall cleanly into one pattern — the dimension bars carry more weight than the label."};
+  const result={game:'FER',stroopScore,label:profile.label,correct:res.filter(r=>r.correct).length,errors:res.filter(r=>!r.correct).length,accuracy:Math.round(res.filter(r=>r.correct).length/res.length*100),avgConRT:conRT,avgIncRT:incRT,interference:gap,behaviorVector:vector,date:new Date().toISOString()};
+  saveScore(result);
+  document.getElementById('rang-r-icon').textContent=profile.icon;
+  document.getElementById('rang-r-label').textContent=profile.label;
+  document.getElementById('rang-r-conrt').textContent=conRT+'ms';
+  document.getElementById('rang-r-incrt').textContent=incRT+'ms';
+  document.getElementById('rang-r-gap').textContent='+'+gap;
+  document.getElementById('rang-r-acc-con').textContent=conAcc+'%';
+  document.getElementById('rang-r-acc-inc').textContent=incAcc+'%';
+  const recEl=document.getElementById('rang-r-recovery');
+  recEl.textContent=errRecovery>=0.80?'↑ Strong':errRecovery>=0.55?'→ OK':'↓ Clusters';
+  recEl.style.color=errRecovery>=0.80?'#0F6E56':errRecovery>=0.55?'var(--amber)':'#A32D2D';
+  renderVecBars('rang-r-vec-bars',[
+    {key:'conflict_accuracy',label:'Conflict accuracy',lo:'Error-prone',hi:'Accurate',val:vector.conflict_accuracy,isNeg:false},
+    {key:'interference',label:'Interference effect',lo:'None',hi:'Strong',val:vector.interference,isNeg:true},
+    {key:'reaction_speed',label:'Processing speed',lo:'Deliberate',hi:'Fast',val:vector.reaction_speed,isNeg:false},
+    {key:'error_recovery',label:'Error recovery',lo:'Clusters',hi:'Recovers',val:vector.error_recovery,isNeg:false},
+  ]);
+  document.getElementById('rang-r-summary').textContent=profile.summary;
+  showScreen('rang-results');
+}
+
+// ═══════════════════════════════════════════════════════════
+// RUK — GO/NO-GO (Game 3)
+// ═══════════════════════════════════════════════════════════
+const RUK_SVG = {
+  coin:`<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" fill="#d97706"/><circle cx="50" cy="50" r="35" fill="none" stroke="#fcd34d" stroke-width="3.5"/><text x="50" y="58" text-anchor="middle" font-size="28" fill="#fef3c7" font-family="sans-serif" font-weight="700">₹</text></svg>`,
+  bomb:`<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="57" r="32" fill="#374151"/><circle cx="50" cy="57" r="26" fill="#1f2937"/><path d="M50 26 Q55 20 62 14" stroke="#6b7280" stroke-width="3.5" stroke-linecap="round" fill="none"/><circle cx="64" cy="12" r="5.5" fill="#f59e0b"/><ellipse cx="40" cy="48" rx="8" ry="5" fill="white" opacity="0.12" transform="rotate(-30 40 48)"/></svg>`,
+  circle:`<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="40" fill="#0F6E56" opacity=".18" stroke="#0F6E56" stroke-width="3"/><circle cx="50" cy="50" r="30" fill="#0F6E56" opacity=".8"/></svg>`,
+  square:`<svg viewBox="0 0 100 100" fill="none"><rect x="10" y="10" width="80" height="80" rx="10" fill="#A32D2D" opacity=".18" stroke="#A32D2D" stroke-width="3"/><rect x="20" y="20" width="60" height="60" rx="7" fill="#A32D2D" opacity=".75"/></svg>`,
+  bird:`<svg viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="55" rx="20" ry="13" fill="#1d4ed8"/><circle cx="68" cy="48" r="11" fill="#1d4ed8"/><path d="M78 48 L86 46 L78 52Z" fill="#d97706"/><path d="M50 48 Q35 26 18 32 Q30 42 50 48Z" fill="#2563eb"/><circle cx="70" cy="46" r="2.5" fill="white"/><circle cx="70.5" cy="46" r="1.2" fill="#111"/></svg>`,
+  plane:`<svg viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="50" rx="34" ry="10" fill="#4b5563" transform="rotate(-20 50 50)"/><path d="M42 44 Q38 22 22 24 Q34 38 42 50Z" fill="#6b7280"/><path d="M58 56 Q62 78 78 76 Q66 62 58 50Z" fill="#6b7280"/></svg>`,
+  blank:`<svg viewBox="0 0 100 100" fill="none"></svg>`,
+};
+const RUK_BLOCKS=[
+  {id:1,label:'Round 1 — Coins & Bombs',shortLabel:'Round 1',rule:'Tap the coin. Do NOT tap the bomb.',goStims:['coin'],nogoStims:['bomb'],winMs:1300,wMaxMs:1500,goRatio:0.7},
+  {id:2,label:'Round 2 — Shapes',shortLabel:'Round 2',rule:'Tap the circle. Do NOT tap the square.',goStims:['circle'],nogoStims:['square'],winMs:1300,wMaxMs:1500,goRatio:0.7},
+  {id:3,label:'Round 3 — Birds & Planes',shortLabel:'Round 3',rule:'Tap the bird. Do NOT tap the plane.',goStims:['bird'],nogoStims:['plane'],winMs:950,wMaxMs:1100,goRatio:0.7},
+  {id:4,label:'Round 4 — Rules flipped ⚡',shortLabel:'Round 4 ⚡',rule:'⚡ Rules flipped. Tap what you were avoiding. Ignore what you were tapping.',goStims:['bomb','square','plane'],nogoStims:['coin','circle','bird'],winMs:950,wMaxMs:1100,goRatio:0.7,isSwitch:true},
+];
+let rukTrials=[],rukIdx=0,rukResults=[],rukScore=0,rukHits=0,rukFAs=0;
+let rukActive=false,rukResponded=false,rukStimOnset=0,rukStimTimer=null,rukNextTimer=null,rukTapGuard=0;
+let rukOverlayCb=null;
+const RUK_ITI_MIN=600, RUK_ITI_MAX=900;
+
+function buildRukBlock(blk,startIdx) {
+  const go=Math.round(10*blk.goRatio), nogo=10-go;
+  const trials=[...Array(go).fill(0).map(()=>({isGo:true,stim:blk.goStims[0],block:blk.id})),...Array(nogo).fill(0).map(()=>({isGo:false,stim:blk.nogoStims[0],block:blk.id}))];
+  let t=0; do{shuffleArr(trials);t++;}while(hasRun(trials,x=>!x.isGo,3)&&t<300);
+  trials.forEach((tr,i)=>{tr.window=blk.winMs+Math.floor(Math.random()*(blk.wMaxMs-blk.winMs));tr.trialIdx=startIdx+i;});
+  return trials;
+}
+function startRuk() {
+  rukTrials=[]; let idx=0;
+  RUK_BLOCKS.forEach(b=>{const bt=buildRukBlock(b,idx);rukTrials.push(...bt);idx+=bt.length;});
+  rukIdx=0;rukResults=[];rukScore=0;rukHits=0;rukFAs=0;rukActive=false;
+  showScreen('ruk-game');
+  document.getElementById('ruk-dots').innerHTML=Array(40).fill('<div class="ruk-dot"></div>').join('');
+  rukShowBlockOverlay(RUK_BLOCKS[0],()=>setTimeout(rukRunTrial,400));
+}
+function rukShowBlockOverlay(blk,cb) {
+  rukOverlayCb=cb;
+  document.getElementById('ruk-ov-badge').textContent=blk.shortLabel;
+  document.getElementById('ruk-ov-title').textContent=blk.label;
+  document.getElementById('ruk-ov-rule').textContent=blk.rule;
+  const prev=document.getElementById('ruk-ov-preview');
+  if(!blk.isSwitch) {
+    prev.innerHTML=`<div class="stim-preview-cell">${RUK_SVG[blk.goStims[0]]||''}<div class="stim-preview-label go-label">TAP ✓</div></div><div class="stim-preview-cell">${RUK_SVG[blk.nogoStims[0]]||''}<div class="stim-preview-label nogo-label">DON'T TAP ✗</div></div>`;
+  } else {
+    prev.innerHTML=`<div class="stim-preview-cell">${RUK_SVG['bomb']||''}<div class="stim-preview-label go-label">TAP ✓</div></div><div class="stim-preview-cell">${RUK_SVG['square']||''}<div class="stim-preview-label go-label">TAP ✓</div></div>`;
+  }
+  document.getElementById('ruk-block-overlay').style.display='flex';
+}
+function rukDismissOverlay(){document.getElementById('ruk-block-overlay').style.display='none';if(rukOverlayCb){const fn=rukOverlayCb;rukOverlayCb=null;fn();}}
+function rukRunTrial() {
+  if(rukIdx>=rukTrials.length){rukEndGame();return;}
+  if(rukIdx>0&&rukIdx%10===0){const b=RUK_BLOCKS[rukIdx/10];rukShowBlockOverlay(b,()=>setTimeout(rukRunDirect,300));return;}
+  rukRunDirect();
+}
+function rukRunDirect() {
+  if(rukIdx>=rukTrials.length){rukEndGame();return;}
+  const t=rukTrials[rukIdx]; rukActive=true; rukResponded=false;
+  const bi=Math.floor(rukIdx/10);
+  document.getElementById('ruk-trial-num').textContent=rukIdx+1;
+  document.getElementById('ruk-prog').style.width=((rukIdx+1)/40*100)+'%';
+  document.getElementById('ruk-block-label').textContent=RUK_BLOCKS[bi]?.shortLabel||'';
+  document.getElementById('ruk-rule-hint').textContent=RUK_BLOCKS[bi]?.isSwitch?'⚡ Rules flipped':'Tap '+RUK_BLOCKS[bi]?.goStims[0]+' · Hold back '+RUK_BLOCKS[bi]?.nogoStims[0];
+  document.getElementById('ruk-feedback').textContent=''; document.getElementById('ruk-feedback').style.opacity='0';
+  document.getElementById('ruk-stim-wrap').innerHTML=RUK_SVG[t.stim]||RUK_SVG.blank;
+  rukTapGuard=performance.now()+150;
+  // timer bar
+  const fill=document.getElementById('ruk-timer-fill');
+  fill.style.transition='none';fill.style.width='100%';fill.offsetWidth;
+  fill.style.transition=`width ${t.window}ms linear`;fill.style.width='0%';
+  rukStimOnset=performance.now();
+  clearTimeout(rukStimTimer);
+  rukStimTimer=setTimeout(()=>{if(!rukActive)return;rukActive=false;rukRecordResult(t.isGo?'miss':'cr',null,t.isGo?-1:+1);},t.window);
+}
+function rukTap() {
+  if(rukResponded||!rukActive||performance.now()<rukTapGuard) return;
+  clearTimeout(rukStimTimer); rukActive=false; rukResponded=true;
+  const rt=Math.round(performance.now()-rukStimOnset);
+  const t=rukTrials[rukIdx];
+  if(t.isGo) rukRecordResult('hit',rt,+1); else rukRecordResult('fa',rt,-2);
+}
+function rukRecordResult(outcome,rt,delta) {
+  const t=rukTrials[rukIdx];
+  rukResults.push({trialIdx:t.trialIdx,block:t.block,stim:t.stim,isGo:t.isGo,outcome,rt,delta,window:t.window});
+  rukScore+=delta; if(outcome==='hit')rukHits++; if(outcome==='fa')rukFAs++;
+  document.getElementById('ruk-score-display').textContent=rukScore;
+  document.getElementById('ruk-hits-display').textContent=rukHits;
+  document.getElementById('ruk-fa-display').textContent=rukFAs;
+  const arena=document.getElementById('ruk-arena');
+  arena.className='ruk-arena'; void arena.offsetWidth;
+  arena.classList.add(outcome==='hit'||outcome==='cr'?'ruk-flash-correct':'ruk-flash-wrong');
+  const fb=document.getElementById('ruk-feedback');
+  fb.textContent=outcome==='hit'?'✓ Hit':outcome==='cr'?'✓ Correct':outcome==='fa'?'✗ False alarm':'– Missed';
+  fb.style.color=outcome==='hit'||outcome==='cr'?'#0F6E56':'#A32D2D'; fb.style.opacity='1';
+  // dots
+  const dots=document.getElementById('ruk-dots').children;
+  if(dots[rukIdx]){const cls=outcome==='hit'?'ruk-dot hit':outcome==='miss'?'ruk-dot miss':outcome==='fa'?'ruk-dot fa':'ruk-dot cr';dots[rukIdx].className=cls;}
+  document.getElementById('ruk-stim-wrap').innerHTML=RUK_SVG.blank;
+  clearTimeout(rukNextTimer);
+  rukNextTimer=setTimeout(()=>{rukIdx++;rukRunTrial();}, RUK_ITI_MIN+Math.floor(Math.random()*(RUK_ITI_MAX-RUK_ITI_MIN)));
+}
+function rukEndGame() {
+  clearTimeout(rukStimTimer);clearTimeout(rukNextTimer);
+  document.getElementById('ruk-tap-btn').disabled=true;
+  const res=rukResults;
+  const goT=res.filter(r=>r.isGo),nogoT=res.filter(r=>!r.isGo);
+  const hits=res.filter(r=>r.outcome==='hit'),fas=res.filter(r=>r.outcome==='fa'),misses=res.filter(r=>r.outcome==='miss'),crs=res.filter(r=>r.outcome==='cr');
+  const inhibition=nogoT.length?clamp01(crs.length/nogoT.length):0;
+  const faRate=nogoT.length?fas.length/nogoT.length:0;
+  const hitRTs=hits.map(r=>r.rt).filter(v=>v&&v>0&&v<2000);
+  const avgRT=hitRTs.length?Math.round(avgArr(hitRTs)):null;
+  const b3=res.filter(r=>r.block===3),b4=res.filter(r=>r.block===4);
+  const accOf=t=>t.length?t.filter(r=>r.outcome==='hit'||r.outcome==='cr').length/t.length:0.5;
+  const switchDrop=clamp01(1-Math.max(0,accOf(b3)-accOf(b4)));
+  const gngScore=Math.max(0,Math.min(100,Math.round((inhibition*0.6+(1-faRate)*0.4)*100)));
+  const vector={inhibition,false_alarm_rate:faRate,block4_accuracy:accOf(b4),attention:goT.length?hits.length/goT.length:0,stability:clamp01(1-stdArr(res.map(r=>r.delta))/2),flexibility:switchDrop};
+  const blockAcc=[1,2,3,4].map(bId=>{
+    const bt=res.filter(r=>r.block===bId);
+    const goB=bt.filter(r=>r.isGo),nogoB=bt.filter(r=>!r.isGo);
+    return{goAcc:goB.length?Math.round(goB.filter(r=>r.outcome==='hit').length/goB.length*100):null,nogoAcc:nogoB.length?Math.round(nogoB.filter(r=>r.outcome==='cr').length/nogoB.length*100):null};
+  });
+  const profiles=[
+    {label:'The Composed',icon:'🎯',test:v=>v.inhibition>=0.78&&v.false_alarm_rate<=0.25,summary:"You hold back cleanly when needed and act when you don't. High inhibition without sacrificing speed. Wired in, not effortful."},
+    {label:'The Adaptive Switcher',icon:'🔀',test:v=>v.flexibility>=0.65&&v.attention>=0.60,summary:"You handled the rule-switch better than most. When everything you'd learned stopped being useful, you adjusted quickly."},
+    {label:'The Fast Reactor',icon:'⚡',test:v=>vector.attention>=0.70&&v.false_alarm_rate>=0.35,summary:"You move fast — sometimes before you should. The false alarms are the cost of speed. Not a flaw, but worth knowing."},
+    {label:'The Steady Responder',icon:'🧭',test:v=>v.attention>=0.75&&v.inhibition>=0.60,summary:"Consistent across all four rounds. You didn't heat up when signals got faster or flip when the rules switched."},
+    {label:'The Impulsive Mover',icon:'🎲',test:v=>v.false_alarm_rate>=0.45,summary:"The brake engages late. You tap things you were told not to — not because you don't know the rule, but because the signal fires first."},
+  ];
+  const profile=profiles.find(p=>p.test(vector))||{label:'The Mixed Responder',icon:'🌀',summary:"Your pattern didn't fall cleanly into one profile — the dimension bars tell the more precise story."};
+  const result={game:'GNG',gngScore,label:profile.label,hits:hits.length,misses:misses.length,falseAlarms:fas.length,avgRT,blockAccuracies:blockAcc,behaviorVector:vector,date:new Date().toISOString()};
+  saveScore(result);
+  document.getElementById('ruk-r-icon').textContent=profile.icon;
+  document.getElementById('ruk-r-label').textContent=profile.label;
+  document.getElementById('ruk-r-hits').textContent=hits.length+'/'+goT.length;
+  document.getElementById('ruk-r-fa').textContent=fas.length;
+  document.getElementById('ruk-r-rt').textContent=avgRT||'—';
+  document.getElementById('ruk-r-score-val').textContent=rukScore;
+  const b3drop=blockAcc[2].goAcc!==null&&blockAcc[3].goAcc!==null?(blockAcc[2].goAcc-blockAcc[3].goAcc):0;
+  document.getElementById('ruk-r-switch').textContent=(b3drop>=0?'−':'+')+''+Math.abs(b3drop)+'%';
+  document.getElementById('ruk-r-stability').textContent=Math.round(vector.stability*100)+'%';
+  renderVecBars('ruk-r-vec-bars',[
+    {label:'Inhibition (No-Go)',lo:'Weak',hi:'Strong',val:vector.inhibition,isNeg:false},
+    {label:'Impulsivity',lo:'Controlled',hi:'Reactive',val:vector.false_alarm_rate,isNeg:true},
+    {label:'Go accuracy',lo:'Miss-prone',hi:'Attentive',val:vector.attention,isNeg:false},
+    {label:'Rule-switch flex',lo:'Rigid',hi:'Adaptive',val:vector.flexibility,isNeg:false},
+    {label:'Stability',lo:'Variable',hi:'Consistent',val:vector.stability,isNeg:false},
+  ]);
+  // block breakdown
+  const names=['Round 1: Coins & Bombs','Round 2: Shapes','Round 3: Birds & Planes','Round 4: Flipped ⚡'];
+  document.getElementById('ruk-r-blocks').innerHTML='<div style="display:flex;padding:4px 0 8px;border-bottom:.5px solid var(--border);font-size:0.7rem;color:var(--text-hint);font-weight:600;"><span style="flex:2">Round</span><span style="width:70px;text-align:right">Go hits %</span><span style="width:80px;text-align:right">No-Go held %</span></div>'+blockAcc.map((b,i)=>{
+    const gc=b.goAcc>=70?'#0F6E56':b.goAcc>=45?'var(--amber)':'#A32D2D';
+    const nc=b.nogoAcc>=70?'#0F6E56':b.nogoAcc>=45?'var(--amber)':'#A32D2D';
+    return`<div style="display:flex;align-items:center;padding:8px 0;border-bottom:.5px solid var(--border);font-size:0.82rem;"><span style="color:var(--text-muted);flex:2">${names[i]}</span><span style="font-weight:500;color:${gc};width:70px;text-align:right">${b.goAcc!==null?b.goAcc+'%':'—'}</span><span style="font-weight:500;color:${nc};width:80px;text-align:right">${b.nogoAcc!==null?b.nogoAcc+'%':'—'}</span></div>`;
+  }).join('');
+  document.getElementById('ruk-r-summary').textContent=profile.summary;
+  showScreen('ruk-results');
+}
+
+// ═══════════════════════════════════════════════════════════
+// SAUDAA — PROBABILITY + FAIRNESS (Game 4)
+// ═══════════════════════════════════════════════════════════
+const PS_BLOCK_COPY={
+  1:{badge:'Round 1 of 3',title:'Pure Probability',desc:'Two options. Exact probabilities shown. No labels, no suggestions. Pick whichever you prefer.'},
+  2:{badge:'Round 2 of 3',title:'Same odds, different skin',desc:'The numbers are identical to Round 1 — but options now have names. Notice what changes.'},
+  3:{badge:'Round 3 of 3',title:"Someone else's offer",desc:'No probabilities. Someone offers you a share of 100 points. Accept and you both keep your shares. Reject and neither gets anything.'},
+};
+const PS_SAFE_LABELS=['Guaranteed','Stable Return','Locked In','Fixed Payout'];
+const PS_RISKY_LABELS=['Premium Offer','Smart Bet','Bold Play','High Stakes'];
+const PS_TEMPLATES=[
+  {type:'T1',safe:8, p:0.60,win:30,loss:0},{type:'T1',safe:5, p:0.50,win:30,loss:0},
+  {type:'T2',safe:10,p:0.80,win:25,loss:-5},{type:'T1',safe:12,p:0.60,win:25,loss:0},
+  {type:'T2',safe:8, p:0.70,win:18,loss:-4},{type:'T1',safe:14,p:0.60,win:27,loss:0},
+  {type:'T1',safe:25,p:0.50,win:20,loss:0},{type:'T1',safe:20,p:0.40,win:25,loss:0},
+  {type:'T2',safe:15,p:0.50,win:24,loss:-10},{type:'T1',safe:16,p:0.65,win:22,loss:0},
+];
+const PS_OFFERS=[42,45,50,25,28,32,38,10,15,20];
+let psIdx=0,psResults=[],psB1Results=[],psB2Results=[],psB3Results=[];
+let psActive=false,psTimerTimeout=null,psOverlayCb=null,psTrialStart=0;
+let psB1Trials=[],psB2Trials=[],psB3Trials=[];
+
+function psComputeEV(t){const evS=t.safe;const evR=t.type==='T1'?t.p*t.win:t.p*t.win+(1-t.p)*t.loss;return{evSafe:Math.round(evS*10)/10,evRisky:Math.round(evR*10)/10,riskyBetter:evR-evS>0.5,safeBetter:evS-evR>0.5};}
+function psBuildTrials(){
+  const shuffled=shuffleArr([...PS_TEMPLATES]);
+  const b1=shuffled.slice(0,10).map((t,i)=>{const ev=psComputeEV(t);return{...t,...ev,block:1,label_flag:0,deal_label_safe:null,deal_label_risky:null,suggested_side:null};});
+  const usedS=new Set(),usedR=new Set();
+  const b2=shuffled.slice(0,10).map((t,i)=>{
+    const ev=psComputeEV(t);
+    let sl=PS_SAFE_LABELS.find(l=>!usedS.has(l))||PS_SAFE_LABELS[0]; usedS.add(sl);
+    let rl=PS_RISKY_LABELS.find(l=>!usedR.has(l))||PS_RISKY_LABELS[0]; usedR.add(rl);
+    const recCond=i%3===0?'correct':i%3===1?'wrong':'none';
+    const suggestedSide=recCond==='correct'?(ev.riskyBetter?'risky':'safe'):recCond==='wrong'?(ev.riskyBetter?'safe':'risky'):null;
+    return{...t,...ev,block:2,label_flag:1,deal_label_safe:sl,deal_label_risky:rl,suggested_side:suggestedSide,rec_correct_ev:recCond==='correct'?true:recCond==='wrong'?false:null};
+  });
+  const b3=shuffleArr([...PS_OFFERS]).map((pct,i)=>({type:'fairness',offer_pct:pct,block:3}));
+  return{b1,b2,b3};
+}
+function startPS(){
+  const t=psBuildTrials(); psB1Trials=t.b1; psB2Trials=t.b2; psB3Trials=t.b3;
+  psIdx=0; psResults=[]; psB1Results=[]; psB2Results=[]; psB3Results=[]; psActive=false;
+  showScreen('ps-game');
+  psShowOverlay(1,()=>psRunDirect());
+}
+function psShowOverlay(blockNum,cb){
+  psOverlayCb=cb;
+  const c=PS_BLOCK_COPY[blockNum];
+  document.getElementById('ps-ov-badge').textContent=c.badge;
+  document.getElementById('ps-ov-title').textContent=c.title;
+  document.getElementById('ps-ov-desc').textContent=c.desc;
+  document.getElementById('ps-block-overlay').style.display='flex';
+}
+function psDismissOverlay(){document.getElementById('ps-block-overlay').style.display='none';if(psOverlayCb){const fn=psOverlayCb;psOverlayCb=null;fn();}}
+function psGetCurrent(){if(psIdx<10)return psB1Trials[psIdx];if(psIdx<20)return psB2Trials[psIdx-10];return psB3Trials[psIdx-20];}
+function psRunNext(){
+  if(psIdx>=30){showScreen('b5'); showB5('PROB_SAUDA'); return;}
+  if(psIdx===10){psShowOverlay(2,()=>psRunDirect());return;}
+  if(psIdx===20){psShowOverlay(3,()=>psRunDirect());return;}
+  psRunDirect();
+}
+function psRunDirect(){
+  const t=psGetCurrent(); psActive=true; psTrialStart=performance.now();
+  const isB3=t.block===3;
+  document.getElementById('ps-trial-num').textContent=psIdx+1;
+  document.getElementById('ps-prog').style.width=((psIdx+1)/30*100)+'%';
+  document.getElementById('ps-block-badge').textContent=t.block===1?'Round 1 · Pure odds':t.block===2?'Round 2 · Framing':'Round 3 · Fairness';
+  document.getElementById('ps-prob-ui').style.display=isB3?'none':'block';
+  document.getElementById('ps-fair-ui').style.display=isB3?'block':'none';
+  if(isB3) psRenderFair(t); else psRenderProb(t);
+  // timer 5s
+  clearTimeout(psTimerTimeout);
+  const fill=document.getElementById('ps-timer-fill');
+  fill.style.transition='none';fill.style.width='100%';fill.offsetWidth;
+  fill.style.transition='width 5000ms linear';fill.style.width='0%';
+  psTimerTimeout=setTimeout(()=>{if(!psActive)return;if(isB3)psChooseFair(true,true);else psChooseProb('safe',true);},5000);
+}
+function psRenderProb(t){
+  document.getElementById('ps-prob-feedback').textContent='';document.getElementById('ps-prob-feedback').style.opacity='0';
+  const isB2=t.block===2; const elsePct=Math.round((1-t.p)*100);
+  const elseVal=t.type==='T1'?0:t.loss; const elseStr=elseVal===0?'0 pts':`${elseVal} pts`;
+  document.getElementById('ps-choice-row').innerHTML=`
+    <div class="choice-card-ps" id="card-safe" onclick="psChooseProb('safe')">
+      ${isB2&&t.deal_label_safe?`<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-hint);margin-bottom:8px">${t.deal_label_safe}</div>`:''}
+      <div style="font-size:10px;color:var(--text-hint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Safe</div>
+      <div style="font-size:2rem;font-weight:500;color:var(--text);line-height:1.1;margin-bottom:6px">${t.safe>=0?'+':''}${t.safe}</div>
+      <div style="font-size:0.76rem;color:var(--text-muted)">100% guaranteed</div>
+    </div>
+    <div class="choice-card-ps" id="card-risky" onclick="psChooseProb('risky')">
+      ${isB2&&t.deal_label_risky?`<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-hint);margin-bottom:8px">${t.deal_label_risky}</div>`:''}
+      ${isB2&&t.suggested_side==='risky'?'<div style="position:absolute;top:-1px;right:-1px;background:var(--teal);color:white;font-size:9px;font-weight:700;padding:3px 8px;border-radius:0 var(--radius-lg) 0 var(--radius);letter-spacing:.04em;text-transform:uppercase">Recommended</div>':''}
+      ${isB2&&t.suggested_side==='safe'?'<div style="position:absolute;top:-1px;left:-1px;background:var(--teal);color:white;font-size:9px;font-weight:700;padding:3px 8px;border-radius:var(--radius-lg) 0 var(--radius) 0;letter-spacing:.04em;text-transform:uppercase">✓</div>':''}
+      <div style="font-size:10px;color:var(--text-hint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Risky</div>
+      <div style="font-size:2rem;font-weight:500;color:var(--text);line-height:1.1;margin-bottom:6px">+${t.win}</div>
+      <div class="prob-bar-track"><div style="height:100%;border-radius:3px;background:var(--amber);width:${Math.round(t.p*100)}%"></div></div>
+      <div style="font-size:0.76rem;color:var(--text-muted);margin-top:4px">${Math.round(t.p*100)}% chance · ${elsePct}%: ${elseStr}</div>
+    </div>`;
+}
+function psRenderFair(t){
+  document.getElementById('ps-fair-feedback').textContent='';document.getElementById('ps-fair-feedback').style.opacity='0';
+  document.getElementById('fair-offer-amount').textContent=t.offer_pct+' pts';
+  const tier=t.offer_pct>=41?'Fair offer':t.offer_pct>=25?'Moderate offer':'Low offer';
+  const col=t.offer_pct>=41?'#0F6E56':t.offer_pct>=25?'var(--amber)':'#A32D2D';
+  document.getElementById('fair-offer-label').innerHTML=`<span style="color:${col}">${tier}</span>`;
+  document.getElementById('fair-bar-you').style.width=t.offer_pct+'%';
+  document.getElementById('fair-split-you-pct').textContent='You: '+t.offer_pct+'%';
+  document.getElementById('fair-split-them-pct').textContent='Them: '+(100-t.offer_pct)+'%';
+  document.querySelectorAll('.fair-btn').forEach(b=>b.classList.remove('disabled'));
+}
+function psChooseProb(side,isTimeout=false){
+  if(!psActive)return; psActive=false; clearTimeout(psTimerTimeout);
+  const t=psGetCurrent(); const rt=Math.round(performance.now()-psTrialStart);
+  document.querySelectorAll('.choice-card-ps').forEach(c=>c.classList.add('disabled'));
+  document.getElementById('card-'+side)?.classList.add(side==='safe'?'picked-safe':'picked-risky');
+  const outcome=side==='risky'?(Math.random()<t.p?t.win:(t.loss||0)):t.safe;
+  const ev_correct=(side==='risky'&&t.riskyBetter)||(side==='safe'&&t.safeBetter)||t.equal_ev||false;
+  const rec={trial_index:psIdx,block:t.block,choice:side,outcome,ev_correct,rt,timeout_flag:isTimeout?1:0,risky_better:t.riskyBetter};
+  psResults.push(rec); if(t.block===1)psB1Results.push(rec); else psB2Results.push(rec);
+  const fb=document.getElementById('ps-prob-feedback');
+  fb.textContent=(isTimeout?'⏱ Auto · ':'')+`${outcome>=0?'+':''}${outcome} pts`; fb.style.color=outcome>0?'#0F6E56':outcome<0?'#A32D2D':'var(--text-muted)'; fb.style.opacity='1';
+  setTimeout(()=>{psIdx++; psRunNext();},900);
+}
+function psChooseFair(accepted,isTimeout=false){
+  if(!psActive)return; psActive=false; clearTimeout(psTimerTimeout);
+  const t=psGetCurrent(); const rt=Math.round(performance.now()-psTrialStart);
+  document.querySelectorAll('.fair-btn').forEach(b=>b.classList.add('disabled'));
+  const rec={trial_index:psIdx,block:3,choice:accepted?'accept':'reject',outcome:accepted?t.offer_pct:0,offer_split:t.offer_pct,accepted,rt,timeout_flag:isTimeout?1:0};
+  psResults.push(rec); psB3Results.push(rec);
+  const fb=document.getElementById('ps-fair-feedback');
+  fb.textContent=accepted?'✓ Accepted — +'+t.offer_pct+' pts':'✗ Rejected — both get 0'; fb.style.color=accepted?'#0F6E56':'#A32D2D'; fb.style.opacity='1';
+  setTimeout(()=>{psIdx++; psRunNext();},900);
+}
+function psEndGame(){
+  const prob=[...psB1Results,...psB2Results];
+  const riskyPct=prob.length?Math.round(prob.filter(r=>r.choice==='risky').length/prob.length*100):50;
+  const evAlign=prob.length?Math.round(prob.filter(r=>r.ev_correct).length/prob.length*100):50;
+  const unfair=psB3Results.filter(r=>r.offer_split<35);
+  const unfairRejRate=unfair.length?clamp01(unfair.filter(r=>!r.accepted).length/unfair.length):0.5;
+  const fairRej=psB3Results.filter(r=>r.offer_split>=41&&!r.accepted).length;
+  const emotOverride=psB3Results.filter(r=>r.offer_split>=41).length?clamp01(fairRej/psB3Results.filter(r=>r.offer_split>=41).length):0;
+  const b1r=psB1Results.length?psB1Results.filter(r=>r.choice==='risky').length/psB1Results.length:0.5;
+  const b2r=psB2Results.length?psB2Results.filter(r=>r.choice==='risky').length/psB2Results.length:0.5;
+  const framingSens=clamp01(Math.abs(b2r-b1r)*2.5);
+  const vector={ev_alignment:evAlign/100,unfair_reject_rate:unfairRejRate,emotional_override:emotOverride,framing_sensitivity:framingSens,risk_preference:riskyPct/100};
+  const profiles=[
+    {label:'The Rational Optimizer',icon:'🎯',test:v=>v.ev_alignment>=0.75&&v.framing_sensitivity<=0.25,summary:"You chase expected value consistently — labels don't move you. That's genuine rationality or a particularly stubborn prior. Worth knowing which."},
+    {label:'The Fair Dealer',icon:'⚖️',test:v=>v.unfair_reject_rate>=0.70&&v.emotional_override>=0.40,summary:"Fairness is a threshold, not a preference. You rejected offers that made rational sense to accept. Something treats the split more seriously than the number."},
+    {label:'The Impressionable',icon:'🏷️',test:v=>v.framing_sensitivity>=0.45,summary:"Labels and recommendations moved your choices. The math didn't change between rounds — but your decisions did. Very common, almost nobody sees it in themselves."},
+    {label:'The Loss Avoider',icon:'🛡️',test:v=>v.risk_preference<=0.35,summary:"Downside protection comes first. When losses are possible — even probabilistically — you step back. A specific risk architecture with real consequences."},
+    {label:'The Risk Seeker',icon:'⚡',test:v=>v.risk_preference>=0.65,summary:"You lean into the gamble. EV matters less than the possibility of the high outcome. Maps well to high-variance environments."},
+  ];
+  const profile=profiles.find(p=>p.test(vector))||{label:'The Pragmatist',icon:'🔬',summary:"Your decision pattern doesn't slot cleanly — the dimension bars tell the more precise story."};
+  const result={game:'PROB_SAUDA',label:profile.label,behaviorVector:vector,b1Results:psB1Results,b2Results:psB2Results,b3Results:psB3Results,date:new Date().toISOString()};
+  saveScore(result);
+  document.getElementById('ps-r-icon').textContent=profile.icon;
+  document.getElementById('ps-r-label').textContent=profile.label;
+  document.getElementById('ps-r-risky-pct').textContent=riskyPct+'%';
+  document.getElementById('ps-r-ev-align').textContent=evAlign+'%';
+  document.getElementById('ps-r-fair-rej').textContent=psB3Results.filter(r=>!r.accepted).length+'/10';
+  renderVecBars('ps-r-vec-bars',[
+    {label:'EV rationality',lo:'Intuitive',hi:'Rational',val:vector.ev_alignment,isNeg:false},
+    {label:'Risk appetite',lo:'Cautious',hi:'Risk-seeking',val:vector.risk_preference,isNeg:false},
+    {label:'Framing sensitivity',lo:'Immune',hi:'Susceptible',val:vector.framing_sensitivity,isNeg:true},
+    {label:'Fairness sensitivity',lo:'Pragmatic',hi:'Principled',val:vector.unfair_reject_rate,isNeg:false},
+    {label:'Emotional override',lo:'None',hi:'Strong',val:vector.emotional_override,isNeg:true},
+  ]);
+  document.getElementById('ps-r-block-compare').innerHTML=[
+    {label:'Round 1 (pure odds)',left:psB1Results.filter(r=>r.choice==='risky').length+'/10 risky',right:psB1Results.filter(r=>r.ev_correct).length+'/10 EV correct'},
+    {label:'Round 2 (framing)',left:psB2Results.filter(r=>r.choice==='risky').length+'/10 risky',right:psB2Results.filter(r=>r.ev_correct).length+'/10 EV correct'},
+    {label:'Round 3 (fairness)',left:psB3Results.filter(r=>r.accepted).length+' accepted',right:psB3Results.filter(r=>!r.accepted).length+' rejected'},
+  ].map(r=>`<div style="padding:9px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;font-size:0.82rem;"><span style="color:var(--text-muted);flex:1.5">${r.label}</span><span style="color:var(--text);flex:1;text-align:right">${r.left}</span><span style="color:var(--amber);flex:1;text-align:right">${r.right}</span></div>`).join('');
+  document.getElementById('ps-r-summary').textContent=profile.summary;
+  showScreen('ps-results');
+}
+
+// ── Shared vec bar renderer ──
+function renderVecBars(containerId, dims) {
+  const el = document.getElementById(containerId); if(!el) return;
+  el.innerHTML = dims.map(d => {
+    const pct = Math.round(clamp01(d.val)*100);
+    const barCol = d.isNeg ? (pct>=55?'#A32D2D':pct>=30?'var(--amber)':'#0F6E56') : (pct>=65?'#0F6E56':pct>=35?'var(--amber)':'#A32D2D');
+    const side = pct>=65?d.hi:pct<=35?d.lo:'—';
+    return `<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:0.76rem;color:var(--text-muted);margin-bottom:4px"><span style="font-weight:600">${d.label}</span><span style="color:${barCol};font-weight:600">${side}</span></div><div style="height:5px;background:var(--surface);border-radius:3px;overflow:hidden"><div data-w="${pct}%" style="width:0%;height:100%;border-radius:3px;background:${barCol};transition:width .7s ease-out"></div></div></div>`;
+  }).join('');
+  requestAnimationFrame(()=>{ el.querySelectorAll('[data-w]').forEach(bar=>{ requestAnimationFrame(()=>{ bar.style.width=bar.dataset.w; }); }); });
+}
+
+// ── Math helpers (if not already defined) ──
+function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function avgArr(a){return a.length?a.reduce((s,v)=>s+v,0)/a.length:0;}
+function stdArr(a){if(a.length<2)return 0;const m=avgArr(a);return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/a.length);}
+function clamp01(v){return Math.max(0,Math.min(1,v||0));}
+
+// ═══════════════════════════════════════════════════════════
+// MILAAN — TRUST GAME (Game 5)
+// ═══════════════════════════════════════════════════════════
+const MILAAN_PAYOFFS = {CC:[3,3],CD:[0,5],DC:[5,0],DD:[1,1]};
+
+const MILAAN_RELS = [
+  {id:'stranger',num:'1 of 5',avatar:'👤',name:'Priya Mehta',
+   context:"A mutual contact said you should connect. First call, twenty minutes in. Sharp, seems genuine. No track record to go on.",
+   aiStyle:'tit_for_tat_noisy',
+   rounds:[
+    {tag:'Round 1 · First contact',
+     text:"Priya has been walking through her pricing approach — more detail than expected on a first call. She asks if you'd share how you think about it.",
+     C:{text:"Share your actual thinking. Good faith early is usually how real partnerships start.",short:'You shared openly'},
+     D:{text:"Keep it directional. Enough to seem engaged, not enough to give away the actual view.",short:'You stayed general'},
+     reveal:{C:"She matched you — went deeper, shared specific numbers.",D:"She picked up on the vagueness and pulled back."},
+     outcomes:{CC:{cls:'cc',label:'Both opened up',text:"The conversation became real."},CD:{cls:'cd',label:'You gave more than you got',text:"You shared genuinely. She stayed surface."},DC:{cls:'dc',label:'You held more back',text:"You stayed measured while she gave real information."},DD:{cls:'dd',label:'Both stayed careful',text:"Professional and pleasant. Mutually noncommittal."}}},
+    {tag:'Round 2 · Getting specific',
+     text:"She's followed up with actual numbers — acquisition costs, margins. She's asking if you're in a similar position.",
+     C:{text:"Match her level. Put real numbers on the table.",short:'You shared numbers'},
+     D:{text:"Hold your own numbers for now — the relationship isn't there yet.",short:'You deflected'},
+     reveal:{C:"She had been waiting to see if you'd actually commit.",D:"She recalibrated — you're getting a carefully managed version now."},
+     outcomes:{CC:{cls:'cc',label:'Real numbers on the table',text:"Both of you have put something real out there."},CD:{cls:'cd',label:'You gave, she held back',text:"Your numbers are now with someone who didn't share theirs."},DC:{cls:'dc',label:'You held, she shared',text:"You know her actual numbers. She doesn't know yours."},DD:{cls:'dd',label:'Both held back',text:"Professional courtesy, maintained distance."}}},
+    {tag:'Round 3 · The actual ask',
+     text:"She wants to co-bid on a client — means sharing resources, contacts, and methodology on both sides.",
+     C:{text:"Commit properly. The upside is worth the exposure at this point.",short:'You committed fully'},
+     D:{text:"Express interest — but want scope defined before any real commitment.",short:'You stayed cautious'},
+     reveal:{C:"She committed in kind. Clear scope, no ambiguity.",D:"She was disappointed but professional. Offered to start smaller."},
+     outcomes:{CC:{cls:'cc',label:'Both committed',text:"Something real just started."},CD:{cls:'cd',label:'You went in, she hedged',text:"You're in. She's adjacent."},DC:{cls:'dc',label:'She went in, you hedged',text:"She committed fully. You kept an exit."},DD:{cls:'dd',label:'Both stayed cautious',text:"The co-bid didn't happen."}}}
+   ]},
+  {id:'trusted',num:'2 of 5',avatar:'✅',name:'Vikram Rao',
+   context:"Two people you trust have said Vikram is reliable, fair, worth knowing. First meeting today.",
+   aiStyle:'generous_then_sting',
+   rounds:[
+    {tag:'Round 1 · Opening',
+     text:"Vikram opens with three live client names — potential introductions, no conditions. Asking if you have contacts relevant to him.",
+     C:{text:"Offer two genuine warm introductions. He went first — match it.",short:'You shared contacts'},
+     D:{text:"Say you'll think about who might be relevant. No specific names yet.",short:'You stayed vague'},
+     reveal:{C:"He followed up on all three introductions within 48 hours — real effort.",D:"He noticed the vagueness. Still warm, but his specifics became less specific."},
+     outcomes:{CC:{cls:'cc',label:'Mutual introductions',text:"Both of you gave something concrete."},CD:{cls:'cd',label:'He gave, you held back',text:"He put real names on the table. You gave a future promise."},DC:{cls:'dc',label:'You held back, he gave anyway',text:"You kept yours vague. He went ahead regardless."},DD:{cls:'dd',label:'Both measured',text:"Warm and noncommittal."}}},
+    {tag:'Round 2 · Building',
+     text:"He's asking to see your methodology deck. He'll share his if you share yours.",
+     C:{text:"Share the full deck. The mutual exchange is what makes this useful.",short:'You shared your deck'},
+     D:{text:"Share a sanitised version. Keep the proprietary parts back.",short:'You shared partially'},
+     reveal:{C:"He shared his deck fully — client approach, pricing logic, case frameworks.",D:"He shared his deck too — but each of you did a partial exchange."},
+     outcomes:{CC:{cls:'cc',label:'Full decks exchanged',text:"Both of you now understand how the other actually works."},CD:{cls:'cd',label:'You gave the full deck, he didn\'t',text:"Your methodology is fully with him."},DC:{cls:'dc',label:'You gave less, he gave more',text:"You held the valuable parts back. He shared fully."},DD:{cls:'dd',label:'Both shared partially',text:"Enough to seem collaborative. Not enough to be useful."}}},
+    {tag:'Round 3 · The surprise',
+     text:"You find out Vikram took your methodology deck to a joint client pitch without telling you. He got the work. He's letting you know now.",
+     C:{text:"Take him at his word. Give him the chance to make it right.",short:'You stayed open'},
+     D:{text:"Be clear this doesn't work. 'Make it right' needs a specific plan.",short:'You pushed back'},
+     reveal:{C:"He acknowledged it and outlined a revenue share. Whether genuine or damage control — only time shows.",D:"He got defensive, then backed down. Agreed to your terms."},
+     outcomes:{CC:{cls:'cc',label:'You forgave, he followed through',text:"Trust survived — but it's a different kind now."},CD:{cls:'cd',label:'You forgave, resolution stayed vague',text:"You stayed open. He said the right things."},DC:{cls:'dc',label:'You called it, he conceded',text:"You pushed back and he gave ground."},DD:{cls:'dd',label:'Both held positions',text:"The arrangement is unresolved."}}}
+   ]},
+  {id:'betrayer',num:'3 of 5',avatar:'⚠️',name:'Rahul Sinha',
+   context:"Complicated track record. Last time, something confidential ended up somewhere it shouldn't have. He's reached out wanting to reconnect.",
+   aiStyle:'betray_then_mirror',
+   rounds:[
+    {tag:'Round 1 · Cautious restart',
+     text:"Rahul is apologetic without being specific. He wants to collaborate and is asking if you'd share the client brief you received last week.",
+     C:{text:"Share it. The brief is semi-public and you want to see if this can work.",short:'You shared the brief'},
+     D:{text:"Not yet. Tell him you need to check if you can share it externally.",short:'You held back'},
+     reveal:{C:"He took the brief — and went quiet for two days. His input was thin and generic.",D:"He kept his own cards close too. The offer to share something of his own was vague."},
+     outcomes:{CC:{cls:'cc',label:'You shared, he took',text:"You gave the brief in good faith. His response was underwhelming."},CD:{cls:'cd',label:'You gave, he held',text:"The asymmetry is immediate."},DC:{cls:'dc',label:'Both guarded',text:"The conversation stayed friendly and empty."},DD:{cls:'dd',label:'Both stayed guarded',text:"The reconnection hasn't actually happened yet."}}},
+    {tag:'Round 2 · Response',
+     text:"Now he's asking for more — specifically the timeline and resources you'd commit to the proposal.",
+     C:{text:"Share the details. The only way to rebuild is to actually start.",short:'You shared the plan'},
+     D:{text:"Not comfortable sharing at this level until the collaboration is properly defined.",short:'You declined'},
+     reveal:{C:"He shared his timeline back — but his resource commitment was significantly smaller than yours.",D:"He accepted the boundary. Said he'd come back. It's been three days."},
+     outcomes:{CC:{cls:'cc',label:'Details exchanged — unevenly',text:"You've entered a collaboration where the load is in his favour."},CD:{cls:'cd',label:'You gave, he didn\'t',text:"Your plan is with him. His isn't with you."},DC:{cls:'dc',label:'Both held back',text:"The collaboration is at a standstill."},DD:{cls:'dd',label:'Nothing exchanged',text:"Nothing was shared. That's information too."}}},
+    {tag:'Round 3 · The real test',
+     text:"He's asking for a final commitment by end of day. His own resources are now on the table as a show of good faith.",
+     C:{text:"Commit. People can change — and he's been consistent this round.",short:'You committed'},
+     D:{text:"Tell him honestly: the trust isn't there yet.",short:'You held back'},
+     reveal:{C:"He committed too — fully, in writing.",D:"He said he understood. Didn't push. The door stayed open."},
+     outcomes:{CC:{cls:'cc',label:'Both committed',text:"You both decided to try."},CD:{cls:'cd',label:'You went in, he didn\'t fully match',text:"The pattern from last time is recognisable."},DC:{cls:'dc',label:'You held, he committed',text:"He put real commitment in. You stayed back."},DD:{cls:'dd',label:'Both held back',text:"The reconnection didn't happen."}}}
+   ]},
+  {id:'friend',num:'4 of 5',avatar:'💙',name:'Ananya Singh',
+   context:"Close friend from college, now senior at a company that overlaps with yours. Doing formal business together for the first time.",
+   aiStyle:'friend_then_sting',
+   rounds:[
+    {tag:'Round 1 · Friends doing business',
+     text:"Ananya wants to bring you in on a client. She's sharing the full brief — including internal team dynamics and the client's difficult history.",
+     C:{text:"Full transparency. She's a friend — there's no reason to be guarded.",short:'You shared fully'},
+     D:{text:"Even with friends, keep the business side measured.",short:'You stayed measured'},
+     reveal:{C:"She appreciated the openness and went further — told you the budget range and internal politics.",D:"She matched your energy. Stayed warm but didn't push further."},
+     outcomes:{CC:{cls:'cc',label:'Friends doing real business',text:"The conversation moved fast because the trust is already there."},CD:{cls:'cd',label:'You gave more than she offered',text:"You went fully open. She was more measured."},DC:{cls:'dc',label:'You held back with a friend',text:"You were more guarded than the friendship warrants. She noticed."},DD:{cls:'dd',label:'Both measured',text:"You handled this like professionals, not friends."}}},
+    {tag:'Round 2 · Getting into it',
+     text:"She needs you to submit a formal proposal — including your team's billing rates. The client will see it alongside her team's numbers.",
+     C:{text:"Submit your actual rates. No reason to play games with a friend.",short:'You shared real rates'},
+     D:{text:"Keep the rate card slightly vague until the scope is locked.",short:'You stayed vague on rates'},
+     reveal:{C:"She submitted her rates too — and quietly told you her internal target margin.",D:"She submitted her rates cleanly while yours were vague. She had to explain the gap to the client."},
+     outcomes:{CC:{cls:'cc',label:'Full rates on the table',text:"Both proposals are clean and comparable."},CD:{cls:'cd',label:'You were real, she was guarded',text:"You put your actual numbers in. She kept hers vague."},DC:{cls:'dc',label:'You were vague, she was real',text:"Your proposal was unclear. It cost her something with the client."},DD:{cls:'dd',label:'Both vague',text:"The client got two unclear proposals."}}},
+    {tag:'Round 3 · Unexpected',
+     text:"You find out Ananya pushed the client to bring the work in-house — using the methodology you developed together. She's genuinely sorry.",
+     C:{text:"You believe her. The friendship matters more than one project.",short:'You chose the friendship'},
+     D:{text:"Being a friend doesn't make this okay. You need to understand exactly what happened.",short:'You held the line'},
+     reveal:{C:"She was relieved. Committed to making it right on the next project.",D:"She didn't push back. Took the accountability. Harder than either of you expected."},
+     outcomes:{CC:{cls:'cc',label:'Friendship held',text:"You chose the relationship over the project outcome."},CD:{cls:'cd',label:'You forgave, she stayed quiet',text:"You extended grace. She accepted without matching it."},DC:{cls:'dc',label:'You held the line, she accepted',text:"You didn't let the friendship smooth it over. She respected that."},DD:{cls:'dd',label:'Both held positions',text:"Nothing was resolved cleanly."}}}
+   ]},
+  {id:'competitor',num:'5 of 5',avatar:'⚔️',name:'Rohit Kapoor',
+   context:"Same field, chasing the same clients. Smart, well-connected. Reached out to explore a deal — or understand your position better.",
+   aiStyle:'strategic_competitor',
+   rounds:[
+    {tag:'Round 1 · Competitors at a table',
+     text:"Rohit suggests a non-compete understanding. To make it real, he'd need to know which clients you're currently pursuing.",
+     C:{text:"Share your pipeline. A structured non-compete could save you both wasted pitches.",short:'You shared pipeline'},
+     D:{text:"A non-compete sounds interesting but you're not sharing your pipeline to get there.",short:'You declined to share'},
+     reveal:{C:"He didn't share his pipeline in return. Said he needed to check internally first.",D:"He accepted it. Said fair enough and moved on."},
+     outcomes:{CC:{cls:'cc',label:'You shared, he didn\'t reciprocate',text:"Information asymmetry — in his favour."},CD:{cls:'cd',label:'He knows your pipeline',text:"Your active clients are with a direct competitor."},DC:{cls:'dc',label:'Neither shared',text:"The non-compete conversation ended without any arrangement."},DD:{cls:'dd',label:'Both stayed opaque',text:"The meeting produced nothing — which is better than producing something that cost you."}}},
+    {tag:'Round 2 · A different offer',
+     text:"He pivots. There's a large project that needs two firms. He's offering you 35% of the work. Take it or he'll find someone else.",
+     C:{text:"Take the 35%. A guaranteed piece is better than competing for the whole thing.",short:'You took the offer'},
+     D:{text:"Counter: 50/50 or you're not interested. That's fair terms.",short:'You countered at 50/50'},
+     reveal:{C:"He accepted immediately — which tells you the 35% wasn't his real floor.",D:"He pushed back on 50/50, landed at 42/58. He conceded something."},
+     outcomes:{CC:{cls:'cc',label:'You took 35%',text:"The deal is real — but you left points on the table."},CD:{cls:'cd',label:'You agreed, he negotiated down',text:"You took less than you pushed for. Still better than 35%."},DC:{cls:'dc',label:'You pushed, he conceded',text:"You got 7 more percentage points than you would have taken."},DD:{cls:'dd',label:'He walked away',text:"He wasn't willing to go to 50/50. The project is his alone now."}}},
+    {tag:'Round 3 · The real ask',
+     text:"Rohit wants to see your client presentation template — specifically how you handle the commercial slide. He'll share his in return.",
+     C:{text:"Exchange templates. If both are genuine, this is mutually useful.",short:'You exchanged'},
+     D:{text:"Not sharing your close methodology with a direct competitor.",short:'You declined'},
+     reveal:{C:"He shared a template — but not his actual commercial slide. You gave him your real one.",D:"He pushed back once, then accepted the boundary. Possibly with more respect than before."},
+     outcomes:{CC:{cls:'cc',label:'You gave real, he gave curated',text:"Your commercial methodology is with a competitor."},CD:{cls:'cd',label:'You gave real, he gave a version',text:"He has your approach. You have a sanitised version of his."},DC:{cls:'dc',label:'You held, he accepted',text:"You declined to share. The relationship ended where it started."},DD:{cls:'dd',label:'Both kept it back',text:"Neither shared the thing that mattered. Sensible, given who you're talking to."}}}
+   ]}
+];
+
+function milaanGetAI(style, history, ri) {
+  const last = history.length > 0 ? history[history.length-1] : null;
+  if(style==='tit_for_tat_noisy') return ri===0?(Math.random()<.6?'C':'D'):(Math.random()<.25?'D':(last||'C'));
+  if(style==='generous_then_sting') return ri===2?'D':'C';
+  if(style==='betray_then_mirror') return ri===0?'D':(last||'C');
+  if(style==='friend_then_sting') return ri===2?'D':'C';
+  if(style==='strategic_competitor'){if(ri===0)return'D';if(last==='D')return Math.random()<.5?'C':'D';return Math.random()<.65?'D':'C';}
+  return 'C';
+}
+
+let milaanRelIdx=0, milaanRoundIdx=0, milaanTotalScore=0;
+let milaanPlayerMoves={}, milaanAIMoves={}, milaanCoopRates={};
+let milaanOverlayCb=null, milaanAnimating=false;
+
+function startMilaan() {
+  milaanRelIdx=0; milaanRoundIdx=0; milaanTotalScore=0;
+  milaanPlayerMoves={}; milaanAIMoves={}; milaanCoopRates={};
+  MILAAN_RELS.forEach(r=>{milaanPlayerMoves[r.id]=[];milaanAIMoves[r.id]=[];});
+  milaanBuildDots(); showScreen('milaan-game');
+  milaanShowOverlay(MILAAN_RELS[0], ()=>milaanRenderRound());
+}
+
+function milaanBuildDots() {
+  const el=document.getElementById('milaan-progress-dots'); if(!el)return;
+  let html='';
+  MILAAN_RELS.forEach((r,ri)=>{
+    if(ri>0)html+='<div style="width:1px;background:var(--border-strong);border-radius:0;margin:0 3px;"></div>';
+    [0,1,2].forEach(rd=>{ html+=`<div id="mpdot-${ri}-${rd}" style="width:8px;height:8px;border-radius:2px;background:var(--border-strong);transition:all .3s;"></div>`; });
+  });
+  el.innerHTML=html; milaanUpdateDots();
+}
+
+function milaanUpdateDots() {
+  MILAAN_RELS.forEach((r,ri)=>{[0,1,2].forEach(rd=>{
+    const el=document.getElementById(`mpdot-${ri}-${rd}`); if(!el)return;
+    if(ri<milaanRelIdx) el.style.background='var(--amber)';
+    else if(ri===milaanRelIdx&&rd<milaanRoundIdx) el.style.background='var(--amber)';
+    else if(ri===milaanRelIdx&&rd===milaanRoundIdx) {el.style.background='var(--amber)';el.style.boxShadow='0 0 0 2px rgba(186,117,23,.25)';}
+    else {el.style.background='var(--border-strong)';el.style.boxShadow='';}
+  });});
+}
+
+function milaanShowOverlay(rel, cb) {
+  milaanOverlayCb=cb;
+  document.getElementById('mro-num').textContent='Relationship '+rel.num;
+  document.getElementById('mro-avatar').textContent=rel.avatar;
+  document.getElementById('mro-name').textContent=rel.name;
+  document.getElementById('mro-context').textContent=rel.context;
+  const ov=document.getElementById('milaan-rel-overlay'); ov.style.display='flex';
+}
+function milaanDismissOverlay(){
+  document.getElementById('milaan-rel-overlay').style.display='none';
+  if(milaanOverlayCb){const fn=milaanOverlayCb;milaanOverlayCb=null;fn();}
+}
+
+function milaanRenderRound() {
+  milaanAnimating=false;
+  const rel=MILAAN_RELS[milaanRelIdx]; const round=rel.rounds[milaanRoundIdx];
+  document.getElementById('milaan-hdr-label').textContent='Relationship '+rel.num;
+  document.getElementById('milaan-hdr-score').textContent=milaanTotalScore;
+  document.getElementById('milaan-round-tag').textContent=round.tag;
+  document.getElementById('milaan-scenario-text').textContent=round.text;
+  document.getElementById('milaan-reveal-card').style.display='none';
+  document.getElementById('milaan-outcome-strip').style.display='none';
+  document.getElementById('milaan-next-wrap').style.display='none';
+  milaanUpdateDots(); milaanRenderHistory(rel);
+  document.getElementById('milaan-choices').innerHTML=[
+    {letter:'A',data:round.C,move:'C'},{letter:'B',data:round.D,move:'D'}
+  ].map((c,i)=>`<div class="choice-card" id="mch-${i}" onclick="milaanChoose('${c.move}',${i})">
+    <div class="choice-letter">Option ${c.letter}</div>
+    <div class="choice-text">${c.data.text}</div>
+  </div>`).join('');
+}
+
+function milaanRenderHistory(rel) {
+  const el=document.getElementById('milaan-history-strip');
+  const pm=milaanPlayerMoves[rel.id]||[]; const am=milaanAIMoves[rel.id]||[];
+  if(!pm.length){el.innerHTML='';return;}
+  el.innerHTML=pm.map((p,i)=>{
+    const a=am[i]; const key=p+a; const pay=MILAAN_PAYOFFS[key];
+    const cls=pay[0]>=3?'good':pay[0]===0?'bad':'mid';
+    const rnd=rel.rounds[i];
+    return`<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--surface);border-radius:8px;margin-bottom:4px;font-size:0.76rem;">
+      <span style="color:var(--text-hint);width:28px;font-weight:600;">R${i+1}</span>
+      <span style="flex:1;color:var(--text-muted);">${p==='C'?rnd.C.short:rnd.D.short}</span>
+      <span style="flex:1;color:var(--text-hint);font-style:italic;">${a==='C'?'They opened up':'They held back'}</span>
+      <span style="font-weight:600;color:${cls==='good'?'var(--teal)':cls==='bad'?'var(--red)':'var(--amber)'};">+${pay[0]}</span>
+    </div>`;
+  }).join('');
+}
+
+function milaanChoose(move, btnIdx) {
+  if(milaanAnimating)return; milaanAnimating=true;
+  const rel=MILAAN_RELS[milaanRelIdx]; const round=rel.rounds[milaanRoundIdx];
+  [0,1].forEach(i=>{const el=document.getElementById('mch-'+i);if(!el)return;el.classList.add('disabled');if(i===btnIdx)el.classList.add('selected');else el.classList.add('faded');});
+  setTimeout(()=>{
+    const aiMove=milaanGetAI(rel.aiStyle, milaanPlayerMoves[rel.id], milaanRoundIdx);
+    milaanPlayerMoves[rel.id].push(move); milaanAIMoves[rel.id].push(aiMove);
+    const key=move+aiMove; const pay=MILAAN_PAYOFFS[key];
+    milaanTotalScore+=pay[0];
+    // reveal
+    const revEl=document.getElementById('milaan-reveal-card');
+    document.getElementById('milaan-reveal-label').textContent=aiMove==='C'?'What they did — they opened up':'What they did — they held back';
+    document.getElementById('milaan-reveal-text').textContent=move==='C'?round.reveal.C:round.reveal.D;
+    revEl.style.display='block';
+    setTimeout(()=>{
+      const od=round.outcomes[key];
+      const strip=document.getElementById('milaan-outcome-strip');
+      strip.style.display='block';
+      const colMap={cc:'var(--teal-light)',cd:'var(--red-light)',dc:'var(--amber-light)',dd:'var(--surface)'};
+      const lblColMap={cc:'var(--teal)',cd:'var(--red)',dc:'var(--amber-dark)',dd:'var(--text-hint)'};
+      strip.style.background=colMap[od.cls]||'var(--surface)';
+      strip.style.border=`.5px solid ${lblColMap[od.cls]}44`;
+      document.getElementById('milaan-outcome-label').textContent=od.label;
+      document.getElementById('milaan-outcome-label').style.color=lblColMap[od.cls]||'var(--text-hint)';
+      document.getElementById('milaan-outcome-text').textContent=od.text;
+      const youEl=document.getElementById('milaan-payoff-you');
+      youEl.textContent='+'+pay[0]; youEl.style.color=pay[0]>=3?'var(--teal)':pay[0]===0?'var(--red)':'var(--amber)';
+      document.getElementById('milaan-payoff-them').textContent='+'+pay[1];
+      document.getElementById('milaan-hdr-score').textContent=milaanTotalScore;
+      milaanRenderHistory(rel);
+      const isLastRound=milaanRoundIdx>=2; const isLastRel=milaanRelIdx>=MILAAN_RELS.length-1;
+      const btn=document.getElementById('milaan-next-btn');
+      btn.textContent=isLastRound&&isLastRel?'See your results →':isLastRound?'Next relationship →':'Round '+(milaanRoundIdx+2)+' →';
+      document.getElementById('milaan-next-wrap').style.display='block';
+    },1200);
+  },500);
+}
+
+function milaanAdvance() {
+  const rel=MILAAN_RELS[milaanRelIdx];
+  if(milaanRoundIdx>=2){
+    const pm=milaanPlayerMoves[rel.id];
+    milaanCoopRates[rel.id]=pm.filter(m=>m==='C').length/pm.length;
+    milaanRelIdx++; milaanRoundIdx=0;
+    if(milaanRelIdx>=MILAAN_RELS.length){ milaanEndGame(); return; }
+    milaanShowOverlay(MILAAN_RELS[milaanRelIdx],()=>{milaanBuildDots();milaanRenderRound();});
+  } else { milaanRoundIdx++; window.scrollTo(0,0); milaanRenderRound(); }
+}
+
+function milaanEndGame() {
+  const rates=Object.values(milaanCoopRates);
+  const baseline=milaanCoopRates['stranger']||0.5;
+  const repBoost=(milaanCoopRates['trusted']||0)-baseline;
+  const ingroupBias=(milaanCoopRates['friend']||0.5)-(milaanCoopRates['competitor']||0.5);
+  const pm=milaanPlayerMoves['betrayer']||[];
+  const forgiveness=pm.length>=3?((pm[0]==='C'?1:0)+(pm[2]==='C'?1:0))/2:0.5;
+  const avg=rates.reduce((s,v)=>s+v,0)/(rates.length||1);
+  const contextVar=rates.length>1?Math.sqrt(rates.reduce((s,v)=>s+(v-avg)**2,0)/rates.length):0;
+  const scores={baseline,repBoost,forgiveness,ingroupBias,contextVar};
+  const profiles=[
+    {name:'The Generous Opener',icon:'🌱',test:s=>s.baseline>=0.70,summary:"You extend trust before it's been verified. Stranger, competitor, across the board — your default is open rather than protected.",quote:"You've never needed the full guarantee before you moved."},
+    {name:'The Reputation Reader',icon:'📋',test:s=>s.repBoost>=0.22&&s.baseline<0.70,summary:"Social proof moves you more than most admit. A strong reputation opens the door further for you.",quote:"You give more to people who've earned it. Just make sure you're the one verifying the earn."},
+    {name:'The Context-Switcher',icon:'🔀',test:s=>s.contextVar>=0.28,summary:"Your behaviour shifts significantly depending on who you're with. That's social intelligence.",quote:"You don't treat everyone the same. Most people don't actually do it."},
+    {name:'The Reciprocator',icon:'⚖️',test:s=>s.baseline>=0.45&&s.baseline<0.70,summary:"You mirror. What you give, you expect back — and you calibrate quickly when it stops coming.",quote:"You're not the first to pull back and not the last to re-engage."},
+    {name:'The Guarded Professional',icon:'🛡️',test:s=>s.baseline<0.38,summary:"Trust is earned with you, not assumed. You rarely get burned — and also rarely build relationships that only happen when someone takes a risk first.",quote:"You haven't given someone the wrong thing to use against you in a while. That's intentional."},
+  ];
+  const profile=profiles.find(p=>p.test(scores))||profiles[3];
+  const vector={baseline_trust:baseline,reputation_boost:clamp01(repBoost+0.5),forgiveness:clamp01(forgiveness+0.5),ingroup_bias:clamp01(ingroupBias+0.5),context_sensitivity:clamp01(contextVar/0.4)};
+  const result={game:'MILAAN',label:profile.name,scores,coopRates:milaanCoopRates,behaviorVector:vector,date:new Date().toISOString()};
+  saveScore(result);
+  document.getElementById('milaan-r-icon').textContent=profile.icon;
+  document.getElementById('milaan-r-name').textContent=profile.name;
+  document.getElementById('milaan-r-quote').textContent=profile.quote;
+  // trust bars
+  document.getElementById('milaan-r-trust-bars').innerHTML=MILAAN_RELS.map(rel=>{
+    const rate=milaanCoopRates[rel.id]||0; const pct=Math.round(rate*100);
+    const col=pct>=65?'var(--teal)':pct<=30?'var(--red)':'var(--amber)';
+    return`<div style="margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <span style="font-size:0.82rem;font-weight:600;">${rel.avatar} ${rel.name}</span>
+        <span style="font-size:0.82rem;font-weight:600;color:${col};">${pct}% open</span>
+      </div>
+      <div style="font-size:0.72rem;color:var(--text-hint);margin-bottom:5px;">${rel.context.split('.')[0]}.</div>
+      <div style="height:8px;border-radius:4px;background:var(--surface);overflow:hidden;">
+        <div data-w="${pct}%" style="width:0%;height:100%;border-radius:4px;background:${col};transition:width 1s ease-out;"></div>
+      </div>
+    </div>`;
+  }).join('');
+  // insights
+  const insights=[];
+  if(repBoost>0.22) insights.push({label:'Reputation changes your behaviour',text:`You cooperated ${Math.round(repBoost*100)} percentage points more with Vikram than with Priya. A strong reputation is a real mechanism for you, not just social signal.`});
+  else if(repBoost<-0.1) insights.push({label:'Reputation barely registers',text:"Being told someone is reliable didn't open you up much more than meeting a stranger. You decide from direct evidence."});
+  if(ingroupBias>0.28) insights.push({label:'Friendship changes the calculation',text:"You were significantly more open with Ananya than with Rohit. The relationship affects how you approach the exchange — the math stops being purely math."});
+  else if(Math.abs(ingroupBias)<0.12) insights.push({label:'Friend or competitor — similar approach',text:"Your behaviour with Ananya and Rohit wasn't dramatically different. You apply a fairly consistent standard regardless of relationship type."});
+  if(forgiveness>0.60) insights.push({label:'You give second chances',text:"In Rahul's relationship, your choices moved toward re-engagement rather than sustained caution. Forgiveness is an active choice for you."});
+  else insights.push({label:'The track record stays on file',text:"In Rahul's relationship, the history showed in your choices. You didn't pretend it hadn't happened."});
+  document.getElementById('milaan-r-insights').innerHTML=insights.map(i=>`<div style="background:var(--surface);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:10px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-hint);margin-bottom:6px;">${i.label}</div><div style="font-size:0.88rem;color:var(--text-muted);line-height:1.75;">${i.text}</div></div>`).join('');
+  // animate bars
+  requestAnimationFrame(()=>{ document.querySelectorAll('#milaan-r-trust-bars [data-w]').forEach(el=>{requestAnimationFrame(()=>{el.style.width=el.dataset.w;});}); });
+  showScreen('milaan-results');
 }
 
 // ═══════════════════════════════════════════════════════════

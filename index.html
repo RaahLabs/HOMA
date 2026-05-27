@@ -1164,7 +1164,7 @@
 // ═══════════════════════════════════════════════════════════
 // CORE UTILS
 // ═══════════════════════════════════════════════════════════
-const clamp01 = v => Math.max(0, Math.min(1, v));
+const clamp01 = v => Math.max(0, Math.min(1, v || 0));
 const avg = arr => arr.length ? arr.reduce((s,v) => s+v, 0) / arr.length : 0;
 const stdDev = arr => {
   if(arr.length < 2) return 0;
@@ -1960,7 +1960,6 @@ function renderVecBars(containerId, dims) {
 function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function avgArr(a){return a.length?a.reduce((s,v)=>s+v,0)/a.length:0;}
 function stdArr(a){if(a.length<2)return 0;const m=avgArr(a);return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/a.length);}
-function clamp01(v){return Math.max(0,Math.min(1,v||0));}
 
 // ═══════════════════════════════════════════════════════════
 // MILAAN — TRUST GAME (Game 5)

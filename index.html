@@ -1451,18 +1451,46 @@
       </div>
     </div>
 
-    <!-- Full pane — real content, unlocked via button -->
+    <!-- Full pane — paywall gate -->
     <div id="report-pane-full" class="report-pane">
-      <!-- Paywall gate — shown until unlocked -->
-      <div id="full-report-gate" style="text-align:center;padding:3rem 1.5rem;">
-        <div style="font-size:2.5rem;margin-bottom:1rem;">🔒</div>
-        <div style="font-family:'Instrument Serif',serif;font-size:1.5rem;margin-bottom:10px;">The complete picture</div>
-        <div style="font-size:0.85rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.75rem;max-width:320px;margin-left:auto;margin-right:auto;">Sub-role · Manager &amp; peer dynamics · What you struggle with · Full self-awareness breakdown · Roles to avoid</div>
-        <button class="btn btn-primary btn-full" style="max-width:280px;padding:15px;font-size:1rem;margin:0 auto;display:block;" onclick="unlockFullReport()">Unlock Full Report — ₹499 →</button>
-        <p style="font-size:0.7rem;color:var(--text-hint);margin-top:10px;">One-time · No subscription · Yours forever</p>
+      <div style="position:relative;min-height:600px;overflow:hidden;border-radius:var(--radius-lg);">
+        <!-- Blurred preview of what's inside -->
+        <div style="filter:blur(6px);pointer-events:none;padding:2rem 1.5rem;opacity:0.6;">
+          <div style="margin-bottom:2rem;">
+            <p class="section-label">Your sub-role</p>
+            <div style="background:var(--surface);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:10px;">
+              <div style="font-size:1rem;font-weight:600;margin-bottom:6px;">The Calculated Bet</div>
+              <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;">Big swings, after thinking them through. You have genuine risk appetite but the deliberateness stops it becoming reckless.</div>
+            </div>
+          </div>
+          <div style="margin-bottom:2rem;">
+            <p class="section-label">Manager &amp; peer dynamics</p>
+            <div style="background:var(--surface);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:8px;"><div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-hint);margin-bottom:5px;">As a manager</div><div style="font-size:0.82rem;color:var(--text-muted);line-height:1.75;">You give autonomy before people ask for it. The team you build tends to be high on initiative.</div></div>
+            <div style="background:var(--surface);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:8px;"><div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-hint);margin-bottom:5px;">As a peer</div><div style="font-size:0.82rem;color:var(--text-muted);line-height:1.75;">You're the one who moves the room when it stalls. That's a specific kind of social capital.</div></div>
+          </div>
+          <div style="margin-bottom:2rem;">
+            <p class="section-label">What this profile typically struggles with</p>
+            <div style="background:var(--red-light);border:0.5px solid rgba(163,45,45,0.15);border-radius:var(--radius);padding:1rem 1.125rem;"><div style="font-size:0.82rem;color:var(--text-muted);line-height:1.75;">The same certainty that helps you commit to a direction can make it harder to change course when new information arrives. Being wrong publicly feels disproportionately expensive.</div></div>
+          </div>
+          <div style="margin-bottom:2rem;">
+            <p class="section-label">Full self-awareness breakdown</p>
+            <div style="background:var(--amber-light);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:8px;"><div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--amber-dark);margin-bottom:5px;">Risk — you said bold, games confirm it</div><div style="font-size:0.82rem;color:var(--text-muted);">Rare alignment. Your self-model on risk is accurate.</div></div>
+            <div style="background:var(--amber-light);border-radius:var(--radius);padding:1rem 1.125rem;"><div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--amber-dark);margin-bottom:5px;">Trust — you said cautious, games say open</div><div style="font-size:0.82rem;color:var(--text-muted);">You cooperated more than you think you do.</div></div>
+          </div>
+        </div>
+        <!-- Paywall overlay positioned over blur -->
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:linear-gradient(to bottom,transparent 0%,rgba(23,23,26,0.92) 30%,rgba(23,23,26,0.98) 100%);">
+          <div style="text-align:center;max-width:360px;">
+            <div style="font-size:2.5rem;margin-bottom:1rem;">🔒</div>
+            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:10px;">Full Report</div>
+            <div style="font-family:'Instrument Serif',serif;font-size:1.6rem;color:#FFFFFF;margin-bottom:10px;line-height:1.3;">The complete picture, not the summary</div>
+            <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1.5rem;">Sub-roles · Manager &amp; peer dynamics · What you typically struggle with · Full D8 self-awareness breakdown · Honest struggle patterns · Role fit with explicit "avoid" guidance</div>
+            <button class="btn btn-primary btn-full" style="max-width:280px;padding:15px;font-size:1rem;margin:0 auto;display:block;" onclick="alert('Payment integration coming soon. Check back shortly!')">Unlock Full Report — ₹499 →</button>
+            <p style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-top:10px;">One-time payment · No subscription · Yours forever</p>
+            <button class="btn btn-secondary btn-sm" style="margin-top:1.25rem;border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.5);" onclick="switchReportTab('brief')">← Back to brief report</button>
+          </div>
+        </div>
       </div>
-      <!-- Full content — hidden until unlocked -->
-      <div id="full-report-content" style="display:none;"></div>
     </div>
   </div>
 </div>
@@ -3475,324 +3503,6 @@ function switchReportTab(tab) {
   document.getElementById('rtab-'+tab).classList.add('active');
   document.getElementById('report-pane-'+tab).classList.add('active');
   window.scrollTo(0,0);
-}
-
-function unlockFullReport() {
-  document.getElementById('full-report-gate').style.display='none';
-  const content = document.getElementById('full-report-content');
-  content.style.display='block';
-  if(!content.innerHTML.trim()) renderFullReport();
-}
-
-function renderFullReport() {
-  const scores = user && user.scores || [];
-  const dims = getDimensionScores(scores, user.b5self || {});
-  const profile = assignProfile(dims);
-  const b5 = user.b5self || {};
-  const mazdoor = scores.find(s=>s.game==='CORP_MAZDOOR');
-  const allRoles = ROLE_FAMILIES_SHORT.map(r=>({...r,score:scoreRole(r,dims)})).sort((a,b)=>b.score-a.score);
-  const topRoles = allRoles.slice(0,3);
-  const avoidRoles = allRoles.slice(-2);
-
-  // ── Manager / peer / subordinate dynamics ──
-  const dynamics = buildDynamics(dims);
-
-  // ── Struggle patterns ──
-  const struggles = buildStruggles(dims, profile);
-
-  // ── Full D8 breakdown ──
-  const d8Cards = buildFullD8(dims, b5);
-
-  // ── Values snapshot from Mazdoor ──
-  const valuesHTML = mazdoor ? buildValuesSection(dims, mazdoor) : '';
-
-  document.getElementById('full-report-content').innerHTML = `
-    <!-- Sub-role -->
-    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
-      <p class="section-label">Your sub-role</p>
-      <div style="background:var(--surface);border-radius:var(--radius-lg);padding:1.25rem;">
-        <div style="font-size:1.05rem;font-weight:600;margin-bottom:6px;">${profile.icon} ${profile.subLabel}</div>
-        <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">${profile.subDesc}</div>
-        <div style="margin-top:12px;padding-top:12px;border-top:0.5px solid var(--border);font-size:0.82rem;color:var(--text-hint);line-height:1.75;">${buildSubRoleDetail(dims, profile)}</div>
-      </div>
-    </div>
-
-    <!-- Role fit — full + avoid -->
-    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
-      <p class="section-label">Role fit — the full picture</p>
-      ${topRoles.map((r,i)=>`
-        <div class="role-card-report ${i===0?'top':''}" style="margin-bottom:10px;">
-          <div style="font-size:1rem;font-weight:600;margin-bottom:4px;">${r.icon} ${r.name}</div>
-          <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;">${r.why(dims)}</div>
-          ${r.caution(dims)?`<div style="font-size:0.76rem;color:var(--amber-dark);margin-top:5px;">⚠ ${r.caution(dims)}</div>`:''}
-        </div>`).join('')}
-      <p class="section-label" style="margin-top:1.25rem;">Roles that will likely frustrate you</p>
-      ${avoidRoles.map(r=>`
-        <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:8px;">
-          <div style="font-size:0.88rem;font-weight:600;margin-bottom:4px;color:var(--text-muted);">${r.icon} ${r.name}</div>
-          <div style="font-size:0.82rem;color:var(--text-hint);line-height:1.7;">${buildAvoidReason(r, dims)}</div>
-        </div>`).join('')}
-    </div>
-
-    <!-- Manager / peer / subordinate -->
-    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
-      <p class="section-label">How you show up</p>
-      ${['manager','peer','subordinate'].map(role=>`
-        <div style="background:var(--card);border:0.5px solid var(--border-strong);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:10px;">
-          <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-hint);margin-bottom:6px;">As a ${role}</div>
-          <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">${dynamics[role]}</div>
-        </div>`).join('')}
-    </div>
-
-    <!-- What you struggle with -->
-    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
-      <p class="section-label">What this profile typically struggles with</p>
-      <p style="font-size:0.76rem;color:var(--text-hint);margin-bottom:14px;font-style:italic;">Not softened. Worth reading.</p>
-      ${struggles.map(s=>`
-        <div style="background:var(--surface);border-left:3px solid var(--amber);border-radius:0 var(--radius) var(--radius) 0;padding:1rem 1.125rem;margin-bottom:10px;">
-          <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--amber-dark);margin-bottom:5px;">${s.label}</div>
-          <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">${s.text}</div>
-        </div>`).join('')}
-    </div>
-
-    <!-- Full D8 self-awareness -->
-    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
-      <p class="section-label">Self-awareness — the full breakdown</p>
-      <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px;line-height:1.75;">What you said about yourself after each game, vs what your choices actually showed.</p>
-      ${d8Cards.length ? d8Cards.map(c=>`
-        <div style="background:${c.aligned?'var(--surface)':'var(--amber-light)'};border:0.5px solid ${c.aligned?'var(--border)':'rgba(186,117,23,0.25)'};border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:8px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
-            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:${c.aligned?'var(--teal)':'var(--amber-dark)'};">${c.label}</div>
-            <div style="font-size:0.7rem;color:var(--text-hint);">${c.aligned?'✓ Aligned':'⚡ Gap'}</div>
-          </div>
-          <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.75;">${c.text}</div>
-        </div>`).join('') :
-        `<div style="background:var(--surface);border-radius:var(--radius);padding:1.25rem;text-align:center;color:var(--text-hint);font-size:0.85rem;">No B5 responses recorded — self-awareness gap requires the post-game questions.</div>`}
-    </div>
-
-    ${valuesHTML ? `
-    <!-- Values -->
-    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
-      <p class="section-label">What drives you at work</p>
-      ${valuesHTML}
-    </div>` : ''}
-
-    <!-- Quote -->
-    <div style="padding:1.5rem 1.25rem;">
-      <div class="summary-card"><p>${buildQuote(dims)}</p></div>
-      <button class="btn btn-secondary btn-full" style="margin-top:1rem;" onclick="switchReportTab('brief')">← Back to brief</button>
-    </div>
-  `;
-}
-
-// ── Full report helper functions ──
-
-function buildSubRoleDetail(dims, profile) {
-  const details = {
-    'The Founder': {
-      'The Calculated Bet': "You move fast but you've done the thinking first. The bets look impulsive from outside and aren't. That gap between perception and reality is actually an edge.",
-      'The Mission-Driven': "You're not optimising for the exit. That limits some paths and opens others. The people you attract will be self-selecting for the same thing.",
-      'The Instinctive': "You act before the map is complete and adjust after. Some of your best outcomes came from that. So did some of the avoidable ones.",
-      'The Founder': "Risk appetite plus exploratory instinct is a specific combination. The gap to watch: tolerance for the operational grind that sits between the ideas."
-    },
-    'The Operator': {
-      'The Quiet Engine': "You run the system the same way regardless of who is watching. That consistency is rare and compounds in organisations that have learned to depend on unpredictable people.",
-      'The Principled One': "You run the process correctly even when the shortcut is faster and nobody would notice. People who have worked with you have noticed.",
-      'The Improver': "You run the current system and look for a better one simultaneously. Most people can only do one of these at a time.",
-      'The Operator': "Deliberate, consistent, and hard to rattle. The limitation to know: high-ambiguity environments where the rulebook doesn't exist yet will feel uncomfortable."
-    },
-    'The Connector': {
-      'The Bridge Builder': "You connect people and hold the line on fairness simultaneously. Those two things pull against each other in most organisations.",
-      'The Open Door': "You extend trust before it has been earned. That gets taken advantage of occasionally. The alternative — waiting until trust is proven — costs more in aggregate.",
-      'The Diplomatic One': "You build trust deliberately rather than on impulse. People feel considered rather than charmed.",
-      'The Connector': "Trust and context-sensitivity together. The limitation: you may smooth over conflicts that needed to surface."
-    },
-    'The Analyst': {
-      'The Deep Diver': "Very deep on very few things. The limitation is switching costs — moving from one domain to another is genuinely expensive for you.",
-      'The Pattern Reader': "You explore widely and analyse rigorously. The combination is less common than either skill alone.",
-      'The Principled Voice': "You will not massage findings. That creates friction at times. It also means your output is trusted in a way that adjusted output never is.",
-      'The Analyst': "Cognitive precision plus deliberateness. The environment needs to give you enough time — forced fast decisions are where this profile underperforms."
-    },
-    'The Negotiator': {
-      'The Fair Closer': "You negotiate toward fair, not maximum. Deals close and relationships survive. The limitation: leaves value on the table in adversarial contexts.",
-      'The Deliberate One': "You have the patience to let silence work. Most people fill silence. You don't.",
-      'The Negotiator': "Fairness plus measured risk. You get good deals without burning the relationship. That combination scales."
-    },
-    'The Executor': {
-      'The Quiet Finisher': "You deliver without needing the applause. The limitation: credit goes elsewhere more often than it should.",
-      'The Trusted Pair': "You deliver and people know it. That reputation is its own compounding asset.",
-      'The Executor': "You commit and follow through. The limitation: environments with constant pivots and changing priorities are genuinely draining."
-    },
-    'The Maverick': {
-      'The Calculated One': "Big bets, thought through. The distinction matters — this is not recklessness with a good outcome.",
-      'The Curious Bet': "You explore first and bet second. That sequence reduces the bad outcomes even when the bets are large.",
-      'The Maverick': "High appetite, independent. The limitation: dependence on others' systems and timelines creates friction."
-    },
-    'The Empath-Leader': {
-      'The Steady Hand': "Warmth without reactive decisions — that combination is rarer than either alone.",
-      'The Room Reader': "You adapt to each person in a way most people can't. The cost: it requires energy that isn't always visible.",
-      'The Empath-Leader': "Trust plus fairness plus others-orientation. The limitation: difficulty with people who don't reciprocate — the pattern eventually drains."
-    },
-    'The Technician': {
-      'The Deep Expert': "You know one thing at a level almost nobody else does. The limitation: breadth feels like dilution.",
-      'The Learning Machine': "High standards that keep moving. You are harder on your own work than anyone else will be.",
-      'The Technician': "Cognitive control plus deliberateness. The limitation: visible impatience with people who haven't put in the same time."
-    },
-    'The Strategist': {
-      'The Systems Thinker': "You map how things connect before deciding where to move. That takes longer at the front end and saves considerably more at the back.",
-      'The Opportunity Finder': "You scan widely and move when you find something. The limitation: can mistake novelty for opportunity.",
-      'The Strategist': "Exploration plus cognitive control. The gap to watch: getting stuck in the analysis when the situation needs a decision."
-    },
-    'The Grounded Professional': {
-      'The Steady Contributor': "Balanced across dimensions — reliable and hard to rattle. The limitation: difficult to differentiate in competitive environments where extremes get noticed."
-    }
-  };
-  const profileDetails = details[profile.label] || {};
-  return profileDetails[profile.subLabel] || "Your specific combination of scores points to a profile with genuine strengths and specific limitations — both worth understanding in full.";
-}
-
-function buildDynamics(dims) {
-  const d1=dims.D1, d2=dims.D2, d3=dims.D3, d4=dims.D4, d5=dims.D5, d6=dims.D6, d7=dims.D7, v1=dims.V1, v2=dims.V2, v5=dims.V5;
-
-  // As a manager
-  let mgr;
-  if(d3>0.65&&v5>0.55) mgr="You give autonomy before people ask for it. The team you build tends to have high initiative because you've modelled it. The limitation: people who need more structure don't always tell you, and you don't always notice.";
-  else if(d2>0.65&&d5>0.60) mgr="You set a high bar and hold it consistently. Your team knows exactly where they stand. The limitation: the standard can feel punishing in environments where people are still learning.";
-  else if(d1>0.60&&d7>0.55) mgr="You push the team toward the edge of what's possible. The ones who thrive under you are the ones who wanted to be pushed. The ones who didn't will have moved on.";
-  else if(d6>0.65) mgr="You run a fair room — credit lands where it belongs, the process is transparent. People trust you because you've been consistent about it.";
-  else mgr="You manage through the work itself — by being present in it, setting the standard by doing it, and expecting the same. It works for the right kind of person on the team.";
-
-  // As a peer
-  let peer;
-  if(d3>0.65&&d4>0.55) peer="You read the room well and people feel it. Colleagues trust you with the real problem, not the official version. The limitation: you carry more context than you should sometimes.";
-  else if(d1>0.60&&d2>0.60) peer="You move fast and think clearly — the person colleagues bring the stuck problems to. The limitation: you can make people feel slow, even when you're not trying to.";
-  else if(d6>0.65&&v5>0.55) peer="You're the one who flags when something isn't right. Not loudly — but consistently. That builds a specific kind of reputation over time.";
-  else if(d5>0.65) peer="You're the person in the room who has actually read the document. That sounds unremarkable until you're in a meeting where nobody else has.";
-  else peer="You show up consistently and do the work. Peers notice reliability in a way they often don't articulate until it's gone.";
-
-  // As a subordinate
-  let sub;
-  if(d1>0.60&&d7>0.55) sub="You push back when something doesn't make sense, explore alternatives before committing, and move fast once you've decided. Managers who like being challenged find you energising. Managers who don't will find you difficult.";
-  else if(d2>0.65&&d5>0.60) sub="You do exactly what you said you'd do, when you said you'd do it. That sounds like the floor — it's actually rare. Managers learn to trust your output without checking it.";
-  else if(d6>0.65) sub="You will raise the concern once, clearly, and then let the decision be made. You don't overplay it and you don't pretend you didn't notice.";
-  else if(d3>0.65) sub="You give managers the benefit of the doubt early. That generosity means you're easy to onboard and fast to trust. It also means you absorb more than you should before flagging problems.";
-  else sub="You work well within clear expectations and deliver reliably. Where you add less is in environments with high ambiguity and no clear brief.";
-
-  return {manager:mgr, peer, subordinate:sub};
-}
-
-function buildStruggles(dims, profile) {
-  const struggles = [];
-  const d1=dims.D1, d2=dims.D2, d3=dims.D3, d4=dims.D4, d5=dims.D5, d6=dims.D6, d7=dims.D7, v1=dims.V1, v2=dims.V2;
-
-  // Risk-related
-  if(d1>0.65) struggles.push({label:'Overcommitting when the signal looks good', text:"High risk appetite means the same disposition that creates upside also makes it harder to exit when things start going wrong. The commitment that got you in can work against you on the way out."});
-  if(d1<0.35) struggles.push({label:'Underinvesting in uncertain upside', text:"Protecting the downside means the high-EV bets with a real probability of loss often don't get taken. The cost is invisible — you never see the outcomes of roads not travelled — but it compounds."});
-
-  // Impulse-related
-  if(d2<0.40) struggles.push({label:'Decisions made before the picture is clear', text:"The fast trigger produces good outcomes in fast-moving environments and avoidable ones in situations that rewarded patience. The challenge is that both feel the same in the moment."});
-  if(d2>0.70) struggles.push({label:'Analysis extending past the point of usefulness', text:"Deliberateness becomes a cost when the decision window has closed. Knowing when the information is good enough — not perfect, good enough — is the specific skill worth developing."});
-
-  // Trust-related
-  if(d3>0.70) struggles.push({label:"Extending trust that hasn't been earned", text:"The generosity that makes you easy to work with also means you occasionally give people information, access, or benefit of the doubt that gets used against you. You've learned this before. You'll learn it again."});
-  if(d3<0.35) struggles.push({label:"Underusing collaboration as a tool", text:"Being guarded means you hold more of the problem than you need to. Some of the best solutions to problems you've been carrying alone were sitting with someone else the entire time."});
-
-  // Fairness-related
-  if(d6>0.70) struggles.push({label:'Walking from situations that could have been reshaped', text:"A high fairness floor means you've exited environments, deals, and relationships that fell below it. Some of those were correct. Some could have been changed from within — and weren't, because the exit was faster."});
-
-  // Context sensitivity
-  if(d4<0.35) struggles.push({label:'Applying the same approach when the situation has changed', text:"Consistency is genuinely useful. It becomes a liability when the environment has shifted and the consistent approach no longer fits. The signal that it's time to adapt comes later for this profile than for others."});
-
-  // Cognitive / focus
-  if(d5<0.40) struggles.push({label:'Accuracy dropping under sustained pressure', text:"In low-stakes situations this doesn't show. Under genuine sustained pressure — high noise, conflicting signals, time compression — errors increase more than they should. That's not a character issue; it's a specific cognitive load pattern."});
-
-  // Exploration
-  if(d7>0.70) struggles.push({label:"Leaving good situations before they've been fully extracted", text:"The exploratory instinct that keeps you ahead of changes also creates an itch to move on from things that still have a lot left in them. The grass isn't always greener — sometimes it's just different."});
-  if(d7<0.30) struggles.push({label:"Missing the shift when the environment has changed", text:"Deep exploitation of what works means when the environment changes — and it does — the signal arrives late. By the time the old approach feels wrong, the window to adapt has already started closing."});
-
-  // Values
-  if(v1<0.35) struggles.push({label:"Optimising for the metric at the cost of the work", text:"When money is the primary driver, environments that pay well but are hollow become tolerable for longer than they should. The realisation that something is missing tends to arrive later and cost more to fix."});
-
-  // Fallback
-  if(!struggles.length) struggles.push({label:"The limitation that doesn't have a clean name", text:"Your dimensions are balanced enough that no single pattern dominates. The limitation that applies is more situational than structural — it will depend more on the environment than on a fixed trait."});
-
-  return struggles.slice(0, 4); // cap at 4 — any more becomes noise
-}
-
-function buildFullD8(dims, b5) {
-  const cards = [];
-  const valToNum = v => v==='high'?0.8:v==='low'?0.2:0.5;
-  const dimLabel = v => v>0.60?'high':v<0.40?'low':'moderate';
-  const humanLabel = {D1:'Risk appetite', D2:'Impulse control', D3:'Trust', D6:'Fairness'};
-
-  const checks = [
-    {key:'BART',  dim:'D1', selfHi:'bold with risk',    selfLo:'cautious with risk',    behiHi:'bold',    behiLo:'cautious'},
-    {key:'GNG',   dim:'D2', selfHi:'impulsive',         selfLo:'deliberate',            behiHi:'reactive',behiLo:'deliberate'},
-    {key:'MILAAN',dim:'D3', selfHi:'trusting',          selfLo:'guarded',               behiHi:'open',    behiLo:'guarded'},
-    {key:'PROB_SAUDA',dim:'D6',selfHi:'principled',     selfLo:'pragmatic',             behiHi:'principled',behiLo:'pragmatic'},
-    {key:'BAZAAR',dim:'D7', selfHi:'an explorer',       selfLo:'someone who sticks',    behiHi:'exploratory',behiLo:'committed'},
-  ];
-
-  checks.forEach(c=>{
-    if(!b5[c.key]) return;
-    const selfVal = valToNum(b5[c.key].val);
-    const behVal = c.dim==='D2' ? 1-dims[c.dim] : dims[c.dim]; // D2: high self = impulsive = low D2
-    const gap = Math.abs(selfVal - behVal);
-    const aligned = gap < 0.25;
-    const selfDesc = selfVal>0.60 ? c.selfHi : selfVal<0.40 ? c.selfLo : 'moderate';
-    const behDesc = behVal>0.60 ? c.behiHi : behVal<0.40 ? c.behiLo : 'moderate';
-    let text;
-    if(aligned) {
-      text=`You described yourself as ${selfDesc}. The games confirm it — your behavioral score aligns with your self-report. That's useful: it means your self-model on ${humanLabel[c.dim]||c.dim} is reliable.`;
-    } else if(selfVal>behVal) {
-      text=`You described yourself as ${selfDesc}. The games tell a different story: behavioral score is ${behDesc}. You think you're further toward one end of this dimension than your choices show.`;
-    } else {
-      text=`You described yourself as ${selfDesc}. The games show ${behDesc}. Your actual behavior sits further from your self-description than you probably expect.`;
-    }
-    cards.push({label:`${humanLabel[c.dim]||c.dim} — self: ${selfDesc} · games: ${behDesc}`, aligned, text});
-  });
-
-  return cards;
-}
-
-function buildValuesSection(dims, mazdoor) {
-  if(!mazdoor || !mazdoor.vScores) return '';
-  const v = mazdoor.vScores;
-  const pairs = [
-    {label:'Money vs Meaning',    lo:'Money-driven',     hi:'Meaning-driven',    val:v.V1},
-    {label:'Ambition vs Comfort', lo:'Comfort-seeking',  hi:'Ambition-seeking',  val:v.V2},
-    {label:'Security vs Adventure',lo:'Security-seeking',hi:'Adventure-seeking', val:v.V3},
-    {label:'Prestige vs Authenticity',lo:'Prestige-oriented',hi:'Authenticity-led',val:v.V4},
-    {label:'Self vs Others',      lo:'Self-focused',     hi:'Others-oriented',   val:v.V5},
-  ];
-  return pairs.map(p=>{
-    const pct=Math.round(p.val*100);
-    const side=pct>=65?p.hi:pct<=35?p.lo:'Balanced';
-    const col=pct>=65?'var(--teal)':pct<=35?'var(--amber-dark)':'var(--text-muted)';
-    return `<div style="margin-bottom:14px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:0.82rem;font-weight:600;">${p.label}</span>
-        <span style="font-size:0.76rem;color:${col};font-weight:500;">${side}</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--text-hint);margin-bottom:3px;"><span>${p.lo}</span><span>${p.hi}</span></div>
-      <div style="height:6px;border-radius:3px;background:var(--surface);position:relative;">
-        <div style="position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);box-shadow:0 1px 4px rgba(0,0,0,0.15);left:${pct}%;transition:left 1s ease;"></div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function buildAvoidReason(role, dims) {
-  const gaps = [];
-  Object.entries(role.dims).forEach(([k,min])=>{
-    const actual = dims[k]||0.5;
-    if(actual < min-0.10) {
-      const labels = {D1:'risk appetite',D2:'deliberateness',D3:'trust-building',D4:'context-sensitivity',D5:'focus under pressure',D6:'fairness instinct',D7:'exploratory tendency',V1:'meaning-orientation',V2:'ambition',V5:'others-orientation'};
-      gaps.push(labels[k]||k);
-    }
-  });
-  if(!gaps.length) return "Your scores are close to the threshold for this role — it's not a clear fit but it's not a hard no either.";
-  return `Your scores on ${gaps.join(' and ')} sit below what this role typically demands. That gap creates sustained friction, not occasional difficulty.`;
 }
 
 // Override dashboard profile button to render report

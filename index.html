@@ -305,17 +305,28 @@
     }
 
     /* ═══ RANG ═══ */
-    .rang-word-display { display:flex; align-items:center; justify-content:center; min-height:150px; user-select:none; background:#FFFFFF; border-radius:var(--radius-lg); margin-bottom:4px; }
-    .rang-word { font-size:68px; font-weight:700; letter-spacing:-2px; line-height:1; }
-    .rang-btn-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    .rang-btn { padding:18px 10px; border-radius:var(--radius); border:2px solid var(--border-strong); background:var(--card); font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all 0.1s; width:100%; -webkit-tap-highlight-color:transparent; }
-    .rang-btn:hover:not(:disabled) { background:var(--surface); transform:scale(1.02); }
-    .rang-btn:active:not(:disabled) { transform:scale(0.97); }
-    .rang-btn:disabled { cursor:not-allowed; opacity:0.6; }
-    .rang-btn.correct { background:var(--teal-light)!important; border-color:var(--teal)!important; }
-    .rang-btn.wrong   { background:var(--red-light)!important;  border-color:var(--red)!important;  }
-    .rang-feedback { text-align:center; font-size:13px; font-weight:500; height:22px; margin:8px 0; transition:opacity 0.15s; }
-    .rang-phase-pill { display:inline-block; font-size:11px; font-weight:500; padding:3px 10px; border-radius:20px; background:var(--surface); color:var(--text-muted); letter-spacing:.04em; text-transform:uppercase; }
+    .rang-word-display { display:flex; align-items:center; justify-content:center; min-height:90px; user-select:none; margin-bottom:4px; }
+    #rang-progress-bar { width:100%; height:3px; background:var(--border); border-radius:2px; overflow:hidden; margin-bottom:1.75rem; }
+    #rang-progress-fill { height:100%; background:var(--amber); border-radius:2px; transition:width 0.3s ease; }
+    #rang-world-tag { font-size:0.78rem; font-weight:700; letter-spacing:0.05em; color:var(--text-muted); text-align:center; min-height:1.2rem; margin-bottom:0.6rem; }
+    #rang-prompt { font-size:0.95rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; text-align:center; min-height:1.4rem; color:var(--text-muted); margin-bottom:2.5rem; }
+    #rang-word-wrap { display:flex; align-items:center; justify-content:center; min-height:90px; margin-bottom:2.25rem; }
+    #rang-word { font-size:2.8rem; font-weight:700; letter-spacing:0.04em; transition:opacity 0.15s; opacity:0; }
+    #rang-word.visible { opacity:1; }
+    #rang-buttons { display:flex; gap:10px; justify-content:center; margin-bottom:1.25rem; opacity:0; transition:opacity 0.15s; }
+    #rang-buttons.visible { opacity:1; }
+    .rang-btn { flex:1; min-width:80px; max-width:130px; padding:13px 10px; font-family:'DM Sans',sans-serif; font-size:0.88rem; font-weight:700; letter-spacing:0.04em; border-radius:var(--radius); border:1.5px solid var(--border); background:var(--card); cursor:pointer; transition:transform 0.1s,box-shadow 0.1s,background 0.1s; -webkit-tap-highlight-color:transparent; }
+    .rang-btn:hover { background:var(--surface); transform:translateY(-1px); box-shadow:0 3px 8px rgba(0,0,0,0.09); }
+    .rang-btn:active { transform:scale(0.96); }
+    .rang-btn.correct-flash { background:#DCFCE7!important; border-color:#059669!important; }
+    .rang-btn.wrong-flash { background:#FEE2E2!important; border-color:#DC2626!important; }
+    #rang-feedback { text-align:center; font-size:0.82rem; font-weight:500; min-height:1.2rem; letter-spacing:0.02em; }
+    .cohort-tiles { display:flex; flex-direction:column; gap:8px; margin-bottom:1.25rem; }
+    .cohort-tile { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.1rem; display:flex; align-items:flex-start; gap:12px; }
+    .cohort-tile.active { border-color:var(--amber); background:var(--amber-light); }
+    .cohort-tile-icon { font-size:1.4rem; flex-shrink:0; margin-top:1px; }
+    .cohort-tile-name { font-size:0.88rem; font-weight:700; color:var(--text); }
+    .cohort-tile-line { font-size:0.78rem; color:var(--text-muted); margin-top:2px; line-height:1.5; }
     .rt-compare { display:flex; gap:10px; margin-bottom:1.25rem; }
     .rt-col { flex:1; background:var(--surface); border-radius:var(--radius); padding:14px; text-align:center; }
     .rt-col-val { font-size:22px; font-weight:500; line-height:1; }
@@ -652,7 +663,7 @@
 <div id="screen-dum-intro" class="screen">
   <div class="game-canvas">
     <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
-    <span class="pill">Game 1 of 7</span>
+    <span class="pill">Game 1 of 6</span>
     <div class="game-name-hindi">🎈 Dum</div>
     <div class="game-name-sub">dum — breath, guts</div>
     <div style="display:flex;justify-content:center;margin-bottom:1.5rem;">
@@ -760,78 +771,73 @@
 ═══════════════════════════════════════════════ -->
 <!-- RANG INTRO -->
 <div id="screen-rang-intro" class="screen">
-  <div class="game-canvas">
-    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
-    <span class="pill">Game 2 of 7</span>
-    <div class="game-name-hindi">🎨 Rang</div>
-    <div class="game-name-sub">rang — color</div>
-    <div style="display:flex;justify-content:center;align-items:center;gap:28px;margin-bottom:1.5rem;padding:1.5rem;background:#FFFFFF;border-radius:var(--radius-lg);">
-      <div style="text-align:center;"><div style="font-size:40px;font-weight:700;color:#dc2626;line-height:1;margin-bottom:6px;">RED</div><div style="font-size:11px;color:#0F6E56;font-weight:500;">Easy — matches</div></div>
-      <div style="font-size:20px;color:var(--text-hint);">vs</div>
-      <div style="text-align:center;"><div style="font-size:40px;font-weight:700;color:#3b82f6;line-height:1;margin-bottom:6px;">RED</div><div style="font-size:11px;color:#A32D2D;font-weight:500;">Hard — conflicts</div></div>
-    </div>
-    <p class="game-intro-para">A color word appears. Ignore what it says. Tap the color it's <em>written in</em>. 8 practice rounds first, then 24 scored. Speed matters — so does accuracy.</p>
-    <div style="background:var(--amber-light);border:0.5px solid rgba(186,117,23,0.25);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:12px;align-items:flex-start;">
-      <span style="font-size:18px;flex-shrink:0;">👆</span>
-      <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;"><strong style="color:var(--text);">Tap the ink color — not the word.</strong> Half the trials have a mismatch. That's where your brain fights you.</p>
-    </div>
-    <div class="stat-grid stat-grid-3" style="margin-bottom:1.5rem;">
-      <div class="stat-cell"><div class="stat-val">24</div><div class="stat-lbl">scored trials</div></div>
-      <div class="stat-cell"><div class="stat-val">~3</div><div class="stat-lbl">minutes</div></div>
-      <div class="stat-cell"><div class="stat-val">4</div><div class="stat-lbl">colors</div></div>
-    </div>
-    <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startRang()">Start →</button>
+  <div style="margin-bottom:1.25rem;">
+    <span class="pill">Game 2 of 6</span>
   </div>
+  <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:0.75rem;">Rang</h2>
+  <div class="card" style="margin-bottom:1.25rem;">
+    <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">
+      Signals come in fast from three different worlds — the trading floor, the railway control room, the cricket dugout.
+      Each has its own language.
+      Your job: read the right signal, not the word attached to it.
+    </p>
+  </div>
+  <div class="stat-grid stat-grid-2" style="margin-bottom:1.5rem;">
+    <div class="stat-cell"><div class="stat-val">24</div><div class="stat-lbl">Trials</div></div>
+    <div class="stat-cell"><div class="stat-val">~4</div><div class="stat-lbl">Minutes</div></div>
+  </div>
+  <button class="btn btn-primary" onclick="startRang()">Start →</button>
 </div>
 
-<!-- RANG GAME -->
+<!-- ─── GAME ─── -->
 <div id="screen-rang-game" class="screen">
-  <div class="game-canvas">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-      <span style="font-size:0.82rem;color:var(--text-muted);">Trial <span id="rang-num">1</span> of <span id="rang-total">8</span></span>
-      <span id="rang-phase-pill" class="rang-phase-pill">Practice</span>
-    </div>
-    <div class="progress-track" style="margin-bottom:1.5rem;"><div id="rang-prog" class="progress-fill" style="width:0%;"></div></div>
-    <div class="rang-word-display"><div id="rang-word" class="rang-word"></div></div>
-    <p style="text-align:center;font-size:0.88rem;color:var(--text-muted);margin:8px 0 4px;font-weight:500;" id="rang-question-prompt">What color is this word written in?</p>
-    <div class="rang-feedback" id="rang-feedback"></div>
-    <div class="rang-btn-grid" id="rang-opts"></div>
-    <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;margin-top:12px;">Read the question above — answer changes each trial</p>
+  <div id="rang-progress-bar"><div id="rang-progress-fill" style="width:0%"></div></div>
+  <div id="rang-world-tag"></div>
+  <div id="rang-prompt"></div>
+  <div id="rang-word-wrap">
+    <span id="rang-word"></span>
   </div>
+  <div id="rang-buttons">
+    <button class="rang-btn" id="rang-btn-0" onclick="rangHandleTap(0)"></button>
+    <button class="rang-btn" id="rang-btn-1" onclick="rangHandleTap(1)"></button>
+    <button class="rang-btn" id="rang-btn-2" onclick="rangHandleTap(2)"></button>
+  </div>
+  <div id="rang-feedback"></div>
 </div>
 
-<!-- RANG RESULTS -->
+<!-- ─── RESULTS ─── -->
 <div id="screen-rang-results" class="screen">
-  <div class="game-canvas fade-in">
-    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
-    <div style="text-align:center;margin-bottom:1.5rem;">
-      <div style="font-size:3rem;margin-bottom:10px;">🎨</div>
-      <h1 style="font-size:1.4rem;font-weight:500;margin-bottom:4px;">Rang — complete!</h1>
-      <p style="color:var(--text-muted);font-size:0.88rem;">Game 2 · Cognitive Control &amp; Focus</p>
+  <div style="margin-bottom:1.25rem;"><span class="pill">Rang — Complete</span></div>
+  <div class="result-icon" id="rang-r-icon"></div>
+  <div class="result-label" id="rang-r-label"></div>
+  <div class="result-comment" id="rang-r-comment"></div>
+
+  <div class="cohort-tiles" id="rang-cohort-tiles"></div>
+
+  <div class="card" style="margin-bottom:1.25rem;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+      <div style="text-align:center;">
+        <div style="font-size:1.3rem;font-weight:700;" id="rang-r-word-acc">—</div>
+        <div style="font-size:0.72rem;color:var(--text-hint);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">Signal acc.</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:1.3rem;font-weight:700;" id="rang-r-color-acc">—</div>
+        <div style="font-size:0.72rem;color:var(--text-hint);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">Color acc.</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:1.3rem;font-weight:700;" id="rang-r-median-rt">—</div>
+        <div style="font-size:0.72rem;color:var(--text-hint);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">Median RT</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:1.3rem;font-weight:700;" id="rang-r-switch-cost">—</div>
+        <div style="font-size:0.72rem;color:var(--text-hint);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">Switch cost</div>
+      </div>
     </div>
-    <div style="background:var(--surface);border-radius:var(--radius-lg);padding:1.75rem;margin-bottom:1rem;text-align:center;">
-      <div id="rang-r-icon" style="font-size:2.2rem;margin-bottom:10px;"></div>
-      <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">Focus profile</div>
-      <div id="rang-r-label" style="font-size:1.4rem;font-weight:500;color:var(--text);"></div>
-    </div>
-    <div class="rt-compare">
-      <div class="rt-col"><div class="rt-col-val" id="rang-r-conrt" style="color:#0F6E56;"></div><div class="rt-col-lbl">Congruent RT</div><div class="rt-col-sub">word = ink</div></div>
-      <div class="rt-col" style="flex:0.7;"><div class="rt-col-val" id="rang-r-gap" style="color:var(--amber);font-size:18px;"></div><div class="rt-col-lbl">Gap (ms)</div></div>
-      <div class="rt-col"><div class="rt-col-val" id="rang-r-incrt" style="color:#A32D2D;"></div><div class="rt-col-lbl">Conflict RT</div><div class="rt-col-sub">word ≠ ink</div></div>
-    </div>
-    <div class="stat-grid stat-grid-3" style="margin-bottom:1.25rem;">
-      <div class="stat-cell"><div id="rang-r-acc-con" class="stat-val" style="color:#0F6E56;"></div><div class="stat-lbl">Congruent acc</div></div>
-      <div class="stat-cell"><div id="rang-r-acc-inc" class="stat-val" style="color:#A32D2D;"></div><div class="stat-lbl">Conflict acc</div></div>
-      <div class="stat-cell"><div id="rang-r-recovery" class="stat-val" style="font-size:14px;"></div><div class="stat-lbl">Error recovery</div></div>
-    </div>
-    <div style="margin-bottom:1.25rem;">
-      <p class="section-label">Behavioral dimensions</p>
-      <div id="rang-r-vec-bars"></div>
-    </div>
-    <div class="summary-card"><p id="rang-r-summary"></p></div>
-    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="goToTeaser('FER')">Continue →</button>
   </div>
+
+  <button class="btn btn-primary" onclick="goToTeaser('FER')">Continue →</button>
 </div>
+
 
 <!-- RUK BLOCK OVERLAY -->
 <div id="ruk-block-overlay" class="block-overlay" style="display:none;">
@@ -848,7 +854,7 @@
 <div id="screen-ruk-intro" class="screen">
   <div class="game-canvas">
     <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
-    <span class="pill">Game 3 of 7</span>
+    <span class="pill">Game 3 of 6</span>
     <div class="game-name-hindi">⚡ Ruk</div>
     <div class="game-name-sub">ruk — stop</div>
     <div style="display:flex;justify-content:center;gap:28px;margin-bottom:1.5rem;padding:1.25rem;background:var(--surface);border-radius:var(--radius-lg);">
@@ -953,7 +959,7 @@
 <div id="screen-saudaa-intro" class="screen">
   <div class="game-canvas">
     <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
-    <span class="pill">Game 4 of 7</span>
+    <span class="pill">Game 4 of 6</span>
     <div class="game-name-hindi">⚖️ Saudaa</div>
     <div class="game-name-sub">saudaa — deal, bargain</div>
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem;">
@@ -1074,7 +1080,7 @@
 <div id="screen-bazaar-intro" class="screen">
   <div class="game-canvas">
     <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
-    <span class="pill">Game 6 of 7</span>
+    <span class="pill">Game 5 of 6</span>
     <div class="game-name-hindi">📊 Bazaar</div>
     <div class="game-name-sub">bazaar — the market, where nothing stays still</div>
     <div class="card" style="margin-bottom:1.25rem;">
@@ -1694,134 +1700,397 @@ function handleB5Answer(val) {
 }
 
 // ═══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // RANG — STROOP (Game 2)
 // ═══════════════════════════════════════════════════════════
-const RANG_COLORS  = ['RED','BLUE','GREEN','BLACK'];
-const RANG_HEX     = {RED:'#dc2626',BLUE:'#3b82f6',GREEN:'#16a34a',BLACK:'#111827'};
-const RANG_PRACTICE = 8, RANG_SCORED = 24, RANG_FEEDBACK_MS = 650;
-let rangAllTrials=[], rangTrialIdx=0, rangScoredResults=[], rangAnswered=false, rangStimOnset=0, rangAdvTimer=null;
-
-function buildRangTrials() {
-  const t = [];
-  // Practice: exactly 8 trials (4 congruent + 4 incongruent, all 'ink' question type)
-  RANG_COLORS.forEach(c => { t.push({word:c,ink:c,type:'congruent',practice:true,questionType:'ink'}); });
-  RANG_COLORS.forEach(c => { const o=RANG_COLORS.filter(x=>x!==c); t.push({word:c,ink:o[Math.floor(Math.random()*o.length)],type:'incongruent',practice:true,questionType:'ink'}); });
-  // Scored: 24 trials — 12 'ink' (classic Stroop) + 12 'word' (reverse Stroop)
-  const scored=[];
-  // Ink-question (tap the ink color): 3 congruent + 9 incongruent
-  RANG_COLORS.forEach(c => { scored.push({word:c,ink:c,type:'congruent',practice:false,questionType:'ink'}); });
-  RANG_COLORS.forEach(c => { RANG_COLORS.filter(x=>x!==c).forEach(ink=>scored.push({word:c,ink,type:'incongruent',practice:false,questionType:'ink'})); });
-  // Word-question (tap what the word says): 3 congruent + 9 incongruent
-  RANG_COLORS.forEach(c => { scored.push({word:c,ink:c,type:'congruent',practice:false,questionType:'word'}); });
-  RANG_COLORS.forEach(c => { RANG_COLORS.filter(x=>x!==c).forEach(ink=>scored.push({word:c,ink,type:'incongruent',practice:false,questionType:'word'})); });
-  // Shuffle scored, avoid 4 same-type in a row
-  let tries=0; do { shuffleArr(scored); tries++; } while(hasRun(scored,r=>r.type==='incongruent',4)&&tries<300);
-  return [...t,...scored];
-}
-function hasRun(arr,pred,n){let r=0;for(const x of arr){if(pred(x)){r++;if(r>=n)return true;}else r=0;}return false;}
-
-function startRang() {
-  rangAllTrials = buildRangTrials(); rangTrialIdx=0; rangScoredResults=[]; rangAnswered=false;
-  clearTimeout(rangAdvTimer);
-  showScreen('rang-game'); rangRenderTrial();
-}
-function rangRenderTrial() {
-  rangAnswered=false;
-  const t=rangAllTrials[rangTrialIdx]; const isPrac=t.practice;
-  const scoredIdx=rangTrialIdx-RANG_PRACTICE;
-  document.getElementById('rang-prog').style.width=(isPrac?0:Math.round((scoredIdx+1)/RANG_SCORED*100))+'%';
-  document.getElementById('rang-num').textContent=isPrac?rangTrialIdx+1:scoredIdx+1;
-  document.getElementById('rang-total').textContent=isPrac?RANG_PRACTICE:RANG_SCORED;
-  const pill=document.getElementById('rang-phase-pill');
-  pill.textContent=isPrac?'Practice':'Live';
-  pill.style.background=isPrac?'var(--surface)':'var(--amber-light)';
-  pill.style.color=isPrac?'var(--text-muted)':'var(--amber-dark)';
-  const fb=document.getElementById('rang-feedback'); fb.textContent=''; fb.style.opacity='0';
-  const wd=document.getElementById('rang-word'); wd.textContent=t.word; wd.style.color=RANG_HEX[t.ink];
-  // Update question prompt based on question type
-  const prompt=document.getElementById('rang-question-prompt');
-  if(prompt) {
-    const isWord=t.questionType==='word';
-    prompt.textContent=isWord?'What does this word say?':'What color is this word written in?';
-    prompt.style.color=isWord?'var(--amber-dark)':'var(--text-muted)';
+// ─── World definitions ───────────────────────────────────────────────────────
+const WORLDS = {
+  railway: {
+    id: 'railway', label: '🚦 Railway',
+    words: [
+      { word: 'STOP',    color: '#DC2626' },
+      { word: 'CLEAR',   color: '#059669' },
+      { word: 'CAUTION', color: '#D97706' },
+    ]
+  },
+  trading: {
+    id: 'trading', label: '📈 Trading',
+    words: [
+      { word: 'BUY',  color: '#059669' },
+      { word: 'SELL', color: '#DC2626' },
+      { word: 'HOLD', color: '#2563EB' },
+    ]
+  },
+  cricket: {
+    id: 'cricket', label: '🏏 Cricket',
+    words: [
+      { word: 'HIT',    color: '#EA580C' },
+      { word: 'LEAVE',  color: '#2563EB' },
+      { word: 'DEFEND', color: '#CA8A04' },
+    ]
   }
-  const shuffled=shuffleArr([...RANG_COLORS]);
-  document.getElementById('rang-opts').innerHTML=shuffled.map(c=>{
-    const isBlack=c==='BLACK';
-    return`<button id="rb-${c}" class="rang-btn" style="color:${RANG_HEX[c]};${isBlack?'background:#FFF;':''}" onclick="rangAnswer('${c}')">${c}</button>`;
-  }).join('');
-  rangStimOnset=performance.now();
-}
-function rangAnswer(chosen) {
-  if(rangAnswered) return; rangAnswered=true;
-  const t=rangAllTrials[rangTrialIdx];
-  const correctAnswer = t.questionType==='word' ? t.word : t.ink;
-  const correct=chosen===correctAnswer;
-  const rt=Math.round(performance.now()-rangStimOnset);
-  if(!t.practice) rangScoredResults.push({word:t.word,ink:t.ink,chosen,correct,rt,type:t.type,questionType:t.questionType});
-  document.querySelectorAll('.rang-btn').forEach(btn=>{
-    btn.disabled=true;
-    const c=btn.id.replace('rb-','');
-    if(c===correctAnswer) btn.classList.add('correct');
-    else if(c===chosen&&!correct) btn.classList.add('wrong');
+};
+
+// ─── Trial generation ─────────────────────────────────────────────────────────
+function generateTrials() {
+  const worldKeys = ['railway', 'trading', 'cricket'];
+  const rawByWorld = {};
+
+  // 8 trials per world — cycle through words [0,1,2,0,1,2,0,1]
+  for (const wk of worldKeys) {
+    const world = WORLDS[wk];
+    const ws = world.words;
+    rawByWorld[wk] = [];
+    [0,1,2,0,1,2,0,1].forEach(wi => {
+      const w = ws[wi];
+      // Pick incongruent ink from the other two
+      const others = ws.filter((_,i) => i !== wi);
+      const inkW = others[Math.floor(Math.random() * others.length)];
+      rawByWorld[wk].push({
+        world: wk,
+        worldLabel: world.label,
+        word: w.word,
+        wordColor: w.color,       // canonical color of the word (NOT ink)
+        inkColor: inkW.color,     // ink color (always incongruent)
+        inkWord: inkW.word,       // the word whose canonical color = ink color
+        buttons: null,            // filled below
+        task: null,               // 'signal' | 'color'
+        correctWord: null,
+      });
+    });
+  }
+
+  // Interleave worlds so max 3 consecutive same-world
+  // Strategy: pick 3 slots per world in 3 passes, shuffle within each pass
+  const interleaved = [];
+  for (let pass = 0; pass < 8; pass++) {
+    const worldPass = shuffle(worldKeys);
+    for (const wk of worldPass) {
+      const pool = rawByWorld[wk];
+      if (pool.length) interleaved.push(pool.shift());
+    }
+  }
+  // interleaved is now 24 trials, worlds roughly alternating
+
+  // Assign task types: 12 signal + 12 color, shuffled, max 3 consecutive same type
+  const taskPool = shuffle([...Array(12).fill('signal'), ...Array(12).fill('color')]);
+  // Simple max-3-run check: swap if needed
+  for (let i = 2; i < taskPool.length; i++) {
+    if (taskPool[i] === taskPool[i-1] && taskPool[i] === taskPool[i-2]) {
+      // find next different task to swap with
+      let j = i + 1;
+      while (j < taskPool.length && taskPool[j] === taskPool[i]) j++;
+      if (j < taskPool.length) [taskPool[i], taskPool[j]] = [taskPool[j], taskPool[i]];
+    }
+  }
+
+  interleaved.forEach((t, i) => {
+    t.task = taskPool[i];
+    // Correct answer
+    t.correctWord = t.task === 'signal' ? t.word : t.inkWord;
+    // Buttons: the 3 words of this world, shuffled, in their canonical colors
+    const ws = WORLDS[t.world].words;
+    t.buttons = shuffle([...ws]);
   });
-  const fb=document.getElementById('rang-feedback');
-  const correctLabel = t.questionType==='word' ? t.word : t.ink;
-  fb.textContent=correct?'✓ Correct':'✗ Answer was '+correctLabel;
-  fb.style.color=correct?'#0F6E56':'#A32D2D'; fb.style.opacity='1';
-  const wd=document.getElementById('rang-word'); wd.classList.remove('rang-pop'); void wd.offsetWidth; wd.classList.add('rang-pop');
-  clearTimeout(rangAdvTimer);
-  rangAdvTimer=setTimeout(()=>{ rangTrialIdx++; if(rangTrialIdx>=rangAllTrials.length) rangEndGame(); else rangRenderTrial(); }, RANG_FEEDBACK_MS);
+
+  return interleaved;
 }
+
+// ─── Game state ───────────────────────────────────────────────────────────────
+let rangTrials = [];
+let rangIdx = 0;
+let rangResults = [];
+let rangTapEnabled = false;
+let rangTimer = null;
+let rangStimTime = 0;
+
+const CUE_MS      = 400;   // world tag + prompt visible before stimulus
+const TIMEOUT_MS  = 2500;  // max time to respond after stimulus appears
+const FEEDBACK_MS = 350;   // feedback display duration
+
+// ─── Entry ───────────────────────────────────────────────────────────────────
+function startRang() {
+  rangTrials = generateTrials();
+  rangIdx = 0;
+  rangResults = [];
+  showScreen('rang-game');
+  rangRenderTrial();
+}
+
+// ─── Trial render ─────────────────────────────────────────────────────────────
+function rangRenderTrial() {
+  if (rangIdx >= rangTrials.length) { rangEndGame(); return; }
+
+  const t = rangTrials[rangIdx];
+
+  // Update progress
+  document.getElementById('rang-progress-fill').style.width =
+    (rangIdx / rangTrials.length * 100) + '%';
+
+  // Reset UI state
+  rangTapEnabled = false;
+  clearTimeout(rangTimer);
+  const wordEl    = document.getElementById('rang-word');
+  const btnsEl    = document.getElementById('rang-buttons');
+  const fbEl      = document.getElementById('rang-feedback');
+  const worldEl   = document.getElementById('rang-world-tag');
+  const promptEl  = document.getElementById('rang-prompt');
+
+  wordEl.classList.remove('visible');
+  btnsEl.classList.remove('visible');
+  fbEl.textContent = '';
+  document.querySelectorAll('.rang-btn').forEach(b => {
+    b.classList.remove('correct-flash','wrong-flash');
+    b.disabled = false;
+  });
+
+  // Phase 1: show cue (world + prompt)
+  worldEl.textContent = t.worldLabel;
+  promptEl.textContent = t.task === 'signal' ? 'TAP THE SIGNAL' : 'TAP THE COLOR';
+
+  // Phase 2: after CUE_MS, show stimulus + buttons
+  rangTimer = setTimeout(() => {
+    wordEl.textContent  = t.word;
+    wordEl.style.color  = t.inkColor;
+    wordEl.classList.add('visible');
+
+    // Set buttons
+    t.buttons.forEach((bw, i) => {
+      const btn = document.getElementById('rang-btn-' + i);
+      btn.textContent   = bw.word;
+      btn.style.color   = bw.color;
+      btn.dataset.word  = bw.word;
+      btn.disabled = false;
+    });
+    btnsEl.classList.add('visible');
+
+    rangStimTime  = performance.now();
+    rangTapEnabled = true;
+
+    // Auto-timeout
+    rangTimer = setTimeout(() => rangHandleResponse(null), TIMEOUT_MS);
+  }, CUE_MS);
+}
+
+// ─── Tap handler ──────────────────────────────────────────────────────────────
+function rangHandleTap(btnIdx) {
+  if (!rangTapEnabled) return;
+  const word = document.getElementById('rang-btn-' + btnIdx).dataset.word;
+  rangHandleResponse(word, btnIdx);
+}
+
+function rangHandleResponse(tappedWord, btnIdx) {
+  if (!rangTapEnabled) return;
+  clearTimeout(rangTimer);
+  rangTapEnabled = false;
+
+  const rt      = Math.round(performance.now() - rangStimTime);
+  const t       = rangTrials[rangIdx];
+  const correct = (tappedWord === t.correctWord);
+  const timedOut = (tappedWord === null);
+
+  rangResults.push({
+    trialIdx:    rangIdx,
+    world:       t.world,
+    task:        t.task,
+    word:        t.word,
+    inkColor:    t.inkColor,
+    correctWord: t.correctWord,
+    tapped:      tappedWord,
+    correct,
+    timedOut,
+    rt: timedOut ? TIMEOUT_MS : rt,
+    worldSwitch: rangIdx > 0 && rangTrials[rangIdx-1].world !== t.world,
+  });
+
+  // Feedback flash
+  const fbEl = document.getElementById('rang-feedback');
+  if (timedOut) {
+    fbEl.textContent = `Too slow — was ${t.correctWord}`;
+    fbEl.style.color = '#A09D97';
+  } else if (correct) {
+    fbEl.textContent = '✓';
+    fbEl.style.color = '#059669';
+    document.getElementById('rang-btn-' + btnIdx).classList.add('correct-flash');
+  } else {
+    fbEl.textContent = `✗  was ${t.correctWord}`;
+    fbEl.style.color = '#DC2626';
+    if (btnIdx !== undefined) {
+      document.getElementById('rang-btn-' + btnIdx).classList.add('wrong-flash');
+    }
+    // Highlight correct
+    document.querySelectorAll('.rang-btn').forEach(b => {
+      if (b.dataset.word === t.correctWord) b.classList.add('correct-flash');
+    });
+  }
+
+  rangIdx++;
+  rangTimer = setTimeout(rangRenderTrial, FEEDBACK_MS);
+}
+
+// ─── Scoring ──────────────────────────────────────────────────────────────────
 function rangEndGame() {
-  const res=rangScoredResults;
-  const con=res.filter(r=>r.type==='congruent'), inc=res.filter(r=>r.type==='incongruent');
-  const conRTs=con.filter(r=>r.correct&&r.rt>50&&r.rt<3000).map(r=>r.rt);
-  const incRTs=inc.filter(r=>r.correct&&r.rt>50&&r.rt<3000).map(r=>r.rt);
-  const conRT=conRTs.length?Math.round(avgArr(conRTs)):500;
-  const incRT=incRTs.length?Math.round(avgArr(incRTs)):700;
-  const gap=Math.max(0,incRT-conRT);
-  const conAcc=con.length?Math.round(con.filter(r=>r.correct).length/con.length*100):0;
-  const incAcc=inc.length?Math.round(inc.filter(r=>r.correct).length/inc.length*100):0;
-  const stroopScore=Math.max(0,Math.min(100,Math.round(100-gap/3)));
-  // error recovery
-  const errIdxs=res.map((r,i)=>(!r.correct?i:-1)).filter(i=>i>=0&&i<res.length-2);
-  const recoveries=errIdxs.map(ei=>{const n=res.slice(ei+1,ei+3);return n.filter(r=>r.correct).length/n.length;});
-  const errRecovery=recoveries.length?clamp01(avgArr(recoveries)):0.75;
-  const interference_cost=conRT>0?(incRT-conRT)/conRT:0;
-  const vector={conflict_accuracy:incAcc/100,interference:clamp01(interference_cost/0.6),error_recovery:errRecovery,reaction_speed:clamp01(1-(conRT-200)/700),consistency:0.6};
-  const profiles=[
-    {label:'The Filter',icon:'🎯',test:v=>v.interference<=0.22&&v.conflict_accuracy>=0.82,summary:"Your brain suppresses the word meaning before it lands. The filter is just faster in you — this level of clean inhibition is genuinely rare."},
-    {label:'The Efficient One',icon:'⚡',test:v=>v.reaction_speed>=0.55&&v.conflict_accuracy>=0.75,summary:"Fast, accurate, consistent under conflict. You pay a small RT cost on incongruent trials but don't let it become errors."},
-    {label:'The Deliberate',icon:'🧭',test:v=>v.conflict_accuracy>=0.80&&v.reaction_speed<0.50,summary:"You slow down when there's conflict — not a flaw, a strategy. Your accuracy on incongruent trials stays high because you give yourself time."},
-    {label:'The Speed Trader',icon:'💨',test:v=>v.reaction_speed>=0.55&&v.conflict_accuracy<0.72,summary:"You move fast. When word and color conflict, you pay for that speed in errors. Slowing slightly would sharply cut your error rate."},
-    {label:'The Conflict Sensitive',icon:'🌀',test:v=>v.interference>=0.55,summary:"The interference effect is strong — the gap between easy and hard trials is large. Your brain reads the word faster than it processes the ink."},
+  document.getElementById('rang-progress-fill').style.width = '100%';
+
+  const res = rangResults;
+  const n   = res.length;
+
+  // Split by task type
+  const signalRes = res.filter(r => r.task === 'signal');
+  const colorRes  = res.filter(r => r.task === 'color');
+
+  const wordAcc   = signalRes.length ? signalRes.filter(r=>r.correct).length / signalRes.length : 0.5;
+  const colorAcc  = colorRes.length  ? colorRes.filter(r=>r.correct).length  / colorRes.length  : 0.5;
+  const overallAcc = res.filter(r=>r.correct).length / n;
+
+  // RTs (correct, non-timeout trials only)
+  const validRTs    = res.filter(r=>r.correct && !r.timedOut).map(r=>r.rt);
+  const wordRTs     = signalRes.filter(r=>r.correct && !r.timedOut).map(r=>r.rt);
+  const colorRTs    = colorRes.filter(r=>r.correct && !r.timedOut).map(r=>r.rt);
+  const medRT       = median(validRTs) || 800;
+  const avgWordRT   = avg(wordRTs)  || 700;
+  const avgColorRT  = avg(colorRTs) || 850;
+
+  // Interference cost (color task harder = higher RT → higher interference)
+  const taskGap      = Math.max(0, avgColorRT - avgWordRT);
+  const interferenceCost = avgWordRT > 0 ? clamp01(taskGap / avgWordRT / 0.6) : 0.3;
+
+  // World switching cost: RT on first trial of new world vs settled (2+ into same world)
+  const switchTrials  = res.filter(r=>r.worldSwitch && r.correct && !r.timedOut).map(r=>r.rt);
+  const settledTrials = res.filter(r=>!r.worldSwitch && r.correct && !r.timedOut).map(r=>r.rt);
+  const switchRT  = avg(switchTrials)  || medRT;
+  const settledRT = avg(settledTrials) || medRT;
+  const switchCostMs = Math.round(Math.max(0, switchRT - settledRT));
+  const switchCostNorm = clamp01(switchCostMs / 600);
+
+  // Error recovery
+  const errorIdxs = res.map((r,i)=>(!r.correct?i:-1)).filter(i=>i>=0&&i<n-2);
+  const recoveries = errorIdxs.map(ei => {
+    const next = res.slice(ei+1, ei+3);
+    return next.length ? next.filter(r=>r.correct).length / next.length : 0.5;
+  });
+  const errRecovery = recoveries.length ? clamp01(avg(recoveries)) : 0.75;
+
+  // RT consistency (lower CV = more consistent)
+  const rtMean = avg(validRTs);
+  const rtStd  = validRTs.length > 1
+    ? Math.sqrt(validRTs.reduce((s,v)=>s+(v-rtMean)**2,0)/(validRTs.length-1))
+    : 200;
+  const cv = rtMean > 0 ? rtStd/rtMean : 0.4;
+  const consistency = clamp01(1 - cv / 0.6);
+
+  // Reaction speed (normalized: 300ms = perfect, 2000ms = 0)
+  const reactionSpeed = clamp01(1 - (medRT - 300) / 1700);
+
+  const vector = {
+    conflict_accuracy: overallAcc,
+    interference:      interferenceCost,
+    error_recovery:    errRecovery,
+    reaction_speed:    reactionSpeed,
+    consistency,
+    word_accuracy:     wordAcc,
+    color_accuracy:    colorAcc,
+    switching_cost:    switchCostNorm,
+  };
+
+  // ── Cohort assignment ──
+  const gap = wordAcc - colorAcc;
+  const allRound = (wordAcc + colorAcc) / 2;
+
+  const COHORTS = [
+    {
+      label: 'The Signal Reader',
+      icon: '🎯',
+      line: 'High accuracy on both task types across all three worlds.',
+      test: v => allRound >= 0.82 && Math.abs(gap) < 0.15,
+    },
+    {
+      label: 'The Word Person',
+      icon: '📝',
+      line: 'Reads what\'s written. The ink is hard to ignore.',
+      test: v => wordAcc >= 0.78 && gap >= 0.14,
+    },
+    {
+      label: 'The Color Tracker',
+      icon: '🌈',
+      line: 'Follows the signal, not the label. Takes deliberate effort.',
+      test: v => colorAcc >= 0.78 && gap <= -0.14,
+    },
+    {
+      label: 'The Processor',
+      icon: '⚙️',
+      line: 'Accurate and methodical. Speed is traded for correctness.',
+      test: v => overallAcc >= 0.75 && medRT > 1100,
+    },
   ];
-  const profile=profiles.find(p=>p.test(vector))||{label:'The Mixed Processor',icon:'🔬',summary:"Your profile doesn't fall cleanly into one pattern — the dimension bars carry more weight than the label."};
-  const result={game:'FER',stroopScore,label:profile.label,correct:res.filter(r=>r.correct).length,errors:res.filter(r=>!r.correct).length,accuracy:Math.round(res.filter(r=>r.correct).length/res.length*100),avgConRT:conRT,avgIncRT:incRT,interference:gap,behaviorVector:vector,date:new Date().toISOString()};
+
+  const activeProfile = COHORTS.find(c => c.test(vector))
+    || { label: 'The Mixed Processor', icon: '🔬',
+         line: 'Pattern across tasks and worlds doesn\'t fall cleanly into one type.' };
+
+  // ── Dynamic comment ──
+  let comment = '';
+  if (allRound >= 0.82 && switchCostMs < 120) {
+    comment = 'Most people slow down when the worlds switch. You didn\'t.';
+  } else if (allRound >= 0.82 && switchCostMs >= 120) {
+    comment = 'Fast and accurate. World switches cost you a beat — that\'s the interesting part.';
+  } else if (gap >= 0.16) {
+    comment = 'You read what was written. That instinct is hard to override.';
+  } else if (gap <= -0.16) {
+    comment = 'You tracked the signal, not the noise.';
+  } else if (medRT > 1100 && overallAcc >= 0.72) {
+    comment = 'Deliberate. The RT data is as interesting as the accuracy.';
+  } else if (errRecovery >= 0.80 && overallAcc < 0.75) {
+    comment = 'You corrected fast after errors. That\'s a different kind of accuracy.';
+  } else {
+    comment = 'The switching between worlds does something to most people. Your pattern across all three is now data.';
+  }
+
+  // Cohort tiles
+  const tilesEl = document.getElementById('rang-cohort-tiles');
+  tilesEl.innerHTML = COHORTS.map(c => `
+    <div class="cohort-tile ${c.label === activeProfile.label ? 'active' : ''}">
+      <div class="cohort-tile-icon">${c.icon}</div>
+      <div class="cohort-tile-body">
+        <div class="cohort-tile-name">${c.label}</div>
+        <div class="cohort-tile-line">${c.line}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Stats
+  document.getElementById('rang-r-icon').textContent    = activeProfile.icon;
+  document.getElementById('rang-r-label').textContent   = activeProfile.label;
+  document.getElementById('rang-r-comment').textContent = comment;
+  document.getElementById('rang-r-word-acc').textContent  = Math.round(wordAcc * 100) + '%';
+  document.getElementById('rang-r-color-acc').textContent = Math.round(colorAcc * 100) + '%';
+  document.getElementById('rang-r-median-rt').textContent = medRT + 'ms';
+  document.getElementById('rang-r-switch-cost').textContent = '+' + switchCostMs + 'ms';
+
+  // Build result object (backward compatible with getDimensionScores)
+  const stroopScore = Math.max(0, Math.min(100,
+    Math.round(overallAcc * 60 + reactionSpeed * 25 + errRecovery * 15)
+  ));
+
+  const result = {
+    game:        'FER',
+    stroopScore,
+    label:       activeProfile.label,
+    correct:     res.filter(r=>r.correct).length,
+    errors:      res.filter(r=>!r.correct).length,
+    accuracy:    Math.round(overallAcc * 100),
+    avgWordRT:   Math.round(avgWordRT),
+    avgColorRT:  Math.round(avgColorRT),
+    interference: Math.round(taskGap),
+    switchCostMs,
+    behaviorVector: vector,
+    date: new Date().toISOString(),
+  };
+
   saveScore(result);
-  document.getElementById('rang-r-icon').textContent=profile.icon;
-  document.getElementById('rang-r-label').textContent=profile.label;
-  document.getElementById('rang-r-conrt').textContent=conRT+'ms';
-  document.getElementById('rang-r-incrt').textContent=incRT+'ms';
-  document.getElementById('rang-r-gap').textContent='+'+gap;
-  document.getElementById('rang-r-acc-con').textContent=conAcc+'%';
-  document.getElementById('rang-r-acc-inc').textContent=incAcc+'%';
-  const recEl=document.getElementById('rang-r-recovery');
-  recEl.textContent=errRecovery>=0.80?'↑ Strong':errRecovery>=0.55?'→ OK':'↓ Clusters';
-  recEl.style.color=errRecovery>=0.80?'#0F6E56':errRecovery>=0.55?'var(--amber)':'#A32D2D';
-  renderVecBars('rang-r-vec-bars',[
-    {key:'conflict_accuracy',label:'Conflict accuracy',lo:'Error-prone',hi:'Accurate',val:vector.conflict_accuracy,isNeg:false},
-    {key:'interference',label:'Interference effect',lo:'None',hi:'Strong',val:vector.interference,isNeg:true},
-    {key:'reaction_speed',label:'Processing speed',lo:'Deliberate',hi:'Fast',val:vector.reaction_speed,isNeg:false},
-    {key:'error_recovery',label:'Error recovery',lo:'Clusters',hi:'Recovers',val:vector.error_recovery,isNeg:false},
-  ]);
-  document.getElementById('rang-r-summary').textContent=profile.summary;
   showScreen('rang-results');
 }
 
-// ═══════════════════════════════════════════════════════════
-// RUK — GO/NO-GO (Game 3)
 // ═══════════════════════════════════════════════════════════
 const RUK_SVG = {
   coin:`<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" fill="#d97706"/><circle cx="50" cy="50" r="35" fill="none" stroke="#fcd34d" stroke-width="3.5"/><text x="50" y="58" text-anchor="middle" font-size="28" fill="#fef3c7" font-family="sans-serif" font-weight="700">₹</text></svg>`,

@@ -62,23 +62,39 @@
       .game-canvas {
         max-width: 680px;
         width: 100%;
-        margin: 2rem auto;
+        margin: 1rem auto;
         background: var(--card);
         border-radius: var(--radius-xl);
         box-shadow: var(--shadow-float);
-        padding: 2.5rem;
+        padding: 1.75rem;
+        /* Clamp to viewport so page never scrolls; content scrolls inside the card */
+        max-height: calc(100vh - 68px);
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-strong) transparent;
       }
+      .game-canvas::-webkit-scrollbar { width: 4px; }
+      .game-canvas::-webkit-scrollbar-track { background: transparent; }
+      .game-canvas::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
       .wide-canvas {
         max-width: 960px;
-        margin: 2rem auto;
+        margin: 1rem auto;
         background: var(--card);
         border-radius: var(--radius-xl);
         box-shadow: var(--shadow-float);
-        padding: 2.5rem;
+        padding: 1.75rem;
+        max-height: calc(100vh - 68px);
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-strong) transparent;
       }
+      .wide-canvas::-webkit-scrollbar { width: 4px; }
+      .wide-canvas::-webkit-scrollbar-track { background: transparent; }
+      .wide-canvas::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
       .container { max-width: 640px; margin: 0 auto; padding: 0 2rem 4rem; }
       .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
       .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+      /* Result cohort tiles — 2×2 grid saves vertical space (rule added below after base style) */
     }
     @media (max-width: 767px) {
       .game-canvas { padding: 1.25rem; }
@@ -133,7 +149,7 @@
     }
     .section-label {
       font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.09em; color: var(--text-hint); margin-bottom: 12px;
+      letter-spacing: 0.09em; color: var(--text-hint); margin-bottom: 8px;
     }
     .field { margin-bottom: 16px; }
     .field label { display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px; }
@@ -153,13 +169,13 @@
     .back-btn {
       background: none; border: none; color: var(--text-muted); font-size: 0.82rem;
       cursor: pointer; font-family: 'DM Sans', sans-serif; padding: 0;
-      margin-bottom: 1.25rem; display: inline-flex; align-items: center; gap: 6px;
+      margin-bottom: 0.875rem; display: inline-flex; align-items: center; gap: 6px;
     }
     .back-btn:hover { color: var(--text); }
     .stat-grid { display: grid; gap: 10px; }
     .stat-grid-2 { grid-template-columns: repeat(2, 1fr); }
     .stat-grid-3 { grid-template-columns: repeat(3, 1fr); }
-    .stat-cell { background: var(--surface); border-radius: var(--radius); padding: 14px; text-align: center; }
+    .stat-cell { background: var(--surface); border-radius: var(--radius); padding: 10px 12px; text-align: center; }
     .stat-val { font-size: 1.25rem; font-weight: 500; color: var(--text); }
     .stat-lbl { font-size: 0.68rem; color: var(--text-muted); margin-top: 3px; }
     .tab-bar { display: flex; border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
@@ -171,11 +187,11 @@
     .tab-bar button.active { background: var(--amber); color: var(--amber-light); }
     @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
     .fade-in { animation: fadeIn 0.25s ease-out; }
-    .summary-card { background: var(--surface); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; text-align: center; }
+    .summary-card { background: var(--surface); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 0.875rem; text-align: center; }
     .summary-card p { font-size: 0.94rem; color: var(--text-muted); line-height: 1.8; font-style: italic; }
-    .game-name-hindi { font-family: 'Instrument Serif', serif; font-size: 2rem; margin: 8px 0 2px; }
-    .game-name-sub { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.25rem; }
-    .game-intro-para { color: var(--text-muted); line-height: 1.8; font-size: 0.94rem; margin-bottom: 1.5rem; }
+    .game-name-hindi { font-family: 'Instrument Serif', serif; font-size: 1.75rem; margin: 6px 0 2px; }
+    .game-name-sub { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.875rem; }
+    .game-intro-para { color: var(--text-muted); line-height: 1.8; font-size: 0.94rem; margin-bottom: 1rem; }
     .phone-row { display: flex; gap: 8px; }
     .cc-badge { padding: 11px 14px; background: var(--surface); border: 0.5px solid var(--border-strong); border-radius: var(--radius); font-size: 0.94rem; color: var(--text); white-space: nowrap; flex-shrink: 0; }
 
@@ -244,7 +260,7 @@
     .vec-bar-track { height: 5px; background: var(--surface); border-radius: 3px; overflow: hidden; }
     .vec-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
     #g-badge { display: inline-block; font-size: 0.76rem; font-weight: 500; padding: 4px 14px; border-radius: 20px; transition: all 0.2s; }
-    .archetype-block { text-align: center; padding: 1.75rem; background: var(--surface); border-radius: var(--radius-lg); margin-bottom: 1rem; }
+    .archetype-block { text-align: center; padding: 1.25rem; background: var(--surface); border-radius: var(--radius-lg); margin-bottom: 0.875rem; }
 
     /* ═══════════════════════════════════════════════
        REPORT STYLES
@@ -322,6 +338,7 @@
     .rang-btn.wrong-flash { background:#FEE2E2!important; border-color:#DC2626!important; }
     #rang-feedback { text-align:center; font-size:0.82rem; font-weight:500; min-height:1.2rem; letter-spacing:0.02em; }
     .cohort-tiles { display:flex; flex-direction:column; gap:8px; margin-bottom:1.25rem; }
+    @media (min-width: 768px) { .cohort-tiles { display:grid; grid-template-columns:1fr 1fr; gap:8px; } }
     .cohort-tile { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.1rem; display:flex; align-items:flex-start; gap:12px; }
     .cohort-tile.active { border-color:var(--amber); background:var(--amber-light); }
     .cohort-tile-icon { font-size:1.4rem; flex-shrink:0; margin-top:1px; }
@@ -558,7 +575,7 @@
           <button class="btn btn-secondary" onclick="showAuth('login')">Login</button>
         </div>
         <div class="stat-grid stat-grid-3" style="max-width:320px;">
-          <div class="stat-cell"><div class="stat-val">7</div><div class="stat-lbl">games</div></div>
+          <div class="stat-cell"><div class="stat-val">6</div><div class="stat-lbl">games</div></div>
           <div class="stat-cell"><div class="stat-val">~35</div><div class="stat-lbl">minutes</div></div>
           <div class="stat-cell"><div class="stat-val" style="color:var(--amber);">₹499</div><div class="stat-lbl">one-time</div></div>
         </div>
@@ -625,7 +642,7 @@
      DASHBOARD
 ═══════════════════════════════════════════════ -->
 <div id="screen-dashboard" class="screen">
-  <div style="max-width:960px;margin:0 auto;padding:2rem 1.5rem 5rem;">
+  <div style="max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 2rem;max-height:calc(100vh - 68px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap;gap:12px;">
       <div>
         <p id="dash-greet" style="font-size:1.35rem;font-weight:500;margin-bottom:4px;"></p>
@@ -666,7 +683,7 @@
     <span class="pill">Game 1 of 6</span>
     <div class="game-name-hindi">🎈 Dum</div>
     <div class="game-name-sub">dum — breath, guts</div>
-    <div style="display:flex;justify-content:center;margin-bottom:1.5rem;">
+    <div style="display:flex;justify-content:center;margin-bottom:1rem;">
       <svg width="80" height="100" viewBox="0 0 90 110">
         <ellipse cx="45" cy="46" rx="36" ry="42" fill="#dc2626"/>
         <ellipse cx="31" cy="28" rx="13" ry="9" fill="#fca5a5" opacity="0.55"/>
@@ -682,7 +699,7 @@
         <div style="display:flex;align-items:center;gap:12px;font-size:0.88rem;"><div style="width:14px;height:14px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></div><div><strong>Blue</strong> — ₹2 per pump. Safer, can survive many pumps.</div></div>
       </div>
     </div>
-    <div class="card" style="margin-bottom:1.5rem;background:var(--amber-light);border-color:rgba(186,117,23,0.25);">
+    <div class="card" style="margin-bottom:1rem;background:var(--amber-light);border-color:rgba(186,117,23,0.25);">
       <div style="display:flex;gap:12px;align-items:flex-start;">
         <span style="font-size:1.2rem;flex-shrink:0;">⏱</span>
         <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;"><strong style="color:var(--text);">3 seconds per decision.</strong> The timer resets after each pump. If time runs out with pumps in — we auto-collect.</p>
@@ -740,7 +757,7 @@
 <div id="screen-dum-results" class="screen">
   <div class="game-canvas fade-in">
     <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
-    <div style="text-align:center;margin-bottom:1.5rem;">
+    <div style="text-align:center;margin-bottom:1rem;">
       <div style="font-size:3rem;margin-bottom:10px;">🎈</div>
       <h1 style="font-size:1.4rem;font-weight:500;margin-bottom:4px;">Dum — complete!</h1>
       <p style="color:var(--text-muted);font-size:0.88rem;">Game 1 · Risk &amp; Behavioral Profile</p>
@@ -771,22 +788,26 @@
 ═══════════════════════════════════════════════ -->
 <!-- RANG INTRO -->
 <div id="screen-rang-intro" class="screen">
-  <div style="margin-bottom:1.25rem;">
-    <span class="pill">Game 2 of 6</span>
+  <div class="game-canvas">
+    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+    <div style="margin-bottom:1rem;">
+      <span class="pill">Game 2 of 6</span>
+    </div>
+    <div class="game-name-hindi">🎨 Rang</div>
+    <div class="game-name-sub">rang — colour, signal, identity</div>
+    <div class="card" style="margin-bottom:1rem;">
+      <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">
+        Signals come in fast from three different worlds — the trading floor, the railway control room, the cricket dugout.
+        Each has its own language.
+        Your job: read the right signal, not the word attached to it.
+      </p>
+    </div>
+    <div class="stat-grid stat-grid-2" style="margin-bottom:1.25rem;">
+      <div class="stat-cell"><div class="stat-val">24</div><div class="stat-lbl">Trials</div></div>
+      <div class="stat-cell"><div class="stat-val">~4</div><div class="stat-lbl">Minutes</div></div>
+    </div>
+    <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startRang()">Start →</button>
   </div>
-  <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:0.75rem;">Rang</h2>
-  <div class="card" style="margin-bottom:1.25rem;">
-    <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">
-      Signals come in fast from three different worlds — the trading floor, the railway control room, the cricket dugout.
-      Each has its own language.
-      Your job: read the right signal, not the word attached to it.
-    </p>
-  </div>
-  <div class="stat-grid stat-grid-2" style="margin-bottom:1.5rem;">
-    <div class="stat-cell"><div class="stat-val">24</div><div class="stat-lbl">Trials</div></div>
-    <div class="stat-cell"><div class="stat-val">~4</div><div class="stat-lbl">Minutes</div></div>
-  </div>
-  <button class="btn btn-primary" onclick="startRang()">Start →</button>
 </div>
 
 <!-- ─── GAME ─── -->
@@ -857,7 +878,7 @@
     <span class="pill">Game 3 of 6</span>
     <div class="game-name-hindi">⚡ Ruk</div>
     <div class="game-name-sub">ruk — stop</div>
-    <div style="display:flex;justify-content:center;gap:28px;margin-bottom:1.5rem;padding:1.25rem;background:var(--surface);border-radius:var(--radius-lg);">
+    <div style="display:flex;justify-content:center;gap:28px;margin-bottom:1rem;padding:1rem;background:var(--surface);border-radius:var(--radius-lg);">
       <div style="text-align:center;">
         <svg width="64" height="64" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" fill="#d97706"/><circle cx="50" cy="50" r="35" fill="none" stroke="#fcd34d" stroke-width="3.5"/><text x="50" y="58" text-anchor="middle" font-size="28" fill="#fef3c7" font-family="sans-serif" font-weight="700">₹</text></svg>
         <div style="font-size:0.82rem;font-weight:500;color:#0F6E56;margin-top:8px;">TAP ✓</div>
@@ -871,7 +892,7 @@
       </div>
     </div>
     <p class="game-intro-para">Signals appear on screen. Some say tap. Some say stop. 4 rounds — including one where the rules flip completely. 40 trials total.</p>
-    <div style="background:var(--amber-light);border:0.5px solid rgba(186,117,23,0.25);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:12px;align-items:flex-start;">
+    <div style="background:var(--amber-light);border:0.5px solid rgba(186,117,23,0.25);border-radius:var(--radius);padding:0.875rem 1rem;margin-bottom:1rem;display:flex;gap:12px;align-items:flex-start;">
       <span style="font-size:1.1rem;flex-shrink:0;">🔀</span>
       <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;"><strong style="color:var(--text);">Round 4 flips the rules.</strong> No warning — you'll see the instruction before it starts.</p>
     </div>
@@ -912,7 +933,7 @@
 <div id="screen-ruk-results" class="screen">
   <div class="game-canvas fade-in">
     <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
-    <div style="text-align:center;margin-bottom:1.5rem;">
+    <div style="text-align:center;margin-bottom:1rem;">
       <div style="font-size:3rem;margin-bottom:10px;">⚡</div>
       <h1 style="font-size:1.4rem;font-weight:500;margin-bottom:4px;">Ruk — complete!</h1>
       <p style="color:var(--text-muted);font-size:0.88rem;">Game 3 · Impulse Control &amp; Attention</p>
@@ -962,7 +983,7 @@
     <span class="pill">Game 4 of 6</span>
     <div class="game-name-hindi">⚖️ Saudaa</div>
     <div class="game-name-sub">saudaa — deal, bargain</div>
-    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem;">
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:1rem;">
       <div style="display:flex;gap:12px;align-items:flex-start;padding:1rem;background:var(--surface);border-radius:var(--radius);">
         <span style="font-size:1.1rem;flex-shrink:0;">🎲</span>
         <div><span style="font-size:0.88rem;font-weight:500;">Round 1 — Pure odds.</span><span style="font-size:0.88rem;color:var(--text-muted);"> Safe payout vs a gamble. Exact probabilities shown.</span></div>
@@ -1034,7 +1055,7 @@
 <div id="screen-ps-results" class="screen">
   <div class="game-canvas fade-in">
     <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
-    <div style="text-align:center;margin-bottom:1.5rem;">
+    <div style="text-align:center;margin-bottom:1rem;">
       <div style="font-size:3rem;margin-bottom:10px;">⚖️</div>
       <h1 style="font-size:1.4rem;font-weight:500;margin-bottom:4px;">Saudaa — complete!</h1>
       <p style="color:var(--text-muted);font-size:0.88rem;">Game 4 · Risk, Rationality &amp; Fairness</p>
@@ -1093,7 +1114,7 @@
         <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-c);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Carnation</div><div style="font-size:10px;color:var(--text-hint);">Consumer goods</div></div>
       </div>
     </div>
-    <div class="card" style="margin-bottom:1.5rem;">
+    <div class="card" style="margin-bottom:1rem;">
       <div style="font-size:0.7rem;color:var(--text-hint);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;font-weight:700;">How it works</div>
       <div style="display:flex;gap:10px;padding:6px 0;border-bottom:0.5px solid var(--border);font-size:0.82rem;"><span style="font-family:'DM Mono',monospace;font-size:0.94rem;font-weight:600;color:var(--amber);width:28px;flex-shrink:0;">₹9L</span><span style="color:var(--text-muted);line-height:1.55;">to invest each year, split across three companies</span></div>
       <div style="display:flex;gap:10px;padding:6px 0;border-bottom:0.5px solid var(--border);font-size:0.82rem;"><span style="font-family:'DM Mono',monospace;font-size:0.94rem;font-weight:600;color:var(--amber);width:28px;flex-shrink:0;">↑↓</span><span style="color:var(--text-muted);line-height:1.55;">each company returns based on how the year went</span></div>
@@ -1151,7 +1172,7 @@
 <div id="screen-bazaar-results" class="screen">
   <div class="game-canvas fade-in">
     <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
-    <div style="text-align:center;margin-bottom:1.5rem;">
+    <div style="text-align:center;margin-bottom:1rem;">
       <div style="font-size:3rem;margin-bottom:10px;" id="bz-r-icon"></div>
       <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:6px;">📊 Bazaar · Investment Profile</div>
       <div style="font-family:'Instrument Serif',serif;font-size:1.75rem;margin-bottom:10px;" id="bz-r-name"></div>
@@ -1248,6 +1269,7 @@
 
 <!-- MAZDOOR RESULTS -->
 <div id="screen-mazdoor-results" class="screen">
+  <div style="max-width:680px;margin:1rem auto;border-radius:var(--radius-xl);box-shadow:var(--shadow-float);background:var(--card);overflow:hidden;max-height:calc(100vh - 68px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;">
   <div class="mz-results-hero">
     <div class="mz-results-emoji" id="mz-r-emoji"></div>
     <div class="mz-results-tag">Your Work Persona</div>
@@ -1266,6 +1288,7 @@
     <div class="summary-card"><p id="mz-r-quote"></p></div>
     <button class="btn btn-primary btn-full" style="padding:14px;" onclick="goToTeaser('CORP_MAZDOOR')">Continue →</button>
   </div>
+  </div><!-- /mazdoor-results-wrapper -->
 </div>
 
 <!-- ═══════════════════════════════════════════════
@@ -1297,7 +1320,7 @@
      REPORT SCREEN
 ═══════════════════════════════════════════════ -->
 <div id="screen-report" class="screen">
-  <div style="max-width:960px;margin:0 auto;">
+  <div style="max-width:960px;margin:0 auto;max-height:calc(100vh - 68px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;border-radius:var(--radius-xl);box-shadow:var(--shadow-float);">
     <!-- Hero -->
     <div class="report-hero">
       <div style="font-size:3.5rem;margin-bottom:1rem;" id="report-profile-icon">🤝</div>
@@ -1342,7 +1365,7 @@
         <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:10px;">Full Report</div>
         <div style="font-family:'Instrument Serif',serif;font-size:1.5rem;color:#FFFFFF;margin-bottom:8px;line-height:1.3;">The complete picture, not the summary</div>
         <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.75;margin-bottom:1.5rem;">Sub-roles, manager dynamics, peer dynamics, the full self-perception breakdown, what your profile typically struggles with.</div>
-        <button class="btn btn-primary btn-full" style="max-width:280px;padding:14px;" onclick="switchReportTab('full')">Unlock for ₹499 →</button>
+        <button class="btn btn-primary btn-full" style="max-width:280px;padding:14px;" onclick="switchReportTab('full')">Unlock paid report →</button>
         <p style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-top:8px;">One-time. No subscription.</p>
       </div>
     </div>
@@ -1354,7 +1377,7 @@
         <div style="font-size:2.5rem;margin-bottom:1rem;">🔒</div>
         <div style="font-family:'Instrument Serif',serif;font-size:1.5rem;margin-bottom:10px;">The complete picture</div>
         <div style="font-size:0.85rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.75rem;max-width:320px;margin-left:auto;margin-right:auto;">Sub-role · Manager &amp; peer dynamics · What you struggle with · Full self-awareness breakdown · Roles to avoid</div>
-        <button class="btn btn-primary btn-full" style="max-width:280px;padding:15px;font-size:1rem;margin:0 auto;display:block;" onclick="unlockFullReport()">Unlock Full Report — ₹499 →</button>
+        <button class="btn btn-primary btn-full" style="max-width:280px;padding:15px;font-size:1rem;margin:0 auto;display:block;" onclick="unlockFullReport()">Unlock paid report →</button>
         <p style="font-size:0.7rem;color:var(--text-hint);margin-top:10px;">One-time · No subscription · Yours forever</p>
       </div>
       <!-- Full content — hidden until unlocked -->

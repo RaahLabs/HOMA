@@ -262,6 +262,31 @@
     #g-badge { display: inline-block; font-size: 0.76rem; font-weight: 500; padding: 4px 14px; border-radius: 20px; transition: all 0.2s; }
     .archetype-block { text-align: center; padding: 1.25rem; background: var(--surface); border-radius: var(--radius-lg); margin-bottom: 0.875rem; }
 
+    /* ═══ RESULT MOMENT SCREENS ═══ */
+    .result-canvas {
+      display: flex; flex-direction: column;
+      min-height: calc(100vh - 68px);
+      justify-content: space-between;
+      /* override game-canvas max-height for result screens */
+      max-height: none !important;
+      overflow-y: visible !important;
+    }
+    .result-moment {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 2rem 1rem;
+    }
+    .result-game-badge {
+      font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--text-hint); margin-bottom: 1.75rem;
+    }
+    .result-big-emoji { font-size: 3.75rem; margin-bottom: 1.5rem; line-height: 1; }
+    .result-witty {
+      font-family: 'Instrument Serif', serif; font-size: 1.25rem; line-height: 1.7;
+      color: var(--text); max-width: 360px; margin: 0 auto;
+    }
+    .result-footer { padding-top: 1.25rem; border-top: 0.5px solid var(--border); }
+
     /* ═══════════════════════════════════════════════
        REPORT STYLES
     ═══════════════════════════════════════════════ */
@@ -755,31 +780,21 @@
      DUM — RESULTS
 ═══════════════════════════════════════════════ -->
 <div id="screen-dum-results" class="screen">
-  <div class="game-canvas fade-in">
-    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
-    <div style="text-align:center;margin-bottom:1rem;">
-      <div style="font-size:3rem;margin-bottom:10px;">🎈</div>
-      <h1 style="font-size:1.4rem;font-weight:500;margin-bottom:4px;">Dum — complete!</h1>
-      <p style="color:var(--text-muted);font-size:0.88rem;">Game 1 · Risk &amp; Behavioral Profile</p>
+  <div class="game-canvas result-canvas">
+    <div class="result-moment">
+      <div class="result-game-badge">Game 1 · Dum</div>
+      <div id="r-emoji" class="result-big-emoji">🎈</div>
+      <p id="r-witty" class="result-witty">—</p>
     </div>
-    <div class="archetype-block">
-      <div id="r-archetype-icon" style="font-size:2.5rem;margin-bottom:10px;"></div>
-      <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;">Your risk profile</div>
-      <div id="r-archetype-name" style="font-size:1.4rem;font-weight:500;color:var(--text);margin-bottom:6px;"></div>
-      <div id="r-label" style="display:none;"></div>
-      <div id="r-score" style="display:none;"></div>
+    <div class="result-footer">
+      <button class="btn btn-primary btn-full" onclick="goToTeaser('BART')">Continue →</button>
     </div>
-    <div class="stat-grid stat-grid-3" style="margin-bottom:1.25rem;">
-      <div class="stat-cell"><div id="r-banked" class="stat-val"></div><div class="stat-lbl">Banked</div></div>
-      <div class="stat-cell"><div id="r-pops" class="stat-val"></div><div class="stat-lbl">Pops</div></div>
-      <div class="stat-cell"><div id="r-trend" class="stat-val" style="font-size:0.88rem;"></div><div class="stat-lbl">Trend</div></div>
-    </div>
-    <div style="margin-bottom:1.25rem;">
-      <p class="section-label">Behavioral dimensions</p>
-      <div id="r-vector-bars"></div>
-    </div>
-    <div class="summary-card"><p id="r-summary"></p></div>
-    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="goToTeaser('BART')">Continue →</button>
+  </div>
+  <div style="display:none;" aria-hidden="true">
+    <span id="r-archetype-icon"></span><span id="r-archetype-name"></span>
+    <span id="r-summary"></span><span id="r-score"></span><span id="r-label"></span>
+    <span id="r-banked"></span><span id="r-pops"></span><span id="r-trend"></span>
+    <div id="r-vector-bars"></div>
   </div>
 </div>
 
@@ -828,35 +843,22 @@
 
 <!-- ─── RESULTS ─── -->
 <div id="screen-rang-results" class="screen">
-  <div style="margin-bottom:1.25rem;"><span class="pill">Rang — Complete</span></div>
-  <div class="result-icon" id="rang-r-icon"></div>
-  <div class="result-label" id="rang-r-label"></div>
-  <div class="result-comment" id="rang-r-comment"></div>
-
-  <div class="cohort-tiles" id="rang-cohort-tiles"></div>
-
-  <div class="card" style="margin-bottom:1.25rem;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
-      <div style="text-align:center;">
-        <div style="font-size:1.3rem;font-weight:700;" id="rang-r-word-acc">—</div>
-        <div style="font-size:0.72rem;color:var(--text-hint);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">Signal acc.</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-size:1.3rem;font-weight:700;" id="rang-r-color-acc">—</div>
-        <div style="font-size:0.72rem;color:var(--text-hint);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">Color acc.</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-size:1.3rem;font-weight:700;" id="rang-r-median-rt">—</div>
-        <div style="font-size:0.72rem;color:var(--text-hint);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">Median RT</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-size:1.3rem;font-weight:700;" id="rang-r-switch-cost">—</div>
-        <div style="font-size:0.72rem;color:var(--text-hint);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">Switch cost</div>
-      </div>
+  <div class="game-canvas result-canvas">
+    <div class="result-moment">
+      <div class="result-game-badge">Game 2 · Rang</div>
+      <div id="rang-r-emoji" class="result-big-emoji">🎨</div>
+      <p id="rang-r-witty" class="result-witty">—</p>
+    </div>
+    <div class="result-footer">
+      <button class="btn btn-primary btn-full" onclick="goToTeaser('FER')">Continue →</button>
     </div>
   </div>
-
-  <button class="btn btn-primary" onclick="goToTeaser('FER')">Continue →</button>
+  <div style="display:none;" aria-hidden="true">
+    <div id="rang-cohort-tiles"></div>
+    <span id="rang-r-icon"></span><span id="rang-r-label"></span><span id="rang-r-comment"></span>
+    <span id="rang-r-word-acc"></span><span id="rang-r-color-acc"></span>
+    <span id="rang-r-median-rt"></span><span id="rang-r-switch-cost"></span>
+  </div>
 </div>
 
 
@@ -931,38 +933,21 @@
 
 <!-- RUK RESULTS -->
 <div id="screen-ruk-results" class="screen">
-  <div class="game-canvas fade-in">
-    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
-    <div style="text-align:center;margin-bottom:1rem;">
-      <div style="font-size:3rem;margin-bottom:10px;">⚡</div>
-      <h1 style="font-size:1.4rem;font-weight:500;margin-bottom:4px;">Ruk — complete!</h1>
-      <p style="color:var(--text-muted);font-size:0.88rem;">Game 3 · Impulse Control &amp; Attention</p>
+  <div class="game-canvas result-canvas">
+    <div class="result-moment">
+      <div class="result-game-badge">Game 3 · Ruk</div>
+      <div id="ruk-r-emoji" class="result-big-emoji">⚡</div>
+      <p id="ruk-r-witty" class="result-witty">—</p>
     </div>
-    <div style="background:var(--surface);border-radius:var(--radius-lg);padding:1.75rem;margin-bottom:1rem;text-align:center;">
-      <div id="ruk-r-icon" style="font-size:2.2rem;margin-bottom:10px;"></div>
-      <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">Control profile</div>
-      <div id="ruk-r-label" style="font-size:1.4rem;font-weight:500;color:var(--text);"></div>
+    <div class="result-footer">
+      <button class="btn btn-primary btn-full" onclick="goToTeaser('GNG')">Continue →</button>
     </div>
-    <div class="stat-grid stat-grid-3" style="margin-bottom:1rem;">
-      <div class="stat-cell"><div id="ruk-r-hits" class="stat-val"></div><div class="stat-lbl">Hits</div></div>
-      <div class="stat-cell"><div id="ruk-r-fa" class="stat-val" style="color:#A32D2D;"></div><div class="stat-lbl">False alarms</div></div>
-      <div class="stat-cell"><div id="ruk-r-rt" class="stat-val"></div><div class="stat-lbl">Avg RT (ms)</div></div>
-    </div>
-    <div class="stat-grid stat-grid-3" style="margin-bottom:1.25rem;">
-      <div class="stat-cell"><div id="ruk-r-score-val" class="stat-val"></div><div class="stat-lbl">Total score</div></div>
-      <div class="stat-cell"><div id="ruk-r-switch" class="stat-val" style="font-size:14px;"></div><div class="stat-lbl">Rule-switch</div></div>
-      <div class="stat-cell"><div id="ruk-r-stability" class="stat-val"></div><div class="stat-lbl">Stability</div></div>
-    </div>
-    <div style="margin-bottom:1.25rem;">
-      <p class="section-label">Behavioral dimensions</p>
-      <div id="ruk-r-vec-bars"></div>
-    </div>
-    <div style="margin-bottom:1.25rem;">
-      <p class="section-label">By round</p>
-      <div id="ruk-r-blocks"></div>
-    </div>
-    <div class="summary-card"><p id="ruk-r-summary"></p></div>
-    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="goToTeaser('GNG')">Continue →</button>
+  </div>
+  <div style="display:none;" aria-hidden="true">
+    <span id="ruk-r-icon"></span><span id="ruk-r-label"></span>
+    <span id="ruk-r-hits"></span><span id="ruk-r-fa"></span><span id="ruk-r-rt"></span>
+    <span id="ruk-r-score-val"></span><span id="ruk-r-switch"></span><span id="ruk-r-stability"></span>
+    <div id="ruk-r-vec-bars"></div><div id="ruk-r-blocks"></div><span id="ruk-r-summary"></span>
   </div>
 </div>
 
@@ -1053,33 +1038,20 @@
 
 <!-- SAUDAA RESULTS -->
 <div id="screen-ps-results" class="screen">
-  <div class="game-canvas fade-in">
-    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
-    <div style="text-align:center;margin-bottom:1rem;">
-      <div style="font-size:3rem;margin-bottom:10px;">⚖️</div>
-      <h1 style="font-size:1.4rem;font-weight:500;margin-bottom:4px;">Saudaa — complete!</h1>
-      <p style="color:var(--text-muted);font-size:0.88rem;">Game 4 · Risk, Rationality &amp; Fairness</p>
+  <div class="game-canvas result-canvas">
+    <div class="result-moment">
+      <div class="result-game-badge">Game 4 · Saudaa</div>
+      <div id="ps-r-emoji" class="result-big-emoji">⚖️</div>
+      <p id="ps-r-witty" class="result-witty">—</p>
     </div>
-    <div style="background:var(--surface);border-radius:var(--radius-lg);padding:1.75rem;margin-bottom:1rem;text-align:center;">
-      <div id="ps-r-icon" style="font-size:2.2rem;margin-bottom:10px;"></div>
-      <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">Decision profile</div>
-      <div id="ps-r-label" style="font-size:1.4rem;font-weight:500;color:var(--text);"></div>
+    <div class="result-footer">
+      <button class="btn btn-primary btn-full" onclick="goToTeaser('PROB_SAUDA')">Continue →</button>
     </div>
-    <div class="stat-grid stat-grid-3" style="margin-bottom:1.25rem;">
-      <div class="stat-cell"><div id="ps-r-risky-pct" class="stat-val"></div><div class="stat-lbl">Chose risky</div></div>
-      <div class="stat-cell"><div id="ps-r-ev-align" class="stat-val" style="color:var(--teal);"></div><div class="stat-lbl">EV correct</div></div>
-      <div class="stat-cell"><div id="ps-r-fair-rej" class="stat-val" style="color:var(--red);"></div><div class="stat-lbl">Rejected B3</div></div>
-    </div>
-    <div style="margin-bottom:1.25rem;">
-      <p class="section-label">Behavioral dimensions</p>
-      <div id="ps-r-vec-bars"></div>
-    </div>
-    <div style="margin-bottom:1.25rem;">
-      <p class="section-label">Round comparison</p>
-      <div id="ps-r-block-compare"></div>
-    </div>
-    <div class="summary-card"><p id="ps-r-summary"></p></div>
-    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="goToTeaser('PROB_SAUDA')">Continue →</button>
+  </div>
+  <div style="display:none;" aria-hidden="true">
+    <span id="ps-r-icon"></span><span id="ps-r-label"></span>
+    <span id="ps-r-risky-pct"></span><span id="ps-r-ev-align"></span><span id="ps-r-fair-rej"></span>
+    <div id="ps-r-vec-bars"></div><div id="ps-r-block-compare"></div><span id="ps-r-summary"></span>
   </div>
 </div>
 
@@ -1170,40 +1142,22 @@
 
 <!-- BAZAAR RESULTS -->
 <div id="screen-bazaar-results" class="screen">
-  <div class="game-canvas fade-in">
-    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
-    <div style="text-align:center;margin-bottom:1rem;">
-      <div style="font-size:3rem;margin-bottom:10px;" id="bz-r-icon"></div>
-      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:6px;">📊 Bazaar · Investment Profile</div>
-      <div style="font-family:'Instrument Serif',serif;font-size:1.75rem;margin-bottom:10px;" id="bz-r-name"></div>
-      <div style="font-size:0.94rem;color:var(--text-muted);line-height:1.85;" id="bz-r-summary"></div>
+  <div class="game-canvas result-canvas">
+    <div class="result-moment">
+      <div class="result-game-badge">Game 5 · Bazaar</div>
+      <div id="bz-r-emoji" class="result-big-emoji">📊</div>
+      <p id="bz-r-witty" class="result-witty">—</p>
     </div>
-    <div style="margin-bottom:1.5rem;">
-      <p class="section-label">Your 20-year P&L</p>
-      <div class="bz-final-pnl-row">
-        <div class="bz-final-pnl-cell"><div class="bz-final-pnl-val" id="bz-r-deployed" style="color:var(--text-muted);"></div><div class="bz-final-pnl-lbl">Total Deployed</div></div>
-        <div class="bz-final-pnl-cell"><div class="bz-final-pnl-val" id="bz-r-returned" style="color:var(--teal);"></div><div class="bz-final-pnl-lbl">Total Returned</div></div>
-        <div class="bz-final-pnl-cell"><div class="bz-final-pnl-val" id="bz-r-net-pnl"></div><div class="bz-final-pnl-lbl">Net P&L</div></div>
-      </div>
+    <div class="result-footer">
+      <button class="btn btn-primary btn-full" onclick="goToTeaser('BAZAAR')">Continue →</button>
     </div>
-    <div style="margin-bottom:1.5rem;border-top:0.5px solid var(--border);padding-top:1.5rem;">
-      <p class="section-label">How you approached each company</p>
-      <div id="bz-r-co-history"></div>
-    </div>
-    <div style="margin-bottom:1.5rem;border-top:0.5px solid var(--border);padding-top:1.5rem;">
-      <p class="section-label">Behavioral dimensions</p>
-      <div id="bz-r-dims"></div>
-    </div>
-    <div style="border-top:0.5px solid var(--border);padding-top:1.5rem;margin-bottom:1.5rem;">
-      <p class="section-label">What the pattern reveals</p>
-      <div id="bz-r-insights"></div>
-    </div>
-    <div id="bz-r-mismatch-section" style="display:none;border-top:0.5px solid var(--border);padding-top:1.5rem;margin-bottom:1.5rem;">
-      <p class="section-label">What you said vs what you did</p>
-      <div id="bz-r-mismatches"></div>
-    </div>
-    <div class="summary-card"><p id="bz-r-quote"></p></div>
-    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="goToTeaser('BAZAAR')">Continue →</button>
+  </div>
+  <div style="display:none;" aria-hidden="true">
+    <span id="bz-r-icon"></span><span id="bz-r-name"></span><span id="bz-r-summary"></span>
+    <span id="bz-r-deployed"></span><span id="bz-r-returned"></span><span id="bz-r-net-pnl"></span>
+    <div id="bz-r-co-history"></div><div id="bz-r-dims"></div><div id="bz-r-insights"></div>
+    <div id="bz-r-mismatch-section"><div id="bz-r-mismatches"></div></div>
+    <span id="bz-r-quote"></span>
   </div>
 </div>
 
@@ -1269,26 +1223,21 @@
 
 <!-- MAZDOOR RESULTS -->
 <div id="screen-mazdoor-results" class="screen">
-  <div style="max-width:680px;margin:1rem auto;border-radius:var(--radius-xl);box-shadow:var(--shadow-float);background:var(--card);overflow:hidden;max-height:calc(100vh - 68px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;">
-  <div class="mz-results-hero">
-    <div class="mz-results-emoji" id="mz-r-emoji"></div>
-    <div class="mz-results-tag">Your Work Persona</div>
-    <div class="mz-results-name" id="mz-r-name"></div>
-    <div class="mz-results-summary" id="mz-r-summary"></div>
+  <div class="game-canvas result-canvas">
+    <div class="result-moment">
+      <div class="result-game-badge">Game 6 · Corporate Mazdoor</div>
+      <div id="mz-r-witty-emoji" class="result-big-emoji">💼</div>
+      <p id="mz-r-witty" class="result-witty">—</p>
+    </div>
+    <div class="result-footer">
+      <button class="btn btn-primary btn-full" onclick="goToTeaser('CORP_MAZDOOR')">Continue →</button>
+    </div>
   </div>
-  <div class="mz-results-section">
-    <p class="section-label">What drives your decisions</p>
-    <div id="mz-r-vdims"></div>
+  <div style="display:none;" aria-hidden="true">
+    <span id="mz-r-emoji"></span><span id="mz-r-name"></span><span id="mz-r-summary"></span>
+    <span id="mz-r-quote"></span><div id="mz-r-vdims"></div>
+    <div id="mz-r-mismatch-section"><div id="mz-r-mismatches"></div></div>
   </div>
-  <div class="mz-results-section" id="mz-r-mismatch-section" style="display:none;padding-top:0;">
-    <p class="section-label">Your self-image vs your choices</p>
-    <div id="mz-r-mismatches"></div>
-  </div>
-  <div class="mz-results-section" style="padding-top:0;">
-    <div class="summary-card"><p id="mz-r-quote"></p></div>
-    <button class="btn btn-primary btn-full" style="padding:14px;" onclick="goToTeaser('CORP_MAZDOOR')">Continue →</button>
-  </div>
-  </div><!-- /mazdoor-results-wrapper -->
 </div>
 
 <!-- ═══════════════════════════════════════════════
@@ -1416,10 +1365,9 @@ const SCREENS = ['landing','auth','dashboard','dum-intro','dum-play','dum-result
   'rang-intro','rang-game','rang-results',
   'ruk-intro','ruk-game','ruk-results',
   'saudaa-intro','ps-game','ps-results',
-
   'bazaar-intro','bazaar-game','bazaar-b5','bazaar-results',
   'mazdoor-intro','mazdoor-game','mazdoor-b5','mazdoor-results',
-  'teaser','b5','report'];
+  'b5','report'];
 
 function showScreen(id) {
   SCREENS.forEach(s => {
@@ -1436,7 +1384,7 @@ function updateNav(id) {
   const nr = document.getElementById('nav-right');
   const loggedIn = ['dashboard','dum-intro','dum-play','dum-results','rang-intro','ruk-intro',
     'saudaa-intro','bazaar-intro','bazaar-game','bazaar-b5','bazaar-results',
-    'mazdoor-intro','mazdoor-game','mazdoor-b5','mazdoor-results','teaser','b5','report'];
+    'mazdoor-intro','mazdoor-game','mazdoor-b5','mazdoor-results','b5','report'];
   if(loggedIn.includes(id)) {
     nr.innerHTML = `<div style="display:flex;gap:8px;align-items:center;">
       <button class="btn btn-secondary btn-sm" onclick="goHome()">Home</button>
@@ -1636,12 +1584,10 @@ const GAME_ICONS = { BART:'🎈', FER:'🎨', GNG:'⚡', PROB_SAUDA:'⚖️', BA
 let currentTeaserGame = null;
 
 function goToTeaser(gameCode) {
+  // Teaser screen removed — witty comment now lives on the result screen itself.
+  // This function now jumps straight to B5 self-perception question.
   currentTeaserGame = gameCode;
-  const scoreData = (user.scores||[]).find(s=>s.game===gameCode);
-  const teaser = getPostGameTeaser(gameCode, scoreData);
-  document.getElementById('teaser-icon').textContent = GAME_ICONS[gameCode] || '🎮';
-  document.getElementById('teaser-line').textContent = teaser;
-  showScreen('teaser');
+  goToB5();
 }
 
 const B5_QUESTIONS = {
@@ -1787,7 +1733,7 @@ function generateTrials() {
   // Strategy: pick 3 slots per world in 3 passes, shuffle within each pass
   const interleaved = [];
   for (let pass = 0; pass < 8; pass++) {
-    const worldPass = shuffle(worldKeys);
+    const worldPass = shuffleArr([...worldKeys]);
     for (const wk of worldPass) {
       const pool = rawByWorld[wk];
       if (pool.length) interleaved.push(pool.shift());
@@ -1796,7 +1742,7 @@ function generateTrials() {
   // interleaved is now 24 trials, worlds roughly alternating
 
   // Assign task types: 12 signal + 12 color, shuffled, max 3 consecutive same type
-  const taskPool = shuffle([...Array(12).fill('signal'), ...Array(12).fill('color')]);
+  const taskPool = shuffleArr([...Array(12).fill('signal'), ...Array(12).fill('color')]);
   // Simple max-3-run check: swap if needed
   for (let i = 2; i < taskPool.length; i++) {
     if (taskPool[i] === taskPool[i-1] && taskPool[i] === taskPool[i-2]) {
@@ -1813,7 +1759,7 @@ function generateTrials() {
     t.correctWord = t.task === 'signal' ? t.word : t.inkWord;
     // Buttons: the 3 words of this world, shuffled, in their canonical colors
     const ws = WORLDS[t.world].words;
-    t.buttons = shuffle([...ws]);
+    t.buttons = shuffleArr([...ws]);
   });
 
   return interleaved;
@@ -2111,6 +2057,9 @@ function rangEndGame() {
   };
 
   saveScore(result);
+  // Witty result moment (reuses the dynamic comment already computed above)
+  document.getElementById('rang-r-emoji').textContent = activeProfile.icon;
+  document.getElementById('rang-r-witty').textContent = getRangWitty(vector, allRound, gap, switchCostMs, errRecovery);
   showScreen('rang-results');
 }
 
@@ -2269,6 +2218,9 @@ function rukEndGame() {
     return`<div style="display:flex;align-items:center;padding:8px 0;border-bottom:.5px solid var(--border);font-size:0.82rem;"><span style="color:var(--text-muted);flex:2">${names[i]}</span><span style="font-weight:500;color:${gc};width:70px;text-align:right">${b.goAcc!==null?b.goAcc+'%':'—'}</span><span style="font-weight:500;color:${nc};width:80px;text-align:right">${b.nogoAcc!==null?b.nogoAcc+'%':'—'}</span></div>`;
   }).join('');
   document.getElementById('ruk-r-summary').textContent=profile.summary;
+  // Witty result moment
+  document.getElementById('ruk-r-emoji').textContent=profile.icon;
+  document.getElementById('ruk-r-witty').textContent=getRukWitty(vector,fas.length,hits.length,goT.length);
   showScreen('ruk-results');
 }
 
@@ -2448,6 +2400,9 @@ function psEndGame(){
     {label:'Round 3 (fairness)',left:psB3Results.filter(r=>r.accepted).length+' accepted',right:psB3Results.filter(r=>!r.accepted).length+' rejected'},
   ].map(r=>`<div style="padding:9px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;font-size:0.82rem;"><span style="color:var(--text-muted);flex:1.5">${r.label}</span><span style="color:var(--text);flex:1;text-align:right">${r.left}</span><span style="color:var(--amber);flex:1;text-align:right">${r.right}</span></div>`).join('');
   document.getElementById('ps-r-summary').textContent=profile.summary;
+  // Witty result moment
+  document.getElementById('ps-r-emoji').textContent=profile.icon;
+  document.getElementById('ps-r-witty').textContent=getSaudaaWitty(vector,profile.label);
   showScreen('ps-results');
 }
 
@@ -2746,6 +2701,9 @@ function bzComputeAndShow() {
   const result={game:'BAZAAR',label:profile.name,dimensions:dims,totalDeployed:bzTotalDeployed,totalReturned:bzTotalReturned,netPnL,coStats,shiftAt:bzShiftAt,date:new Date().toISOString()};
   saveScore(result);
   bzRenderResults(profile,dims,mm,coStats,netPnL);
+  // Witty result moment
+  document.getElementById('bz-r-emoji').textContent=profile.icon;
+  document.getElementById('bz-r-witty').textContent=getBazaarWitty(profile.name,netPnL,dims);
   showScreen('bazaar-results');
 }
 
@@ -2927,6 +2885,9 @@ function mzComputeAndShow() {
   const result={game:'CORP_MAZDOOR',label:persona.name,vScores:{V1:vScores.V1,V2:vScores.V2,V3:vScores.V3,V4:vScores.V4,V5:vScores.V5},rawScores:{meaning:s.meaning||0,money:s.money||0,comfort:s.comfort||0,ambition:s.ambition||0,security:s.security||0,adventure:s.adventure||0,prestige:s.prestige||0,authenticity:s.authenticity||0,self:s.self||0,others:s.others||0},b5Answers:mzB5Answers,mismatches,date:new Date().toISOString()};
   saveScore(result);
   mzRenderResults(persona,vScores,mismatches);
+  // Witty result moment
+  document.getElementById('mz-r-witty-emoji').textContent=persona.emoji;
+  document.getElementById('mz-r-witty').textContent=getMazdoorWitty(persona.name,vScores);
   showScreen('mazdoor-results');
 }
 
@@ -3208,6 +3169,286 @@ function getPostGameTeaser(gameCode, result) {
   };
   const fn=teasers[gameCode];
   return fn ? fn(result) : "Noted. Keep going.";
+}
+
+
+// ═══════════════════════════════════════════════════════════
+// WITTY RESULT COMMENTS — 20-25 per game, data-driven picks
+// These appear on the game result screen. The full analysis
+// is reserved for the final report only.
+// ═══════════════════════════════════════════════════════════
+
+function _pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function getDumWitty(v, pops, banked, archetype) {
+  const ra = v.risk_appetite || 0, imp = v.impulsivity || 0, ev = v.EV_alignment || 0;
+  if (ra > 0.70 && ev > 0.60) return _pick([
+    "You pushed the balloon and the calibration was real. Those two things together are rarer than they sound.",
+    "Big appetite, sharp calibration. Not reckless — measured. There's a specific gap between those two things.",
+    "High risk, high accuracy. Most people pick one. You held both across thirty balloons.",
+  ]);
+  if (ra > 0.70 && pops >= 7) return _pick([
+    "The balloon had opinions. You went back anyway. That's a pattern, not a mistake.",
+    "Popped more than most — and kept pushing. Whether that's appetite or optimism is now a number.",
+    "The pops didn't recalibrate you much. That's the interesting part.",
+  ]);
+  if (ra > 0.65) return _pick([
+    "Bold appetite. The calibration across thirty balloons tells the rest of the story.",
+    "You pushed. Whether the push was proportionate is what the data shows.",
+    "High end of the risk range. Not unusual — the pattern within that range is what we measured.",
+    "Went big consistently. The colour of the balloon kept trying to tell you something.",
+  ]);
+  if (ra < 0.30 && ev > 0.55) return _pick([
+    "You protected the downside and the EV math held up. Cautious and calibrated — that combination is specific.",
+    "Early collector. The decision to stop was consistent and the numbers backed it.",
+    "You left some on the table deliberately. The data supports that as a rational pattern.",
+  ]);
+  if (ra < 0.30) return _pick([
+    "You protected what you had. Loss was managed before it happened, not after.",
+    "Consistent early collection. The floor you set was specific — and you held it.",
+    "Cautious from the start. What you walked away from tells us as much as what you pumped.",
+    "Low variance, low pops. You didn't test the ceiling much. That's a measured approach.",
+  ]);
+  if (pops < 2) return _pick([
+    "Almost no pops. Either the risk was never that high, or the read was very clean.",
+    "You barely popped. Whether that's precision or restraint is what the rest of the data shows.",
+  ]);
+  if (imp > 0.65) return _pick([
+    "Fast pumps. The speed is in the data — and so is what happened right after each one.",
+    "The rhythm of your pumping was quick. Thirty decisions at that pace has a pattern.",
+  ]);
+  return _pick([
+    "Thirty balloons. The pattern across them matters more than any single one.",
+    "Not reckless, not timid. That's the hardest zone to stay in — and most people don't.",
+    "Measured throughout. The gap between your floor and ceiling was specific.",
+    "Some people say they're risk-takers. Now we have data instead of a self-assessment.",
+    "The collect button and the pump button told different stories. You picked a side across thirty rounds.",
+    "Risk appetite is easy to claim. Harder to demonstrate across thirty consecutive decisions.",
+    "What you did when the balloon was getting big and the timer was going — that's the data.",
+    "Every pump was a choice. The shape of those choices across thirty balloons is now a number.",
+  ]);
+}
+
+function getRangWitty(v, allRound, gap, switchCostMs, errRecovery) {
+  if (allRound >= 0.85 && switchCostMs < 120) return _pick([
+    "Most people slow down when worlds switch. You didn't.",
+    "Trading floor. Railway. Cricket. Three different languages. You kept up.",
+    "High accuracy, low switch cost. That combination doesn't come for free.",
+  ]);
+  if (allRound >= 0.82 && switchCostMs >= 120) return _pick([
+    "Sharp across all three worlds. The switching added friction — that's the real data point.",
+    "Accurate. World switches cost you a beat — knowing that is half the battle.",
+    "High accuracy, but the world switch slowed you down measurably. That gap is the interesting part.",
+  ]);
+  if (gap >= 0.18) return _pick([
+    "The word kept winning over the signal. That instinct is hard to override — almost nobody escapes it cleanly.",
+    "What's written is very persuasive. You know that number now.",
+    "Your brain went to the label, not the colour. Most people's does. Now you have the exact rate.",
+    "The word beat the signal more than the colour did. That asymmetry is data.",
+  ]);
+  if (gap <= -0.18) return _pick([
+    "You tracked the signal, not the label. That takes more effort than it looks from outside.",
+    "Colour over word, consistently. The label was noise — you treated it as noise.",
+    "Following the signal instead of the word is the harder task. You did it more than most.",
+  ]);
+  if (errRecovery >= 0.82 && allRound < 0.72) return _pick([
+    "You corrected fast after mistakes. That's a different kind of accuracy.",
+    "The recovery after a wrong answer was quick. Fast error correction is underrated data.",
+  ]);
+  if ((v.reaction_speed || 0) < 0.35 && allRound >= 0.72) return _pick([
+    "Deliberate. The RT data is as interesting as the accuracy.",
+    "You traded milliseconds for correctness. That's a specific calibration.",
+  ]);
+  return _pick([
+    "Three worlds, two tasks, twenty-four trials. The pattern across them is now a number.",
+    "Railway. Trading. Cricket. The switching between them does something to most people — we measured what it did to you.",
+    "Signal accuracy and colour accuracy usually diverge. Yours did. The direction of that gap is data.",
+    "The gap between what you saw and what you did — measured to the millisecond.",
+    "Twenty-four trials. What changed between trial 1 and trial 24 is as interesting as the average.",
+    "Fast task, limited time, conflicting signals. The decisions per second are in the data.",
+    "Sometimes the instinct won. Sometimes the task won. The ratio is the interesting thing.",
+    "High-speed switching between rules and worlds. The pattern in where errors showed up is informative.",
+  ]);
+}
+
+function getRukWitty(v, faCount, hitCount, goTotal) {
+  const inh = v.inhibition || 0, fa = v.false_alarm_rate || 0, flex = v.flexibility || 0;
+  if (inh >= 0.82 && fa <= 0.15) return _pick([
+    "You held back cleanly when you were supposed to. Forty trials at 855ms — that's not luck.",
+    "Go when told, stop when told. Both, correctly, under time pressure. Clean result.",
+    "Strong brake. Strong gas. Both, reliably — that specific combination is what we measured.",
+  ]);
+  if (fa >= 0.45) return _pick([
+    "The tap button had a lot of pull. Forty decisions at under a second each — the pull of action is real.",
+    "You tapped when you were told not to — repeatedly. The rate of that tells us exactly how the brake fires.",
+    "Fast trigger. The false alarms are the cost of speed. Both are data, not a verdict.",
+    "The urge to act ran ahead of the rule more than once. That gap between impulse and control is now measured.",
+    "More false alarms than most. Whether that's speed or impatience — that's what the rest of the data shows.",
+  ]);
+  if (flex >= 0.70) return _pick([
+    "You tapped for three rounds and then had to stop tapping what you'd been tapping. Most people struggle with that exact switch.",
+    "The rule flipped in round four. You adjusted. That's the harder cognitive move in the task.",
+    "Rule inversion is where most people lose accuracy. Yours held.",
+  ]);
+  if (flex < 0.35) return _pick([
+    "Round four was the test — rules flipped completely. The accuracy shift from round three is the data.",
+    "The habit built over three rounds is hard to override in round four. That's exactly what we designed it to measure.",
+  ]);
+  return _pick([
+    "Forty decisions. The window was 855ms — chosen specifically. The pattern within it is what matters.",
+    "Go and No-Go at 855ms. Most of it is automatic — the variance in that automatic response is what we captured.",
+    "The brake — the ability to not act — is harder to measure than most things. We just measured it.",
+    "Speed and control are usually in tension. The ratio between them in your data is specific.",
+    "Three rounds of one rule, then a full inversion. The performance drop (or not) in round four is informative.",
+    "Most people are more impulsive than they think. You've just measured where your line is.",
+    "Forty binary decisions in about four minutes. The consistency across them is now on record.",
+    "High-speed binary choices. The gap between what you intended and what your hand did — that's what we captured.",
+  ]);
+}
+
+function getSaudaaWitty(v, profileLabel) {
+  const ev = v.ev_alignment || 0, fs = v.framing_sensitivity || 0;
+  const ur = v.unfair_reject_rate || 0, rp = v.risk_preference || 0;
+  if (ev >= 0.80 && fs <= 0.20) return _pick([
+    "The math was the math. Labels didn't move you between rounds. That's rarer than it sounds.",
+    "You tracked expected value across all three rounds. Framing changed nothing.",
+    "Labels, names, suggestions — none of it changed your choices. The numbers drove the decisions.",
+    "Round one and round two had identical probabilities. Your choices were identical too. That's rational consistency.",
+  ]);
+  if (fs >= 0.50) return _pick([
+    "The probabilities were identical in rounds one and two. Your choices weren't. You know that now.",
+    "Same math, different packaging — and the packaging moved you. That's how most real decisions work.",
+    "Labels changed what looked like the same choice. The delta between round 1 and round 2 is now a number.",
+    "The numbers didn't change. Your choices did. That gap is exactly what the game was designed to find.",
+    "You're in good company — most people shift between rounds one and two. The rate at which you shifted is what's specific.",
+  ]);
+  if (ur >= 0.75) return _pick([
+    "Your floor on fairness is now a number, not a feeling. You walked away from money.",
+    "You rejected offers that were mathematically in your favour. Something else was doing the deciding.",
+    "The fairness line showed up clearly. Below a certain split — the answer was no, regardless of the absolute number.",
+    "You left money on the table on principle, repeatedly. That's a specific kind of data.",
+  ]);
+  if (ur <= 0.20) return _pick([
+    "You took most of the offers — including the lopsided ones. Pragmatic on the fairness dimension.",
+    "The split didn't change your answer much. You took what was on the table.",
+    "Money over principle on the fairness round. Not a judgment — a measured preference.",
+  ]);
+  if (rp >= 0.70) return _pick([
+    "You leaned risky across all thirty trials. The upside was pulling you consistently.",
+    "Gamble over guarantee, consistently. Expected value mattered less than the possibility of the high outcome.",
+  ]);
+  if (rp <= 0.28) return _pick([
+    "Guaranteed over risky, almost every time. The certain number was more powerful than the probability.",
+    "You protected the downside from a lot of probabilistically good gambles. That's a consistent pattern.",
+  ]);
+  return _pick([
+    "Thirty decisions across three very different rounds. The consistency — or inconsistency — between them is the data.",
+    "Your fairness threshold, your risk stance, your response to framing — three separate things, all now measured.",
+    "Round one was pure probability. Round two added labels. Round three added another person. Each tested something different.",
+    "The numbers were exactly the same in rounds one and two. What changed was everything around them.",
+    "Some people say they're rational. Thirty decisions across three conditions just measured what that actually means.",
+    "The gap between round one and round two choices is one of the most informative numbers we collected today.",
+    "Thirty choices. The pattern across them holds more information than any single decision.",
+  ]);
+}
+
+function getBazaarWitty(profileName, netPnL, dims) {
+  const pnlSign = netPnL >= 0 ? 'positive' : 'negative';
+  if (profileName === 'The Sharp Adapter') return _pick([
+    "You found the signal, committed to it, and updated when the market changed. That's the full sequence — most people get one part right.",
+    "Found it. Committed. Updated when the game changed. Clean.",
+    "The market shifted and so did your allocation. That's not obvious — it requires noticing the shift before it's obvious.",
+  ]);
+  if (profileName === 'The Fast Learner') return _pick([
+    "You locked in early and stayed locked in. High accuracy on the initial read — low tolerance for exploration after.",
+    "Fast lock-in, low exploration. Works until the environment shifts. The regime change round showed that tension.",
+    "You found the best option quickly and committed hard. The question is what happened when the data changed.",
+  ]);
+  if (profileName === 'The Explorer') return _pick([
+    "You kept sampling long after most people would have committed. The landscape is mapped. The returns reflect the tradeoff.",
+    "High exploration, slower commitment. You know more about all three companies than most investors do.",
+    "Stayed curious past the point where it was comfortable. Less common than it sounds.",
+  ]);
+  if (profileName === 'The Regime Reader') return _pick([
+    "You might have taken time to find the first signal — but when the market shifted, you updated quickly. That's the harder skill.",
+    "Slow to lock in, fast to update. A lot of people find the best option. Fewer let go of it when it stops being best.",
+    "The regime shift in the second half is where most people fall behind. You adapted.",
+  ]);
+  if (profileName === 'The Anchored Investor') return _pick([
+    "You found what worked and stayed past the point where it was still working. The exit signal didn't register.",
+    "Committed hard to the early signal. The data started changing — the allocation didn't match that change fast enough.",
+    "The thing that made the strategy work also made it hard to leave. That's a specific tension.",
+  ]);
+  if (profileName === 'The Systematic') return _pick([
+    "Your allocations followed the return signals consistently. You built and maintained a feedback loop.",
+    "Systematic. The discipline to update based on what the data showed — that's the whole skill.",
+    "Returns up → allocate more. Returns down → pull back. Sounds simple. Most people break the loop.",
+  ]);
+  if (profileName === 'The Decoy Chaser') return _pick([
+    "Carnation's late-game spike pulled you off your approach. A short-term positive interrupted a longer-term strategy.",
+    "The market showed you something shiny and you looked. Most people do. The question is whether you noticed.",
+    "Late-game spike in one company — your allocation followed it. Whether that was right depends on what you knew at the time.",
+  ]);
+  if (profileName === 'The Drifter') return _pick([
+    "The allocations shifted frequently without a clear pattern underneath. High variance without a hypothesis is just noise.",
+    "Twenty years of capital allocation. The pattern — or absence of one — is the data.",
+    "Consistent inconsistency. The question is whether each shift was in response to data or to the last data point.",
+  ]);
+  return _pick([
+    "Twenty years of investment decisions compressed into seven minutes. The pattern is now a number.",
+    "Three companies, twenty years, ₹99 lakhs. What you did with the capital tells us something.",
+    "Every allocation was a hypothesis. Some were tested. Some weren't. The full picture is in the report.",
+    "Most investors say they follow the data. Twenty rounds just measured whether you actually did.",
+  ]);
+}
+
+function getMazdoorWitty(personaName, v) {
+  if (personaName === 'The Quiet Climber') return _pick([
+    "Twelve situations. The ambition showed up quietly — in what you actually chose, not in how you described it.",
+    "You know what you want and you don't perform it. The choices across twelve scenarios showed that consistently.",
+    "Low noise, high ambition. The scenarios picked that up.",
+  ]);
+  if (personaName === 'The True Believer') return _pick([
+    "Twelve scenarios designed to be uncomfortable. The pattern: meaning consistently over money. That's a specific kind of clarity.",
+    "The salary, the title, the competitor's offer — none of it moved you off what the work actually was. Twelve times.",
+    "You've never convinced yourself that a number makes up for work you don't believe in. The scenarios confirmed it.",
+  ]);
+  if (personaName === 'The Principled One') return _pick([
+    "Your fairness line showed up across the twelve situations. Some things weren't for sale — and you didn't sell them.",
+    "Twelve scenarios where principles had a cost. You paid the cost consistently.",
+    "You held the line across twelve different versions of the same pressure.",
+  ]);
+  if (personaName === 'The Connector') return _pick([
+    "Other people registered for you in the scenarios. That's not a soft skill — it's a specific orientation.",
+    "Twelve situations where you could have focused only on yourself. You mostly didn't.",
+    "The people around you in the scenarios influenced your choices. That's data on how you move through organisations.",
+  ]);
+  if (personaName === 'The Maverick') return _pick([
+    "You bet on yourself in the uncomfortable scenarios. The safe option usually wasn't the one you took.",
+    "Twelve situations where you could have stayed comfortable. You mostly chose not to.",
+    "The jobs that looked risky from outside felt like the only sensible option to you. That came through twelve times.",
+  ]);
+  if (personaName === 'The Pragmatist') return _pick([
+    "You kept your options open. The scenarios that pushed for full commitment got a measured response.",
+    "Twelve situations. You didn't over-commit to any one path — that's a pattern, not a weakness.",
+    "You've watched enough people burn bridges to know which ones are worth keeping. The scenarios showed that.",
+  ]);
+  if (personaName === 'The Operator') return _pick([
+    "You got things done in the scenarios without moralising about it. The reliability dimension showed up clearly.",
+    "Performance over politics, twelve times. The team calls you when something needs to actually get done.",
+    "Results-oriented across all twelve situations. The texture of how you got there is in the report.",
+  ]);
+  if (personaName === 'The Grounded Idealist') return _pick([
+    "Good work done honestly, for something beyond yourself. The twelve scenarios showed that pattern.",
+    "You don't talk about your values much. They mostly just show up in what you do. Twelve examples of that.",
+    "Meaning, honesty, others — all three showed up in the scenarios. Without being performative about it.",
+  ]);
+  return _pick([
+    "Twelve situations from Indian corporate life. What you chose when nobody was grading you — that's the data.",
+    "Late-night emails, stolen credit, competing offers. Real situations. Your choices across them are now on record.",
+    "Twelve choices. The pattern across them is more informative than any single scenario.",
+    "What you did in each situation when the right answer wasn't obvious — that's the profile.",
+  ]);
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -3836,12 +4077,15 @@ function dumEndGame(){
   document.getElementById('r-pops').textContent=pops;
   document.getElementById('r-trend').textContent=trendLabel;
   renderDumVectorBars(vector);
+  // Witty result moment
+  document.getElementById('r-emoji').textContent = info.icon;
+  document.getElementById('r-witty').textContent = getDumWitty(vector, pops, b2Banked, archetype);
   showScreen('dum-results');
 }
 
 function renderDumVectorBars(v){
+  const el=document.getElementById('r-vector-bars');if(!el)return;
   const dims=[
-    {key:'risk_appetite',label:'Risk appetite',lo:'Cautious',hi:'Bold'},
     {key:'EV_alignment',label:'Decision calibration',lo:'Uncalibrated',hi:'Sharp'},
     {key:'impulsivity',label:'Impulsivity',lo:'Deliberate',hi:'Reactive'},
     {key:'loss_sensitivity',label:'Loss sensitivity',lo:'Resilient',hi:'Sensitive'},
@@ -3850,7 +4094,7 @@ function renderDumVectorBars(v){
     {key:'recovery_speed',label:'Recovery after loss',lo:'Slow',hi:'Fast'},
     {key:'exploration_exploitation',label:'Exploration tendency',lo:'Conservative',hi:'Exploratory'},
   ];
-  document.getElementById('r-vector-bars').innerHTML=dims.map(d=>{
+  el.innerHTML=dims.map(d=>{
     const raw=v[d.key];const val=d.invert?(1-raw):raw;const pct=Math.round(clamp01(val)*100);
     const barCol=pct>=65?'var(--teal)':pct>=35?'var(--amber)':'var(--text-muted)';const side=pct>=65?d.hi:pct<=35?d.lo:'—';
     return`<div class="vec-row"><div class="vec-label-row"><span style="font-weight:500;">${d.label}</span><span style="font-size:0.76rem;color:${barCol};font-weight:500;">${side}</span></div><div class="vec-bar-track"><div class="vec-bar-fill" style="width:${pct}%;background:${barCol};"></div></div></div>`;

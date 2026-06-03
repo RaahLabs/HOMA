@@ -243,6 +243,9 @@
       font-size: 0.94rem; cursor: pointer; transition: all 0.15s; text-align: left; margin-bottom: 10px; line-height: 1.5;
     }
     .b5-opt:hover { border-color: var(--amber); background: var(--amber-light); }
+    .b5-opt.selected { border-color: var(--amber); background: var(--amber); color: #fff; pointer-events: none; }
+    .b5-opt.selected:hover { background: var(--amber); }
+    .b5-opt:disabled { opacity: 0.55; cursor: default; pointer-events: none; }
 
     /* ═══════════════════════════════════════════════
        DUM GAME STYLES
@@ -1638,82 +1641,141 @@ function goToTeaser(gameCode) {
   goToB5();
 }
 
+// B5_QUESTIONS: array of 2 questions per game.
+// BAZAAR and CORP_MAZDOOR handled by their own inline b5 screens — NOT listed here.
+// goToTeaser() for those games → goToB5() finds no entry → skips to dashboard.
 const B5_QUESTIONS = {
-  BART: {
-    pill:'After Dum', dim:'risk',
-    q:'Honestly — how do you see yourself when it comes to taking risks?',
-    opts:[
-      {label:'I take risks. Sometimes more than I probably should.', val:'high'},
-      {label:'Depends on the situation. I can go either way.', val:'mid'},
-      {label:'I tend to play it safe. I like knowing what I\'m walking into.', val:'low'},
-    ]
-  },
-  FER: {
-    pill:'After Rang', dim:'focus',
-    q:'When two things pull at you at once — what you know and what you feel — which wins?',
-    opts:[
-      {label:'What I feel. Gut instinct is usually right.', val:'high'},
-      {label:'Depends. I try to weigh both.', val:'mid'},
-      {label:'What I know. Feelings muddy the picture.', val:'low'},
-    ]
-  },
-  GNG: {
-    pill:'After Ruk', dim:'impulse',
-    q:'In real life — do you act first and think after, or think before you move?',
-    opts:[
-      {label:'I act on instinct. Thinking too long makes me miss the moment.', val:'high'},
-      {label:'Depends on the stakes.', val:'mid'},
-      {label:'I think it through first. Acting without thinking makes me anxious.', val:'low'},
-    ]
-  },
-  PROB_SAUDA: {
-    pill:'After Saudaa', dim:'fairness',
-    q:'When you get a raw deal — do you walk away on principle, or take what you can get?',
-    opts:[
-      {label:'Walk away. Some things are worth more than the money.', val:'high'},
-      {label:'Depends how bad the deal actually is.', val:'mid'},
-      {label:'Take what\'s on the table. Holding out costs more than it gives.', val:'low'},
-    ]
-  },
-  BAZAAR: {
-    pill:'After Bazaar', dim:'explore',
-    q:'When something is working well, what\'s your instinct?',
-    opts:[
-      {label:'Stay with it. Why look elsewhere when you\'ve found the edge?', val:'low'},
-      {label:'Mostly stay, but keep one eye out for something better.', val:'mid'},
-      {label:'Keep exploring. There\'s usually a better option out there.', val:'high'},
-    ]
-  },
-  CORP_MAZDOOR: {
-    pill:'After Mazdoor', dim:'values',
-    q:'When you imagine a job you\'d be genuinely proud of in ten years, what comes to mind first?',
-    opts:[
-      {label:'Earning significantly more than I do now.', val:'money'},
-      {label:'Leading something larger or more visible.', val:'prestige'},
-      {label:'Working on something I actually believe in.', val:'meaning'},
-      {label:'Having more time and energy outside work.', val:'comfort'},
-    ]
-  },
+  BART: [
+    {
+      pill:'After Dum · 1 of 2', dim:'risk',
+      q:'Honestly — how do you see yourself when it comes to taking risks?',
+      opts:[
+        {label:'I take risks. Sometimes more than I probably should.', val:'high'},
+        {label:'Depends on the situation. I can go either way.', val:'mid'},
+        {label:'I tend to play it safe. I like knowing what I\'m walking into.', val:'low'},
+      ]
+    },
+    {
+      pill:'After Dum · 2 of 2', dim:'risk_recover',
+      q:'When a bet goes wrong — what\'s your first move?',
+      opts:[
+        {label:'Own it and move on. Stalling makes it worse.', val:'resilient'},
+        {label:'Replay it. I need to understand what I missed.', val:'reflective'},
+        {label:'Pull back. That one\'s going to make me more careful next time.', val:'cautious'},
+      ]
+    }
+  ],
+  FER: [
+    {
+      pill:'After Rang · 1 of 2', dim:'focus',
+      q:'When two things pull at you at once — what you know and what you feel — which wins?',
+      opts:[
+        {label:'What I feel. Gut instinct is usually right.', val:'high'},
+        {label:'Depends. I try to weigh both.', val:'mid'},
+        {label:'What I know. Feelings muddy the picture.', val:'low'},
+      ]
+    },
+    {
+      pill:'After Rang · 2 of 2', dim:'focus_load',
+      q:'Two important things land on your plate at the same time. What happens?',
+      opts:[
+        {label:'I handle it. Splitting focus is how I work best.', val:'high'},
+        {label:'I get through both but one of them suffers a bit.', val:'mid'},
+        {label:'I need to finish one before I can even start the other.', val:'low'},
+      ]
+    }
+  ],
+  GNG: [
+    {
+      pill:'After Ruk · 1 of 2', dim:'impulse',
+      q:'In real life — do you act first and think after, or think before you move?',
+      opts:[
+        {label:'I act on instinct. Thinking too long makes me miss the moment.', val:'high'},
+        {label:'Depends on the stakes.', val:'mid'},
+        {label:'I think it through first. Acting without thinking makes me anxious.', val:'low'},
+      ]
+    },
+    {
+      pill:'After Ruk · 2 of 2', dim:'impulse_reactive',
+      q:'An urgent message comes in at 11pm on a work issue. Your instinct:',
+      opts:[
+        {label:'Reply immediately. It\'ll be on my mind till I do.', val:'high'},
+        {label:'Check how serious it actually is, then decide.', val:'mid'},
+        {label:'It waits till morning. Urgency is rarely as real as it feels.', val:'low'},
+      ]
+    }
+  ],
+  PROB_SAUDA: [
+    {
+      pill:'After Saudaa · 1 of 2', dim:'fairness',
+      q:'When you get a raw deal — do you walk away on principle, or take what you can get?',
+      opts:[
+        {label:'Walk away. Some things are worth more than the money.', val:'high'},
+        {label:'Depends how bad the deal actually is.', val:'mid'},
+        {label:'Take what\'s on the table. Holding out costs more than it gives.', val:'low'},
+      ]
+    },
+    {
+      pill:'After Saudaa · 2 of 2', dim:'fairness_social',
+      q:'A colleague takes credit for work you did jointly, in front of the team. You:',
+      opts:[
+        {label:'Correct the record right there.', val:'high'},
+        {label:'Bring it up with them privately afterward.', val:'mid'},
+        {label:'Let it go — confrontation usually makes things worse.', val:'low'},
+      ]
+    }
+  ],
 };
+
+let b5QIdx = 0; // which question in the 2-question array we're showing
 
 function goToB5() {
   if(!currentTeaserGame) { enterDashboard(); return; }
-  const q = B5_QUESTIONS[currentTeaserGame];
-  if(!q) { enterDashboard(); return; }
-  document.getElementById('b5-pill').textContent = q.pill;
-  document.getElementById('b5-question').textContent = q.q;
-  document.getElementById('b5-options').innerHTML = q.opts.map(o =>
-    `<button class="b5-opt" onclick="handleB5Answer('${o.val}')">${o.label}</button>`
-  ).join('');
+  const qs = B5_QUESTIONS[currentTeaserGame];
+  // Bazaar/Mazdoor have inline screens — no entry here, skip to dashboard
+  if(!qs || !qs.length) { enterDashboard(); return; }
+  b5QIdx = 0;
+  _renderB5Q(qs[b5QIdx]);
   showScreen('b5');
 }
 
-function handleB5Answer(val) {
+function _renderB5Q(q) {
+  document.getElementById('b5-pill').textContent = q.pill;
+  const qEl = document.getElementById('b5-question');
+  qEl.style.transition = 'opacity 0.18s';
+  qEl.style.opacity = '0';
+  setTimeout(() => { qEl.textContent = q.q; qEl.style.opacity = '1'; }, 160);
+  document.getElementById('b5-options').innerHTML = q.opts.map(o =>
+    `<button class="b5-opt" onclick="handleB5Answer(this,'${o.val}')">${o.label}</button>`
+  ).join('');
+}
+
+function handleB5Answer(btn, val) {
   if(!currentTeaserGame) { enterDashboard(); return; }
-  const q = B5_QUESTIONS[currentTeaserGame];
-  saveB5(currentTeaserGame, q.dim, val);
-  currentTeaserGame = null;
-  enterDashboard();
+  const qs = B5_QUESTIONS[currentTeaserGame];
+  const cq  = qs[b5QIdx];
+
+  // Highlight selected, lock all buttons so double-tap can't fire
+  document.querySelectorAll('#b5-options .b5-opt').forEach(b => {
+    b.classList.remove('selected');
+    b.disabled = true;
+  });
+  btn.classList.add('selected');
+
+  // Save: Q1 → gameCode (backwards-compatible); Q2 → gameCode_q2
+  const saveKey = b5QIdx === 0 ? currentTeaserGame : currentTeaserGame + '_q2';
+  saveB5(saveKey, cq.dim, val);
+
+  // Advance after a short highlight beat
+  setTimeout(() => {
+    b5QIdx++;
+    if(b5QIdx < qs.length) {
+      _renderB5Q(qs[b5QIdx]);
+    } else {
+      currentTeaserGame = null;
+      enterDashboard();
+    }
+  }, 440);
 }
 
 // ═══════════════════════════════════════════════════════════

@@ -585,6 +585,43 @@
     .mz-results-name { font-family:'Instrument Serif',serif;font-size:28px;margin-bottom:12px;letter-spacing:-0.01em; }
     .mz-results-summary { font-size:15px;color:var(--text-muted);line-height:1.85;max-width:380px;margin:0 auto; }
     .mz-results-section { padding:1.5rem 1.25rem; }
+
+    /* ── Mol Bhav game styles ── */
+    .mb-progress-track { display:flex; gap:6px; margin-bottom:1rem; }
+    .mb-progress-pip { flex:1; height:4px; border-radius:4px; background:var(--border-strong); transition:background 0.3s; }
+    .mb-progress-pip.done   { background:var(--amber); }
+    .mb-progress-pip.active { background:var(--amber); opacity:0.5; }
+    .mb-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; }
+    .mb-exchange-counter { font-size:0.72rem; font-weight:600; color:var(--text-hint); text-transform:uppercase; letter-spacing:0.06em; }
+    .mb-role-line { font-size:0.8rem; color:var(--text-muted); margin-bottom:0.875rem; }
+    .mb-recruiter { display:flex; gap:10px; align-items:flex-start; margin-bottom:0.875rem; }
+    .mb-avatar { width:34px; height:34px; border-radius:50%; background:var(--amber); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; flex-shrink:0; margin-top:2px; }
+    .mb-bubble { flex:1; background:var(--surface); border-radius:0 var(--radius-lg) var(--radius-lg) var(--radius-lg); padding:0.875rem 1rem; border:1px solid var(--border); }
+    .mb-bubble-meta { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-hint); margin-bottom:4px; }
+    .mb-bubble-text { font-size:0.9rem; color:var(--text); line-height:1.65; transition:opacity 0.2s; }
+    .mb-offer-display { text-align:center; padding:0.875rem 1rem; margin-bottom:0.875rem; background:linear-gradient(135deg,rgba(186,117,23,0.07) 0%,rgba(186,117,23,0.02) 100%); border:1px solid rgba(186,117,23,0.22); border-radius:var(--radius-lg); }
+    .mb-offer-label  { font-size:0.66rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-hint); margin-bottom:4px; }
+    .mb-offer-amount { font-size:2rem; font-weight:700; color:var(--amber); transition:all 0.25s; }
+    .mb-offer-sub    { font-size:0.75rem; color:var(--text-muted); margin-top:2px; }
+    .mb-actions { display:flex; flex-direction:column; gap:8px; }
+    .mb-actions-row { display:flex; gap:8px; }
+    .mb-stepper { display:flex; align-items:stretch; background:var(--surface); border:1.5px solid var(--border-strong); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:8px; }
+    .mb-step-btn { width:52px; border:none; background:transparent; cursor:pointer; font-size:1.35rem; font-weight:300; color:var(--text-muted); font-family:'DM Sans',sans-serif; transition:background 0.12s; display:flex; align-items:center; justify-content:center; padding:0; flex-shrink:0; }
+    .mb-step-btn:hover:not(:disabled) { background:var(--border); color:var(--text); }
+    .mb-step-btn:disabled { opacity:0.25; cursor:default; }
+    .mb-step-divider { width:1px; background:var(--border-strong); flex-shrink:0; }
+    .mb-step-val { flex:1; text-align:center; padding:14px 8px; font-size:1.2rem; font-weight:700; color:var(--text); user-select:none; }
+    .mb-walkaway-card { background:var(--amber-light); border-radius:var(--radius-lg); padding:1rem 1.25rem; margin-bottom:0.875rem; border:1px solid rgba(186,117,23,0.35); }
+    .mb-walkaway-title { font-weight:700; font-size:0.88rem; color:var(--amber-dark); margin-bottom:4px; }
+    .mb-walkaway-line  { font-size:0.82rem; color:var(--text-muted); line-height:1.6; }
+    .mb-outcome-card { background:var(--surface); border-radius:var(--radius-lg); padding:1rem 1.25rem; margin-bottom:0.875rem; text-align:center; border:1px solid var(--border); }
+    .mb-outcome-emoji { font-size:1.75rem; margin-bottom:6px; }
+    .mb-outcome-title { font-weight:700; font-size:0.95rem; margin-bottom:4px; }
+    .mb-outcome-line  { font-size:0.83rem; color:var(--text-muted); }
+    .mb-next-card { background:var(--surface); border-radius:var(--radius-lg); padding:1rem 1.25rem; margin-bottom:0.875rem; border:0.5px solid var(--border-strong); display:flex; align-items:center; gap:12px; }
+    .mb-next-emoji { font-size:1.75rem; flex-shrink:0; }
+    .mb-next-title { font-weight:600; font-size:0.9rem; margin-bottom:2px; }
+    .mb-next-desc  { font-size:0.8rem; color:var(--text-muted); line-height:1.5; }
   </style>
 </head>
 <body>
@@ -1075,10 +1112,145 @@
   </div>
 </div>
 
+<!-- MOL BHAV INTRO -->
+<div id="screen-mol-bhav-intro" class="screen">
+  <div class="game-canvas">
+    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
+    <div style="margin-bottom:0.75rem;"><span class="pill">Game 5 of 7</span></div>
+    <div class="game-name-hindi">🤝 Mol Bhav</div>
+    <div class="game-name-sub">mōl bhāv — negotiation, value, worth</div>
+    <div class="card" style="margin-bottom:1rem;">
+      <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">
+        Three situations. Each one asks something different from you.<br>Play each one. See where you land.
+      </p>
+    </div>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1rem;">
+      <div class="stat-cell"><div class="stat-val">3</div><div class="stat-lbl">Situations</div></div>
+      <div class="stat-cell"><div class="stat-val">5</div><div class="stat-lbl">Rounds each</div></div>
+      <div class="stat-cell"><div class="stat-val">~7</div><div class="stat-lbl">Minutes</div></div>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:1.5rem;">
+      <div style="flex:1;text-align:center;padding:0.75rem;background:var(--surface);border-radius:var(--radius);border:0.5px solid var(--border);">
+        <div style="font-size:1.3rem;">💼</div><div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Job Offer</div>
+      </div>
+      <div style="flex:1;text-align:center;padding:0.75rem;background:var(--surface);border-radius:var(--radius);border:0.5px solid var(--border);">
+        <div style="font-size:1.3rem;">🤝</div><div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Client Deal</div>
+      </div>
+      <div style="flex:1;text-align:center;padding:0.75rem;background:var(--surface);border-radius:var(--radius);border:0.5px solid var(--border);">
+        <div style="font-size:1.3rem;">🛍️</div><div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">At the Market</div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startMolBhav()">Start →</button>
+  </div>
+</div>
+
+<!-- MOL BHAV GAME -->
+<div id="screen-mol-bhav-game" class="screen">
+  <div class="game-canvas">
+    <!-- Progress track (3 pips) -->
+    <div class="mb-progress-track" id="mb-progress-track">
+      <div class="mb-progress-pip" id="mb-pip-0"></div>
+      <div class="mb-progress-pip" id="mb-pip-1"></div>
+      <div class="mb-progress-pip" id="mb-pip-2"></div>
+    </div>
+    <!-- Header -->
+    <div class="mb-header">
+      <span class="pill" id="mb-context-pill">💼 Job Offer</span>
+      <span class="mb-exchange-counter" id="mb-exchange-counter">Round 1 of 5</span>
+    </div>
+    <p class="mb-role-line" id="mb-role-line">—</p>
+    <!-- Recruiter bubble -->
+    <div class="mb-recruiter">
+      <div class="mb-avatar" id="mb-avatar">K</div>
+      <div class="mb-bubble">
+        <div class="mb-bubble-meta" id="mb-recruiter-name">—</div>
+        <div class="mb-bubble-text" id="mb-dialogue">—</div>
+      </div>
+    </div>
+    <!-- Offer display -->
+    <div class="mb-offer-display">
+      <div class="mb-offer-label" id="mb-offer-label">Current offer on the table</div>
+      <div class="mb-offer-amount" id="mb-offer-amount">—</div>
+      <div class="mb-offer-sub" id="mb-offer-sub">—</div>
+    </div>
+    <!-- ACTION: choose -->
+    <div id="mb-action-choose" class="mb-actions">
+      <div class="mb-actions-row">
+        <button class="btn btn-outline" style="flex:1;padding:13px 8px;" id="mb-accept-btn" onclick="mbOnAccept()">✓ Accept</button>
+        <button class="btn btn-primary" style="flex:2;padding:13px;" id="mb-counter-btn" onclick="mbShowStepper()">Counter ↑</button>
+      </div>
+      <button class="btn btn-ghost" id="mb-walk-btn" onclick="mbOnWalkAway()">Walk away</button>
+    </div>
+    <!-- ACTION: stepper -->
+    <div id="mb-action-stepper" class="mb-actions" style="display:none;">
+      <div class="section-label" id="mb-stepper-label">Your counter offer</div>
+      <div class="mb-stepper">
+        <button class="mb-step-btn" id="mb-btn-minus" onclick="mbStepChange(-1)">−</button>
+        <div class="mb-step-divider"></div>
+        <div class="mb-step-val" id="mb-step-val">—</div>
+        <div class="mb-step-divider"></div>
+        <button class="mb-step-btn" id="mb-btn-plus" onclick="mbStepChange(1)">+</button>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-primary" style="flex:2;padding:13px;" onclick="mbSubmitCounter()">Submit →</button>
+        <button class="btn btn-outline" style="flex:1;padding:13px;" onclick="mbCancelStepper()">Cancel</button>
+      </div>
+    </div>
+    <!-- ACTION: bot walkaway -->
+    <div id="mb-action-bot-walkaway" class="mb-actions" style="display:none;">
+      <div class="mb-walkaway-card">
+        <div class="mb-walkaway-title" id="mb-walkaway-title">They may be walking</div>
+        <div class="mb-walkaway-line" id="mb-walkaway-line">—</div>
+      </div>
+      <div class="mb-actions-row">
+        <button class="btn btn-primary" style="flex:2;padding:13px;" onclick="mbOnBotWalkawayResponse('stay')">Wait — I'm still interested</button>
+        <button class="btn btn-ghost" style="flex:1;" onclick="mbOnBotWalkawayResponse('leave')">Fine, let it go</button>
+      </div>
+    </div>
+    <!-- ACTION: between storylines -->
+    <div id="mb-action-between" class="mb-actions" style="display:none;">
+      <div class="mb-outcome-card">
+        <div class="mb-outcome-emoji" id="mb-done-emoji">✅</div>
+        <div class="mb-outcome-title" id="mb-done-title">—</div>
+        <div class="mb-outcome-line" id="mb-done-line">—</div>
+      </div>
+      <div class="mb-next-card" id="mb-next-card" style="display:none;">
+        <div class="mb-next-emoji" id="mb-next-emoji">🤝</div>
+        <div>
+          <div class="mb-next-title" id="mb-next-title">Next situation</div>
+          <div class="mb-next-desc"  id="mb-next-desc">—</div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" style="padding:15px;" id="mb-between-btn" onclick="mbNextStoryline()">—</button>
+    </div>
+  </div>
+</div>
+
+<!-- MOL BHAV RESULTS -->
+<div id="screen-mol-bhav-results" class="screen">
+  <div class="game-canvas result-canvas">
+    <div class="result-moment">
+      <div class="result-game-badge">Game 5 · Mol Bhav</div>
+      <div id="mb-r-emoji" class="result-big-emoji">🤝</div>
+      <p id="mb-r-witty" class="result-witty">—</p>
+    </div>
+    <div class="result-footer">
+      <button class="btn btn-primary btn-full" onclick="goToTeaser('MOL_BHAV')">Continue →</button>
+    </div>
+  </div>
+  <!-- Hidden stubs for mbShowResults() writes -->
+  <div style="display:none;" aria-hidden="true">
+    <span id="res-emoji"></span><span id="res-name"></span><span id="res-line"></span>
+    <span id="res-summary"></span><div id="res-situations"></div>
+    <div id="res-consistency-fill"></div><span id="res-consistency-text"></span>
+    <div id="res-vector"></div>
+  </div>
+</div>
+
 <!-- BAZAAR RESULT OVERLAY (outside screen system) -->
 <div class="bz-result-overlay" id="bz-result-overlay">
   <div class="bz-result-card">
-    <div class="bz-result-year-label" id="bz-ro-year-label">Year 1 of 20</div>
+    <div class="bz-result-year-label" id="bz-ro-year-label">Year 1 of 11</div>
     <table class="bz-result-table">
       <thead><tr><th>Company</th><th>Deployed</th><th>Returned</th><th>Net</th></tr></thead>
       <tbody id="bz-ro-table-body"></tbody>
@@ -1099,7 +1271,7 @@
     <div class="card" style="margin-bottom:1.25rem;">
       <div style="font-size:0.7rem;color:var(--text-hint);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px;font-weight:700;">Your portfolio</div>
       <div style="font-family:'DM Mono',monospace;font-size:2rem;font-weight:600;color:var(--amber);margin-bottom:4px;">₹99L</div>
-      <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px;">Three companies. Twenty years. No guarantees.</div>
+      <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px;">Three companies. Eleven years. No guarantees.</div>
       <div style="display:flex;gap:8px;">
         <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-a);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Aakash Infra</div><div style="font-size:10px;color:var(--text-hint);">Infrastructure</div></div>
         <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-b);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Bharat Ventures</div><div style="font-size:10px;color:var(--text-hint);">New-age tech</div></div>
@@ -1111,11 +1283,11 @@
       <div style="display:flex;gap:10px;padding:6px 0;border-bottom:0.5px solid var(--border);font-size:0.82rem;"><span style="font-family:'DM Mono',monospace;font-size:0.94rem;font-weight:600;color:var(--amber);width:28px;flex-shrink:0;">₹9L</span><span style="color:var(--text-muted);line-height:1.55;">to invest each year, split across three companies</span></div>
       <div style="display:flex;gap:10px;padding:6px 0;border-bottom:0.5px solid var(--border);font-size:0.82rem;"><span style="font-family:'DM Mono',monospace;font-size:0.94rem;font-weight:600;color:var(--amber);width:28px;flex-shrink:0;">↑↓</span><span style="color:var(--text-muted);line-height:1.55;">each company returns based on how the year went</span></div>
       <div style="display:flex;gap:10px;padding:6px 0;border-bottom:0.5px solid var(--border);font-size:0.82rem;"><span style="font-family:'DM Mono',monospace;font-size:0.94rem;font-weight:600;color:var(--amber);width:28px;flex-shrink:0;">👁</span><span style="color:var(--text-muted);line-height:1.55;">watch returns, learn the pattern — the market will shift</span></div>
-      <div style="display:flex;gap:10px;padding:6px 0;font-size:0.82rem;"><span style="font-family:'DM Mono',monospace;font-size:0.94rem;font-weight:600;color:var(--amber);width:28px;flex-shrink:0;">20</span><span style="color:var(--text-muted);line-height:1.55;">years. cumulative P&amp;L tells the real story</span></div>
+      <div style="display:flex;gap:10px;padding:6px 0;font-size:0.82rem;"><span style="font-family:'DM Mono',monospace;font-size:0.94rem;font-weight:600;color:var(--amber);width:28px;flex-shrink:0;">11</span><span style="color:var(--text-muted);line-height:1.55;">years. cumulative P&amp;L tells the real story</span></div>
     </div>
     <div class="stat-grid stat-grid-3" style="margin-bottom:1.5rem;">
       <div class="stat-cell"><div class="stat-val">₹99L</div><div class="stat-lbl">Fund size</div></div>
-      <div class="stat-cell"><div class="stat-val">20</div><div class="stat-lbl">Years</div></div>
+      <div class="stat-cell"><div class="stat-val">11</div><div class="stat-lbl">Years</div></div>
       <div class="stat-cell"><div class="stat-val">₹9L</div><div class="stat-lbl">Per year</div></div>
     </div>
     <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startBazaar()">Start investing →</button>
@@ -1127,7 +1299,7 @@
   <!-- STICKY HEADER -->
   <div class="bz-header">
     <div class="bz-header-top">
-      <div class="bz-year-badge">Year <span id="bz-hdr-year">1</span> of 20</div>
+      <div class="bz-year-badge">Year <span id="bz-hdr-year">1</span> of 11</div>
       <div class="bz-fund-tag">₹99L fund · ₹9L / year</div>
     </div>
     <div class="bz-pnl-strip">
@@ -1172,13 +1344,10 @@
 <!-- BAZAAR B5 (internal, before results) -->
 <div id="screen-bazaar-b5" class="screen">
   <div class="game-canvas" style="padding-top:2rem;">
-    <div class="pill" style="margin-bottom:1.25rem;">One moment</div>
-    <h2 style="font-size:1.25rem;font-weight:600;margin-bottom:8px;">Before we show you the results</h2>
-    <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:2rem;line-height:1.75;">Two questions. First instinct counts.</p>
-    <div id="bz-b5-container"></div>
-    <div id="bz-b5-submit" style="display:none;">
-      <button class="btn btn-primary btn-full" onclick="bzComputeAndShow()">See your investment profile →</button>
-    </div>
+    <span class="pill" id="bz-b5-pill" style="margin-bottom:1.25rem;display:inline-block;">After Bazaar · 1 of 2</span>
+    <p class="b5-q" id="bz-b5-question" style="margin-bottom:1.5rem;"></p>
+    <div id="bz-b5-options" style="display:flex;flex-direction:column;gap:8px;"></div>
+    <p style="font-size:0.76rem;color:var(--text-hint);margin-top:1rem;">No right answers. First instinct counts.</p>
   </div>
 </div>
 
@@ -1186,7 +1355,7 @@
 <div id="screen-bazaar-results" class="screen">
   <div class="game-canvas result-canvas">
     <div class="result-moment">
-      <div class="result-game-badge">Game 5 · Bazaar</div>
+      <div class="result-game-badge">Game 6 · Bazaar</div>
       <div id="bz-r-emoji" class="result-big-emoji">📊</div>
       <p id="bz-r-witty" class="result-witty">—</p>
     </div>
@@ -1252,14 +1421,10 @@
 <!-- MAZDOOR B5 (internal, before results) -->
 <div id="screen-mazdoor-b5" class="screen">
   <div class="game-canvas" style="padding-top:2rem;">
-    <div class="pill" style="margin-bottom:1.25rem;">One moment</div>
-    <h2 style="font-size:1.25rem;font-weight:600;margin-bottom:8px;">Before we show your profile</h2>
-    <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:2rem;line-height:1.75;">Two questions. No right answers. First instinct.</p>
-    <div id="mz-b5-container"></div>
-    <div id="mz-b5-submit-wrap" style="display:none;">
-      <button class="btn btn-primary btn-full" onclick="mzSubmitB5()">See your work persona →</button>
-    </div>
-    <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;margin-top:10px;">Answer both to continue</p>
+    <span class="pill" id="mz-b5-pill" style="margin-bottom:1.25rem;display:inline-block;">After Mazdoor · 1 of 2</span>
+    <p class="b5-q" id="mz-b5-question" style="margin-bottom:1.5rem;"></p>
+    <div id="mz-b5-options" style="display:flex;flex-direction:column;gap:8px;"></div>
+    <p style="font-size:0.76rem;color:var(--text-hint);margin-top:1rem;">No right answers. First instinct.</p>
   </div>
 </div>
 
@@ -1267,7 +1432,7 @@
 <div id="screen-mazdoor-results" class="screen">
   <div class="game-canvas result-canvas">
     <div class="result-moment">
-      <div class="result-game-badge">Game 6 · Corporate Mazdoor</div>
+      <div class="result-game-badge">Game 7 · Corporate Mazdoor</div>
       <div id="mz-r-witty-emoji" class="result-big-emoji">💼</div>
       <p id="mz-r-witty" class="result-witty">—</p>
     </div>
@@ -1411,6 +1576,7 @@ const SCREENS = ['landing','auth','dashboard','dum-intro','dum-play','dum-result
   'rang-intro','rang-game','rang-results',
   'ruk-intro','ruk-game','ruk-results',
   'saudaa-intro','ps-game','ps-results',
+  'mol-bhav-intro','mol-bhav-game','mol-bhav-results',
   'bazaar-intro','bazaar-game','bazaar-b5','bazaar-results',
   'mazdoor-intro','mazdoor-game','mazdoor-b5','mazdoor-results',
   'b5','report'];
@@ -1433,6 +1599,7 @@ function updateNav(id) {
     'rang-intro','rang-game','rang-results',
     'ruk-intro','ruk-game','ruk-results',
     'saudaa-intro','ps-game','ps-results',
+    'mol-bhav-intro','mol-bhav-game','mol-bhav-results',
     'bazaar-intro','bazaar-game','bazaar-b5','bazaar-results',
     'mazdoor-intro','mazdoor-game','mazdoor-b5','mazdoor-results',
     'b5','report'];
@@ -1545,6 +1712,7 @@ const GAME_DEFS = [
   { code:'FER',         name:'Rang',             emoji:'🎨', desc:'Attention · Cognitive control',   screen:'rang-intro',    scoreField:'stroopScore', scoreLabel: s => `${s.label} · Score ${s.stroopScore||'—'}` },
   { code:'GNG',         name:'Ruk',              emoji:'⚡', desc:'Impulse control · Focus',          screen:'ruk-intro',     scoreField:'gngScore',    scoreLabel: s => `${s.label} · Score ${s.gngScore}` },
   { code:'PROB_SAUDA',  name:'Saudaa',           emoji:'⚖️', desc:'Risk · Framing · Fairness',        screen:'saudaa-intro',  scoreField:'label',       scoreLabel: s => `${s.label||'—'}` },
+  { code:'MOL_BHAV',    name:'Mol Bhav',         emoji:'🤝', desc:'Negotiation · Trust · Pressure',    screen:'mol-bhav-intro',scoreField:'label',       scoreLabel: s => `${s.label||'—'}` },
   { code:'BAZAAR',      name:'Bazaar',           emoji:'📊', desc:'Exploration · Adaptation',         screen:'bazaar-intro',  scoreField:'label',       scoreLabel: s => `${s.label} · ${s.netPnL>=0?'+':''}₹${s.netPnL||0}L` },
   { code:'CORP_MAZDOOR',name:'Corporate Mazdoor',emoji:'💼', desc:'Values · Direction',               screen:'mazdoor-intro', scoreField:'label',       scoreLabel: s => `${s.label}` },
 ];
@@ -1556,12 +1724,12 @@ function enterDashboard() {
   const doneCodes = new Set(scores.map(s => s.game));
   const count = doneCodes.size;
 
-  document.getElementById('prog-txt').textContent = `${count} / 6 games`;
-  document.getElementById('prog-fill').style.width = (count/6*100)+'%';
+  document.getElementById('prog-txt').textContent = `${count} / 7 games`;
+  document.getElementById('prog-fill').style.width = (count/7*100)+'%';
 
   // Show profile button once all done
   const profileBtnWrap = document.getElementById('dash-profile-btn-wrap');
-  if(profileBtnWrap) profileBtnWrap.style.display = count >= 6 ? 'block' : 'none';
+  if(profileBtnWrap) profileBtnWrap.style.display = count >= 7 ? 'block' : 'none';
 
   // Render game grid — find first undone game
   const firstUndoneIdx = GAME_DEFS.findIndex(g => !doneCodes.has(g.code));
@@ -1630,7 +1798,7 @@ function renderDashSynthesis(scores) {
 // ═══════════════════════════════════════════════════════════
 // TEASER + B5 FLOW
 // ═══════════════════════════════════════════════════════════
-const GAME_ICONS = { BART:'🎈', FER:'🎨', GNG:'⚡', PROB_SAUDA:'⚖️', BAZAAR:'📊', CORP_MAZDOOR:'💼' };
+const GAME_ICONS = { BART:'🎈', FER:'🎨', GNG:'⚡', PROB_SAUDA:'⚖️', MOL_BHAV:'🤝', BAZAAR:'📊', CORP_MAZDOOR:'💼' };
 
 let currentTeaserGame = null;
 
@@ -1722,6 +1890,26 @@ const B5_QUESTIONS = {
         {label:'Correct the record right there.', val:'high'},
         {label:'Bring it up with them privately afterward.', val:'mid'},
         {label:'Let it go — confrontation usually makes things worse.', val:'low'},
+      ]
+    }
+  ],
+  MOL_BHAV: [
+    {
+      pill:'After Mol Bhav · 1 of 2', dim:'negotiation_self',
+      q:'How comfortable are you asking for more money, openly and directly?',
+      opts:[
+        {label:'Very. I know what I\'m worth and I say it clearly.', val:'high'},
+        {label:'Depends on the context and how much I need the outcome.', val:'mid'},
+        {label:'Uncomfortable. It feels like I\'m putting myself at risk.', val:'low'},
+      ]
+    },
+    {
+      pill:'After Mol Bhav · 2 of 2', dim:'negotiation_pressure',
+      q:'When the other person stops moving — what\'s your instinct?',
+      opts:[
+        {label:'Push once more or walk. Their limit is information.', val:'high'},
+        {label:'Try once more, then accept where we land.', val:'mid'},
+        {label:'Settle. I\'d rather close than keep the pressure up.', val:'low'},
       ]
     }
   ],
@@ -2773,7 +2961,7 @@ function bzGetRoundNarrative(returns, alloc, history, round) {
   } else if (totalNet < -3) {
     verdict = 'Tough year — down ₹' + Math.abs(totalNet).toFixed(1) + 'L. Not every round will go this way.';
   } else if (totalNet < -0.5) {
-    verdict = 'Down ₹' + Math.abs(totalNet).toFixed(1) + 'L. These happen — the 20-round picture matters more.';
+    verdict = 'Down ₹' + Math.abs(totalNet).toFixed(1) + 'L. These happen — the 11-year picture matters more.';
   } else {
     verdict = 'Near flat — ₹' + Math.abs(totalNet).toFixed(2) + 'L ' + (totalNet >= 0 ? 'up' : 'down') + '.';
   }
@@ -2815,22 +3003,42 @@ const BZ_B5_QS = [
    options:[{text:"I pick it up early and move fast — adapting is where I'm comfortable.",val:0.88},{text:"I wait to confirm the shift is real before changing what's been working.",val:0.52},{text:'Slowly. I need to be very sure before I walk away from a proven strategy.',val:0.18}]}
 ];
 
+let bzB5QIdx = 0;
+
 function bzRenderB5() {
-  document.getElementById('bz-b5-container').innerHTML=BZ_B5_QS.map((q,qi)=>`
-    <div style="margin-bottom:2rem;">
-      <p style="font-size:1.05rem;font-weight:500;line-height:1.55;margin-bottom:14px;">${q.text}</p>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        ${q.options.map((o,oi)=>`<button class="b5-opt" id="bz-b5-${qi}-${oi}" onclick="bzSelectB5(${qi},'${q.key}',${oi})">${o.text}</button>`).join('')}
-      </div>
-    </div>`).join('');
-  document.getElementById('bz-b5-submit').style.display='none';
+  bzB5QIdx = 0;
+  bzB5Answers = {};
+  _bzShowB5Q(0);
+}
+
+function _bzShowB5Q(qi) {
+  const q = BZ_B5_QS[qi];
+  document.getElementById('bz-b5-pill').textContent = `After Bazaar · ${qi+1} of ${BZ_B5_QS.length}`;
+  const qEl = document.getElementById('bz-b5-question');
+  qEl.style.opacity = '0';
+  setTimeout(() => { qEl.textContent = q.text; qEl.style.opacity = '1'; qEl.style.transition = 'opacity 0.18s'; }, 100);
+  document.getElementById('bz-b5-options').innerHTML = q.options.map((o,oi) =>
+    `<button class="b5-opt" id="bz-b5-${qi}-${oi}" onclick="bzSelectB5(${qi},'${q.key}',${oi})">${o.text}</button>`
+  ).join('');
 }
 
 function bzSelectB5(qi, key, oi) {
-  BZ_B5_QS[qi].options.forEach((_,i)=>document.getElementById(`bz-b5-${qi}-${i}`)?.classList.remove('selected'));
+  // Highlight + lock
+  BZ_B5_QS[qi].options.forEach((_,i) => {
+    const el = document.getElementById(`bz-b5-${qi}-${i}`);
+    if(el) { el.classList.remove('selected'); el.disabled = true; }
+  });
   document.getElementById(`bz-b5-${qi}-${oi}`)?.classList.add('selected');
-  bzB5Answers[key]=BZ_B5_QS[qi].options[oi].val;
-  if(Object.keys(bzB5Answers).length>=BZ_B5_QS.length) document.getElementById('bz-b5-submit').style.display='block';
+  bzB5Answers[key] = BZ_B5_QS[qi].options[oi].val;
+  // Advance after highlight beat
+  setTimeout(() => {
+    bzB5QIdx++;
+    if(bzB5QIdx < BZ_B5_QS.length) {
+      _bzShowB5Q(bzB5QIdx);
+    } else {
+      bzComputeAndShow();
+    }
+  }, 440);
 }
 
 function bzComputeDimensions() {
@@ -3038,18 +3246,44 @@ const MZ_B5_QS=[
   {key:'b5_v4',text:"A colleague you've always found competitive praises your work in front of leadership. What's your first reaction?",options:[{text:"Pleased — but I'd want to understand the angle",scores:{self:1,prestige:1}},{text:'Genuinely glad — recognition is recognition regardless of who gives it',scores:{authenticity:1,others:1}},{text:'Mildly suspicious of the motive',scores:{self:2}},{text:"Satisfied — it's good that leadership noticed",scores:{prestige:2}},{text:"Indifferent, honestly — the work matters more than who praised it",scores:{authenticity:2,meaning:1}}]}
 ];
 
+let mzB5QIdx = 0;
+
 function mzRenderB5() {
-  document.getElementById('mz-b5-container').innerHTML=MZ_B5_QS.map((q,qi)=>`<div style="margin-bottom:2rem;"><p class="b5-q">${q.text}</p><div>${q.options.map((o,oi)=>`<button class="b5-opt" id="mz-b5-${qi}-${oi}" onclick="mzSelectB5(${qi},'${q.key}',${oi})">${o.text}</button>`).join('')}</div></div>`).join('');
-  document.getElementById('mz-b5-submit-wrap').style.display='none';
+  mzB5QIdx = 0;
+  mzB5Answers = {};
+  _mzShowB5Q(0);
+}
+
+function _mzShowB5Q(qi) {
+  const q = MZ_B5_QS[qi];
+  document.getElementById('mz-b5-pill').textContent = `After Mazdoor · ${qi+1} of ${MZ_B5_QS.length}`;
+  const qEl = document.getElementById('mz-b5-question');
+  qEl.style.opacity = '0';
+  setTimeout(() => { qEl.textContent = q.text; qEl.style.opacity = '1'; qEl.style.transition = 'opacity 0.18s'; }, 100);
+  document.getElementById('mz-b5-options').innerHTML = q.options.map((o,oi) =>
+    `<button class="b5-opt" id="mz-b5-${qi}-${oi}" onclick="mzSelectB5(${qi},'${q.key}',${oi})">${o.text}</button>`
+  ).join('');
 }
 
 function mzSelectB5(qi, key, oi) {
-  const q=MZ_B5_QS[qi];
-  q.options.forEach((_,i)=>document.getElementById(`mz-b5-${qi}-${i}`)?.classList.remove('selected'));
+  const q = MZ_B5_QS[qi];
+  // Highlight + lock
+  q.options.forEach((_,i) => {
+    const el = document.getElementById(`mz-b5-${qi}-${i}`);
+    if(el) { el.classList.remove('selected'); el.disabled = true; }
+  });
   document.getElementById(`mz-b5-${qi}-${oi}`)?.classList.add('selected');
-  mzB5Answers[key]={optionIdx:oi,scores:q.options[oi].scores};
+  mzB5Answers[key] = {optionIdx:oi, scores:q.options[oi].scores};
   if(q.options[oi].scores) Object.entries(q.options[oi].scores).forEach(([k,v])=>{mzScores[k]=(mzScores[k]||0)+v;});
-  if(Object.keys(mzB5Answers).length>=MZ_B5_QS.length) document.getElementById('mz-b5-submit-wrap').style.display='block';
+  // Advance after highlight beat
+  setTimeout(() => {
+    mzB5QIdx++;
+    if(mzB5QIdx < MZ_B5_QS.length) {
+      _mzShowB5Q(mzB5QIdx);
+    } else {
+      mzComputeAndShow();
+    }
+  }, 440);
 }
 
 function mzSubmitB5() { mzComputeAndShow(); }
@@ -3105,10 +3339,445 @@ function stubSkipGame(gameCode) {
     FER:        { game:'FER',        stroopScore:62, label:'The Focused One', interference:85, conflict_accuracy:0.78, error_recovery:0.80 },
     GNG:        { game:'GNG',        gngScore:70,    label:'The Steady One',  behaviorVector:{ inhibition:0.72, false_alarm_rate:0.12, block4_accuracy:0.68 } },
     PROB_SAUDA: { game:'PROB_SAUDA', label:'The Rational Optimizer', behaviorVector:{ ev_alignment:0.70, unfair_reject_rate:0.60, emotional_override:0.40 } },
+    MOL_BHAV:   { game:'MOL_BHAV',   label:'The Safe Settler',       behaviorVector:{ anchor_aggression:0.40, concession_rate:0.52, pressure_fold:0, rejection_fold:0, limit_awareness:0.75, value_captured:0.45, context_consistency:0.60 } },
   };
   const stub = stubs[gameCode];
   if(stub) { stub.date = new Date().toISOString(); saveScore(stub); }
   goToTeaser(gameCode);
+}
+
+
+// ═══════════════════════════════════════════════════════════
+// MOL BHAV — 3-STORYLINE NEGOTIATION GAME
+// ═══════════════════════════════════════════════════════════
+
+/* Format helpers (Mol Bhav-specific) */
+function fmtR(v, step) { const s = Math.round(v / step) * step; return '₹' + s.toLocaleString('en-IN'); }
+function snapR(v, step) { return Math.round(v / step) * step; }
+function fmtVal_mb(v, sl) { return sl.format === 'lakhs' ? fmtL(v) : fmtR(v, sl.step); }
+function snapVal_mb(v, sl) { return sl.format === 'lakhs' ? snapHalf(v) : snapR(v, sl.step); }
+
+function mbShowActionArea(which) {
+  ['choose','stepper','bot-walkaway','between'].forEach(w => {
+    const el = document.getElementById('mb-action-' + w);
+    if(el) el.style.display = (w === which) ? 'flex' : 'none';
+  });
+}
+
+/* ── STORYLINE DEFINITIONS ── */
+const STORYLINE_DEFS = [
+  {
+    id:'job', label:'Job Offer', emoji:'💼',
+    offerLabel:'Current offer on the table',
+    intro:"You just got a job offer. The number isn't final.",
+    reversed:false, format:'lakhs', step:0.5,
+    walkawayRatio:1.35,
+    walkawayLines:["I'm sensing this might not be the right fit. We may need to move forward with other candidates.","We have a deadline here — if the range isn't working, we may need to look elsewhere."],
+    walkawayAcceptDialogue:"Glad we're still talking. Let me see what I can do.",
+    counterLabel:'Your counter offer', acceptLabel:'✓ Accept offer', counterBtnLabel:'Counter ↑', walkLabel:'Walk away',
+    variants:[
+      { id:'startup', pill:'🚀 Startup', role:'Product Manager — Bengaluru', recruiterName:'Karan M.', avatar:'K',
+        offerMin:8, offerMax:10, ceilMin:13, ceilMax:15, offerSub:'CTC + ESOPs',
+        dialogue:{
+          opening:     o => `We're excited. We can offer ${fmtL(o)} — includes ESOPs and real upside as we scale.`,
+          concede_small: o => pick([`There's some room — how does ${fmtL(o)} sound?`,`I hear you. We can stretch to ${fmtL(o)}.`,`Alright — ${fmtL(o)}. I'm making a case for you.`]),
+          concede_big:   o => pick([`You drive a hard bargain. Both founders agreed — ${fmtL(o)} is on the table.`,`I pushed hard. Given your profile, we can do ${fmtL(o)}.`]),
+          stall:         o => pick([`${fmtL(o)} is genuinely the ceiling. The equity upside is the real story.`,`${fmtL(o)} is all I've been authorised — I've already gone beyond my mandate.`]),
+          accept:        ()=> `Welcome aboard! Offer letter by tomorrow.`,
+          walkaway:      ()=> `That's a shame. You were our top pick. If anything changes, reach out.`,
+          forced_close:  o => `We're against a deadline. ${fmtL(o)} is our standing offer — your call.`,
+        }
+      },
+      { id:'mnc', pill:'🏢 MNC', role:'Senior Analyst — Mumbai', recruiterName:'Priya S.', avatar:'P',
+        offerMin:12, offerMax:15, ceilMin:18, ceilMax:21, offerSub:'CTC per annum',
+        dialogue:{
+          opening:     o => `Based on your profile, our initial offer is ${fmtL(o)} CTC. Fixed, variable, and full benefits.`,
+          concede_small: o => pick([`HR has flexibility. We can revise to ${fmtL(o)}.`,`After discussion, ${fmtL(o)} can work.`]),
+          concede_big:   o => pick([`I escalated your case. We're prepared to go to ${fmtL(o)} — it's an exception.`,`The HRBP has signed off on ${fmtL(o)}.`]),
+          stall:         o => pick([`I've gone back twice. ${fmtL(o)} is the cap for this band.`,`${fmtL(o)} is where we've maxed out.`]),
+          accept:        ()=> `Excellent. Formal offer within 24 hours. Welcome.`,
+          walkaway:      ()=> `Unfortunate. We rated you very highly. Best of luck.`,
+          forced_close:  o => `We need to close by end of week. Our offer stands at ${fmtL(o)}.`,
+        }
+      },
+    ]
+  },
+  {
+    id:'client', label:'Client Contract', emoji:'🤝',
+    offerLabel:'Their budget on the table',
+    intro:"A client wants your work. They've made an offer. You want more.",
+    reversed:false, format:'lakhs', step:0.5,
+    walkawayRatio:1.40,
+    walkawayLines:["We may need to explore other vendors if this range doesn't work.","If we can't get close to our budget, we'll need to look elsewhere."],
+    walkawayAcceptDialogue:"Good to know. Let's see if we can find a middle ground.",
+    counterLabel:'Your rate', acceptLabel:'✓ Accept this budget', counterBtnLabel:'Negotiate up ↑', walkLabel:'Pass on this',
+    variants:[
+      { id:'design', pill:'🎨 Creative Brief', role:'Brand Identity — 6-week project', recruiterName:'Meera A.', avatar:'M',
+        offerMin:0.8, offerMax:1.2, ceilMin:2.0, ceilMax:2.5, offerSub:'total project fee',
+        dialogue:{
+          opening:     o => `We love your portfolio. Thinking ${fmtL(o)} for the full identity system.`,
+          concede_small: o => pick([`There's a small buffer — ${fmtL(o)} could work.`,`We can stretch to ${fmtL(o)} if that helps.`]),
+          concede_big:   o => pick([`Founders approved ${fmtL(o)} for the right person.`,`We've reshuffled some budget. ${fmtL(o)} if we start this week.`]),
+          stall:         o => pick([`${fmtL(o)} is genuinely the ceiling on this brief.`,`${fmtL(o)} is the number. I've already gone back once.`]),
+          accept:        ()=> `Perfect. Brief and paperwork today.`,
+          walkaway:      ()=> `Understood. If your availability changes, we'd love to revisit.`,
+          forced_close:  o => `We need to confirm this week. Budget is ${fmtL(o)} — yes?`,
+        }
+      },
+      { id:'tech', pill:'💻 Tech Build', role:'Full-stack Web App — 3-month build', recruiterName:'Rohit T.', avatar:'R',
+        offerMin:1.2, offerMax:1.8, ceilMin:2.5, ceilMax:3.2, offerSub:'per month · 3-month contract',
+        dialogue:{
+          opening:     o => `We've scoped this out — ${fmtL(o)}/month for three months.`,
+          concede_small: o => pick([`Spoke with the CTO. We can go to ${fmtL(o)}/month.`,`There's room — ${fmtL(o)} workable?`]),
+          concede_big:   o => pick([`We want the best. ${fmtL(o)}/month — that's our stretch.`,`Board approved ${fmtL(o)}. That's the ceiling.`]),
+          stall:         o => pick([`${fmtL(o)} is the most we can do for this scope.`,`${fmtL(o)}/month and paperwork today. That's where we are.`]),
+          accept:        ()=> `Great. Contracts by EOD. Really looking forward to it.`,
+          walkaway:      ()=> `Alright. If we revisit scope later I'll reach out.`,
+          forced_close:  o => `Starting onboarding next week. Is ${fmtL(o)} a yes?`,
+        }
+      },
+    ]
+  },
+  {
+    id:'market', label:'At the Market', emoji:'🛍️',
+    offerLabel:'Asking price',
+    intro:"You see something you want. The price isn't fixed.",
+    reversed:true, format:'rupees', step:50,
+    walkawayRatio:0.52,
+    walkawayLines:["I have another buyer at this price. Are you taking it or not?","Bhai, this low I can't go. Someone else is coming soon."],
+    walkawayAcceptDialogue:"Okay theek hai. Let's talk then.",
+    counterLabel:'Your offer', acceptLabel:'✓ Take it at this price', counterBtnLabel:'Make an offer ↓', walkLabel:"I'll pass",
+    variants:[
+      { id:'jacket', pill:'🧥 Clothes Market', role:'Denim jacket — negotiating price', recruiterName:'Venkat (Seller)', avatar:'V',
+        offerMin:2200, offerMax:2800, ceilMin:1000, ceilMax:1400, offerSub:'asking price',
+        dialogue:{
+          opening:     o => `This one is good quality sir, full cotton lining inside. ${fmtR(o,50)} only.`,
+          concede_small: o => pick([`Okay, for you — ${fmtR(o,50)}. Good price.`,`Last customer paid more. But okay — ${fmtR(o,50)}.`]),
+          concede_big:   o => pick([`You are strong negotiator sir! ${fmtR(o,50)} final.`,`Okay okay — ${fmtR(o,50)} because you seem like a regular customer type.`]),
+          stall:         o => pick([`${fmtR(o,50)} is already my last price. Below this I am at loss.`,`This price I cannot reduce. ${fmtR(o,50)} is final sir.`]),
+          accept:        ()=> `Done! Good choice. You want a carry bag?`,
+          walkaway:      ()=> `No problem, but you will not get this quality for that price anywhere.`,
+          forced_close:  o => `Two people are asking for this same piece. ${fmtR(o,50)} — last chance.`,
+        }
+      },
+      { id:'earphones', pill:'🎧 Second-hand Market', role:'Wireless earphones — barely used', recruiterName:'Gaurav (Seller)', avatar:'G',
+        offerMin:3500, offerMax:4500, ceilMin:2000, ceilMax:2800, offerSub:'asking price',
+        dialogue:{
+          opening:     o => `These are barely 3 months old. Asking ${fmtR(o,100)}.`,
+          concede_small: o => pick([`Alright, ${fmtR(o,100)}. Genuinely worth double.`,`${fmtR(o,100)} since you're here in person.`]),
+          concede_big:   o => pick([`${fmtR(o,100)} and I'll throw in the case.`,`${fmtR(o,100)} because I need the cash today.`]),
+          stall:         o => pick([`${fmtR(o,100)} is as low as I go. I'd rather keep them.`,`Below ${fmtR(o,100)} I'm better off on OLX.`]),
+          accept:        ()=> `Deal! I'll share the warranty card. Good buy.`,
+          walkaway:      ()=> `Up to you. OLX listing goes back up tonight.`,
+          forced_close:  o => `The other guy is coming in an hour. ${fmtR(o,100)} — yes or no?`,
+        }
+      },
+    ]
+  }
+];
+
+/* ── GAME STATE ── */
+let mbStorylineIdx    = 0;
+let mbStorylineVectors = [];
+let mbPickedVariants  = [];
+let mbS = {};
+
+/* ── INIT ── */
+function startMolBhav() {
+  mbStorylineIdx     = 0;
+  mbStorylineVectors = [];
+  mbPickedVariants   = STORYLINE_DEFS.map(sl => Math.floor(Math.random() * sl.variants.length));
+  mbInitStoryline(0);
+  showScreen('mol-bhav-game');
+}
+
+function mbInitStoryline(idx) {
+  mbStorylineIdx = idx;
+  const sl = STORYLINE_DEFS[idx];
+  const v  = sl.variants[mbPickedVariants[idx]];
+  const opening = snapVal_mb(v.offerMin + Math.random() * (v.offerMax - v.offerMin), sl);
+  const limit   = snapVal_mb(v.ceilMin  + Math.random() * (v.ceilMax  - v.ceilMin),  sl);
+  mbS = {
+    sl, v, aiOpening:opening, aiCurrent:opening, limit,
+    exchangeNum:1, maxExchanges:5,
+    stepperVal: sl.reversed
+      ? snapVal_mb(opening * 0.72, sl)
+      : snapVal_mb(opening + sl.step * 2, sl),
+    firstCounter:null, counterHistory:[], stalledAt:null, stalledCount:0,
+    pressureFold:0, walkedAway:false, botWalkawayTriggered:false,
+    rejectionFold:0, outcome:null, acceptedAt:null, acceptedExchange:null,
+  };
+  mbRenderStorylineHeader();
+  mbSetDialogue(v.dialogue.opening(opening));
+  mbSetOffer(opening);
+  mbUpdateActionLabels();
+  mbShowActionArea('choose');
+  mbUpdatePips();
+}
+
+/* ── UI HELPERS ── */
+function mbSetDialogue(text) {
+  const el = document.getElementById('mb-dialogue');
+  if(!el) return;
+  el.style.opacity='0';
+  setTimeout(()=>{ el.textContent=text; el.style.opacity='1'; },100);
+}
+function mbSetOffer(val) {
+  const el = document.getElementById('mb-offer-amount');
+  if(!el) return;
+  el.style.opacity='0';
+  setTimeout(()=>{ el.textContent=fmtVal_mb(val,mbS.sl); el.style.opacity='1'; },100);
+}
+function mbRefreshCounter() {
+  const el = document.getElementById('mb-exchange-counter');
+  if(el) el.textContent=`Round ${mbS.exchangeNum} of ${mbS.maxExchanges}`;
+}
+function mbRenderStorylineHeader() {
+  const {sl,v} = mbS;
+  const set = (id,val) => { const e=document.getElementById(id); if(e) e.textContent=val; };
+  set('mb-context-pill',   v.pill);
+  set('mb-role-line',      'Situation: ' + v.role);
+  set('mb-recruiter-name', v.recruiterName);
+  set('mb-avatar',         v.avatar);
+  set('mb-offer-label',    sl.offerLabel);
+  set('mb-offer-sub',      v.offerSub);
+  mbRefreshCounter();
+}
+function mbUpdateActionLabels() {
+  const {sl} = mbS;
+  const set = (id,val) => { const e=document.getElementById(id); if(e) e.textContent=val; };
+  set('mb-accept-btn',    sl.acceptLabel);
+  set('mb-counter-btn',   sl.counterBtnLabel);
+  set('mb-walk-btn',      sl.walkLabel);
+  set('mb-stepper-label', sl.counterLabel);
+}
+function mbUpdatePips() {
+  for(let i=0;i<3;i++) {
+    const pip = document.getElementById('mb-pip-'+i);
+    if(!pip) continue;
+    pip.className = 'mb-progress-pip' + (i<mbStorylineIdx?' done':i===mbStorylineIdx?' active':'');
+  }
+}
+function mbUpdateStepperUI() {
+  const {sl,aiCurrent,limit,stepperVal} = mbS;
+  const step=sl.step;
+  let minVal,maxVal;
+  if(sl.reversed){
+    minVal=snapVal_mb(limit*0.4,sl); maxVal=snapVal_mb(aiCurrent-step,sl);
+    if(maxVal<minVal) maxVal=minVal;
+  } else {
+    minVal=snapVal_mb(aiCurrent+step,sl); maxVal=snapVal_mb(limit*1.8,sl);
+  }
+  const sv = document.getElementById('mb-step-val');
+  if(sv) sv.textContent=fmtVal_mb(stepperVal,sl);
+  const bm=document.getElementById('mb-btn-minus'), bp=document.getElementById('mb-btn-plus');
+  if(bm) bm.disabled=stepperVal<=minVal;
+  if(bp) bp.disabled=stepperVal>=maxVal;
+}
+
+/* ── BOT LOGIC ── */
+function mbGetBotResponse(userCounter) {
+  const {sl,aiCurrent,limit} = mbS;
+  const reversed=sl.reversed, step=sl.step;
+  if(reversed){
+    if(aiCurrent<=limit||userCounter<limit){
+      mbS.stalledCount++; if(mbS.stalledAt===null) mbS.stalledAt=mbS.exchangeNum;
+      return {newOffer:Math.max(aiCurrent,limit),type:'stall'};
+    }
+    const pct=(aiCurrent-userCounter)/aiCurrent;
+    const concession=snapR(step*(pct>0.35?(3+Math.floor(Math.random()*3)):(1+Math.floor(Math.random()*2))),step);
+    const type=pct>0.35?'concede_big':'concede_small';
+    return {newOffer:Math.max(snapR(aiCurrent-concession,step),limit),type};
+  } else {
+    if(aiCurrent>=limit||userCounter>limit){
+      mbS.stalledCount++; if(mbS.stalledAt===null) mbS.stalledAt=mbS.exchangeNum;
+      return {newOffer:limit,type:'stall'};
+    }
+    const pct=(userCounter-aiCurrent)/aiCurrent;
+    const concession=snapHalf(pct>0.4?(1.0+Math.random()*1.0):(0.5+Math.random()*0.5));
+    const type=pct>0.4?'concede_big':'concede_small';
+    return {newOffer:Math.min(snapHalf(aiCurrent+concession),limit),type};
+  }
+}
+
+function mbCheckBotWalkaway(userCounter) {
+  if(mbS.botWalkawayTriggered||mbS.stalledCount<1) return false;
+  const {sl,limit} = mbS;
+  const over = sl.reversed ? userCounter<limit*sl.walkawayRatio : userCounter>limit*sl.walkawayRatio;
+  return over && Math.random()<0.45;
+}
+function mbTriggerBotWalkaway() {
+  mbS.botWalkawayTriggered=true;
+  const line=pick(mbS.sl.walkawayLines);
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set('mb-walkaway-title', mbS.sl.reversed?'Seller is calling your bluff':'They may be walking');
+  set('mb-walkaway-line',  line);
+  mbSetDialogue(line);
+  mbShowActionArea('bot-walkaway');
+}
+function mbOnBotWalkawayResponse(response) {
+  if(response==='stay'){ mbS.rejectionFold=1; mbAcceptAtCurrent(); }
+  else { mbS.walkedAway=true; mbS.outcome='walkaway_bot'; mbSetDialogue(mbS.v.dialogue.walkaway()); mbEndStorylineWithOutcome('🚶','Walked when pressured',"You didn't fold when they threatened to leave."); }
+}
+
+/* ── PLAYER ACTIONS ── */
+function mbOnAccept()   { mbAcceptAtCurrent(); }
+function mbOnWalkAway() {
+  mbS.walkedAway=true; mbS.outcome='walkaway';
+  mbSetDialogue(mbS.v.dialogue.walkaway());
+  const rightCall=mbS.stalledCount>0;
+  mbEndStorylineWithOutcome('🚶','Walked away',rightCall?'Good read — they had hit their limit.':'There may have been more room left.');
+}
+function mbAcceptAtCurrent() {
+  mbS.acceptedAt=mbS.aiCurrent; mbS.acceptedExchange=mbS.exchangeNum; mbS.outcome=mbS.outcome||'accept';
+  if(mbS.stalledAt!==null&&mbS.exchangeNum<=mbS.stalledAt+1) mbS.pressureFold=1;
+  mbSetDialogue(mbS.v.dialogue.accept());
+  const gained=mbS.sl.reversed?mbS.aiOpening-mbS.acceptedAt:mbS.acceptedAt-mbS.aiOpening;
+  const gainedFmt=fmtVal_mb(Math.abs(gained),mbS.sl);
+  const title=mbS.sl.reversed?(gained>0?`Settled at ${fmtVal_mb(mbS.acceptedAt,mbS.sl)}`:'Paid asking price'):(gained>0?`Accepted at ${fmtVal_mb(mbS.acceptedAt,mbS.sl)}`:'Took the opening offer');
+  const line=gained>0?(mbS.sl.reversed?`Drove the price down by ${gainedFmt}.`:`Moved the number up by ${gainedFmt}.`):(mbS.sl.reversed?'No movement on the price.':'No movement from the opening.');
+  mbEndStorylineWithOutcome('✅',title,line);
+}
+function mbShowStepper() {
+  const {sl,aiCurrent,limit} = mbS; const step=sl.step;
+  if(sl.reversed){
+    const maxVal=snapVal_mb(aiCurrent-step,sl);
+    if(mbS.stepperVal>=aiCurrent) mbS.stepperVal=snapVal_mb(aiCurrent*0.75,sl);
+    if(mbS.stepperVal>maxVal) mbS.stepperVal=maxVal;
+  } else {
+    if(mbS.stepperVal<=aiCurrent) mbS.stepperVal=snapVal_mb(aiCurrent+step*2,sl);
+  }
+  mbUpdateStepperUI(); mbShowActionArea('stepper');
+}
+function mbCancelStepper() { mbShowActionArea('choose'); }
+function mbStepChange(dir) {
+  const {sl,aiCurrent,limit} = mbS; const step=sl.step;
+  if(sl.reversed){
+    const minVal=snapVal_mb(limit*0.4,sl), maxVal=snapVal_mb(aiCurrent-step,sl);
+    const next=sl.format==='lakhs'?snapHalf(mbS.stepperVal-dir*step):snapR(mbS.stepperVal-dir*step,step);
+    mbS.stepperVal=Math.max(minVal,Math.min(maxVal,next));
+  } else {
+    const minVal=snapVal_mb(aiCurrent+step,sl), maxVal=snapVal_mb(limit*1.8,sl);
+    const next=sl.format==='lakhs'?snapHalf(mbS.stepperVal+dir*step):snapR(mbS.stepperVal+dir*step,step);
+    mbS.stepperVal=Math.max(minVal,Math.min(maxVal,next));
+  }
+  mbUpdateStepperUI();
+}
+function mbSubmitCounter() {
+  const userCounter=mbS.stepperVal;
+  if(mbS.firstCounter===null) mbS.firstCounter=userCounter;
+  mbS.counterHistory.push(userCounter);
+  mbS.exchangeNum++;
+  if(mbS.exchangeNum>mbS.maxExchanges){
+    mbS.outcome='forced'; mbSetDialogue(mbS.v.dialogue.forced_close(mbS.aiCurrent));
+    mbEndStorylineWithOutcome('⏰',`Time ran out — ${fmtVal_mb(mbS.aiCurrent,mbS.sl)}`,'All 5 rounds used.');
+    return;
+  }
+  if(mbCheckBotWalkaway(userCounter)){ mbTriggerBotWalkaway(); return; }
+  const bot=mbGetBotResponse(userCounter);
+  mbS.aiCurrent=bot.newOffer;
+  const prev=mbS.counterHistory[mbS.counterHistory.length-1];
+  if(mbS.sl.reversed){ const mx=snapVal_mb(mbS.aiCurrent-mbS.sl.step,mbS.sl); mbS.stepperVal=Math.min(prev,mx); }
+  else               { const mn=snapVal_mb(mbS.aiCurrent+mbS.sl.step,mbS.sl); mbS.stepperVal=Math.max(prev,mn); }
+  mbRefreshCounter(); mbSetOffer(mbS.aiCurrent);
+  mbSetDialogue(mbS.v.dialogue[bot.type](bot.newOffer));
+  mbShowActionArea('choose');
+}
+
+/* ── STORYLINE TRANSITIONS ── */
+function mbEndStorylineWithOutcome(emoji,title,line) {
+  mbStorylineVectors.push(mbComputeStorylineVector());
+  const isLast=mbStorylineIdx===STORYLINE_DEFS.length-1;
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set('mb-done-emoji',emoji); set('mb-done-title',title); set('mb-done-line',line);
+  if(isLast){
+    set('mb-between-btn','See your profile →');
+    const nc=document.getElementById('mb-next-card'); if(nc) nc.style.display='none';
+  } else {
+    const next=STORYLINE_DEFS[mbStorylineIdx+1];
+    set('mb-between-btn',`Start situation ${mbStorylineIdx+2} →`);
+    const nc=document.getElementById('mb-next-card'); if(nc) nc.style.display='flex';
+    set('mb-next-emoji',next.emoji); set('mb-next-title','Next: '+next.label); set('mb-next-desc',next.intro);
+  }
+  mbShowActionArea('between');
+}
+function mbNextStoryline() {
+  if(mbStorylineIdx===STORYLINE_DEFS.length-1){ mbShowResults(); }
+  else { mbInitStoryline(mbStorylineIdx+1); }
+}
+
+/* ── VECTOR ── */
+function mbComputeStorylineVector() {
+  const {sl,aiOpening,limit,firstCounter,counterHistory,stalledAt,stalledCount,pressureFold,walkedAway,rejectionFold,outcome,acceptedAt} = mbS;
+  const rev=sl.reversed;
+  let rawAnchor=0;
+  if(firstCounter!==null) rawAnchor=rev?(aiOpening-firstCounter)/aiOpening:(firstCounter-aiOpening)/aiOpening;
+  const anchor_aggression=clamp01(rawAnchor/0.5);
+  let concession_rate=0;
+  if(counterHistory.length>=2){
+    const first=counterHistory[0],last=counterHistory[counterHistory.length-1];
+    const mv=rev?(last-first)/Math.max(aiOpening-first,sl.step):(first-last)/Math.max(first-aiOpening,sl.step);
+    concession_rate=clamp01(mv);
+  }
+  let limit_awareness=stalledCount>=3?0.0:stalledCount===2?0.35:stalledCount===1?0.75:1.0;
+  let value_captured=0;
+  if(acceptedAt!==null){const range=rev?aiOpening-limit:limit-aiOpening;const cap=rev?aiOpening-acceptedAt:acceptedAt-aiOpening;value_captured=range>0?clamp01(cap/range):0;}
+  return {storyline:sl.id,anchor_aggression:+anchor_aggression.toFixed(3),concession_rate:+concession_rate.toFixed(3),pressure_fold:pressureFold,rejection_fold:rejectionFold,limit_awareness:+limit_awareness.toFixed(2),value_captured:+value_captured.toFixed(3),outcome};
+}
+function mbComputeAggregateVector(vectors) {
+  if(!vectors.length) return {};
+  const avg=key=>vectors.reduce((s,v)=>s+(v[key]||0),0)/vectors.length;
+  const anchors=vectors.map(v=>v.anchor_aggression);
+  const mean=avg('anchor_aggression');
+  const sd=Math.sqrt(anchors.map(a=>(a-mean)**2).reduce((s,v)=>s+v,0)/anchors.length);
+  const context_consistency=clamp01(1-sd*3);
+  return {
+    anchor_aggression:+avg('anchor_aggression').toFixed(3),
+    concession_rate:  +avg('concession_rate').toFixed(3),
+    pressure_fold:    +avg('pressure_fold').toFixed(2),
+    rejection_fold:   +avg('rejection_fold').toFixed(2),
+    limit_awareness:  +avg('limit_awareness').toFixed(2),
+    value_captured:   +avg('value_captured').toFixed(3),
+    context_consistency:+context_consistency.toFixed(3),
+    per_storyline:    vectors,
+  };
+}
+
+/* ── COHORT + RESULTS ── */
+function mbAssignCohort(agg,vectors) {
+  const walked=vectors.filter(v=>v.outcome&&v.outcome.includes('walkaway')).length;
+  if(walked>=2) return {emoji:'🚪',name:'The Principled Walker',line:'You walked from more tables than you settled at. Most people do the opposite.'};
+  if(agg.anchor_aggression>0.55&&agg.concession_rate<0.4&&agg.value_captured>0.55) return {emoji:'🎯',name:'The Closer',line:"Bold opening. Didn't give much back. Left little on the table."};
+  if(agg.rejection_fold>0.5) return {emoji:'🏳️',name:'The Appeaser',line:"When they threatened to leave, you backed down. Quickly."};
+  if(agg.context_consistency>0.65&&agg.anchor_aggression>0.35) return {emoji:'⚡',name:'The Strong Opener',line:"Same bold move in every situation. Trait, not tactic."};
+  if(agg.context_consistency<0.35) return {emoji:'🔄',name:'The Situational Negotiator',line:"Your approach shifted between contexts. That's worth knowing."};
+  return {emoji:'🤝',name:'The Safe Settler',line:"Took decent deals. Rarely tested how far they'd go."};
+}
+
+function mbShowResults() {
+  const agg=mbComputeAggregateVector(mbStorylineVectors);
+  const cohort=mbAssignCohort(agg,mbStorylineVectors);
+  const result={game:'MOL_BHAV',label:cohort.name,behaviorVector:agg,date:new Date().toISOString()};
+  saveScore(result);
+  // Set witty result screen
+  const mbRE=document.getElementById('mb-r-emoji'), mbRW=document.getElementById('mb-r-witty');
+  if(mbRE) mbRE.textContent=cohort.emoji;
+  if(mbRW) mbRW.textContent=getMolBhavWitty(result);
+  // Also write to hidden stubs so nothing crashes
+  const setS=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  setS('res-name',cohort.name); setS('res-line',cohort.line);
+  showScreen('mol-bhav-results');
+}
+
+function getMolBhavWitty(r) {
+  if(!r) return 'Noted.';
+  const label=r.label||'';
+  if(label.includes('Closer'))       return "Bold first move. Didn't give much back. The numbers agreed with you.";
+  if(label.includes('Walker'))       return "Walked from three different tables. Principle isn't nothing.";
+  if(label.includes('Appeaser'))     return "The threat of them leaving moved you faster than the actual numbers.";
+  if(label.includes('Strong Opener')) return "Same energy across three very different situations. That's character, not strategy.";
+  if(label.includes('Situational'))  return "Different room, different you. Whether that's wisdom or inconsistency — worth sitting with.";
+  return "Three negotiations. Enough data. The report has the full picture.";
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -3151,8 +3820,17 @@ function getDimensionScores(scores, b5self) {
     if(!fer && gng)  D2 = D2_ruk;
   }
 
-  // ── D3: Trust baseline — placeholder until Mol Bhav built ──
+  // ── D3: Trust baseline — from Mol Bhav negotiation behavior ──
   let D3 = 0.5;
+  const mb = gf('MOL_BHAV');
+  if(mb && mb.behaviorVector) {
+    const bv = mb.behaviorVector;
+    // High limit_awareness + doesn't fold under rejection + balanced concession → higher trust/stability
+    const limitAware  = bv.limit_awareness || 0.5;
+    const notFold     = 1 - (bv.rejection_fold || 0);
+    const modConcede  = 1 - Math.abs((bv.concession_rate || 0.5) - 0.35) / 0.5;
+    D3 = clamp01((limitAware * 0.4) + (notFold * 0.35) + (modConcede * 0.25));
+  }
 
   // ── D4: Context sensitivity ──
   let D4 = 0.5;
@@ -3352,7 +4030,7 @@ function getPostGameTeaser(gameCode, result) {
     FER:(r)=>{if(!r)return"Noted.";const s=r.stroopScore||50;if(s>75)return"Your brain reads one thing and does another, cleanly. That is not easy.";if(s<35)return"The word kept winning. It does for most people — the interesting part is how much.";return"The gap between what you saw and what you did has been measured to the millisecond.";},
     GNG:(r)=>{if(!r)return"Noted.";const s=r.gngScore||50;if(s>75)return"You tapped when you should and stopped when you should. Sounds simple. It is not.";if(s<35)return"The tap button was very persuasive. We have noted exactly how persuasive.";return"Forty decisions, made in under a second each. The pattern across them is revealing.";},
     PROB_SAUDA:(r)=>{if(!r)return"Noted.";return"Your floor on fairness is now a number, not a feeling.";},
-    BAZAAR:(r)=>{if(!r)return"Noted.";if((r.label||'').includes('Adapter'))return"You found it, committed, and updated when it stopped working. That is the whole thing, done correctly.";return"Twenty years of investment decisions compressed into seven minutes.";},
+    BAZAAR:(r)=>{if(!r)return"Noted.";if((r.label||'').includes('Adapter'))return"You found it, committed, and updated when it stopped working. That is the whole thing, done correctly.";return"Eleven years of investment decisions compressed into seven minutes.";},
     CORP_MAZDOOR:(r)=>{return"Twelve scenarios designed to be uncomfortable. What you chose when nobody was grading you — that is the data.";},
   };
   const fn=teasers[gameCode];
@@ -3583,10 +4261,10 @@ function getBazaarWitty(profileName, netPnL, dims) {
     "Consistent inconsistency. The question is whether each shift was in response to data or to the last data point.",
   ]);
   return _pick([
-    "Twenty years of investment decisions compressed into seven minutes. The pattern is now a number.",
-    "Three companies, twenty years, ₹99 lakhs. What you did with the capital tells us something.",
+    "Eleven years of investment decisions compressed into seven minutes. The pattern is now a number.",
+    "Three companies, eleven years, ₹99 lakhs. What you did with the capital tells us something.",
     "Every allocation was a hypothesis. Some were tested. Some weren't. The full picture is in the report.",
-    "Most investors say they follow the data. Twenty rounds just measured whether you actually did.",
+    "Most investors say they follow the data. Eleven years just measured whether you actually did.",
   ]);
 }
 

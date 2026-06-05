@@ -622,6 +622,146 @@
     .mb-next-emoji { font-size:1.75rem; flex-shrink:0; }
     .mb-next-title { font-weight:600; font-size:0.9rem; margin-bottom:2px; }
     .mb-next-desc  { font-size:0.8rem; color:var(--text-muted); line-height:1.5; }
+
+    /* ═══════════════════════════════════════════════════
+       GAME IDENTITY SYSTEM — v24 UI overhaul
+    ═══════════════════════════════════════════════════ */
+
+    /* ── Color tokens per game ── */
+    :root {
+      --g-dum:      #DC2626;
+      --g-rang:     #7C3AED;
+      --g-ruk:      #0891B2;
+      --g-saudaa:   #B45309;
+      --g-molbhav:  #0D9488;
+      --g-bazaar:   #059669;
+      --g-mazdoor:  #4338CA;
+    }
+
+    /* ── Colored top stripe on every game canvas ── */
+    .gd-dum     .game-canvas, .gd-dum     .result-canvas { border-top: 3px solid var(--g-dum);     }
+    .gd-rang    .game-canvas, .gd-rang    .result-canvas { border-top: 3px solid var(--g-rang);    }
+    .gd-ruk     .game-canvas, .gd-ruk     .result-canvas { border-top: 3px solid var(--g-ruk);     }
+    .gd-saudaa  .game-canvas, .gd-saudaa  .result-canvas { border-top: 3px solid var(--g-saudaa);  }
+    .gd-molbhav .game-canvas, .gd-molbhav .result-canvas { border-top: 3px solid var(--g-molbhav); }
+    .gd-bazaar  .game-canvas, .gd-bazaar  .result-canvas { border-top: 3px solid var(--g-bazaar);  }
+    .gd-mazdoor .game-canvas, .gd-mazdoor .result-canvas { border-top: 3px solid var(--g-mazdoor); }
+
+    /* ── Game name in Hindi: game color ── */
+    .gd-dum     .game-name-hindi { color: var(--g-dum);     }
+    .gd-rang    .game-name-hindi { color: var(--g-rang);    }
+    .gd-ruk     .game-name-hindi { color: var(--g-ruk);     }
+    .gd-saudaa  .game-name-hindi { color: var(--g-saudaa);  }
+    .gd-molbhav .game-name-hindi { color: var(--g-molbhav); }
+    .gd-bazaar  .game-name-hindi { color: var(--g-bazaar);  }
+    .gd-mazdoor .game-name-hindi { color: var(--g-mazdoor); }
+
+    /* ── Pills: game color ── */
+    .gd-dum     .pill { color: var(--g-dum);     background: #FEF2F2; }
+    .gd-rang    .pill { color: var(--g-rang);    background: #F5F3FF; }
+    .gd-ruk     .pill { color: var(--g-ruk);     background: #F0F9FF; }
+    .gd-saudaa  .pill { color: var(--g-saudaa);  background: #FFFBEB; }
+    .gd-molbhav .pill { color: var(--g-molbhav); background: #F0FDFA; }
+    .gd-bazaar  .pill { color: var(--g-bazaar);  background: #F0FDF4; }
+    .gd-mazdoor .pill { color: var(--g-mazdoor); background: #EEF2FF; }
+
+    /* ── Primary buttons: game color ── */
+    .gd-dum     .btn-primary { background: var(--g-dum);     box-shadow: 0 3px 14px rgba(220,38,38,0.28); }
+    .gd-rang    .btn-primary { background: var(--g-rang);    box-shadow: 0 3px 14px rgba(124,58,237,0.28); }
+    .gd-ruk     .btn-primary { background: var(--g-ruk);     box-shadow: 0 3px 14px rgba(8,145,178,0.28); }
+    .gd-saudaa  .btn-primary { background: var(--g-saudaa);  box-shadow: 0 3px 14px rgba(180,83,9,0.28); }
+    .gd-molbhav .btn-primary { background: var(--g-molbhav); box-shadow: 0 3px 14px rgba(13,148,136,0.28); }
+    .gd-bazaar  .btn-primary { background: var(--g-bazaar);  box-shadow: 0 3px 14px rgba(5,150,105,0.28); }
+    .gd-mazdoor .btn-primary { background: var(--g-mazdoor); box-shadow: 0 3px 14px rgba(67,56,202,0.28); }
+
+    /* ── b5-opt selected: game color ── */
+    .gd-dum     .b5-opt.selected { background: var(--g-dum);     border-color: var(--g-dum);     }
+    .gd-rang    .b5-opt.selected { background: var(--g-rang);    border-color: var(--g-rang);    }
+    .gd-ruk     .b5-opt.selected { background: var(--g-ruk);     border-color: var(--g-ruk);     }
+    .gd-saudaa  .b5-opt.selected { background: var(--g-saudaa);  border-color: var(--g-saudaa);  }
+    .gd-molbhav .b5-opt.selected { background: var(--g-molbhav); border-color: var(--g-molbhav); }
+    .gd-bazaar  .b5-opt.selected { background: var(--g-bazaar);  border-color: var(--g-bazaar);  }
+    .gd-mazdoor .b5-opt.selected { background: var(--g-mazdoor); border-color: var(--g-mazdoor); }
+
+    /* ── Better button states globally ── */
+    .btn { transition: opacity 0.15s, transform 0.1s, box-shadow 0.15s; }
+    .btn-primary { box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
+    .btn-primary:hover  { opacity: 0.92; }
+    .btn-primary:active { transform: scale(0.97); box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important; }
+    .btn-outline:hover  { border-color: currentColor; }
+    .btn-outline:active { transform: scale(0.97); }
+    .btn-ghost:active   { transform: scale(0.97); }
+
+    /* ── Screen entrance: gentle fade up ── */
+    @keyframes screenFadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .screen.active { animation: screenFadeUp 0.22s ease; }
+
+    /* ── Result: emoji pop ── */
+    @keyframes emojiPop {
+      0%   { transform: scale(0.1) rotate(-12deg); opacity: 0; }
+      60%  { transform: scale(1.2) rotate(4deg);  opacity: 1; }
+      80%  { transform: scale(0.93) rotate(-2deg); }
+      100% { transform: scale(1) rotate(0deg);    opacity: 1; }
+    }
+    /* ── Result: text fade up ── */
+    @keyframes fadeUpIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-big-emoji  { opacity: 0; }
+    .result-witty      { opacity: 0; }
+    .result-game-badge { opacity: 0; }
+    .result-footer     { opacity: 0; }
+
+    .screen.active .result-game-badge { animation: fadeUpIn 0.28s ease 0.08s forwards; }
+    .screen.active .result-big-emoji  { animation: emojiPop  0.50s cubic-bezier(0.175,0.885,0.32,1.275) 0.18s forwards; }
+    .screen.active .result-witty      { animation: fadeUpIn 0.32s ease 0.52s forwards; }
+    .screen.active .result-footer     { animation: fadeUpIn 0.28s ease 0.72s forwards; }
+
+    /* ── Progress bar: smoother fill ── */
+    .prog-fill, .progress-fill, #prog-fill { transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
+
+    /* ── Mol Bhav progress pips: game color ── */
+    .gd-molbhav .mb-progress-pip.done   { background: var(--g-molbhav); }
+    .gd-molbhav .mb-progress-pip.active { background: var(--g-molbhav); opacity: 0.5; }
+    .gd-molbhav .mb-offer-amount        { color: var(--g-molbhav); }
+    .gd-molbhav .mb-offer-display       { border-color: rgba(13,148,136,0.25); background: linear-gradient(135deg,rgba(13,148,136,0.07) 0%,rgba(13,148,136,0.02) 100%); }
+
+    /* ── Bazaar: company color accents ── */
+    .gd-bazaar .bz-card-a { border-top: 3px solid var(--co-a); }
+    .gd-bazaar .bz-card-b { border-top: 3px solid var(--co-b); }
+    .gd-bazaar .bz-card-c { border-top: 3px solid var(--co-c); }
+
+    /* ── Dashboard: completed game card treatment ── */
+    .dash-card-done {
+      background: linear-gradient(140deg, var(--card) 50%, #F0FDF4 100%) !important;
+      border-left: 3px solid #10B981 !important;
+    }
+    .dash-card-done .dash-score-lbl { color: #065F46 !important; }
+    .dash-card-done .dash-score-val { color: #065F46 !important; }
+
+    /* ── Game stat cells: subtle game color on value ── */
+    .gd-dum     .stat-val { color: var(--g-dum);     }
+    .gd-rang    .stat-val { color: var(--g-rang);    }
+    .gd-ruk     .stat-val { color: var(--g-ruk);     }
+    .gd-saudaa  .stat-val { color: var(--g-saudaa);  }
+    .gd-molbhav .stat-val { color: var(--g-molbhav); }
+    .gd-bazaar  .stat-val { color: var(--g-bazaar);  }
+    .gd-mazdoor .stat-val { color: var(--g-mazdoor); }
+
+    /* ── Result big emoji: game-colored ring ── */
+    .gd-dum     .result-big-emoji { filter: drop-shadow(0 0 12px rgba(220,38,38,0.25));     }
+    .gd-rang    .result-big-emoji { filter: drop-shadow(0 0 12px rgba(124,58,237,0.25));    }
+    .gd-ruk     .result-big-emoji { filter: drop-shadow(0 0 12px rgba(8,145,178,0.25));     }
+    .gd-saudaa  .result-big-emoji { filter: drop-shadow(0 0 12px rgba(180,83,9,0.25));      }
+    .gd-molbhav .result-big-emoji { filter: drop-shadow(0 0 12px rgba(13,148,136,0.25));    }
+    .gd-bazaar  .result-big-emoji { filter: drop-shadow(0 0 12px rgba(5,150,105,0.25));     }
+    .gd-mazdoor .result-big-emoji { filter: drop-shadow(0 0 12px rgba(67,56,202,0.25));     }
+
   </style>
 </head>
 <body>
@@ -759,10 +899,10 @@
 <!-- ═══════════════════════════════════════════════
      DUM — GAME 1 INTRO
 ═══════════════════════════════════════════════ -->
-<div id="screen-dum-intro" class="screen">
+<div id="screen-dum-intro" class="screen gd-dum">
   <div class="game-canvas">
-    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
-    <span class="pill">Game 1 of 6</span>
+    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
+    <span class="pill">Game 1 of 7</span>
     <div class="game-name-hindi">🎈 Dum</div>
     <div class="game-name-sub">dum — breath, guts</div>
     <div style="display:flex;justify-content:center;margin-bottom:1rem;">
@@ -792,6 +932,7 @@
       <div class="stat-cell"><div class="stat-val">3s</div><div class="stat-lbl">per decision</div></div>
       <div class="stat-cell"><div class="stat-val">3</div><div class="stat-lbl">colors</div></div>
     </div>
+    <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;margin-bottom:1rem;">If you stop responding for 3 balloons in a row, we'll pause and check in.</p>
     <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startDumGame()">Start →</button>
   </div>
 </div>
@@ -799,7 +940,7 @@
 <!-- ═══════════════════════════════════════════════
      DUM — GAME PLAY
 ═══════════════════════════════════════════════ -->
-<div id="screen-dum-play" class="screen">
+<div id="screen-dum-play" class="screen gd-dum">
   <div class="game-canvas">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
       <span style="font-size:0.82rem;color:var(--text-muted);">Balloon <span id="g-num">1</span> of 30</span>
@@ -836,7 +977,7 @@
 <!-- ═══════════════════════════════════════════════
      DUM — RESULTS
 ═══════════════════════════════════════════════ -->
-<div id="screen-dum-results" class="screen">
+<div id="screen-dum-results" class="screen gd-dum">
   <div class="game-canvas result-canvas">
     <div class="result-moment">
       <div class="result-game-badge">Game 1 · Dum</div>
@@ -859,31 +1000,51 @@
      STUB GAMES — 2 to 7
 ═══════════════════════════════════════════════ -->
 <!-- RANG INTRO -->
-<div id="screen-rang-intro" class="screen">
+<div id="screen-rang-intro" class="screen gd-rang">
   <div class="game-canvas">
-    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
     <div style="margin-bottom:1rem;">
-      <span class="pill">Game 2 of 6</span>
+      <span class="pill">Game 2 of 7</span>
     </div>
     <div class="game-name-hindi">🎨 Rang</div>
     <div class="game-name-sub">rang — colour, signal, identity</div>
     <div class="card" style="margin-bottom:1rem;">
       <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">
-        Signals come in fast from three different worlds — the trading floor, the railway control room, the cricket dugout.
-        Each has its own language.
-        Your job: read the right signal, not the word attached to it.
+        Words will flash on screen from three different worlds. Each word is written in a color. Before each trial, a prompt tells you which to follow — the word's <strong style="color:var(--text);">signal</strong>, or the <strong style="color:var(--text);">ink color</strong> it's written in. Your job: follow the prompt. Ignore the other one.
       </p>
     </div>
-    <div class="stat-grid stat-grid-2" style="margin-bottom:1.25rem;">
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;">
+      <div style="display:flex;gap:12px;align-items:center;padding:0.75rem 1rem;background:var(--surface);border-radius:var(--radius);">
+        <span style="font-size:1rem;flex-shrink:0;">🚦</span>
+        <div><span style="font-size:0.88rem;font-weight:500;">Railway</span><span style="font-size:0.82rem;color:var(--text-muted);"> — STOP · CLEAR · CAUTION</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;padding:0.75rem 1rem;background:var(--surface);border-radius:var(--radius);">
+        <span style="font-size:1rem;flex-shrink:0;">📈</span>
+        <div><span style="font-size:0.88rem;font-weight:500;">Trading</span><span style="font-size:0.82rem;color:var(--text-muted);"> — BUY · SELL · HOLD</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;padding:0.75rem 1rem;background:var(--surface);border-radius:var(--radius);">
+        <span style="font-size:1rem;flex-shrink:0;">🏏</span>
+        <div><span style="font-size:0.88rem;font-weight:500;">Cricket</span><span style="font-size:0.82rem;color:var(--text-muted);"> — HIT · LEAVE · DEFEND</span></div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:1rem;background:var(--amber-light);border-color:rgba(186,117,23,0.25);">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:1.1rem;flex-shrink:0;">⏱</span>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;"><strong style="color:var(--text);">2.5 seconds per word.</strong> Tap one of the three buttons shown at the bottom. Miss the window — it moves on.</p>
+      </div>
+    </div>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1rem;">
       <div class="stat-cell"><div class="stat-val">24</div><div class="stat-lbl">Trials</div></div>
+      <div class="stat-cell"><div class="stat-val">3</div><div class="stat-lbl">Worlds</div></div>
       <div class="stat-cell"><div class="stat-val">~4</div><div class="stat-lbl">Minutes</div></div>
     </div>
+    <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;margin-bottom:1rem;">Miss 3 trials in a row without tapping? We'll pause and check in.</p>
     <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startRang()">Start →</button>
   </div>
 </div>
 
 <!-- ─── GAME ─── -->
-<div id="screen-rang-game" class="screen">
+<div id="screen-rang-game" class="screen gd-rang">
   <div id="rang-progress-bar"><div id="rang-progress-fill" style="width:0%"></div></div>
   <div id="rang-world-tag"></div>
   <div id="rang-prompt"></div>
@@ -899,7 +1060,7 @@
 </div>
 
 <!-- ─── RESULTS ─── -->
-<div id="screen-rang-results" class="screen">
+<div id="screen-rang-results" class="screen gd-rang">
   <div class="game-canvas result-canvas">
     <div class="result-moment">
       <div class="result-game-badge">Game 2 · Rang</div>
@@ -931,10 +1092,10 @@
 </div>
 
 <!-- RUK INTRO -->
-<div id="screen-ruk-intro" class="screen">
+<div id="screen-ruk-intro" class="screen gd-ruk">
   <div class="game-canvas">
-    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
-    <span class="pill">Game 3 of 6</span>
+    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
+    <span class="pill">Game 3 of 7</span>
     <div class="game-name-hindi">⚡ Ruk</div>
     <div class="game-name-sub">ruk — stop</div>
     <div style="display:flex;justify-content:center;gap:28px;margin-bottom:1rem;padding:1rem;background:var(--surface);border-radius:var(--radius-lg);">
@@ -960,12 +1121,19 @@
       <div class="stat-cell"><div class="stat-val">4</div><div class="stat-lbl">rounds</div></div>
       <div class="stat-cell"><div class="stat-val">~5</div><div class="stat-lbl">minutes</div></div>
     </div>
+    <div class="card" style="margin-bottom:1rem;">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:1.1rem;flex-shrink:0;">👇</span>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;">There's one <strong style="color:var(--text);">TAP</strong> button at the bottom. Press it when the signal says go. Do nothing when it says stop.</p>
+      </div>
+    </div>
+    <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;margin-bottom:1rem;">Miss 3 Go signals in a row without tapping? We'll pause and check in.</p>
     <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startRuk()">Start →</button>
   </div>
 </div>
 
 <!-- RUK GAME -->
-<div id="screen-ruk-game" class="screen">
+<div id="screen-ruk-game" class="screen gd-ruk">
   <div class="game-canvas">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
       <span style="font-size:0.82rem;color:var(--text-muted);">Trial <span id="ruk-trial-num">1</span> of 40</span>
@@ -989,7 +1157,7 @@
 </div>
 
 <!-- RUK RESULTS -->
-<div id="screen-ruk-results" class="screen">
+<div id="screen-ruk-results" class="screen gd-ruk">
   <div class="game-canvas result-canvas">
     <div class="result-moment">
       <div class="result-game-badge">Game 3 · Ruk</div>
@@ -1019,10 +1187,10 @@
 </div>
 
 <!-- SAUDAA INTRO -->
-<div id="screen-saudaa-intro" class="screen">
+<div id="screen-saudaa-intro" class="screen gd-saudaa">
   <div class="game-canvas">
-    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
-    <span class="pill">Game 4 of 6</span>
+    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
+    <span class="pill">Game 4 of 7</span>
     <div class="game-name-hindi">⚖️ Saudaa</div>
     <div class="game-name-sub">saudaa — deal, bargain</div>
     <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:1rem;">
@@ -1032,24 +1200,31 @@
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start;padding:1rem;background:var(--surface);border-radius:var(--radius);">
         <span style="font-size:1.1rem;flex-shrink:0;">🏷️</span>
-        <div><span style="font-size:0.88rem;font-weight:500;">Round 2 — Same math, different skin.</span><span style="font-size:0.88rem;color:var(--text-muted);"> Labels appear. Do they change your choice?</span></div>
+        <div><span style="font-size:0.88rem;font-weight:500;">Round 2 — Same math, different skin.</span><span style="font-size:0.88rem;color:var(--text-muted);"> Options look different now. Same numbers.</span></div>
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start;padding:1rem;background:var(--surface);border-radius:var(--radius);">
         <span style="font-size:1.1rem;flex-shrink:0;">🤝</span>
         <div><span style="font-size:0.88rem;font-weight:500;">Round 3 — Someone else's offer.</span><span style="font-size:0.88rem;color:var(--text-muted);"> Accept or reject. Both walk if you say no.</span></div>
       </div>
     </div>
-    <div class="stat-grid stat-grid-3" style="margin-bottom:1.5rem;">
+    <div class="card" style="margin-bottom:1rem;background:var(--amber-light);border-color:rgba(186,117,23,0.25);">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:1.1rem;flex-shrink:0;">⏱</span>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;"><strong style="color:var(--text);">5 seconds per trial.</strong> Go with first instinct — you can't go back.</p>
+      </div>
+    </div>
+    <div class="stat-grid stat-grid-3" style="margin-bottom:1rem;">
       <div class="stat-cell"><div class="stat-val">30</div><div class="stat-lbl">trials</div></div>
       <div class="stat-cell"><div class="stat-val">3</div><div class="stat-lbl">rounds</div></div>
       <div class="stat-cell"><div class="stat-val">~6</div><div class="stat-lbl">minutes</div></div>
     </div>
+    <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;margin-bottom:1rem;">No response for 3 trials in a row? We'll pause and check in.</p>
     <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startPS()">Start →</button>
   </div>
 </div>
 
 <!-- SAUDAA GAME -->
-<div id="screen-ps-game" class="screen">
+<div id="screen-ps-game" class="screen gd-saudaa">
   <div class="game-canvas">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
       <span style="font-size:0.82rem;color:var(--text-muted);">Trial <span id="ps-trial-num">1</span> of 30</span>
@@ -1094,7 +1269,7 @@
 </div>
 
 <!-- SAUDAA RESULTS -->
-<div id="screen-ps-results" class="screen">
+<div id="screen-ps-results" class="screen gd-saudaa">
   <div class="game-canvas result-canvas">
     <div class="result-moment">
       <div class="result-game-badge">Game 4 · Saudaa</div>
@@ -1113,7 +1288,7 @@
 </div>
 
 <!-- MOL BHAV INTRO -->
-<div id="screen-mol-bhav-intro" class="screen">
+<div id="screen-mol-bhav-intro" class="screen gd-molbhav">
   <div class="game-canvas">
     <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
     <div style="margin-bottom:0.75rem;"><span class="pill">Game 5 of 7</span></div>
@@ -1140,12 +1315,13 @@
         <div style="font-size:1.3rem;">🛍️</div><div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">At the Market</div>
       </div>
     </div>
+    <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;margin-bottom:1rem;">Leave a round unanswered too long? We'll check if you're still there.</p>
     <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startMolBhav()">Start →</button>
   </div>
 </div>
 
 <!-- MOL BHAV GAME -->
-<div id="screen-mol-bhav-game" class="screen">
+<div id="screen-mol-bhav-game" class="screen gd-molbhav">
   <div class="game-canvas">
     <!-- Progress track (3 pips) -->
     <div class="mb-progress-track" id="mb-progress-track">
@@ -1227,7 +1403,7 @@
 </div>
 
 <!-- MOL BHAV RESULTS -->
-<div id="screen-mol-bhav-results" class="screen">
+<div id="screen-mol-bhav-results" class="screen gd-molbhav">
   <div class="game-canvas result-canvas">
     <div class="result-moment">
       <div class="result-game-badge">Game 5 · Mol Bhav</div>
@@ -1262,10 +1438,10 @@
 </div>
 
 <!-- BAZAAR INTRO -->
-<div id="screen-bazaar-intro" class="screen">
+<div id="screen-bazaar-intro" class="screen gd-bazaar">
   <div class="game-canvas">
-    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
-    <span class="pill">Game 5 of 6</span>
+    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
+    <span class="pill">Game 6 of 7</span>
     <div class="game-name-hindi">📊 Bazaar</div>
     <div class="game-name-sub">bazaar — the market, where nothing stays still</div>
     <div class="card" style="margin-bottom:1.25rem;">
@@ -1273,9 +1449,9 @@
       <div style="font-family:'DM Mono',monospace;font-size:2rem;font-weight:600;color:var(--amber);margin-bottom:4px;">₹99L</div>
       <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px;">Three companies. Eleven years. No guarantees.</div>
       <div style="display:flex;gap:8px;">
-        <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-a);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Aakash Infra</div><div style="font-size:10px;color:var(--text-hint);">Infrastructure</div></div>
-        <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-b);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Bharat Ventures</div><div style="font-size:10px;color:var(--text-hint);">New-age tech</div></div>
-        <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-c);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Carnation</div><div style="font-size:10px;color:var(--text-hint);">Consumer goods</div></div>
+        <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-a);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Aakash Infra</div><div style="font-size:10px;color:var(--text-hint);line-height:1.4;margin-top:3px;">Roads, ports, power. 30 years old. Dependable.</div></div>
+        <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-b);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Bharat Ventures</div><div style="font-size:10px;color:var(--text-hint);line-height:1.4;margin-top:3px;">SaaS &amp; fintech. 8 years old. Fast, volatile.</div></div>
+        <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-c);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Carnation FMCG</div><div style="font-size:10px;color:var(--text-hint);line-height:1.4;margin-top:3px;">Food &amp; personal care. Slow, steady. Surprises late.</div></div>
       </div>
     </div>
     <div class="card" style="margin-bottom:1rem;">
@@ -1290,12 +1466,13 @@
       <div class="stat-cell"><div class="stat-val">11</div><div class="stat-lbl">Years</div></div>
       <div class="stat-cell"><div class="stat-val">₹9L</div><div class="stat-lbl">Per year</div></div>
     </div>
+    <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;margin-bottom:1rem;">Leave a year unallocated too long? We'll check if you're still there.</p>
     <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startBazaar()">Start investing →</button>
   </div>
 </div>
 
 <!-- BAZAAR GAME -->
-<div id="screen-bazaar-game" class="screen" style="padding:0;">
+<div id="screen-bazaar-game" class="screen gd-bazaar" style="padding:0;">
   <!-- STICKY HEADER -->
   <div class="bz-header">
     <div class="bz-header-top">
@@ -1342,7 +1519,7 @@
 </div>
 
 <!-- BAZAAR B5 (internal, before results) -->
-<div id="screen-bazaar-b5" class="screen">
+<div id="screen-bazaar-b5" class="screen gd-bazaar">
   <div class="game-canvas" style="padding-top:2rem;">
     <span class="pill" id="bz-b5-pill" style="margin-bottom:1.25rem;display:inline-block;">After Bazaar · 1 of 2</span>
     <p class="b5-q" id="bz-b5-question" style="margin-bottom:1.5rem;"></p>
@@ -1352,7 +1529,7 @@
 </div>
 
 <!-- BAZAAR RESULTS -->
-<div id="screen-bazaar-results" class="screen">
+<div id="screen-bazaar-results" class="screen gd-bazaar">
   <div class="game-canvas result-canvas">
     <div class="result-moment">
       <div class="result-game-badge">Game 6 · Bazaar</div>
@@ -1373,10 +1550,10 @@
 </div>
 
 <!-- MAZDOOR INTRO -->
-<div id="screen-mazdoor-intro" class="screen">
+<div id="screen-mazdoor-intro" class="screen gd-mazdoor">
   <div class="game-canvas">
-    <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
-    <span class="pill">Game 6 of 6</span>
+    <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
+    <span class="pill">Game 7 of 7</span>
     <div class="game-name-hindi">💼 Corporate Mazdoor</div>
     <div class="game-name-sub">mazdoor — the worker, the one in the arena</div>
     <p class="game-intro-para">Twelve real situations from Indian corporate life. No right answers — just what you'd actually do. The pattern tells us more than any answer could.</p>
@@ -1388,12 +1565,13 @@
       <div class="stat-cell"><div class="stat-val">12</div><div class="stat-lbl">Scenarios</div></div>
       <div class="stat-cell"><div class="stat-val">~8</div><div class="stat-lbl">Minutes</div></div>
     </div>
+    <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;margin-bottom:1rem;">Leave a scenario unanswered too long? We'll pause and check in.</p>
     <button class="btn btn-primary btn-full" style="padding:15px;" onclick="startMazdoor()">Start →</button>
   </div>
 </div>
 
 <!-- MAZDOOR GAME -->
-<div id="screen-mazdoor-game" class="screen">
+<div id="screen-mazdoor-game" class="screen gd-mazdoor">
   <div class="mz-game-top">
     <div class="mz-chapter-row">
       <div class="mz-chapter-label" id="mz-chapter-label">Chapter 1 of 12</div>
@@ -1419,7 +1597,7 @@
 </div>
 
 <!-- MAZDOOR B5 (internal, before results) -->
-<div id="screen-mazdoor-b5" class="screen">
+<div id="screen-mazdoor-b5" class="screen gd-mazdoor">
   <div class="game-canvas" style="padding-top:2rem;">
     <span class="pill" id="mz-b5-pill" style="margin-bottom:1.25rem;display:inline-block;">After Mazdoor · 1 of 2</span>
     <p class="b5-q" id="mz-b5-question" style="margin-bottom:1.5rem;"></p>
@@ -1429,7 +1607,7 @@
 </div>
 
 <!-- MAZDOOR RESULTS -->
-<div id="screen-mazdoor-results" class="screen">
+<div id="screen-mazdoor-results" class="screen gd-mazdoor">
   <div class="game-canvas result-canvas">
     <div class="result-moment">
       <div class="result-game-badge">Game 7 · Corporate Mazdoor</div>
@@ -1742,15 +1920,15 @@ function enterDashboard() {
     const isLocked = !done && !isNext; // future games greyed
 
     if(done && scoreData) {
-      return `<div class="game-card done">
+      return `<div class="game-card done dash-card-done">
         <div class="game-card-header">
-          <div>
-            <div style="font-size:1.25rem;font-weight:500;margin-bottom:2px;">${g.emoji} ${g.name}</div>
-            <div style="font-size:0.76rem;color:var(--teal);">${g.scoreLabel(scoreData)}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#10B981;margin-bottom:4px;">✓ Complete</div>
+            <div style="font-size:1.1rem;font-weight:600;margin-bottom:3px;">${g.emoji} ${g.name}</div>
+            <div style="font-size:0.76rem;color:#065F46;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${g.scoreLabel(scoreData)}</div>
           </div>
-          <button class="btn btn-secondary btn-sm" onclick="showScreen('${g.screen}')">Replay</button>
+          <button class="btn btn-outline btn-sm" style="flex-shrink:0;font-size:0.72rem;padding:6px 10px;" onclick="showScreen('${g.screen}')">Replay</button>
         </div>
-        <div style="font-size:0.76rem;color:var(--text-hint);margin-top:6px;">✓ Complete</div>
       </div>`;
     } else if(isNext) {
       return `<div class="game-card highlight" onclick="showScreen('${g.screen}')">
@@ -3351,6 +3529,14 @@ function stubSkipGame(gameCode) {
 // MOL BHAV — 3-STORYLINE NEGOTIATION GAME
 // ═══════════════════════════════════════════════════════════
 
+/* Utility functions needed globally (used by Mol Bhav) */
+function fmtL(v) {
+  const s = Math.round(v * 2) / 2;
+  return '₹' + (s % 1 === 0 ? s.toFixed(0) : s.toFixed(1)) + 'L';
+}
+function snapHalf(v) { return Math.round(v * 2) / 2; }
+function pick(arr)   { return arr[Math.floor(Math.random() * arr.length)]; }
+
 /* Format helpers (Mol Bhav-specific) */
 function fmtR(v, step) { const s = Math.round(v / step) * step; return '₹' + s.toLocaleString('en-IN'); }
 function snapR(v, step) { return Math.round(v / step) * step; }
@@ -4257,7 +4443,7 @@ function getBazaarWitty(profileName, netPnL, dims) {
   ]);
   if (profileName === 'The Drifter') return _pick([
     "The allocations shifted frequently without a clear pattern underneath. High variance without a hypothesis is just noise.",
-    "Twenty years of capital allocation. The pattern — or absence of one — is the data.",
+    "Eleven years of capital allocation. The pattern — or absence of one — is the data.",
     "Consistent inconsistency. The question is whether each shift was in response to data or to the last data point.",
   ]);
   return _pick([

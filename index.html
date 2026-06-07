@@ -456,10 +456,26 @@
     .bz-header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
     .bz-year-badge{font-size:14px;font-weight:600;letter-spacing:-.01em;}
     .bz-fund-tag{font-size:12px;color:var(--text-hint);}
-    .bz-pnl-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
-    .bz-pnl-cell{background:var(--surface);border-radius:8px;padding:7px 10px;text-align:center;}
-    .bz-pnl-val{font-family:'DM Mono',monospace;font-size:14px;font-weight:600;line-height:1;}
-    .bz-pnl-lbl{font-size:9px;color:var(--text-hint);text-transform:uppercase;letter-spacing:.05em;margin-top:3px;}
+    /* Bazaar header — desktop dashboard layout */
+    .bz-header-body {
+      display:grid; grid-template-columns:auto 1px 1fr; gap:0 14px; align-items:start; margin-top:8px;
+    }
+    .bz-stats-col { display:flex; flex-direction:column; gap:4px; min-width:148px; }
+    .bz-stat-row { display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .bz-stat-key { font-size:9.5px; color:var(--text-hint); text-transform:uppercase; letter-spacing:.055em; font-weight:700; white-space:nowrap; }
+    .bz-stat-val { font-family:'DM Mono',monospace; font-size:12.5px; font-weight:700; color:var(--text); white-space:nowrap; }
+    .bz-col-div  { background:var(--border-strong); width:1px; align-self:stretch; margin-top:0; }
+    .bz-hist-col { min-width:0; overflow:hidden; }
+    .bz-hist-col-label { font-size:10.5px; color:var(--text-hint); font-style:italic; padding-top:1px; }
+    /* Mini history table inside header */
+    .bz-mini-table { width:100%; border-collapse:collapse; font-family:'DM Mono',monospace; font-size:10.5px; }
+    .bz-mini-table thead tr { position:sticky; top:0; }
+    .bz-mini-table thead th { background:rgba(250,250,247,0.97); font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--text-hint); padding:1px 8px 3px; text-align:right; border-bottom:0.5px solid var(--border-strong); white-space:nowrap; }
+    @media(prefers-color-scheme:dark){.bz-mini-table thead th{background:rgba(23,23,26,.97);}}
+    .bz-mini-table th:first-child,.bz-mini-table td:first-child { text-align:left; }
+    .bz-mini-table td { padding:2px 8px; text-align:right; border-bottom:0.5px solid var(--border); line-height:1.45; }
+    .bz-mini-table td:first-child { color:var(--text-hint); font-size:9.5px; }
+    .bz-mini-table tbody tr:last-child td { border-bottom:none; }
     .bz-cards-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:1.25rem 1.5rem;}
     @media(max-width:600px){.bz-cards-grid{grid-template-columns:1fr;}}
     .bz-co-card{border-radius:var(--radius-lg);border:1.5px solid var(--border-strong);background:var(--card);overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s,background .25s;}
@@ -490,10 +506,14 @@
     .bz-hist-table td:first-child{text-align:left;font-weight:600;color:var(--text-muted);}
     .bz-hist-table tbody tr:last-child td{border-bottom:none;}
     /* Improved P&L strip */
-    .bz-pnl-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
-    .bz-pnl-cell{background:var(--surface);border-radius:8px;padding:8px 10px;text-align:center;border:0.5px solid var(--border);}
-    .bz-pnl-val{font-family:'DM Mono',monospace;font-size:15px;font-weight:700;line-height:1;}
-    .bz-pnl-lbl{font-size:9px;color:var(--text-hint);text-transform:uppercase;letter-spacing:.05em;margin-top:3px;}
+    /* bz-pnl-* classes removed — replaced by .bz-stats-col/.bz-stat-* */
+    /* Idle detection overlay */
+    #idle-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.62);display:none;align-items:center;justify-content:center;}
+    .idle-card{background:var(--card);border-radius:var(--radius-xl);padding:2rem 1.75rem;max-width:340px;width:90%;text-align:center;box-shadow:var(--shadow-float);display:flex;flex-direction:column;gap:12px;}
+    .idle-icon{font-size:2.5rem;line-height:1;}
+    .idle-headline{font-size:1.2rem;font-weight:700;margin:0;color:var(--text);}
+    .idle-sub{font-size:0.87rem;color:var(--text-muted);margin:0;line-height:1.65;}
+    .idle-ghost-btn{width:100%;padding:12px;border:0.5px solid var(--border-strong);border-radius:var(--radius);background:var(--surface);cursor:pointer;font-family:inherit;font-size:0.9rem;color:var(--text);}
     .bz-co-last{display:flex;align-items:baseline;gap:5px;}
     .bz-co-last-val{font-family:'DM Mono',monospace;font-size:19px;font-weight:700;line-height:1;}
     .bz-co-last-lbl{font-size:10px;color:var(--text-hint);text-transform:uppercase;letter-spacing:.05em;}
@@ -1499,9 +1519,9 @@
       <div style="font-family:'DM Mono',monospace;font-size:2rem;font-weight:600;color:var(--amber);margin-bottom:4px;">₹99L</div>
       <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px;">Three companies. Eleven years. No guarantees.</div>
       <div style="display:flex;gap:8px;">
-        <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-a);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Aakash Infra</div><div style="font-size:10px;color:var(--text-hint);line-height:1.4;margin-top:3px;">Roads, ports, power. 30 years old. Dependable.</div></div>
-        <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-b);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Bharat Ventures</div><div style="font-size:10px;color:var(--text-hint);line-height:1.4;margin-top:3px;">SaaS &amp; fintech. 8 years old. Fast, volatile.</div></div>
-        <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-c);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Carnation FMCG</div><div style="font-size:10px;color:var(--text-hint);line-height:1.4;margin-top:3px;">Food &amp; personal care. Slow, steady. Surprises late.</div></div>
+        <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-a);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Aakash Infra</div><div style="font-size:10px;color:var(--text-hint);line-height:1.4;margin-top:3px;">Roads, ports, power. 30 years old.</div></div>
+        <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-b);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Bharat Ventures</div><div style="font-size:10px;color:var(--text-hint);line-height:1.4;margin-top:3px;">SaaS &amp; fintech. 8 years old.</div></div>
+        <div style="flex:1;background:var(--surface);border-radius:8px;padding:10px 8px;text-align:center;"><div style="width:8px;height:8px;border-radius:50%;background:var(--co-c);margin:0 auto 6px;"></div><div style="font-size:11px;font-weight:600;color:var(--text-muted);">Carnation FMCG</div><div style="font-size:10px;color:var(--text-hint);line-height:1.4;margin-top:3px;">Food &amp; personal care. Consumer goods.</div></div>
       </div>
     </div>
     <div class="card" style="margin-bottom:1rem;">
@@ -1523,16 +1543,46 @@
 
 <!-- BAZAAR GAME -->
 <div id="screen-bazaar-game" class="screen gd-bazaar" style="padding:0;">
-  <!-- STICKY HEADER -->
+  <!-- STICKY HEADER — desktop dashboard layout -->
   <div class="bz-header">
     <div class="bz-header-top">
       <div class="bz-year-badge">Year <span id="bz-hdr-year">1</span> of 11</div>
-      <div class="bz-fund-tag">₹99L fund · ₹9L / year</div>
+      <div class="bz-fund-tag">Bazaar · ₹99L fund · ₹9L/yr</div>
     </div>
-    <div class="bz-pnl-strip">
-      <div class="bz-pnl-cell"><div class="bz-pnl-val" id="bz-pnl-deployed">₹0L</div><div class="bz-pnl-lbl">Deployed</div></div>
-      <div class="bz-pnl-cell"><div class="bz-pnl-val" id="bz-pnl-returned">₹0L</div><div class="bz-pnl-lbl">Returned</div></div>
-      <div class="bz-pnl-cell"><div class="bz-pnl-val" id="bz-pnl-net" style="color:var(--text-hint);">—</div><div class="bz-pnl-lbl">Net P&amp;L</div></div>
+    <div class="bz-header-body">
+      <!-- Left: cumulative P&L stats -->
+      <div class="bz-stats-col">
+        <div class="bz-stat-row">
+          <span class="bz-stat-key">Deployed</span>
+          <span class="bz-stat-val" id="bz-pnl-deployed">₹0L</span>
+        </div>
+        <div class="bz-stat-row">
+          <span class="bz-stat-key">Returned</span>
+          <span class="bz-stat-val" id="bz-pnl-returned">₹0L</span>
+        </div>
+        <div class="bz-stat-row">
+          <span class="bz-stat-key" style="color:var(--text-muted);">Net P&amp;L</span>
+          <span class="bz-stat-val" id="bz-pnl-net" style="color:var(--text-hint);">—</span>
+        </div>
+      </div>
+      <!-- Column divider -->
+      <div class="bz-col-div"></div>
+      <!-- Right: scrollable round history — visible from round 2 onwards -->
+      <div class="bz-hist-col">
+        <div id="bz-hist-col-empty" class="bz-hist-col-label">No history yet</div>
+        <div id="bz-hist-col-scroll" style="display:none; max-height:80px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--border-strong) transparent;">
+          <table class="bz-mini-table">
+            <thead><tr>
+              <th>Yr</th>
+              <th style="color:var(--co-a)">Aakash</th>
+              <th style="color:var(--co-b)">Bharat</th>
+              <th style="color:var(--co-c)">Carnation</th>
+              <th>Net</th>
+            </tr></thead>
+            <tbody id="bz-mini-tbody"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
   <!-- 3-COL CARDS -->
@@ -1773,6 +1823,18 @@
 <!-- ═══════════════════════════════════════════════
      JAVASCRIPT
 ═══════════════════════════════════════════════ */-->
+<!-- ═══════════════════════════════════════════════
+     IDLE DETECTION OVERLAY (shared — Rang + Ruk)
+═══════════════════════════════════════════════ -->
+<div id="idle-overlay">
+  <div class="idle-card">
+    <div class="idle-icon" id="idle-icon">👀</div>
+    <p class="idle-headline" id="idle-headline">Still there?</p>
+    <p class="idle-sub" id="idle-sub">Game paused — 3 timeouts in a row.</p>
+    <div id="idle-actions"></div>
+  </div>
+</div>
+
 <script>
 
 // ═══════════════════════════════════════════════════════════
@@ -2198,7 +2260,8 @@ let   TIMEOUT_MS       = RANG_WINDOW_BASE;
 
 // ─── Entry ───────────────────────────────────────────────────────────────────
 function startRang() {
-  TIMEOUT_MS = RANG_WINDOW_BASE;  // reset adaptive window each new game
+  TIMEOUT_MS = RANG_WINDOW_BASE;    // reset adaptive window each new game
+  rangIdleConsec = 0; _rangIdleChecked = false;   // reset idle state
   rangTrials = generateTrials();
   rangIdx = 0;
   rangResults = [];
@@ -2315,6 +2378,22 @@ function rangHandleResponse(tappedWord, btnIdx) {
     });
   }
 
+  // ── Idle detection: 3 consecutive timeouts → pause overlay ──
+  if (timedOut) {
+    rangIdleConsec++;
+    if (rangIdleConsec >= 3) {
+      rangIdleConsec = 0;
+      idleShowPause(() => {
+        rangIdx++;
+        if (rangIdx < rangTrials.length) rangTimer = setTimeout(rangRenderTrial, 300);
+        else rangEndGame();
+      });
+      return;  // overlay handles advance — don't fall through
+    }
+  } else {
+    rangIdleConsec = 0;
+  }
+
   rangIdx++;
   rangTimer = setTimeout(rangRenderTrial, FEEDBACK_MS);
 }
@@ -2334,8 +2413,72 @@ function rangAdaptWindow() {
   // Between 40–80% accuracy: no change. User is in the diagnostic zone.
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// IDLE DETECTION — shared module for Rang (FER) and Ruk (GNG)
+// Trigger: 3 consecutive non-responses → pause overlay
+// End-of-game: ≥40% non-response rate → replay prompt
+// The overlay is position:fixed so it works above any game screen.
+// ═══════════════════════════════════════════════════════════════════════════
+let _idleResumeFn      = null;
+let _idleReplayCode    = null;
+let rangIdleConsec     = 0;   // consecutive timeouts in Rang
+let rukIdleConsec      = 0;   // consecutive Go-misses in Ruk
+let _rangIdleChecked   = false;
+let _rukIdleChecked    = false;
+
+function idleShowPause(resumeFn) {
+  _idleResumeFn = resumeFn;
+  document.getElementById('idle-icon').textContent      = '👀';
+  document.getElementById('idle-headline').textContent  = 'Still there?';
+  document.getElementById('idle-sub').textContent       = 'Game paused — you had 3 timeouts in a row. Take a breath.';
+  document.getElementById('idle-actions').innerHTML     =
+    `<button class="btn btn-primary" style="width:100%;padding:14px;" onclick="idleDismiss()">Back in → Resume</button>`;
+  document.getElementById('idle-overlay').style.display = 'flex';
+}
+
+function idleShowReplay(gameCode, continueFn) {
+  _idleReplayCode = gameCode;
+  _idleResumeFn   = continueFn;
+  document.getElementById('idle-icon').textContent      = '🔄';
+  document.getElementById('idle-headline').textContent  = 'A lot of trials timed out.';
+  document.getElementById('idle-sub').textContent       = 'More than 40% of responses were blank — the data might not be reliable. Worth replaying?';
+  document.getElementById('idle-actions').innerHTML     = `
+    <button class="btn btn-primary" style="width:100%;padding:14px;margin-bottom:8px;" onclick="idleReplay()">Replay this game</button>
+    <button class="idle-ghost-btn" onclick="idleDismiss()">Continue with what I have</button>`;
+  document.getElementById('idle-overlay').style.display = 'flex';
+}
+
+function idleDismiss() {
+  document.getElementById('idle-overlay').style.display = 'none';
+  if (_idleResumeFn) { const fn = _idleResumeFn; _idleResumeFn = null; fn(); }
+}
+
+function idleReplay() {
+  document.getElementById('idle-overlay').style.display = 'none';
+  const g = _idleReplayCode;
+  _idleReplayCode = null; _idleResumeFn = null;
+  rangIdleConsec = 0; rukIdleConsec = 0;
+  _rangIdleChecked = false; _rukIdleChecked = false;
+  if (g === 'FER') {
+    TIMEOUT_MS = RANG_WINDOW_BASE; rangResults = []; rangIdx = 0;
+    showScreen('rang-game'); rangRenderTrial();
+  } else if (g === 'GNG') {
+    startRuk();
+  }
+}
+
 // ─── Scoring ──────────────────────────────────────────────────────────────────
 function rangEndGame() {
+  // ── Idle: ≥40% timeouts → replay prompt ──
+  if (!_rangIdleChecked) {
+    _rangIdleChecked = true;
+    const tos = rangResults.filter(r => r.timedOut).length;
+    if (rangResults.length > 0 && tos / rangResults.length >= 0.40) {
+      idleShowReplay('FER', rangEndGame);
+      return;
+    }
+  }
+  _rangIdleChecked = false;
   document.getElementById('rang-progress-fill').style.width = '100%';
 
   const res = rangResults;
@@ -2545,6 +2688,7 @@ function rukAdaptBlocks() {
 }
 
 function startRuk() {
+  rukIdleConsec = 0; _rukIdleChecked = false;   // reset idle state
   rukTrials=[]; let idx=0;
   RUK_BLOCKS.forEach(b=>{const bt=buildRukBlock(b,idx);rukTrials.push(...bt);idx+=bt.length;});
   rukIdx=0;rukResults=[];rukScore=0;rukHits=0;rukFAs=0;rukActive=false;
@@ -2620,12 +2764,34 @@ function rukRecordResult(outcome,rt,delta) {
   const dots=document.getElementById('ruk-dots').children;
   if(dots[rukIdx]){const cls=outcome==='hit'?'ruk-dot hit':outcome==='miss'?'ruk-dot miss':outcome==='fa'?'ruk-dot fa':'ruk-dot cr';dots[rukIdx].className=cls;}
   document.getElementById('ruk-stim-wrap').innerHTML=RUK_SVG.blank;
+  // ── Idle detection: 3 consecutive Go-misses → pause overlay ──
+  if (t.isGo && outcome === 'miss') {
+    rukIdleConsec++;
+    if (rukIdleConsec >= 3) {
+      rukIdleConsec = 0;
+      idleShowPause(() => { rukIdx++; rukRunTrial(); });
+      return;  // overlay handles advance
+    }
+  } else if (outcome !== 'miss') {
+    rukIdleConsec = 0;
+  }
   clearTimeout(rukNextTimer);
   rukNextTimer=setTimeout(()=>{rukIdx++;rukRunTrial();}, RUK_ITI_MIN+Math.floor(Math.random()*(RUK_ITI_MAX-RUK_ITI_MIN)));
 }
 function rukEndGame() {
   clearTimeout(rukStimTimer);clearTimeout(rukNextTimer);
   document.getElementById('ruk-tap-btn').disabled=true;
+  // ── Idle: ≥40% Go-misses → replay prompt ──
+  if (!_rukIdleChecked) {
+    _rukIdleChecked = true;
+    const goT    = rukResults.filter(r => r.isGo);
+    const misses = rukResults.filter(r => r.isGo && r.outcome === 'miss');
+    if (goT.length > 0 && misses.length / goT.length >= 0.40) {
+      idleShowReplay('GNG', rukEndGame);
+      return;
+    }
+  }
+  _rukIdleChecked = false;
   const res=rukResults;
   const goT=res.filter(r=>r.isGo),nogoT=res.filter(r=>!r.isGo);
   const hits=res.filter(r=>r.outcome==='hit'),fas=res.filter(r=>r.outcome==='fa'),misses=res.filter(r=>r.outcome==='miss'),crs=res.filter(r=>r.outcome==='cr');
@@ -2928,6 +3094,7 @@ function bzRenderAll() {
   bzRenderPips();
   bzUpdateBottomBar();
   bzUpdatePnL();
+  bzRenderHistory();  // always sync — header mini table must reflect current state
 }
 
 function bzRenderCards() {
@@ -3168,20 +3335,40 @@ function bzCloseOverlay() {
 }
 
 function bzRenderHistory() {
+  const hasBz = bzHistory.length > 0;
+  const nf = n => (n >= 0 ? '+' : '\u2212') + '\u20b9' + Math.abs(n).toFixed(1) + 'L';
+  const nc = n => n > 0 ? 'color:var(--teal)' : n < 0 ? 'color:var(--red)' : 'color:var(--text-hint)';
+
+  // ── Mini header table (always in sticky header — primary history view) ───
+  const emptyEl  = document.getElementById('bz-hist-col-empty');
+  const scrollEl = document.getElementById('bz-hist-col-scroll');
+  const miniBody = document.getElementById('bz-mini-tbody');
+  if (emptyEl)  emptyEl.style.display  = hasBz ? 'none'  : 'block';
+  if (scrollEl) scrollEl.style.display = hasBz ? 'block' : 'none';
+  if (miniBody && hasBz) {
+    miniBody.innerHTML = bzHistory.map(h => `<tr>
+      <td>Y${h.round + 1}</td>
+      <td style="${nc(h.returns.A.net)}">${nf(h.returns.A.net)}</td>
+      <td style="${nc(h.returns.B.net)}">${nf(h.returns.B.net)}</td>
+      <td style="${nc(h.returns.C.net)}">${nf(h.returns.C.net)}</td>
+      <td style="${nc(h.net)};font-weight:600">${nf(h.net)}</td>
+    </tr>`).join('');
+    if (scrollEl) scrollEl.scrollTop = scrollEl.scrollHeight;
+  }
+
+  // ── Bottom detail table (alloc + returns per company, for scrollers) ─────
   const sec = document.getElementById('bz-history-section');
   const bod = document.getElementById('bz-hist-body');
-  if (!sec || !bod) return;
-  if (bzHistory.length === 0) { sec.style.display='none'; return; }
-  sec.style.display = 'block';
-  const nf = n => (n>=0?'+':'\u2212') + '\u20b9' + Math.abs(n).toFixed(1) + 'L';
-  const nc = n => n > 0 ? 'color:var(--teal)' : n < 0 ? 'color:var(--red)' : 'color:var(--text-hint)';
-  bod.innerHTML = bzHistory.map(h => `<tr>
-    <td>Y${h.round+1}</td>
-    <td>₹${h.alloc.A}L</td><td style="${nc(h.returns.A.net)}">${nf(h.returns.A.net)}</td>
-    <td>₹${h.alloc.B}L</td><td style="${nc(h.returns.B.net)}">${nf(h.returns.B.net)}</td>
-    <td>₹${h.alloc.C}L</td><td style="${nc(h.returns.C.net)}">${nf(h.returns.C.net)}</td>
-    <td style="${nc(h.net)};font-weight:600">${nf(h.net)}</td>
-  </tr>`).join('');
+  if (sec) sec.style.display = hasBz ? 'block' : 'none';
+  if (bod && hasBz) {
+    bod.innerHTML = bzHistory.map(h => `<tr>
+      <td>Y${h.round + 1}</td>
+      <td>₹${h.alloc.A}L</td><td style="${nc(h.returns.A.net)}">${nf(h.returns.A.net)}</td>
+      <td>₹${h.alloc.B}L</td><td style="${nc(h.returns.B.net)}">${nf(h.returns.B.net)}</td>
+      <td>₹${h.alloc.C}L</td><td style="${nc(h.returns.C.net)}">${nf(h.returns.C.net)}</td>
+      <td style="${nc(h.net)};font-weight:600">${nf(h.net)}</td>
+    </tr>`).join('');
+  }
 }
 
 

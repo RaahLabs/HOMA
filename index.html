@@ -298,143 +298,6 @@
     /* ═══════════════════════════════════════════════
        REPORT STYLES
     ═══════════════════════════════════════════════ */
-    /* ═══ REPORT v2 — TILE SYSTEM ═══ */
-    .rpt-canvas { padding: 0 !important; }
-    /* hero */
-    .rpt-hero {
-      padding: 2.5rem 1.5rem 2rem; text-align: center;
-      background: linear-gradient(160deg, #1A1A18 0%, #2C1A08 100%);
-      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-    }
-    .rpt-animal { font-size: 4rem; margin-bottom: 0.5rem; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
-    .rpt-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(186,117,23,0.8); margin-bottom: 6px; }
-    .rpt-type-name { font-family: 'Instrument Serif', serif; font-size: clamp(1.8rem, 5vw, 2.6rem); color: #F0EFE8; margin-bottom: 8px; }
-    .rpt-tagline { font-size: 0.9rem; color: rgba(240,239,232,0.55); font-style: italic; }
-    /* brief */
-    #rpt-brief, #rpt-full { padding: 1.25rem; }
-    .rpt-summary-card {
-      background: var(--surface); border-radius: var(--radius-lg);
-      padding: 1.1rem 1.25rem; margin-bottom: 1.25rem;
-      border-left: 3px solid var(--amber);
-    }
-    .rpt-summary-eyebrow { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber-dark); margin-bottom: 7px; }
-    #rpt-summary-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.85; }
-    /* dim tiles 2×2 */
-    .rpt-tile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.25rem; }
-    .rpt-dim-tile {
-      border-radius: var(--radius-lg); padding: 1rem 1rem 0.9rem;
-      position: relative; overflow: hidden;
-    }
-    .rpt-dim-tile::before { /* color accent strip top */
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: var(--tile-accent);
-    }
-    .rpt-dim-tile.agency   { --tile-accent: #FF7043; background: #FFF3EE; }
-    .rpt-dim-tile.selfreg  { --tile-accent: #26A69A; background: #E8F5F3; }
-    .rpt-dim-tile.social   { --tile-accent: #FFA000; background: #FFF8E1; }
-    .rpt-dim-tile.adapt    { --tile-accent: #66BB6A; background: #F1F8E9; }
-    @media (prefers-color-scheme: dark) {
-      .rpt-dim-tile.agency   { background: #2A1510; }
-      .rpt-dim-tile.selfreg  { background: #0A1E1C; }
-      .rpt-dim-tile.social   { background: #1E1500; }
-      .rpt-dim-tile.adapt    { background: #0A1A0A; }
-    }
-    .rpt-tile-dim-name { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-hint); margin-bottom: 4px; }
-    .rpt-tile-score {
-      font-family: 'DM Mono', monospace; font-size: 1.6rem; font-weight: 500;
-      color: var(--text); line-height: 1; margin-bottom: 4px;
-    }
-    .rpt-tile-score span { font-size: 0.7rem; color: var(--text-hint); margin-left: 1px; }
-    .rpt-tile-bar { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 6px; }
-    .rpt-tile-bar-fill { height: 100%; border-radius: 2px; background: var(--tile-accent); transition: width 1s cubic-bezier(0.4,0,0.2,1); }
-    .rpt-tile-line { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
-    /* gap flash tiles */
-    .rpt-section-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-hint); margin-bottom: 10px; margin-top: 0.25rem; }
-    .rpt-gap-tiles { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.25rem; }
-    .rpt-gap-tile {
-      background: #FAEEDA; border: 1px solid rgba(186,117,23,0.2);
-      border-radius: var(--radius); padding: 0.85rem 1rem;
-    }
-    @media (prefers-color-scheme: dark) { .rpt-gap-tile { background: #2A1E0A; } }
-    .rpt-gap-tile-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--amber-dark); margin-bottom: 4px; }
-    .rpt-gap-tile-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
-    /* CTA card */
-    .rpt-cta-card {
-      background: linear-gradient(135deg, #18181A 0%, #2A1A08 100%);
-      border-radius: var(--radius-lg); padding: 1.75rem 1.5rem; text-align: center;
-      margin-bottom: 0.5rem;
-    }
-    .rpt-cta-eyebrow { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber); margin-bottom: 8px; }
-    .rpt-cta-headline { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: #F0EFE8; margin-bottom: 8px; }
-    .rpt-cta-body { font-size: 0.78rem; color: rgba(240,239,232,0.45); line-height: 1.75; margin-bottom: 1.25rem; }
-    .rpt-unlock-btn { max-width: 260px; margin: 0 auto; padding: 14px !important; }
-    .rpt-cta-note { font-size: 0.65rem; color: rgba(255,255,255,0.25); margin-top: 10px; }
-    /* full report sections */
-    .rpt-section { margin-bottom: 1.5rem; }
-    .rpt-narrative-card {
-      background: var(--surface); border-radius: var(--radius-lg); padding: 1.25rem;
-    }
-    .rpt-narrative-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.85; margin-bottom: 0.75rem; }
-    .rpt-narrative-card p:last-child { margin-bottom: 0; }
-    /* dynamics tiles */
-    .rpt-dyn-tile {
-      border-radius: var(--radius); padding: 0.9rem 1rem 0.9rem 1.1rem;
-      margin-bottom: 8px; border-left: 3.5px solid transparent;
-      background: var(--card); border: 0.5px solid var(--border);
-      border-left-width: 3.5px;
-    }
-    .rpt-dyn-tile.mgr   { border-left-color: #FF7043; }
-    .rpt-dyn-tile.peer  { border-left-color: #26A69A; }
-    .rpt-dyn-tile.sub   { border-left-color: #FFA000; }
-    .rpt-dyn-tile.entre { border-left-color: #AB47BC; }
-    .rpt-dyn-role { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-hint); margin-bottom: 5px; }
-    .rpt-dyn-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.75; }
-    /* struggle tiles */
-    .rpt-struggles-note { font-size: 0.72rem; color: var(--text-hint); font-style: italic; margin-bottom: 10px; }
-    .rpt-struggle-tile {
-      background: var(--red-light); border-radius: var(--radius);
-      padding: 0.85rem 1rem; margin-bottom: 8px;
-      border-left: 3px solid var(--red);
-    }
-    .rpt-struggle-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--red); margin-bottom: 4px; }
-    .rpt-struggle-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
-    /* D8 tiles */
-    .rpt-d8-sub { font-size: 0.8rem; color: var(--text-hint); margin-bottom: 12px; line-height: 1.6; }
-    .rpt-d8-tile {
-      border-radius: var(--radius); padding: 0.85rem 1rem; margin-bottom: 8px;
-      border: 0.5px solid var(--border);
-    }
-    .rpt-d8-tile.gap { background: #FAEEDA; border-color: rgba(186,117,23,0.25); }
-    .rpt-d8-tile.aligned { background: var(--teal-light); border-color: rgba(15,110,86,0.15); }
-    .rpt-d8-tile-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-    .rpt-d8-tile-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
-    .rpt-d8-tile.gap .rpt-d8-tile-label { color: var(--amber-dark); }
-    .rpt-d8-tile.aligned .rpt-d8-tile-label { color: var(--teal); }
-    .rpt-d8-tile-badge { font-size: 0.6rem; color: var(--text-hint); }
-    .rpt-d8-tile-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
-    /* context tiles */
-    .rpt-ctx-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .rpt-ctx-tile {
-      border-radius: var(--radius); padding: 0.85rem 1rem;
-    }
-    .rpt-ctx-tile.thrive { background: var(--teal-light); border: 0.5px solid rgba(15,110,86,0.15); }
-    .rpt-ctx-tile.grind  { background: var(--red-light);  border: 0.5px solid rgba(163,45,45,0.15); }
-    .rpt-ctx-tile-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
-    .rpt-ctx-tile.thrive .rpt-ctx-tile-label { color: var(--teal); }
-    .rpt-ctx-tile.grind  .rpt-ctx-tile-label { color: var(--red); }
-    .rpt-ctx-tile-items { list-style: none; }
-    .rpt-ctx-tile-items li { font-size: 0.8rem; color: var(--text-muted); line-height: 1.7; }
-    .rpt-ctx-tile-items li::before { content: '· '; }
-    /* quote + bottom */
-    .rpt-bottom { border-top: 0.5px solid var(--border); padding-top: 1.25rem; }
-    .rpt-quote-card {
-      background: var(--surface); border-radius: var(--radius-lg);
-      padding: 1.25rem; margin-bottom: 1rem; text-align: center;
-      font-family: 'Instrument Serif', serif; font-size: 1.05rem;
-      color: var(--text-muted); line-height: 1.8; font-style: italic;
-    }
-
-    /* ═══ REPORT HERO (old — keep for backward compat) ═══ */
     .report-hero {
       padding: 3rem 1.5rem 2.5rem; text-align: center;
       background: linear-gradient(170deg, var(--bg) 0%, #F3EDD8 100%);
@@ -1891,89 +1754,70 @@
      REPORT SCREEN
 ═══════════════════════════════════════════════ -->
 <div id="screen-report" class="screen">
-  <div class="game-canvas result-canvas rpt-canvas">
-
-    <!-- ── HERO ── -->
-    <div class="rpt-hero">
-      <div class="rpt-animal" id="rpt-animal">🦅</div>
-      <div class="rpt-label">Your behavioral type</div>
-      <h2 class="rpt-type-name" id="rpt-type-name">The Strategist</h2>
-      <p class="rpt-tagline" id="rpt-tagline">Calculated, trusted, and hard to outmanoeuvre</p>
+  <div style="max-width:960px;margin:0 auto;max-height:calc(100vh - 68px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;border-radius:var(--radius-xl);box-shadow:var(--shadow-float);">
+    <!-- Hero -->
+    <div class="report-hero">
+      <div style="font-size:3.5rem;margin-bottom:1rem;" id="report-profile-icon">🤝</div>
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:8px;">Your Profile</div>
+      <h1 class="report-hero-name" id="report-profile-name">The Connector</h1>
+      <div style="font-size:1rem;color:var(--amber);font-weight:500;margin-bottom:12px;" id="report-profile-sub">— The Bridge Builder</div>
+      <p class="report-hero-sub" id="report-hero-summary"></p>
     </div>
 
-    <!-- ── BRIEF (always visible) ── -->
-    <div id="rpt-brief">
+    <!-- Tab bar -->
+    <div class="report-tab-bar">
+      <button class="report-tab active" onclick="switchReportTab('brief')" id="rtab-brief">Brief Report</button>
+      <button class="report-tab" onclick="switchReportTab('full')" id="rtab-full">Full Report 🔒</button>
+    </div>
 
-      <!-- Plain-English summary card -->
-      <div class="rpt-summary-card" id="rpt-summary-card">
-        <div class="rpt-summary-eyebrow">What the games caught</div>
-        <p id="rpt-summary-text">—</p>
-      </div>
-
-      <!-- 4 dimension tiles (2×2 grid) -->
-      <div class="rpt-tile-grid" id="rpt-dim-tiles"></div>
-
-      <!-- D8 flash tiles (only if gap > 0.22) -->
-      <div id="rpt-gap-flash" style="display:none;">
-        <div class="rpt-section-label">Self-image vs choices</div>
-        <div class="rpt-gap-tiles" id="rpt-gap-tiles"></div>
+    <!-- Brief pane -->
+    <div id="report-pane-brief" class="report-pane active">
+      <div class="report-grid">
+        <!-- Left col: headline + dims -->
+        <div>
+          <div class="section-label">What the games show, together</div>
+          <div style="background:var(--surface);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:1.5rem;border-left:3px solid var(--amber);">
+            <p id="report-headline" style="font-family:'Instrument Serif',serif;font-size:1.15rem;color:var(--text);line-height:1.5;margin-bottom:8px;"></p>
+            <p id="report-summary-text" style="font-size:0.88rem;color:var(--text-muted);line-height:1.85;"></p>
+          </div>
+          <div class="section-label">Behavioral gradients</div>
+          <div id="report-dim-bars"></div>
+        </div>
+        <!-- Right col: roles + gaps -->
+        <div>
+          <div class="section-label">Where you'll likely land well</div>
+          <div id="report-role-cards"></div>
+          <div id="report-gaps-wrap" style="display:none;margin-top:1.5rem;">
+            <div class="section-label">Your self-image vs your choices</div>
+            <div id="report-gap-cards"></div>
+          </div>
+        </div>
       </div>
 
       <!-- Premium CTA -->
-      <div class="rpt-cta-card">
-        <div class="rpt-cta-eyebrow">Full Profile</div>
-        <div class="rpt-cta-headline">The complete picture</div>
-        <div class="rpt-cta-body">Manager dynamics · Peer dynamics · Entrepreneur read · What you struggle with · Full self-awareness breakdown</div>
-        <button class="btn btn-primary btn-full rpt-unlock-btn" onclick="unlockFullReport()">
-          See full profile →
-        </button>
-        <p class="rpt-cta-note">One-time · No subscription · Yours forever</p>
+      <div class="locked-overlay">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:10px;">Full Report</div>
+        <div style="font-family:'Instrument Serif',serif;font-size:1.5rem;color:#FFFFFF;margin-bottom:8px;line-height:1.3;">The complete picture, not the summary</div>
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.75;margin-bottom:1.5rem;">Sub-roles, manager dynamics, peer dynamics, the full self-perception breakdown, what your profile typically struggles with.</div>
+        <button class="btn btn-primary btn-full" style="max-width:280px;padding:14px;" onclick="switchReportTab('full')">Unlock paid report →</button>
+        <p style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-top:8px;">One-time. No subscription.</p>
       </div>
     </div>
 
-    <!-- ── FULL REPORT (hidden until unlocked) ── -->
-    <div id="rpt-full" style="display:none;">
-
-      <!-- Type narrative (3 short punchy paragraphs) -->
-      <div class="rpt-section">
-        <div class="rpt-section-label">Your profile</div>
-        <div class="rpt-narrative-card" id="rpt-narrative"></div>
+    <!-- Full pane — real content, unlocked via button -->
+    <div id="report-pane-full" class="report-pane">
+      <!-- Paywall gate — shown until unlocked -->
+      <div id="full-report-gate" style="text-align:center;padding:3rem 1.5rem;">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🔒</div>
+        <div style="font-family:'Instrument Serif',serif;font-size:1.5rem;margin-bottom:10px;">The complete picture</div>
+        <div style="font-size:0.85rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.75rem;max-width:320px;margin-left:auto;margin-right:auto;">Sub-role · Manager &amp; peer dynamics · What you struggle with · Full self-awareness breakdown · Roles to avoid</div>
+        <button class="btn btn-primary btn-full" style="max-width:280px;padding:15px;font-size:1rem;margin:0 auto;display:block;" onclick="unlockFullReport()">Unlock paid report →</button>
+        <p style="font-size:0.7rem;color:var(--text-hint);margin-top:10px;">One-time · No subscription · Yours forever</p>
       </div>
-
-      <!-- Dynamics tiles: manager / peer / subordinate / entrepreneur -->
-      <div class="rpt-section">
-        <div class="rpt-section-label">How you show up</div>
-        <div id="rpt-dynamics"></div>
-      </div>
-
-      <!-- Struggles (red tiles) -->
-      <div class="rpt-section">
-        <div class="rpt-section-label">Watch out for</div>
-        <div class="rpt-struggles-note">Not softened. Worth reading.</div>
-        <div id="rpt-struggles"></div>
-      </div>
-
-      <!-- D8 full breakdown -->
-      <div class="rpt-section" id="rpt-d8-section" style="display:none;">
-        <div class="rpt-section-label">Self-awareness — full breakdown</div>
-        <p class="rpt-d8-sub">What you said about yourself vs what your choices showed.</p>
-        <div id="rpt-d8-tiles"></div>
-      </div>
-
-      <!-- Context fit -->
-      <div class="rpt-section">
-        <div class="rpt-section-label">Where you thrive</div>
-        <div id="rpt-context-tiles"></div>
-      </div>
-
-      <!-- Quote + back -->
-      <div class="rpt-section rpt-bottom">
-        <div class="rpt-quote-card" id="rpt-quote"></div>
-        <button class="btn btn-ghost btn-full" onclick="scrollToTop()">↑ Back to top</button>
-      </div>
-
-    </div><!-- end rpt-full -->
-  </div><!-- end game-canvas -->
+      <!-- Full content — hidden until unlocked -->
+      <div id="full-report-content" style="display:none;"></div>
+    </div>
+  </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════
@@ -4432,55 +4276,11 @@ function getDimensionScores(scores, b5self) {
     V5 = safe(rs.others||0, rs.self||0);
   }
 
-  // ── Composite typing dimensions (v2 report) ──
-  const D1f = clamp01(D1), D2f = clamp01(D2), D4f = clamp01(D4),
-        D6f = clamp01(D6), D7f = clamp01(D7);
-
-  // MB_social composite from Mol Bhav behavioral vector
-  const _mb = gf('MOL_BHAV');
-  const MB_social = (_mb && _mb.behaviorVector) ? clamp01(
-    (_mb.behaviorVector.anchor_aggression || 0.5) * 0.30 +
-    (_mb.behaviorVector.value_captured    || 0.5) * 0.40 +
-    clamp01(1 - (_mb.behaviorVector.pressure_fold || 0.5)) * 0.30
-  ) : null;
-
-  const Agency   = clamp01(D1f*0.55 + D7f*0.45);
-  const SelfReg  = clamp01(clamp01(D2)*0.50 + clamp01(D5)*0.50);
-  const SocialOr = MB_social !== null ? clamp01(D6f*0.55 + MB_social*0.45) : D6f;
-  const Adapt    = D4f;
-
-  const typeObj = deriveType(Agency, SelfReg, SocialOr, Adapt);
-
-  return { D1:D1f, D2:clamp01(D2), D3:clamp01(D3), D4:D4f,
-           D5:clamp01(D5), D6:D6f, D7:D7f, D8:clamp01(D8),
+  return { D1:clamp01(D1), D2:clamp01(D2), D3:clamp01(D3), D4:clamp01(D4),
+           D5:clamp01(D5), D6:clamp01(D6), D7:clamp01(D7), D8:clamp01(D8),
            V1, V2, V3, V4, V5,
            tipi: {E:tipiE, A:tipiA, C:tipiC, N:tipiN, O:tipiO},
-           d8Detail: d8Pairs,
-           Agency, SelfReg, SocialOr, Adapt, MB_social,
-           type: typeObj };
-}
-
-// ── Type derivation (10 types, v2 report) ──
-function deriveType(agency, selfReg, social, adapt) {
-  if(adapt > 0.72) return {id:9, name:'The Adaptor', animal:'🦎', tagline:'Wired to read the room and shift'};
-  if(agency  >= 0.38 && agency  <= 0.62 &&
-     selfReg >= 0.38 && selfReg <= 0.62 &&
-     social  >= 0.38 && social  <= 0.62)
-    return {id:10, name:'The Balancer', animal:'🦌', tagline:'Rare equilibrium across all dimensions'};
-  const aHi = agency  >= 0.52;
-  const sHi = selfReg >= 0.52;
-  const oHi = social  >= 0.52;
-  const TYPES = [
-    {id:1, name:'The Strategist',  animal:'🦅', tagline:'Calculated, trusted, and hard to outmanoeuvre'},
-    {id:2, name:'The Operator',    animal:'🐺', tagline:'Independent, precise, and allergic to noise'},
-    {id:3, name:'The Crusader',    animal:'🦁', tagline:'Bold agenda, people behind it'},
-    {id:4, name:'The Maverick',    animal:'🐆', tagline:'Fast, lone, and usually ahead'},
-    {id:5, name:'The Anchor',      animal:'🐘', tagline:'Steady presence, high trust, long memory'},
-    {id:6, name:'The Pragmatist',  animal:'🦫', tagline:'Does the work, holds the standard'},
-    {id:7, name:'The Advocate',    animal:'🐬', tagline:'Reads people, champions causes'},
-    {id:8, name:'The Reactor',     animal:'🦊', tagline:'Instinct-first, recalibrates fast'},
-  ];
-  return TYPES.find(t => (t.id===1?(aHi&&sHi&&oHi):t.id===2?(aHi&&sHi&&!oHi):t.id===3?(aHi&&!sHi&&oHi):t.id===4?(aHi&&!sHi&&!oHi):t.id===5?(!aHi&&sHi&&oHi):t.id===6?(!aHi&&sHi&&!oHi):t.id===7?(!aHi&&!sHi&&oHi):(!aHi&&!sHi&&!oHi))) || TYPES[7];
+           d8Detail: d8Pairs };
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -4901,146 +4701,215 @@ const DIM_META_REPORT = [
 function renderReport() {
   const scores = user && user.scores || [];
   if(!scores.length) { showScreen('dashboard'); return; }
+
   const dims = getDimensionScores(scores, user.b5self || {});
   if(!dims) { showScreen('dashboard'); return; }
 
-  const type = dims.type || {name:'The Balancer', animal:'🦌', tagline:'—'};
+  const profile = assignProfile(dims);
+  const roles = getTopRoles(dims, 3);
 
-  // ── Hero ──
-  document.getElementById('rpt-animal').textContent    = type.animal;
-  document.getElementById('rpt-type-name').textContent = type.name;
-  document.getElementById('rpt-tagline').textContent   = type.tagline;
+  // Hero
+  document.getElementById('report-profile-icon').textContent = profile.icon;
+  document.getElementById('report-profile-name').textContent = profile.label;
+  document.getElementById('report-profile-sub').textContent = '— ' + profile.subLabel;
+  document.getElementById('report-hero-summary').textContent = profile.subDesc;
 
-  // ── Summary (3 sentences) ──
-  document.getElementById('rpt-summary-text').textContent = buildSharpSummary(dims);
+  // Headline + summary
+  document.getElementById('report-headline').textContent = buildHeadline(dims);
+  document.getElementById('report-summary-text').textContent = buildSummary(dims);
 
-  // ── 4 dimension tiles ──
-  const DIM_TILES = [
-    {cls:'agency',  label:'Agency',          key:'Agency',   lo:'Protects downside',      hi:'Seeks upside'},
-    {cls:'selfreg', label:'Self-Regulation',  key:'SelfReg',  lo:'Acts on instinct',       hi:'Deliberate hold'},
-    {cls:'social',  label:'Social Orientation',key:'SocialOr',lo:'Independent mover',     hi:'People-first'},
-    {cls:'adapt',   label:'Adaptability',     key:'Adapt',    lo:'Consistent regardless', hi:'Reads every room'},
-  ];
-  document.getElementById('rpt-dim-tiles').innerHTML = DIM_TILES.map(d => {
-    const v   = dims[d.key] !== undefined ? dims[d.key] : 0.5;
-    const pct = Math.round(v * 100);
+  // Dim bars
+  document.getElementById('report-dim-bars').innerHTML = DIM_META_REPORT.map(d => {
+    const v = dims[d.key]; const pct = Math.round(v*100);
     const bkt = bucket(v);
-    const line = bkt === 'high' ? d.hi : bkt === 'low' ? d.lo : 'Balanced';
-    return `<div class="rpt-dim-tile ${d.cls}">
-      <div class="rpt-tile-dim-name">${d.label}</div>
-      <div class="rpt-tile-score">${pct}<span>/100</span></div>
-      <div class="rpt-tile-bar"><div class="rpt-tile-bar-fill" style="width:${pct}%"></div></div>
-      <div class="rpt-tile-line">${line}</div>
+    const markerCls = bkt==='high' ? 'dim-marker high' : 'dim-marker';
+    const posLabel = bkt==='high' ? d.hi : bkt==='low' ? d.lo : '—';
+    const posColor = bkt==='high' ? 'var(--teal)' : bkt==='low' ? 'var(--red)' : 'var(--text-muted)';
+    return `<div style="margin-bottom:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+        <span style="font-size:0.82rem;font-weight:600;">${d.label}</span>
+        <span style="font-size:0.76rem;color:${posColor};font-weight:500;">${posLabel} · ${pct}/100</span>
+      </div>
+      <div class="dim-endpoints"><span>${d.lo}</span><span>${d.hi}</span></div>
+      <div class="dim-track"><div class="${markerCls}" style="left:${pct}%" id="dm-${d.key}"></div></div>
     </div>`;
   }).join('');
 
-  // ── D8 gap flash tiles ──
-  const GAP_META = {
-    'O vs D7': { label: 'Curiosity', text: p => p.self > p.beh ? 'You call yourself open — your Bazaar moves were more committed than curious.' : 'You call yourself conventional. The games showed more exploration than you credit yourself.' },
-    'C vs D2': { label: 'Discipline', text: p => p.self > p.beh ? 'You see yourself as organised. Impulse-control scores say otherwise.' : 'You called yourself scattered. Your deliberateness scores disagree.' },
-    'N vs D1': { label: 'Risk vs Anxiety', text: p => p.self > p.beh ? 'You see yourself as anxious. Your risk-taking was bolder than that.' : 'You see yourself as calm. The games showed a more loss-sensitive pattern.' },
-    'E vs D3': { label: 'Assertiveness', text: p => p.self > p.beh ? 'You see yourself as assertive. In negotiations, you anchored softly.' : 'You see yourself as reserved. Negotiations showed otherwise.' },
-    'A vs D6': { label: 'Fairness', text: p => p.self > p.beh ? 'You see yourself as cooperative. You took most deals without pushing back.' : 'You see yourself as competitive. You walked away from unfair offers more than expected.' },
-  };
-  const gaps = (dims.d8Detail || [])
-    .filter(p => Math.abs(p.beh - p.self) > 0.22)
-    .map(p => { const m = GAP_META[p.label]; return m ? {label: m.label, text: m.text(p)} : null; })
-    .filter(Boolean);
+  // Role cards
+  document.getElementById('report-role-cards').innerHTML = roles.map((r,i) => {
+    const why = r.why(dims); const caution = r.caution(dims);
+    return `<div class="role-card-report ${i===0?'top':''}">
+      <div style="font-size:1rem;font-weight:600;margin-bottom:5px;">${r.icon} ${r.name}</div>
+      <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;">${why}</div>
+      ${caution?`<div style="font-size:0.76rem;color:var(--text-hint);margin-top:5px;">⚠ ${caution}</div>`:''}
+    </div>`;
+  }).join('');
 
-  const gapFlash = document.getElementById('rpt-gap-flash');
-  if(gaps.length) {
-    gapFlash.style.display = 'block';
-    document.getElementById('rpt-gap-tiles').innerHTML = gaps.map(g =>
-      `<div class="rpt-gap-tile"><div class="rpt-gap-tile-label">⚡ ${g.label}</div><div class="rpt-gap-tile-text">${g.text}</div></div>`
+  // D8 quick gap cards (main pane) — uses TIPI self-report vs behavioral
+  const _d8QuickMeta = {
+    'O vs D7':{'label':'Openness vs Exploration',
+      text:(p) => p.self > p.beh
+        ? 'You see yourself as curious and open to new things. Your Bazaar allocations showed more commitment than exploration.'
+        : 'You see yourself as conventional. The games showed far more exploration than you\'d credit yourself.'},
+    'C vs D2':{'label':'Self-discipline vs Impulse control',
+      text:(p) => p.self > p.beh
+        ? 'You see yourself as disciplined and organised. Your impulse control scores tell a different story.'
+        : 'You called yourself spontaneous or scattered. Your deliberateness scores say you hold back more than you think.'},
+    'N vs D1':{'label':'Anxiety vs Risk appetite',
+      text:(p) => p.self > p.beh
+        ? 'You see yourself as anxious and easily upset. Your risk-taking was bolder than that self-image would predict.'
+        : 'You see yourself as calm and stable. The games showed a more cautious, loss-sensitive pattern.'},
+    'E vs D3':{'label':'Extraversion vs Negotiation',
+      text:(p) => p.self > p.beh
+        ? 'You see yourself as assertive and energetic. In negotiations, you settled quickly and anchored softly.'
+        : 'You see yourself as reserved. Your negotiation behavior was more assertive than that implies.'},
+    'A vs D6':{'label':'Agreeableness vs Fairness',
+      text:(p) => p.self > p.beh
+        ? 'You see yourself as warm and cooperative. Your fairness threshold was lower than expected — you took most deals.'
+        : 'You see yourself as competitive. You walked away from unfair offers more often than that suggests.'},
+  };
+  const _d8Quick = (dims.d8Detail||[])
+    .filter(p => Math.abs(p.beh - p.self) > 0.22)
+    .map(p => {
+      const meta = _d8QuickMeta[p.label];
+      if(!meta) return null;
+      return {label: meta.label, text: meta.text(p)};
+    }).filter(Boolean);
+
+  const gapsWrap = document.getElementById('report-gaps-wrap');
+  if(_d8Quick.length) {
+    gapsWrap.style.display = 'block';
+    document.getElementById('report-gap-cards').innerHTML = _d8Quick.map(g =>
+      `<div class="gap-card"><div class="gap-label">${g.label}</div><div class="gap-text">${g.text}</div></div>`
     ).join('');
   }
 
   showScreen('report');
+
+  // Animate markers
+  setTimeout(() => {
+    document.querySelectorAll('.dim-marker').forEach(m => {
+      const finalLeft = m.style.left;
+      m.style.left = '50%'; m.style.transition = 'none';
+      setTimeout(() => { m.style.transition = 'left 1.2s cubic-bezier(0.4,0,0.2,1)'; m.style.left = finalLeft; }, 100);
+    });
+  }, 200);
 }
 
-function scrollToTop() {
-  const canvas = document.querySelector('.rpt-canvas');
-  if(canvas) canvas.scrollTop = 0; else window.scrollTo(0,0);
+function switchReportTab(tab) {
+  document.querySelectorAll('.report-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.report-pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('rtab-'+tab).classList.add('active');
+  document.getElementById('report-pane-'+tab).classList.add('active');
+  window.scrollTo(0,0);
 }
 
 function unlockFullReport() {
-  const full = document.getElementById('rpt-full');
-  full.style.display = 'block';
-  const cta = document.getElementById('rpt-brief').querySelector('.rpt-cta-card');
-  if(cta) cta.style.display = 'none';
-  if(!full.dataset.rendered) {
-    renderFullReport();
-    full.dataset.rendered = '1';
-  }
-  full.scrollIntoView({behavior:'smooth', block:'start'});
+  document.getElementById('full-report-gate').style.display='none';
+  const content = document.getElementById('full-report-content');
+  content.style.display='block';
+  if(!content.innerHTML.trim()) renderFullReport();
 }
 
 function renderFullReport() {
   const scores = user && user.scores || [];
-  const dims   = getDimensionScores(scores, user.b5self || {});
+  const dims = getDimensionScores(scores, user.b5self || {});
   const profile = assignProfile(dims);
+  const b5 = user.b5self || {};
+  const mazdoor = scores.find(s=>s.game==='CORP_MAZDOOR');
+  const allRoles = ROLE_FAMILIES_SHORT.map(r=>({...r,score:scoreRole(r,dims)})).sort((a,b)=>b.score-a.score);
+  const topRoles = allRoles.slice(0,3);
+  const avoidRoles = allRoles.slice(-2);
+
+  // ── Manager / peer / subordinate dynamics ──
   const dynamics = buildDynamics(dims);
+
+  // ── Struggle patterns ──
   const struggles = buildStruggles(dims, profile);
-  const d8Cards   = buildFullD8(dims);
-  const ctx       = buildContextTiles(dims);
 
-  // ── Narrative ──
-  const narParas = buildTypeNarrative(dims);
-  document.getElementById('rpt-narrative').innerHTML =
-    narParas.map(p => `<p>${p}</p>`).join('');
+  // ── Full D8 breakdown ──
+  const d8Cards = buildFullD8(dims);
 
-  // ── Dynamics tiles ──
-  const DYN = [
-    {cls:'mgr',   role:'As a Manager',       text: dynamics.manager},
-    {cls:'peer',  role:'As a Peer',           text: dynamics.peer},
-    {cls:'sub',   role:'As a Subordinate',    text: dynamics.subordinate},
-    {cls:'entre', role:'As an Entrepreneur',  text: dynamics.entrepreneur},
-  ];
-  document.getElementById('rpt-dynamics').innerHTML = DYN.map(d =>
-    `<div class="rpt-dyn-tile ${d.cls}">
-       <div class="rpt-dyn-role">${d.role}</div>
-       <div class="rpt-dyn-text">${d.text}</div>
-     </div>`
-  ).join('');
+  // ── Values snapshot from Mazdoor ──
+  const valuesHTML = mazdoor ? buildValuesSection(dims, mazdoor) : '';
 
-  // ── Struggle tiles ──
-  document.getElementById('rpt-struggles').innerHTML = struggles.map(s =>
-    `<div class="rpt-struggle-tile">
-       <div class="rpt-struggle-label">${s.label}</div>
-       <div class="rpt-struggle-text">${s.text}</div>
-     </div>`
-  ).join('');
-
-  // ── D8 full tiles ──
-  const d8Section = document.getElementById('rpt-d8-section');
-  if(d8Cards.length) {
-    d8Section.style.display = 'block';
-    document.getElementById('rpt-d8-tiles').innerHTML = d8Cards.map(c =>
-      `<div class="rpt-d8-tile ${c.aligned?'aligned':'gap'}">
-         <div class="rpt-d8-tile-head">
-           <div class="rpt-d8-tile-label">${c.label}</div>
-           <div class="rpt-d8-tile-badge">${c.aligned ? '✓ Aligned' : '⚡ Gap'}</div>
-         </div>
-         <div class="rpt-d8-tile-text">${c.text}</div>
-       </div>`
-    ).join('');
-  }
-
-  // ── Context tiles ──
-  document.getElementById('rpt-context-tiles').innerHTML = `
-    <div class="rpt-ctx-tiles">
-      <div class="rpt-ctx-tile thrive">
-        <div class="rpt-ctx-tile-label">✦ Where you thrive</div>
-        <ul class="rpt-ctx-tile-items">${ctx.thrive.map(t=>`<li>${t}</li>`).join('')}</ul>
+  document.getElementById('full-report-content').innerHTML = `
+    <!-- Sub-role -->
+    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
+      <p class="section-label">Your sub-role</p>
+      <div style="background:var(--surface);border-radius:var(--radius-lg);padding:1.25rem;">
+        <div style="font-size:1.05rem;font-weight:600;margin-bottom:6px;">${profile.icon} ${profile.subLabel}</div>
+        <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">${profile.subDesc}</div>
+        <div style="margin-top:12px;padding-top:12px;border-top:0.5px solid var(--border);font-size:0.82rem;color:var(--text-hint);line-height:1.75;">${buildSubRoleDetail(dims, profile)}</div>
       </div>
-      <div class="rpt-ctx-tile grind">
-        <div class="rpt-ctx-tile-label">↓ What drains you</div>
-        <ul class="rpt-ctx-tile-items">${ctx.grind.map(t=>`<li>${t}</li>`).join('')}</ul>
-      </div>
-    </div>`;
+    </div>
 
-  // ── Quote ──
-  document.getElementById('rpt-quote').textContent = buildQuote(dims);
+    <!-- Role fit — full + avoid -->
+    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
+      <p class="section-label">Role fit — the full picture</p>
+      ${topRoles.map((r,i)=>`
+        <div class="role-card-report ${i===0?'top':''}" style="margin-bottom:10px;">
+          <div style="font-size:1rem;font-weight:600;margin-bottom:4px;">${r.icon} ${r.name}</div>
+          <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;">${r.why(dims)}</div>
+          ${r.caution(dims)?`<div style="font-size:0.76rem;color:var(--amber-dark);margin-top:5px;">⚠ ${r.caution(dims)}</div>`:''}
+        </div>`).join('')}
+      <p class="section-label" style="margin-top:1.25rem;">Roles that will likely frustrate you</p>
+      ${avoidRoles.map(r=>`
+        <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:8px;">
+          <div style="font-size:0.88rem;font-weight:600;margin-bottom:4px;color:var(--text-muted);">${r.icon} ${r.name}</div>
+          <div style="font-size:0.82rem;color:var(--text-hint);line-height:1.7;">${buildAvoidReason(r, dims)}</div>
+        </div>`).join('')}
+    </div>
+
+    <!-- Manager / peer / subordinate -->
+    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
+      <p class="section-label">How you show up</p>
+      ${['manager','peer','subordinate'].map(role=>`
+        <div style="background:var(--card);border:0.5px solid var(--border-strong);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:10px;">
+          <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-hint);margin-bottom:6px;">As a ${role}</div>
+          <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">${dynamics[role]}</div>
+        </div>`).join('')}
+    </div>
+
+    <!-- What you struggle with -->
+    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
+      <p class="section-label">What this profile typically struggles with</p>
+      <p style="font-size:0.76rem;color:var(--text-hint);margin-bottom:14px;font-style:italic;">Not softened. Worth reading.</p>
+      ${struggles.map(s=>`
+        <div style="background:var(--surface);border-left:3px solid var(--amber);border-radius:0 var(--radius) var(--radius) 0;padding:1rem 1.125rem;margin-bottom:10px;">
+          <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--amber-dark);margin-bottom:5px;">${s.label}</div>
+          <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">${s.text}</div>
+        </div>`).join('')}
+    </div>
+
+    <!-- Full D8 self-awareness -->
+    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
+      <p class="section-label">Self-awareness — the full breakdown</p>
+      <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px;line-height:1.75;">What you said about yourself after each game, vs what your choices actually showed.</p>
+      ${d8Cards.length ? d8Cards.map(c=>`
+        <div style="background:${c.aligned?'var(--surface)':'var(--amber-light)'};border:0.5px solid ${c.aligned?'var(--border)':'rgba(186,117,23,0.25)'};border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:${c.aligned?'var(--teal)':'var(--amber-dark)'};">${c.label}</div>
+            <div style="font-size:0.7rem;color:var(--text-hint);">${c.aligned?'✓ Aligned':'⚡ Gap'}</div>
+          </div>
+          <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.75;">${c.text}</div>
+        </div>`).join('') :
+        `<div style="background:var(--surface);border-radius:var(--radius);padding:1.25rem;text-align:center;color:var(--text-hint);font-size:0.85rem;">No B5 responses recorded — self-awareness gap requires the post-game questions.</div>`}
+    </div>
+
+    ${valuesHTML ? `
+    <!-- Values -->
+    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
+      <p class="section-label">What drives you at work</p>
+      ${valuesHTML}
+    </div>` : ''}
+
+    <!-- Quote -->
+    <div style="padding:1.5rem 1.25rem;">
+      <div class="summary-card"><p>${buildQuote(dims)}</p></div>
+      <button class="btn btn-secondary btn-full" style="margin-top:1rem;" onclick="switchReportTab('brief')">← Back to brief</button>
+    </div>
+  `;
 }
 
 // ── Full report helper functions ──
@@ -5109,71 +4978,8 @@ function buildSubRoleDetail(dims, profile) {
   return profileDetails[profile.subLabel] || "Your specific combination of scores points to a profile with genuine strengths and specific limitations — both worth understanding in full.";
 }
 
-// ── Sharp 3-sentence summary for brief report ──
-function buildSharpSummary(dims) {
-  const {Agency:ag=0.5, SelfReg:sr=0.5, SocialOr:so=0.5, Adapt:ad=0.5, D8:d8=0.5} = dims;
-  let s1, s2, s3;
-  // Sentence 1: Agency (risk + exploration)
-  if(ag>0.65)     s1 = "Your risk scores are real — not confident language but actual game choices under pressure.";
-  else if(ag<0.35) s1 = "You protect the downside first. Every game where uncertainty was present showed the same pattern.";
-  else             s1 = "Risk appetite sits in the middle — you take the bet when the logic holds, not before.";
-  // Sentence 2: Self-regulation
-  if(sr>0.65)     s2 = "Your impulse control is in the top range — you hold back when most people go.";
-  else if(sr<0.35) s2 = "The fast trigger showed up consistently across both reaction-time games.";
-  else             s2 = "Control is solid under normal conditions; it takes sustained pressure to shift it.";
-  // Sentence 3: Social + Adapt or D8
-  if(so>0.60&&ad>0.60) s3 = "You're both people-oriented and context-adaptable — a combination that doesn't show up that often.";
-  else if(so>0.60)      s3 = "Fairness and people-orientation both register clearly — you build trust and you hold it.";
-  else if(ad>0.65)      s3 = "You adapt significantly by context — the games caught that across five different scenarios.";
-  else if(d8>0.45)      s3 = "One flag: there's a notable gap between how you described yourself and what your choices showed.";
-  else                  s3 = "Self-perception and behavior are reasonably well-aligned — your self-model is mostly accurate.";
-  return `${s1} ${s2} ${s3}`;
-}
-
-// ── Type narrative (3 paragraphs) for full report ──
-function buildTypeNarrative(dims) {
-  const {Agency:ag=0.5, SelfReg:sr=0.5, SocialOr:so=0.5, Adapt:ad=0.5} = dims;
-  let p1, p2, p3;
-  // Para 1: Agency + SelfReg interaction
-  if(ag>0.65&&sr>0.65)  p1="You move into uncertain territory deliberately — and when you move, you don't flail. The combination of real risk appetite and genuine impulse control is rarer than either trait alone. Most people have one or the other.";
-  else if(ag>0.65&&sr<0.40) p1="Bold trigger, fast execution. You're in before the map is complete and adjusting as you go. Some of your best outcomes came from exactly that. So did some of the avoidable ones.";
-  else if(ag<0.40&&sr>0.65) p1="You protect the downside and hold the line simultaneously. That's not conservatism — it's a specific architecture that compounds over time and shows up as reliability.";
-  else if(ag>0.55)          p1="You have real risk appetite. Not performed confidence — the game data shows it. You take bets when the logic holds, and you're not waiting for the certainty that never arrives.";
-  else if(ag<0.45)          p1="You protect the downside first. That's a deliberate stance, not a gap — and it produces a different kind of track record than the people who bet everything and sometimes win.";
-  else                      p1="Measured risk, measured reaction. You evaluate before moving and stop before it becomes reckless. That equilibrium is harder to maintain than it looks, and it shows in the data.";
-  // Para 2: Social orientation
-  if(so>0.65)  p2="You're genuinely oriented toward other people — trust comes early, fairness is non-negotiable. In groups, people sense that without being told. The limitation worth knowing: you carry more context for others than you should, and absorb more before flagging problems.";
-  else if(so<0.35) p2="You operate largely on your own axis. Other people's approval or alignment doesn't change your course — that's an edge in high-conflict environments and a cost in ones that require coalition and buy-in.";
-  else             p2="Socially, you calibrate. Not leading with trust before it's been established, not withholding it when it has. People read you as fair to deal with, which is a reputation that compounds.";
-  // Para 3: Adaptability + closing
-  if(ad>0.65)     p3="Context genuinely shifts your approach — you read the room, adjust, and rarely apply yesterday's solution to today's problem. That's what makes you useful across very different environments.";
-  else if(ad>0.50) p3="You adapt more than you probably give yourself credit for. The data across the games shows a profile that updates on new information — just not loudly or visibly.";
-  else             p3="You show up the same way regardless of context. That's what makes you reliable in stable environments. In fast-changing ones, it's the variable worth watching.";
-  return [p1, p2, p3];
-}
-
-// ── Context tiles (thrive / grind) ──
-function buildContextTiles(dims) {
-  const {Agency:ag=0.5, SelfReg:sr=0.5, SocialOr:so=0.5, Adapt:ad=0.5, D7:d7=0.5} = dims;
-  const thrive=[], grind=[];
-  if(ag>0.60) { thrive.push("Early-stage and high-uncertainty roles"); thrive.push("Real ownership over outcomes"); }
-  else        { thrive.push("Structured roles with a clear brief"); grind.push("Open-ended mandates with shifting scope"); }
-  if(sr>0.65) { thrive.push("High-stakes environments that need a steady hand"); }
-  else if(sr<0.40) { thrive.push("Fast-moving, action-first environments"); grind.push("Slow consensus and committee processes"); }
-  if(so>0.65) { thrive.push("Trust-based teams and collaborative cultures"); grind.push("Zero-sum, highly political environments"); }
-  else if(so<0.35) { thrive.push("Solo or small autonomous work"); grind.push("Heavy coalition-building and org politics"); }
-  if(ad>0.65) { thrive.push("Cross-functional and rapidly shifting contexts"); grind.push("Rigid, procedure-heavy institutions"); }
-  else if(ad<0.40) { grind.push("Constant context-switching without depth"); }
-  if(d7>0.65) { thrive.push("Exploration-heavy roles (research, new markets)"); }
-  // Ensure at least 2 in each
-  if(!thrive.length) thrive.push("Environments where reliability is valued", "Roles with defined expectations");
-  if(!grind.length)  grind.push("Environments that punish consistency", "High-noise, low-feedback roles");
-  return { thrive: thrive.slice(0,3), grind: grind.slice(0,3) };
-}
-
 function buildDynamics(dims) {
   const d1=dims.D1, d2=dims.D2, d3=dims.D3, d4=dims.D4, d5=dims.D5, d6=dims.D6, d7=dims.D7, v1=dims.V1, v2=dims.V2, v5=dims.V5;
-  const ag=dims.Agency||0.5, sr=dims.SelfReg||0.5, so=dims.SocialOr||0.5, ad=dims.Adapt||0.5;
 
   // As a manager
   let mgr;
@@ -5199,19 +5005,7 @@ function buildDynamics(dims) {
   else if(d3>0.65) sub="You give managers the benefit of the doubt early. That generosity means you're easy to onboard and fast to trust. It also means you absorb more than you should before flagging problems.";
   else sub="You work well within clear expectations and deliver reliably. Where you add less is in environments with high ambiguity and no clear brief.";
 
-  // As an entrepreneur
-  let entre;
-  if(ag>0.65&&ad>0.60) entre="You have the risk appetite for the bet and the context-reading to shift when the market tells you something. Those two together are what investor due diligence is actually trying to find. Use that.";
-  else if(ag>0.65&&sr<0.40) entre="Fast trigger, high conviction — you'll move before others finish the analysis. The upside is speed. The watch-out: early-stage companies collapse on operational consistency, not ideas, and that's not your natural mode.";
-  else if(ag>0.65&&so>0.60) entre="Bold enough to start something and people-oriented enough to build a team that stays. The founding risk for you isn't the market — it's scaling past the point where you know everyone personally.";
-  else if(ag>0.65) entre="The appetite is there. Your game scores show genuine risk tolerance, not performed confidence. The question is whether you can sustain ambiguity when it lasts 24 months, not 24 days.";
-  else if(ag<0.40&&sr>0.65) entre="You'd be exceptional as a co-founder who keeps the company together while someone else takes the bets. The 'steady hand' role is underrated and often the difference between a company that survives and one that doesn't.";
-  else if(ag<0.40) entre="Founding is possible but the sustained uncertainty will be uncomfortable in a way it won't be for others. Your profile fits a second-in-command or operator role in a startup better than the primary founder seat.";
-  else if(so>0.65) entre="Socially, you're built for founding — people trust you early, which matters enormously for hiring. The gap to watch: being too consensus-oriented in a context that sometimes needs a hard unilateral call.";
-  else if(ad>0.65) entre="You read context and shift — that's the core skill for the early stage, where the product and market are different every six months. The limitation: you may adapt to signals that should have been ignored.";
-  else entre="Moderately set up for founding. You have enough appetite for uncertainty and enough range to build a team. The ceiling depends on how well you sustain the ambiguity when it extends past the point you expected.";
-
-  return {manager:mgr, peer, subordinate:sub, entrepreneur:entre};
+  return {manager:mgr, peer, subordinate:sub};
 }
 
 function buildStruggles(dims, profile) {

@@ -2311,9 +2311,18 @@ function tipiSelect(score) {
     b.classList.remove('selected');
   });
   document.querySelector(`.tipi-btn[data-val="${score}"]`)?.classList.add('selected');
-  // Persist to user object
+  // Persist to user object AND localStorage
   if (!user.b5self) user.b5self = {};
   user.b5self[`tipi_${q.n}`] = { bigFive: q.bigFive, rawScore: score, reversed: q.reversed };
+  // Write updated b5self back to localStorage so it survives re-reads
+  if (user.email) {
+    const ek = safeKey('rl_ue_', user.email);
+    const ud = JSON.parse(lsGet(ek) || JSON.stringify(user));
+    if (!ud.b5self) ud.b5self = {};
+    ud.b5self[`tipi_${q.n}`] = { bigFive: q.bigFive, rawScore: score, reversed: q.reversed };
+    lsSet(ek, JSON.stringify(ud));
+    user = ud;
+  }
   // Advance after highlight beat
   setTimeout(() => {
     tipiQIdx++;

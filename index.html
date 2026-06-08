@@ -298,61 +298,226 @@
     /* ═══════════════════════════════════════════════
        REPORT STYLES
     ═══════════════════════════════════════════════ */
-    .report-hero {
-      padding: 3rem 1.5rem 2.5rem; text-align: center;
-      background: linear-gradient(170deg, var(--bg) 0%, #F3EDD8 100%);
+    /* ═══ REPORT v3 — 5-DIM TILE SYSTEM ═══ */
+    .rpt-canvas { padding: 0 !important; }
+
+    /* ── Spirit animal hero ── */
+    .rpt-hero {
+      padding: 2.75rem 1.5rem 2.25rem; text-align: center;
+      background: linear-gradient(160deg, #111110 0%, #1E1208 60%, #2A1A08 100%);
       border-radius: var(--radius-xl) var(--radius-xl) 0 0;
     }
-    @media (prefers-color-scheme: dark) { .report-hero { background: linear-gradient(170deg, var(--bg) 0%, #1A1408 100%); } }
-    .report-hero-name { font-family: 'Instrument Serif', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 10px; }
-    .report-hero-sub { font-size: 1rem; color: var(--text-muted); max-width: 420px; margin: 0 auto; line-height: 1.85; }
-    .dim-track {
-      height: 8px; border-radius: 4px;
-      background: linear-gradient(to right, rgba(186,117,23,0.15) 0%, rgba(186,117,23,0.04) 45%, rgba(15,110,86,0.04) 55%, rgba(15,110,86,0.15) 100%);
-      position: relative; margin: 5px 0;
+    .rpt-hero-your-spirit {
+      font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.18em; color: rgba(186,117,23,0.55); margin-bottom: 1.25rem;
     }
-    .dim-marker {
-      position: absolute; top: 50%; transform: translate(-50%,-50%);
-      width: 18px; height: 18px; border-radius: 50%;
-      background: var(--card); border: 2.5px solid var(--amber);
-      box-shadow: 0 2px 8px rgba(186,117,23,0.3);
-      transition: left 1.2s cubic-bezier(0.4,0,0.2,1);
+    .rpt-animal-ring {
+      width: 110px; height: 110px; margin: 0 auto 1.25rem;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 3.25rem;
+      background: radial-gradient(circle at 50% 40%, rgba(186,117,23,0.18) 0%, transparent 70%);
+      border: 1.5px solid rgba(186,117,23,0.28);
+      box-shadow: 0 0 48px rgba(186,117,23,0.14), inset 0 0 24px rgba(186,117,23,0.04);
+      animation: heroRingPulse 3s ease-in-out infinite;
     }
-    .dim-marker.high { border-color: var(--teal); box-shadow: 0 2px 8px rgba(15,110,86,0.3); }
-    .dim-endpoints { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-hint); margin-bottom: 4px; }
-    .role-card-report {
-      background: var(--card); border: 0.5px solid var(--border-strong);
-      border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 10px;
-      position: relative; overflow: hidden;
+    @keyframes heroRingPulse {
+      0%,100% { box-shadow: 0 0 48px rgba(186,117,23,0.14), inset 0 0 24px rgba(186,117,23,0.04); }
+      50%      { box-shadow: 0 0 72px rgba(186,117,23,0.24), inset 0 0 32px rgba(186,117,23,0.08); }
     }
-    .role-card-report.top { border-color: rgba(186,117,23,0.3); }
-    .role-card-report.top::before {
-      content: 'Best fit'; position: absolute; top: 0; right: 0;
-      font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
-      color: white; background: var(--amber); padding: 3px 10px;
-      border-radius: 0 var(--radius-lg) 0 var(--radius);
+    .rpt-animal-name {
+      font-family: 'Instrument Serif', serif; font-size: clamp(2rem,6vw,3rem);
+      color: #F0EFE8; font-style: italic; letter-spacing: 0.01em;
+      text-transform: uppercase; margin-bottom: 6px;
     }
-    .gap-card { background: var(--amber-light); border: 0.5px solid rgba(186,117,23,0.2); border-radius: var(--radius); padding: 1rem 1.125rem; margin-bottom: 10px; }
-    .gap-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--amber-dark); margin-bottom: 5px; }
-    .gap-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.75; }
-    .report-tab-bar {
-      display: flex; border-bottom: 0.5px solid var(--border);
-      background: var(--card); position: sticky; top: 0; z-index: 10;
+    .rpt-type-name { font-size: 0.82rem; font-weight: 600; color: rgba(240,239,232,0.6); margin-bottom: 8px; letter-spacing: 0.04em; }
+    .rpt-tagline { font-size: 0.8rem; color: rgba(240,239,232,0.38); font-style: italic; }
+
+    /* ── Pane padding ── */
+    #rpt-brief, #rpt-full { padding: 1.25rem; }
+
+    /* ── Dim tiles — 2-col grid ── */
+    .rpt-tile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.25rem; }
+    .rpt-dim-tile {
+      border-radius: var(--radius-lg); padding: 1rem 1rem 0.9rem;
+      border: 0.5px solid var(--tc-border);
+      background: var(--tc-bg);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: tileIn 0.45s ease both;
     }
-    .report-tab {
-      flex: 1; padding: 14px 8px; border: none; background: transparent;
-      font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 500;
-      color: var(--text-muted); cursor: pointer; transition: all 0.2s; position: relative;
+    .rpt-dim-tile:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    @keyframes tileIn {
+      from { opacity:0; transform:translateY(10px); }
+      to   { opacity:1; transform:translateY(0);    }
     }
-    .report-tab.active { color: var(--amber); }
-    .report-tab.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--amber); }
-    .report-pane { display: none; padding: 2rem 1.5rem; }
-    .report-pane.active { display: block; }
-    .locked-overlay {
-      background: linear-gradient(135deg, #18181A 0%, #2A1A08 100%);
-      border-radius: var(--radius-lg); padding: 2rem; text-align: center; margin-top: 2rem;
+    .rpt-dim-tile:nth-child(1){animation-delay:.05s}
+    .rpt-dim-tile:nth-child(2){animation-delay:.12s}
+    .rpt-dim-tile:nth-child(3){animation-delay:.19s}
+    .rpt-dim-tile:nth-child(4){animation-delay:.26s}
+    .rpt-dim-tile:nth-child(5){animation-delay:.33s}
+    /* per-dimension palette */
+    .rpt-dim-tile.risk    { --tc:#FF6B35; --tc-bg:#FFF3EE; --tc-border:rgba(255,107,53,.18); }
+    .rpt-dim-tile.command { --tc:#26A69A; --tc-bg:#E8F5F3; --tc-border:rgba(38,166,154,.18); }
+    .rpt-dim-tile.social  { --tc:#FFA000; --tc-bg:#FFF8E1; --tc-border:rgba(255,160,0,.18);  }
+    .rpt-dim-tile.adapt   { --tc:#66BB6A; --tc-bg:#F1F8E9; --tc-border:rgba(102,187,106,.18);}
+    .rpt-dim-tile.aware   { --tc:#AB47BC; --tc-bg:#F3E5F5; --tc-border:rgba(171,71,188,.18); }
+    @media(prefers-color-scheme:dark){
+      .rpt-dim-tile.risk    { --tc-bg:#2A1510; }
+      .rpt-dim-tile.command { --tc-bg:#0A1E1C; }
+      .rpt-dim-tile.social  { --tc-bg:#1E1500; }
+      .rpt-dim-tile.adapt   { --tc-bg:#0A1A0A; }
+      .rpt-dim-tile.aware   { --tc-bg:#1A0A1E; }
+    }
+    /* tile header row */
+    .rpt-tile-head { display:flex; align-items:center; gap:6px; margin-bottom:0.75rem; }
+    .rpt-tile-icon { font-size:0.95rem; }
+    .rpt-tile-dim-name { font-size:0.58rem; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:var(--tc); }
+    /* ring + meta row */
+    .rpt-tile-body { display:flex; align-items:center; gap:0.9rem; margin-bottom:0.6rem; }
+    .rpt-ring-wrap { flex-shrink:0; position:relative; width:54px; height:54px; }
+    .rpt-ring-wrap svg { transform:rotate(-90deg); }
+    .rpt-ring-bg   { fill:none; stroke:var(--border); stroke-width:5; }
+    .rpt-ring-fill {
+      fill:none; stroke:var(--tc); stroke-width:5; stroke-linecap:round;
+      stroke-dasharray:138.23; stroke-dashoffset:138.23;
+      transition:stroke-dashoffset 1.1s cubic-bezier(0.4,0,0.2,1);
+    }
+    .rpt-ring-score {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      font-family:'DM Mono',monospace; font-size:0.78rem; font-weight:600; color:var(--tc); line-height:1;
+    }
+    /* gradient badge chip */
+    .rpt-grad-badge {
+      display:inline-block; padding:2px 8px; border-radius:20px; margin-bottom:4px;
+      font-size:0.58rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em;
+      background:color-mix(in srgb, var(--tc) 12%, transparent);
+      color:var(--tc);
+      border:1px solid color-mix(in srgb, var(--tc) 22%, transparent);
+    }
+    .rpt-tile-desc { font-size:0.65rem; color:var(--text-hint); font-style:italic; margin-bottom:4px; }
+    .rpt-tile-line { font-size:0.78rem; color:var(--text-muted); line-height:1.55; }
+
+    /* ── TIPI comparison section ── */
+    .rpt-tipi-card {
+      background:var(--surface); border-radius:var(--radius-lg);
+      overflow:hidden; margin-bottom:1.25rem;
+    }
+    .rpt-tipi-header {
+      padding:0.8rem 1rem 0.6rem; border-bottom:0.5px solid var(--border);
+    }
+    .rpt-tipi-header-label { font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-hint); }
+    .rpt-tipi-header-sub { font-size:0.72rem; color:var(--text-muted); margin-top:2px; }
+    .rpt-tipi-row {
+      display:grid; grid-template-columns:1fr auto;
+      align-items:center; gap:12px;
+      padding:0.8rem 1rem; border-bottom:0.5px solid var(--border);
+    }
+    .rpt-tipi-row:last-child { border-bottom:none; }
+    .rpt-tipi-trait { font-size:0.8rem; font-weight:600; color:var(--text); }
+    .rpt-tipi-sub   { font-size:0.68rem; color:var(--text-hint); margin-top:1px; }
+    .rpt-tipi-bars  { display:flex; flex-direction:column; gap:4px; }
+    .rpt-tipi-bar-row { display:flex; align-items:center; gap:7px; }
+    .rpt-tipi-bar-lbl { font-size:0.56rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-hint); width:24px; flex-shrink:0; }
+    .rpt-tipi-track { width:72px; height:5px; background:var(--border); border-radius:3px; overflow:hidden; }
+    .rpt-tipi-fill { height:100%; border-radius:3px; transition:width 0.9s cubic-bezier(0.4,0,0.2,1); }
+    .rpt-tipi-fill.self { background:var(--text-hint); }
+    .rpt-tipi-fill.game { background:var(--amber); }
+    .rpt-tipi-badge {
+      font-size:0.58rem; font-weight:700; padding:2px 7px;
+      border-radius:20px; white-space:nowrap; margin-top:3px;
+    }
+    .rpt-tipi-badge.gap     { background:rgba(186,117,23,.1); color:var(--amber-dark); }
+    .rpt-tipi-badge.aligned { background:rgba(15,110,86,.1);  color:var(--teal); }
+    .rpt-tipi-badge.na      { background:var(--surface);      color:var(--text-hint); }
+
+    /* ── CTA card ── */
+    .rpt-summary-card {
+      background:var(--surface); border-radius:var(--radius-lg);
+      padding:1.1rem 1.25rem; margin-bottom:1.25rem;
+      border-left:3px solid var(--amber);
+    }
+    .rpt-summary-eyebrow { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--amber-dark); margin-bottom:7px; }
+    #rpt-summary-text { font-size:.88rem; color:var(--text-muted); line-height:1.85; }
+    .rpt-cta-card {
+      background:linear-gradient(135deg,#18181A 0%,#2A1A08 100%);
+      border-radius:var(--radius-lg); padding:1.75rem 1.5rem; text-align:center; margin-bottom:.5rem;
+    }
+    .rpt-cta-eyebrow { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--amber); margin-bottom:8px; }
+    .rpt-cta-headline { font-family:'Instrument Serif',serif; font-size:1.4rem; color:#F0EFE8; margin-bottom:8px; }
+    .rpt-cta-body { font-size:.78rem; color:rgba(240,239,232,.45); line-height:1.75; margin-bottom:1.25rem; }
+    .rpt-unlock-btn { max-width:260px; margin:0 auto; padding:14px !important; }
+    .rpt-cta-note { font-size:.65rem; color:rgba(255,255,255,.25); margin-top:10px; }
+
+    /* ── Full report sections ── */
+    .rpt-section { margin-bottom:1.5rem; }
+    .rpt-section-label { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text-hint); margin-bottom:10px; }
+    .rpt-narrative-card { background:var(--surface); border-radius:var(--radius-lg); padding:1.25rem; }
+    .rpt-narrative-card p { font-size:.88rem; color:var(--text-muted); line-height:1.85; margin-bottom:.75rem; }
+    .rpt-narrative-card p:last-child { margin-bottom:0; }
+    /* dynamics */
+    .rpt-dyn-tile {
+      border-radius:var(--radius); padding:.9rem 1rem .9rem 1.1rem; margin-bottom:8px;
+      background:var(--card); border:.5px solid var(--border); border-left-width:3.5px;
+    }
+    .rpt-dyn-tile.mgr   { border-left-color:#FF7043; }
+    .rpt-dyn-tile.peer  { border-left-color:#26A69A; }
+    .rpt-dyn-tile.sub   { border-left-color:#FFA000; }
+    .rpt-dyn-tile.entre { border-left-color:#AB47BC; }
+    .rpt-dyn-role { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.09em; color:var(--text-hint); margin-bottom:5px; }
+    .rpt-dyn-text { font-size:.85rem; color:var(--text-muted); line-height:1.75; }
+    /* struggles */
+    .rpt-struggles-note { font-size:.72rem; color:var(--text-hint); font-style:italic; margin-bottom:10px; }
+    .rpt-struggle-tile { background:var(--red-light); border-radius:var(--radius); padding:.85rem 1rem; margin-bottom:8px; border-left:3px solid var(--red); }
+    .rpt-struggle-label { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--red); margin-bottom:4px; }
+    .rpt-struggle-text { font-size:.82rem; color:var(--text-muted); line-height:1.65; }
+    /* D8 */
+    .rpt-d8-sub { font-size:.8rem; color:var(--text-hint); margin-bottom:12px; line-height:1.6; }
+    .rpt-d8-tile { border-radius:var(--radius); padding:.85rem 1rem; margin-bottom:8px; border:.5px solid var(--border); }
+    .rpt-d8-tile.gap { background:#FAEEDA; border-color:rgba(186,117,23,.25); }
+    .rpt-d8-tile.aligned { background:var(--teal-light); border-color:rgba(15,110,86,.15); }
+    .rpt-d8-tile-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; }
+    .rpt-d8-tile-label { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
+    .rpt-d8-tile.gap .rpt-d8-tile-label { color:var(--amber-dark); }
+    .rpt-d8-tile.aligned .rpt-d8-tile-label { color:var(--teal); }
+    .rpt-d8-tile-badge { font-size:.6rem; color:var(--text-hint); }
+    .rpt-d8-tile-text { font-size:.82rem; color:var(--text-muted); line-height:1.65; }
+    /* context */
+    .rpt-ctx-tiles { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .rpt-ctx-tile { border-radius:var(--radius); padding:.85rem 1rem; }
+    .rpt-ctx-tile.thrive { background:var(--teal-light); border:.5px solid rgba(15,110,86,.15); }
+    .rpt-ctx-tile.grind  { background:var(--red-light);  border:.5px solid rgba(163,45,45,.15); }
+    .rpt-ctx-tile-label  { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin-bottom:6px; }
+    .rpt-ctx-tile.thrive .rpt-ctx-tile-label { color:var(--teal); }
+    .rpt-ctx-tile.grind  .rpt-ctx-tile-label { color:var(--red);  }
+    .rpt-ctx-tile-items { list-style:none; }
+    .rpt-ctx-tile-items li { font-size:.8rem; color:var(--text-muted); line-height:1.7; }
+    .rpt-ctx-tile-items li::before { content:'· '; }
+    /* quote / bottom */
+    .rpt-bottom { border-top:.5px solid var(--border); padding-top:1.25rem; }
+    .rpt-quote-card {
+      background:var(--surface); border-radius:var(--radius-lg); padding:1.25rem;
+      margin-bottom:1rem; text-align:center;
+      font-family:'Instrument Serif',serif; font-size:1.05rem;
+      color:var(--text-muted); line-height:1.8; font-style:italic;
     }
 
+    /* ── Print / PDF ── */
+    @media print {
+      body { background:#fff !important; }
+      .screen:not(#screen-report) { display:none !important; }
+      #screen-report { display:block !important; position:static !important; height:auto !important; }
+      .result-canvas { max-height:none !important; overflow:visible !important; box-shadow:none !important; border-radius:0 !important; }
+      .rpt-cta-card, .rpt-unlock-btn, .rpt-cta-note, button, .nav-bar, #nav { display:none !important; }
+      #rpt-full { display:block !important; }
+      .rpt-hero { border-radius:0 !important; }
+      .rpt-dim-tile, .rpt-section, .rpt-dyn-tile, .rpt-tipi-row { break-inside:avoid; }
+      .rpt-dim-tile { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      @page { margin:1.5cm; size:A4 portrait; }
+    }
+
+    /* ── Old compat (still referenced in legacy buildFullD8) ── */
+    .gap-card { background:var(--amber-light); border:.5px solid rgba(186,117,23,.2); border-radius:var(--radius); padding:1rem 1.125rem; margin-bottom:10px; }
+    .gap-label { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--amber-dark); margin-bottom:5px; }
+    .gap-text  { font-size:.82rem; color:var(--text-muted); line-height:1.75; }
     /* ═══ RANG ═══ */
     .rang-word-display { display:flex; align-items:center; justify-content:center; min-height:90px; user-select:none; margin-bottom:4px; }
     #rang-progress-bar { width:100%; height:3px; background:var(--border); border-radius:2px; overflow:hidden; margin-bottom:1.75rem; }
@@ -1754,70 +1919,82 @@
      REPORT SCREEN
 ═══════════════════════════════════════════════ -->
 <div id="screen-report" class="screen">
-  <div style="max-width:960px;margin:0 auto;max-height:calc(100vh - 68px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;border-radius:var(--radius-xl);box-shadow:var(--shadow-float);">
-    <!-- Hero -->
-    <div class="report-hero">
-      <div style="font-size:3.5rem;margin-bottom:1rem;" id="report-profile-icon">🤝</div>
-      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:8px;">Your Profile</div>
-      <h1 class="report-hero-name" id="report-profile-name">The Connector</h1>
-      <div style="font-size:1rem;color:var(--amber);font-weight:500;margin-bottom:12px;" id="report-profile-sub">— The Bridge Builder</div>
-      <p class="report-hero-sub" id="report-hero-summary"></p>
+  <div class="game-canvas result-canvas rpt-canvas">
+
+    <!-- ── HERO ── -->
+    <div class="rpt-hero">
+      <div class="rpt-hero-your-spirit">Your spirit animal is</div>
+      <div class="rpt-animal-ring" id="rpt-animal">🦅</div>
+      <div class="rpt-animal-name" id="rpt-animal-name">The Eagle</div>
+      <div class="rpt-type-name"  id="rpt-type-name">The Strategist</div>
+      <p class="rpt-tagline"      id="rpt-tagline">—</p>
     </div>
 
-    <!-- Tab bar -->
-    <div class="report-tab-bar">
-      <button class="report-tab active" onclick="switchReportTab('brief')" id="rtab-brief">Brief Report</button>
-      <button class="report-tab" onclick="switchReportTab('full')" id="rtab-full">Full Report 🔒</button>
-    </div>
+    <!-- ── BRIEF (always visible) ── -->
+    <div id="rpt-brief">
 
-    <!-- Brief pane -->
-    <div id="report-pane-brief" class="report-pane active">
-      <div class="report-grid">
-        <!-- Left col: headline + dims -->
-        <div>
-          <div class="section-label">What the games show, together</div>
-          <div style="background:var(--surface);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:1.5rem;border-left:3px solid var(--amber);">
-            <p id="report-headline" style="font-family:'Instrument Serif',serif;font-size:1.15rem;color:var(--text);line-height:1.5;margin-bottom:8px;"></p>
-            <p id="report-summary-text" style="font-size:0.88rem;color:var(--text-muted);line-height:1.85;"></p>
-          </div>
-          <div class="section-label">Behavioral gradients</div>
-          <div id="report-dim-bars"></div>
-        </div>
-        <!-- Right col: roles + gaps -->
-        <div>
-          <div class="section-label">Where you'll likely land well</div>
-          <div id="report-role-cards"></div>
-          <div id="report-gaps-wrap" style="display:none;margin-top:1.5rem;">
-            <div class="section-label">Your self-image vs your choices</div>
-            <div id="report-gap-cards"></div>
-          </div>
-        </div>
-      </div>
+      <!-- 5 dimension tiles -->
+      <div class="rpt-tile-grid" id="rpt-dim-tiles"></div>
+
+      <!-- TIPI: self-perception vs choices (always shown) -->
+      <div id="rpt-tipi-compare"></div>
 
       <!-- Premium CTA -->
-      <div class="locked-overlay">
-        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:10px;">Full Report</div>
-        <div style="font-family:'Instrument Serif',serif;font-size:1.5rem;color:#FFFFFF;margin-bottom:8px;line-height:1.3;">The complete picture, not the summary</div>
-        <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.75;margin-bottom:1.5rem;">Sub-roles, manager dynamics, peer dynamics, the full self-perception breakdown, what your profile typically struggles with.</div>
-        <button class="btn btn-primary btn-full" style="max-width:280px;padding:14px;" onclick="switchReportTab('full')">Unlock paid report →</button>
-        <p style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-top:8px;">One-time. No subscription.</p>
+      <div class="rpt-cta-card">
+        <div class="rpt-cta-eyebrow">Full Profile</div>
+        <div class="rpt-cta-headline">The complete picture</div>
+        <div class="rpt-cta-body">Type narrative · Manager · Peer · Subordinate · Entrepreneur · What you struggle with · Where you thrive</div>
+        <button class="btn btn-primary btn-full rpt-unlock-btn" onclick="unlockFullReport()">
+          See full profile →
+        </button>
+        <p class="rpt-cta-note">One-time · No subscription · Yours forever</p>
       </div>
     </div>
 
-    <!-- Full pane — real content, unlocked via button -->
-    <div id="report-pane-full" class="report-pane">
-      <!-- Paywall gate — shown until unlocked -->
-      <div id="full-report-gate" style="text-align:center;padding:3rem 1.5rem;">
-        <div style="font-size:2.5rem;margin-bottom:1rem;">🔒</div>
-        <div style="font-family:'Instrument Serif',serif;font-size:1.5rem;margin-bottom:10px;">The complete picture</div>
-        <div style="font-size:0.85rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.75rem;max-width:320px;margin-left:auto;margin-right:auto;">Sub-role · Manager &amp; peer dynamics · What you struggle with · Full self-awareness breakdown · Roles to avoid</div>
-        <button class="btn btn-primary btn-full" style="max-width:280px;padding:15px;font-size:1rem;margin:0 auto;display:block;" onclick="unlockFullReport()">Unlock paid report →</button>
-        <p style="font-size:0.7rem;color:var(--text-hint);margin-top:10px;">One-time · No subscription · Yours forever</p>
+    <!-- ── FULL REPORT (hidden until unlocked) ── -->
+    <div id="rpt-full" style="display:none;">
+
+      <!-- Type narrative (3 short punchy paragraphs) -->
+      <div class="rpt-section">
+        <div class="rpt-section-label">Your profile</div>
+        <div class="rpt-narrative-card" id="rpt-narrative"></div>
       </div>
-      <!-- Full content — hidden until unlocked -->
-      <div id="full-report-content" style="display:none;"></div>
-    </div>
-  </div>
+
+      <!-- Dynamics tiles: manager / peer / subordinate / entrepreneur -->
+      <div class="rpt-section">
+        <div class="rpt-section-label">How you show up</div>
+        <div id="rpt-dynamics"></div>
+      </div>
+
+      <!-- Struggles (red tiles) -->
+      <div class="rpt-section">
+        <div class="rpt-section-label">Watch out for</div>
+        <div class="rpt-struggles-note">Not softened. Worth reading.</div>
+        <div id="rpt-struggles"></div>
+      </div>
+
+      <!-- D8 full breakdown -->
+      <div class="rpt-section" id="rpt-d8-section" style="display:none;">
+        <div class="rpt-section-label">Self-awareness — full breakdown</div>
+        <p class="rpt-d8-sub">What you said about yourself vs what your choices showed.</p>
+        <div id="rpt-d8-tiles"></div>
+      </div>
+
+      <!-- Context fit -->
+      <div class="rpt-section">
+        <div class="rpt-section-label">Where you thrive</div>
+        <div id="rpt-context-tiles"></div>
+      </div>
+
+      <!-- Quote + back -->
+      <div class="rpt-section rpt-bottom">
+        <div class="rpt-quote-card" id="rpt-quote"></div>
+        <button class="btn btn-primary btn-full" onclick="downloadPDF()" style="margin-bottom:10px;">↓ Download as PDF</button>
+        <button class="btn btn-ghost btn-full" onclick="scrollToTop()">↑ Back to top</button>
+      </div>
+
+    </div><!-- end rpt-full -->
+  </div><!-- end game-canvas -->
 </div>
 
 <!-- ═══════════════════════════════════════════════
@@ -4276,11 +4453,55 @@ function getDimensionScores(scores, b5self) {
     V5 = safe(rs.others||0, rs.self||0);
   }
 
-  return { D1:clamp01(D1), D2:clamp01(D2), D3:clamp01(D3), D4:clamp01(D4),
-           D5:clamp01(D5), D6:clamp01(D6), D7:clamp01(D7), D8:clamp01(D8),
+  // ── Composite typing dimensions (v2 report) ──
+  const D1f = clamp01(D1), D2f = clamp01(D2), D4f = clamp01(D4),
+        D6f = clamp01(D6), D7f = clamp01(D7);
+
+  // MB_social composite from Mol Bhav behavioral vector
+  const _mb = gf('MOL_BHAV');
+  const MB_social = (_mb && _mb.behaviorVector) ? clamp01(
+    (_mb.behaviorVector.anchor_aggression || 0.5) * 0.30 +
+    (_mb.behaviorVector.value_captured    || 0.5) * 0.40 +
+    clamp01(1 - (_mb.behaviorVector.pressure_fold || 0.5)) * 0.30
+  ) : null;
+
+  const Agency   = clamp01(D1f*0.55 + D7f*0.45);
+  const SelfReg  = clamp01(clamp01(D2)*0.50 + clamp01(D5)*0.50);
+  const SocialOr = MB_social !== null ? clamp01(D6f*0.55 + MB_social*0.45) : D6f;
+  const Adapt    = D4f;
+
+  const typeObj = deriveType(Agency, SelfReg, SocialOr, Adapt);
+
+  return { D1:D1f, D2:clamp01(D2), D3:clamp01(D3), D4:D4f,
+           D5:clamp01(D5), D6:D6f, D7:D7f, D8:clamp01(D8),
            V1, V2, V3, V4, V5,
            tipi: {E:tipiE, A:tipiA, C:tipiC, N:tipiN, O:tipiO},
-           d8Detail: d8Pairs };
+           d8Detail: d8Pairs,
+           Agency, SelfReg, SocialOr, Adapt, MB_social,
+           type: typeObj };
+}
+
+// ── Type derivation (10 types, v2 report) ──
+function deriveType(agency, selfReg, social, adapt) {
+  if(adapt > 0.72) return {id:9, name:'The Adaptor', animal:'🦎', tagline:'Wired to read the room and shift'};
+  if(agency  >= 0.38 && agency  <= 0.62 &&
+     selfReg >= 0.38 && selfReg <= 0.62 &&
+     social  >= 0.38 && social  <= 0.62)
+    return {id:10, name:'The Balancer', animal:'🦌', tagline:'Rare equilibrium across all dimensions'};
+  const aHi = agency  >= 0.52;
+  const sHi = selfReg >= 0.52;
+  const oHi = social  >= 0.52;
+  const TYPES = [
+    {id:1, name:'The Strategist',  animal:'🦅', tagline:'Calculated, trusted, and hard to outmanoeuvre'},
+    {id:2, name:'The Operator',    animal:'🐺', tagline:'Independent, precise, and allergic to noise'},
+    {id:3, name:'The Crusader',    animal:'🦁', tagline:'Bold agenda, people behind it'},
+    {id:4, name:'The Maverick',    animal:'🐆', tagline:'Fast, lone, and usually ahead'},
+    {id:5, name:'The Anchor',      animal:'🐘', tagline:'Steady presence, high trust, long memory'},
+    {id:6, name:'The Pragmatist',  animal:'🦫', tagline:'Does the work, holds the standard'},
+    {id:7, name:'The Advocate',    animal:'🐬', tagline:'Reads people, champions causes'},
+    {id:8, name:'The Reactor',     animal:'🦊', tagline:'Instinct-first, recalibrates fast'},
+  ];
+  return TYPES.find(t => (t.id===1?(aHi&&sHi&&oHi):t.id===2?(aHi&&sHi&&!oHi):t.id===3?(aHi&&!sHi&&oHi):t.id===4?(aHi&&!sHi&&!oHi):t.id===5?(!aHi&&sHi&&oHi):t.id===6?(!aHi&&sHi&&!oHi):t.id===7?(!aHi&&!sHi&&oHi):(!aHi&&!sHi&&!oHi))) || TYPES[7];
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -4698,218 +4919,356 @@ const DIM_META_REPORT = [
   {key:'D7',label:'Exploring vs exploiting', lo:'Exploits what works',   hi:'Explores actively'},
 ];
 
+// ═══════════════════════════════════════════════════════════
+// REPORT v3 — 5-DIMENSION ENGINE
+// ═══════════════════════════════════════════════════════════
+
+const DIM5_DEFS = [
+  { id:'risk', label:'Risk Intelligence',
+    desc:'How boldly you move when outcomes are uncertain', icon:'⚡', color:'#FF6B35',
+    gradients:[
+      {max:.25,name:'Shield',          line:'You consistently choose the known path.'},
+      {max:.42,name:'Anchor',          line:'Calculated risk yes. Open-ended risk no.'},
+      {max:.58,name:'Navigator',       line:'You weigh. You commit. You move.'},
+      {max:.75,name:'Pioneer',         line:'Uncertainty is a feature, not a bug.'},
+      {max:1.0,name:'Frontier Seeker', line:'The edge is where you think most clearly.'},
+    ],
+    nar:[
+      "You default to protecting what you have. Unknown outcomes get your caution, not your curiosity.",
+      "You move when the stakes are clear and the downside is bounded. Open-ended uncertainty makes you wait.",
+      "You calculate before committing. Not the boldest in the room, not the most cautious — deliberate.",
+      "Uncertainty is something you move into, not away from. The risk is visible to you; it just doesn't stop you.",
+      "You think most clearly at the edge. The riskier the option, the more engaged you become.",
+    ]
+  },
+  { id:'command', label:'Self-Command',
+    desc:'How well you control your reactions when it costs something', icon:'🎯', color:'#26A69A',
+    gradients:[
+      {max:.25,name:'Instinct-Driven', line:'Your body leads. The brain catches up.'},
+      {max:.42,name:'Fast-Triggered',  line:'You control yourself when you decide to. Decide being the key word.'},
+      {max:.58,name:'Situational',     line:'Familiar pressure: strong. Novel pressure: slips.'},
+      {max:.75,name:'Deliberate',      line:'You hold when others don\'t. Costs you sometimes, saves you more.'},
+      {max:1.0,name:'Iron-Willed',     line:'You rarely act before deciding. Rarer than it sounds.'},
+    ],
+    nar:[
+      "You act on instinct. The gap between impulse and action is small — which makes you fast, and sometimes ahead of the consequences.",
+      "You control yourself when you choose to. It's intentional, not automatic — which means it can slip when you're not watching.",
+      "Your control holds well in familiar territory. Novel pressure can push through it, which is worth knowing.",
+      "You hold when others don't. Restraint is a default, not an achievement.",
+      "Exceptional control under pressure. You rarely act before you've decided to — and the game data backs that up.",
+    ]
+  },
+  { id:'social', label:'Social Wiring',
+    desc:"How much other people's outcomes factor into your choices", icon:'🤝', color:'#FFA000',
+    gradients:[
+      {max:.25,name:'Self-Directed',     line:"Others' position doesn't move you much."},
+      {max:.42,name:'Pragmatic',         line:'Fair when it doesn\'t cost you.'},
+      {max:.58,name:'Balanced Dealer',   line:'Unfair outcomes bother you enough to push back.'},
+      {max:.75,name:'Relationship-First',line:'The relationship is part of the deal.'},
+      {max:1.0,name:'People-Anchored',   line:"How others feel is real data, not noise."},
+    ],
+    nar:[
+      "Other people's position in a deal doesn't move you much. You optimise for your outcome first.",
+      "You consider others but put your interests first. Fair when the cost is low.",
+      "Fairness matters. You push back on outcomes that feel wrong — but you're not chasing solidarity for its own sake.",
+      "The relationship is part of the deal for you. You won't extract from someone you'll work with again.",
+      "You feel other people's stake in the outcome as real data. The deal only lands right if both sides walk away whole.",
+    ]
+  },
+  { id:'adapt', label:'Adaptability',
+    desc:'How quickly your approach changes when the context does', icon:'🔄', color:'#66BB6A',
+    gradients:[
+      {max:.25,name:'Fixed',         line:'Same frame, every situation. Consistent — sometimes out of sync.'},
+      {max:.42,name:'Selective',     line:'You shift when evidence is overwhelming. Not before.'},
+      {max:.58,name:'Context-Aware', line:'You read the room, adjust with a beat of lag.'},
+      {max:.75,name:'Responsive',    line:"You're updating while others are still diagnosing."},
+      {max:1.0,name:'Fluid',         line:"Each context gets its own approach."},
+    ],
+    nar:[
+      "You apply the same frame regardless of context. That's consistency — and occasionally a mismatch with what the situation actually needs.",
+      "You shift when the evidence is overwhelming. Not before — which means you're rarely first to pivot, but rarely wrong when you do.",
+      "You read the room and adjust with a beat of lag. Reliable without being rigid.",
+      "You're updating while others are still diagnosing. Context shifts your approach before most people notice it's changed.",
+      "Each situation gets its own approach. You don't carry yesterday's frame into today's problem.",
+    ]
+  },
+  { id:'aware', label:'Self-Awareness',
+    desc:'How accurately your self-image matches what your choices showed', icon:'🪞', color:'#AB47BC',
+    gradients:[
+      {max:.25,name:'Significant Gap',   line:"Self-image and choices running on different tracks."},
+      {max:.42,name:'Notable Gaps',      line:'2-3 areas where you see yourself differently from how you act.'},
+      {max:.58,name:'Partial Alignment', line:'Some accuracy. A few specific blind spots.'},
+      {max:.75,name:'Mostly Accurate',   line:'Your self-model tracks your behaviour well.'},
+      {max:1.0,name:'High Coherence',    line:'What you say matches what you do. Rarer than it sounds.'},
+    ],
+    nar:[
+      "Your self-image and your choices are running on different tracks in several areas. That gap is the most interesting thing about this profile.",
+      "There are 2-3 areas where you see yourself quite differently from how you act. Specific enough to be worth knowing.",
+      "Some alignment, some gaps. The divergences are narrow but specific.",
+      "Your self-model tracks your behaviour well. The gaps that exist are minor.",
+      "What you say about yourself matches what you do. That coherence is rarer than it sounds.",
+    ]
+  },
+];
+
+function getDimGradient(score, gradients) {
+  for(const g of gradients) { if(score <= g.max) return g; }
+  return gradients[gradients.length - 1];
+}
+
+function getDim5Scores(dims) {
+  const scores = user && user.scores || [];
+  const mb = scores.find(s => s.game === 'MOL_BHAV');
+  const mbv = mb && mb.behaviorVector ? mb.behaviorVector : {};
+  const rejection_fold    = clamp01(typeof mbv.rejection_fold    === 'number' ? mbv.rejection_fold    : 0.5);
+  const anchor_aggression = clamp01(typeof mbv.anchor_aggression === 'number' ? mbv.anchor_aggression : 0.5);
+
+  const risk    = clamp01(dims.D1*0.60 + dims.D7*0.25 + dims.D4*0.15);
+  const command = clamp01(dims.D2*0.55 + dims.D5*0.40 + clamp01(1-rejection_fold)*0.05);
+  const social  = clamp01(dims.D6*0.80 + clamp01(1-anchor_aggression)*0.20);
+  const adapt   = clamp01(dims.D4*0.60 + dims.D7*0.40);
+  const aware   = clamp01(1 - dims.D8);
+  return { risk, command, social, adapt, aware };
+}
+
 function renderReport() {
   const scores = user && user.scores || [];
   if(!scores.length) { showScreen('dashboard'); return; }
-
   const dims = getDimensionScores(scores, user.b5self || {});
   if(!dims) { showScreen('dashboard'); return; }
+  const d5 = getDim5Scores(dims);
+  const type = dims.type || {name:'The Balancer', animal:'🦌', tagline:'—'};
 
-  const profile = assignProfile(dims);
-  const roles = getTopRoles(dims, 3);
-
-  // Hero
-  document.getElementById('report-profile-icon').textContent = profile.icon;
-  document.getElementById('report-profile-name').textContent = profile.label;
-  document.getElementById('report-profile-sub').textContent = '— ' + profile.subLabel;
-  document.getElementById('report-hero-summary').textContent = profile.subDesc;
-
-  // Headline + summary
-  document.getElementById('report-headline').textContent = buildHeadline(dims);
-  document.getElementById('report-summary-text').textContent = buildSummary(dims);
-
-  // Dim bars
-  document.getElementById('report-dim-bars').innerHTML = DIM_META_REPORT.map(d => {
-    const v = dims[d.key]; const pct = Math.round(v*100);
-    const bkt = bucket(v);
-    const markerCls = bkt==='high' ? 'dim-marker high' : 'dim-marker';
-    const posLabel = bkt==='high' ? d.hi : bkt==='low' ? d.lo : '—';
-    const posColor = bkt==='high' ? 'var(--teal)' : bkt==='low' ? 'var(--red)' : 'var(--text-muted)';
-    return `<div style="margin-bottom:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
-        <span style="font-size:0.82rem;font-weight:600;">${d.label}</span>
-        <span style="font-size:0.76rem;color:${posColor};font-weight:500;">${posLabel} · ${pct}/100</span>
-      </div>
-      <div class="dim-endpoints"><span>${d.lo}</span><span>${d.hi}</span></div>
-      <div class="dim-track"><div class="${markerCls}" style="left:${pct}%" id="dm-${d.key}"></div></div>
-    </div>`;
-  }).join('');
-
-  // Role cards
-  document.getElementById('report-role-cards').innerHTML = roles.map((r,i) => {
-    const why = r.why(dims); const caution = r.caution(dims);
-    return `<div class="role-card-report ${i===0?'top':''}">
-      <div style="font-size:1rem;font-weight:600;margin-bottom:5px;">${r.icon} ${r.name}</div>
-      <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;">${why}</div>
-      ${caution?`<div style="font-size:0.76rem;color:var(--text-hint);margin-top:5px;">⚠ ${caution}</div>`:''}
-    </div>`;
-  }).join('');
-
-  // D8 quick gap cards (main pane) — uses TIPI self-report vs behavioral
-  const _d8QuickMeta = {
-    'O vs D7':{'label':'Openness vs Exploration',
-      text:(p) => p.self > p.beh
-        ? 'You see yourself as curious and open to new things. Your Bazaar allocations showed more commitment than exploration.'
-        : 'You see yourself as conventional. The games showed far more exploration than you\'d credit yourself.'},
-    'C vs D2':{'label':'Self-discipline vs Impulse control',
-      text:(p) => p.self > p.beh
-        ? 'You see yourself as disciplined and organised. Your impulse control scores tell a different story.'
-        : 'You called yourself spontaneous or scattered. Your deliberateness scores say you hold back more than you think.'},
-    'N vs D1':{'label':'Anxiety vs Risk appetite',
-      text:(p) => p.self > p.beh
-        ? 'You see yourself as anxious and easily upset. Your risk-taking was bolder than that self-image would predict.'
-        : 'You see yourself as calm and stable. The games showed a more cautious, loss-sensitive pattern.'},
-    'E vs D3':{'label':'Extraversion vs Negotiation',
-      text:(p) => p.self > p.beh
-        ? 'You see yourself as assertive and energetic. In negotiations, you settled quickly and anchored softly.'
-        : 'You see yourself as reserved. Your negotiation behavior was more assertive than that implies.'},
-    'A vs D6':{'label':'Agreeableness vs Fairness',
-      text:(p) => p.self > p.beh
-        ? 'You see yourself as warm and cooperative. Your fairness threshold was lower than expected — you took most deals.'
-        : 'You see yourself as competitive. You walked away from unfair offers more often than that suggests.'},
+  // ── Hero ──
+  const ANIMAL_NAMES = {
+    '🦅':'The Eagle','🐺':'The Wolf','🦁':'The Lion','🐆':'The Leopard',
+    '🐘':'The Elephant','🦫':'The Beaver','🐬':'The Dolphin','🦊':'The Fox',
+    '🦎':'The Chameleon','🦌':'The Deer'
   };
-  const _d8Quick = (dims.d8Detail||[])
-    .filter(p => Math.abs(p.beh - p.self) > 0.22)
-    .map(p => {
-      const meta = _d8QuickMeta[p.label];
-      if(!meta) return null;
-      return {label: meta.label, text: meta.text(p)};
-    }).filter(Boolean);
+  document.getElementById('rpt-animal').textContent      = type.animal;
+  document.getElementById('rpt-animal-name').textContent = ANIMAL_NAMES[type.animal] || type.animal;
+  document.getElementById('rpt-type-name').textContent   = type.name;
+  document.getElementById('rpt-tagline').textContent     = type.tagline;
 
-  const gapsWrap = document.getElementById('report-gaps-wrap');
-  if(_d8Quick.length) {
-    gapsWrap.style.display = 'block';
-    document.getElementById('report-gap-cards').innerHTML = _d8Quick.map(g =>
-      `<div class="gap-card"><div class="gap-label">${g.label}</div><div class="gap-text">${g.text}</div></div>`
-    ).join('');
-  }
+  // ── 5 dimension tiles ──
+  const C = 138.23; // circumference of r=22 circle
+  document.getElementById('rpt-dim-tiles').innerHTML = DIM5_DEFS.map(def => {
+    const v   = d5[def.id];
+    const pct = Math.round(v * 100);
+    const g   = getDimGradient(v, def.gradients);
+    const off = C * (1 - v);
+    return `<div class="rpt-dim-tile ${def.id}">
+      <div class="rpt-tile-head">
+        <span class="rpt-tile-icon">${def.icon}</span>
+        <span class="rpt-tile-dim-name">${def.label}</span>
+      </div>
+      <div class="rpt-tile-body">
+        <div class="rpt-ring-wrap">
+          <svg viewBox="0 0 54 54" width="54" height="54">
+            <circle class="rpt-ring-bg"   cx="27" cy="27" r="22"/>
+            <circle class="rpt-ring-fill" cx="27" cy="27" r="22"
+              style="stroke:${def.color};stroke-dashoffset:${off.toFixed(2)}"/>
+          </svg>
+          <div class="rpt-ring-score">${pct}</div>
+        </div>
+        <div class="rpt-tile-meta">
+          <div class="rpt-grad-badge" style="--tc:${def.color}">${g.name}</div>
+          <div class="rpt-tile-desc">${def.desc}</div>
+        </div>
+      </div>
+      <div class="rpt-tile-line">${g.line}</div>
+    </div>`;
+  }).join('');
+
+  // Animate rings after paint
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.querySelectorAll('.rpt-ring-fill').forEach(el => {
+      const target = el.style.strokeDashoffset;
+      el.style.strokeDashoffset = C;
+      requestAnimationFrame(() => { el.style.strokeDashoffset = target; });
+    });
+  }));
+
+  // ── TIPI comparison (always shown) ──
+  const TIPI_TRAITS = [
+    { key:'O', label:'Curiosity',      sub:'Openness to new experiences',    beh: dims.D7,        self: dims.tipi.O },
+    { key:'C', label:'Discipline',     sub:'Organisation & conscientiousness',beh: dims.D2,        self: dims.tipi.C },
+    { key:'N', label:'Calmness',       sub:'Stability under pressure',        beh: clamp01(1-dims.D1), self: dims.tipi.N === null ? null : clamp01(1 - (dims.tipi.N||0.5)) },
+    { key:'E', label:'Assertiveness',  sub:'Drive & social confidence',       beh: dims.D3,        self: dims.tipi.E },
+    { key:'A', label:'Cooperation',    sub:'Fairness & agreeableness',        beh: dims.D6,        self: dims.tipi.A },
+  ];
+  const GAP_NOTES = {
+    O: p => p.self > p.beh+0.15 ? '⚡ You explore less than you think' : p.beh > p.self+0.15 ? '⚡ More curious in practice than you believe' : '✓ Aligned',
+    C: p => p.self > p.beh+0.15 ? '⚡ Self-image of discipline outpaces actual control' : p.beh > p.self+0.15 ? '⚡ More disciplined than you give yourself credit for' : '✓ Aligned',
+    N: p => p.self > p.beh+0.15 ? '⚡ You see yourself as calmer than choices show' : p.beh > p.self+0.15 ? '⚡ More composed under pressure than you think' : '✓ Aligned',
+    E: p => p.self > p.beh+0.15 ? '⚡ Self-image is bolder than negotiation data' : p.beh > p.self+0.15 ? '⚡ More assertive in practice than self-assessment' : '✓ Aligned',
+    A: p => p.self > p.beh+0.15 ? '⚡ You see yourself as more cooperative than choices show' : p.beh > p.self+0.15 ? '⚡ Fairer in practice than your self-assessment' : '✓ Aligned',
+  };
+
+  const tipiRows = TIPI_TRAITS.map(t => {
+    const hasSelf = t.self !== null && t.self !== undefined;
+    const selfPct = hasSelf ? Math.round(t.self * 100) : null;
+    const behPct  = Math.round(t.beh * 100);
+    const noteRaw = hasSelf ? GAP_NOTES[t.key]({self: t.self, beh: t.beh}) : null;
+    const isGap   = noteRaw && noteRaw.startsWith('⚡');
+    const badge   = !hasSelf
+      ? `<div class="rpt-tipi-badge na">No self-report</div>`
+      : `<div class="rpt-tipi-badge ${isGap?'gap':'aligned'}">${noteRaw}</div>`;
+    return `<div class="rpt-tipi-row">
+      <div>
+        <div class="rpt-tipi-trait">${t.label}</div>
+        <div class="rpt-tipi-sub">${t.sub}</div>
+        ${badge}
+      </div>
+      <div class="rpt-tipi-bars">
+        ${hasSelf ? `<div class="rpt-tipi-bar-row">
+          <div class="rpt-tipi-bar-lbl">You</div>
+          <div class="rpt-tipi-track"><div class="rpt-tipi-fill self" style="width:${selfPct}%"></div></div>
+        </div>` : ''}
+        <div class="rpt-tipi-bar-row">
+          <div class="rpt-tipi-bar-lbl">Games</div>
+          <div class="rpt-tipi-track"><div class="rpt-tipi-fill game" style="width:${behPct}%"></div></div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('rpt-tipi-compare').innerHTML = `
+    <div class="rpt-tipi-card">
+      <div class="rpt-tipi-header">
+        <div class="rpt-tipi-header-label">Self-perception vs your choices</div>
+        <div class="rpt-tipi-header-sub">What you said about yourself · What the games measured</div>
+      </div>
+      ${tipiRows}
+    </div>`;
 
   showScreen('report');
-
-  // Animate markers
-  setTimeout(() => {
-    document.querySelectorAll('.dim-marker').forEach(m => {
-      const finalLeft = m.style.left;
-      m.style.left = '50%'; m.style.transition = 'none';
-      setTimeout(() => { m.style.transition = 'left 1.2s cubic-bezier(0.4,0,0.2,1)'; m.style.left = finalLeft; }, 100);
-    });
-  }, 200);
 }
 
-function switchReportTab(tab) {
-  document.querySelectorAll('.report-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.report-pane').forEach(p=>p.classList.remove('active'));
-  document.getElementById('rtab-'+tab).classList.add('active');
-  document.getElementById('report-pane-'+tab).classList.add('active');
-  window.scrollTo(0,0);
+function scrollToTop() {
+  const el = document.querySelector('#screen-report .result-canvas');
+  if(el) el.scrollTo({top:0, behavior:'smooth'});
+  else window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function downloadPDF() {
+  const full = document.getElementById('rpt-full');
+  if(full && full.style.display === 'none') {
+    full.style.display = 'block';
+    if(!full.dataset.rendered) { renderFullReport(); full.dataset.rendered='1'; }
+  }
+  setTimeout(() => window.print(), 350);
 }
 
 function unlockFullReport() {
-  document.getElementById('full-report-gate').style.display='none';
-  const content = document.getElementById('full-report-content');
-  content.style.display='block';
-  if(!content.innerHTML.trim()) renderFullReport();
+  const full = document.getElementById('rpt-full');
+  full.style.display = 'block';
+  const cta = document.querySelector('#rpt-brief .rpt-cta-card');
+  if(cta) cta.style.display = 'none';
+  if(!full.dataset.rendered) { renderFullReport(); full.dataset.rendered='1'; }
+  const canvas = document.querySelector('#screen-report .result-canvas');
+  if(canvas) setTimeout(() => canvas.scrollTo({top:canvas.scrollHeight, behavior:'smooth'}), 100);
+}
+
+// ── Gradient-driven narrative: 5 levels × 5 dims + interplay ──
+function buildTypeNarrative(dims) {
+  const d5 = getDim5Scores(dims);
+  const lvl = id => {
+    const def = DIM5_DEFS.find(d => d.id === id);
+    const idx = def.gradients.findIndex(g => d5[id] <= g.max);
+    return idx === -1 ? 4 : idx;
+  };
+  const rL=lvl('risk'), cL=lvl('command'), sL=lvl('social'), aL=lvl('adapt'), wL=lvl('aware');
+
+  // Para 1: Risk + Command interplay
+  let p1 = DIM5_DEFS[0].nar[rL];
+  const diff = rL - cL;
+  if(diff >= 2)            p1 += " The appetite runs ahead of the control mechanisms — producing speed and sometimes avoidable errors.";
+  else if(diff <= -2)      p1 += " The control is stronger than the risk appetite — there's capacity here that isn't being fully used.";
+  else if(rL >= 3 && cL >= 3) p1 += " The combination of high risk appetite and strong control is rarer than either trait alone.";
+  else if(rL <= 1 && cL <= 1) p1 += " Both risk appetite and impulse control sit at the cautious end — producing a consistent, predictable profile.";
+
+  // Para 2: Social Wiring + command/risk tensions
+  let p2 = DIM5_DEFS[2].nar[sL];
+  if(sL >= 3 && cL <= 1)       p2 += " Worth noting: the openness to others can run ahead of your own judgment when decisions need to be fast.";
+  else if(sL <= 1 && cL >= 3)  p2 += " The independent orientation and strong self-control compound — you're consistent and genuinely hard to read.";
+  else if(sL >= 3 && rL >= 3)  p2 += " People-orientation plus risk appetite means you can carry others with you into uncertain territory.";
+
+  // Para 3: Adaptability + Self-Awareness
+  let p3 = DIM5_DEFS[3].nar[aL];
+  if(wL <= 1)                   p3 += " The self-awareness data adds texture here — the gap between your self-image and your choices is large enough to be the thing most worth examining.";
+  else if(wL >= 3)              p3 += " The self-awareness data supports this — your self-model and your choices are well-aligned.";
+  else if(aL >= 3 && wL >= 3)  p3 += " High adaptability and accurate self-awareness together suggest someone who reads both the room and themselves clearly.";
+
+  return [p1, p2, p3];
 }
 
 function renderFullReport() {
   const scores = user && user.scores || [];
-  const dims = getDimensionScores(scores, user.b5self || {});
+  const dims   = getDimensionScores(scores, user.b5self || {});
   const profile = assignProfile(dims);
-  const b5 = user.b5self || {};
-  const mazdoor = scores.find(s=>s.game==='CORP_MAZDOOR');
-  const allRoles = ROLE_FAMILIES_SHORT.map(r=>({...r,score:scoreRole(r,dims)})).sort((a,b)=>b.score-a.score);
-  const topRoles = allRoles.slice(0,3);
-  const avoidRoles = allRoles.slice(-2);
-
-  // ── Manager / peer / subordinate dynamics ──
   const dynamics = buildDynamics(dims);
-
-  // ── Struggle patterns ──
   const struggles = buildStruggles(dims, profile);
+  const d8Cards   = buildFullD8(dims);
+  const ctx       = buildContextTiles(dims);
 
-  // ── Full D8 breakdown ──
-  const d8Cards = buildFullD8(dims);
+  // ── Narrative ──
+  const narParas = buildTypeNarrative(dims);
+  document.getElementById('rpt-narrative').innerHTML =
+    narParas.map(p => `<p>${p}</p>`).join('');
 
-  // ── Values snapshot from Mazdoor ──
-  const valuesHTML = mazdoor ? buildValuesSection(dims, mazdoor) : '';
+  // ── Dynamics tiles ──
+  const DYN = [
+    {cls:'mgr',   role:'As a Manager',       text: dynamics.manager},
+    {cls:'peer',  role:'As a Peer',           text: dynamics.peer},
+    {cls:'sub',   role:'As a Subordinate',    text: dynamics.subordinate},
+    {cls:'entre', role:'As an Entrepreneur',  text: dynamics.entrepreneur},
+  ];
+  document.getElementById('rpt-dynamics').innerHTML = DYN.map(d =>
+    `<div class="rpt-dyn-tile ${d.cls}">
+       <div class="rpt-dyn-role">${d.role}</div>
+       <div class="rpt-dyn-text">${d.text}</div>
+     </div>`
+  ).join('');
 
-  document.getElementById('full-report-content').innerHTML = `
-    <!-- Sub-role -->
-    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
-      <p class="section-label">Your sub-role</p>
-      <div style="background:var(--surface);border-radius:var(--radius-lg);padding:1.25rem;">
-        <div style="font-size:1.05rem;font-weight:600;margin-bottom:6px;">${profile.icon} ${profile.subLabel}</div>
-        <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">${profile.subDesc}</div>
-        <div style="margin-top:12px;padding-top:12px;border-top:0.5px solid var(--border);font-size:0.82rem;color:var(--text-hint);line-height:1.75;">${buildSubRoleDetail(dims, profile)}</div>
+  // ── Struggle tiles ──
+  document.getElementById('rpt-struggles').innerHTML = struggles.map(s =>
+    `<div class="rpt-struggle-tile">
+       <div class="rpt-struggle-label">${s.label}</div>
+       <div class="rpt-struggle-text">${s.text}</div>
+     </div>`
+  ).join('');
+
+  // ── D8 full tiles ──
+  const d8Section = document.getElementById('rpt-d8-section');
+  if(d8Cards.length) {
+    d8Section.style.display = 'block';
+    document.getElementById('rpt-d8-tiles').innerHTML = d8Cards.map(c =>
+      `<div class="rpt-d8-tile ${c.aligned?'aligned':'gap'}">
+         <div class="rpt-d8-tile-head">
+           <div class="rpt-d8-tile-label">${c.label}</div>
+           <div class="rpt-d8-tile-badge">${c.aligned ? '✓ Aligned' : '⚡ Gap'}</div>
+         </div>
+         <div class="rpt-d8-tile-text">${c.text}</div>
+       </div>`
+    ).join('');
+  }
+
+  // ── Context tiles ──
+  document.getElementById('rpt-context-tiles').innerHTML = `
+    <div class="rpt-ctx-tiles">
+      <div class="rpt-ctx-tile thrive">
+        <div class="rpt-ctx-tile-label">✦ Where you thrive</div>
+        <ul class="rpt-ctx-tile-items">${ctx.thrive.map(t=>`<li>${t}</li>`).join('')}</ul>
       </div>
-    </div>
+      <div class="rpt-ctx-tile grind">
+        <div class="rpt-ctx-tile-label">↓ What drains you</div>
+        <ul class="rpt-ctx-tile-items">${ctx.grind.map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div>`;
 
-    <!-- Role fit — full + avoid -->
-    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
-      <p class="section-label">Role fit — the full picture</p>
-      ${topRoles.map((r,i)=>`
-        <div class="role-card-report ${i===0?'top':''}" style="margin-bottom:10px;">
-          <div style="font-size:1rem;font-weight:600;margin-bottom:4px;">${r.icon} ${r.name}</div>
-          <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;">${r.why(dims)}</div>
-          ${r.caution(dims)?`<div style="font-size:0.76rem;color:var(--amber-dark);margin-top:5px;">⚠ ${r.caution(dims)}</div>`:''}
-        </div>`).join('')}
-      <p class="section-label" style="margin-top:1.25rem;">Roles that will likely frustrate you</p>
-      ${avoidRoles.map(r=>`
-        <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:8px;">
-          <div style="font-size:0.88rem;font-weight:600;margin-bottom:4px;color:var(--text-muted);">${r.icon} ${r.name}</div>
-          <div style="font-size:0.82rem;color:var(--text-hint);line-height:1.7;">${buildAvoidReason(r, dims)}</div>
-        </div>`).join('')}
-    </div>
-
-    <!-- Manager / peer / subordinate -->
-    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
-      <p class="section-label">How you show up</p>
-      ${['manager','peer','subordinate'].map(role=>`
-        <div style="background:var(--card);border:0.5px solid var(--border-strong);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:10px;">
-          <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-hint);margin-bottom:6px;">As a ${role}</div>
-          <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">${dynamics[role]}</div>
-        </div>`).join('')}
-    </div>
-
-    <!-- What you struggle with -->
-    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
-      <p class="section-label">What this profile typically struggles with</p>
-      <p style="font-size:0.76rem;color:var(--text-hint);margin-bottom:14px;font-style:italic;">Not softened. Worth reading.</p>
-      ${struggles.map(s=>`
-        <div style="background:var(--surface);border-left:3px solid var(--amber);border-radius:0 var(--radius) var(--radius) 0;padding:1rem 1.125rem;margin-bottom:10px;">
-          <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--amber-dark);margin-bottom:5px;">${s.label}</div>
-          <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.8;">${s.text}</div>
-        </div>`).join('')}
-    </div>
-
-    <!-- Full D8 self-awareness -->
-    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
-      <p class="section-label">Self-awareness — the full breakdown</p>
-      <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px;line-height:1.75;">What you said about yourself after each game, vs what your choices actually showed.</p>
-      ${d8Cards.length ? d8Cards.map(c=>`
-        <div style="background:${c.aligned?'var(--surface)':'var(--amber-light)'};border:0.5px solid ${c.aligned?'var(--border)':'rgba(186,117,23,0.25)'};border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:8px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
-            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:${c.aligned?'var(--teal)':'var(--amber-dark)'};">${c.label}</div>
-            <div style="font-size:0.7rem;color:var(--text-hint);">${c.aligned?'✓ Aligned':'⚡ Gap'}</div>
-          </div>
-          <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.75;">${c.text}</div>
-        </div>`).join('') :
-        `<div style="background:var(--surface);border-radius:var(--radius);padding:1.25rem;text-align:center;color:var(--text-hint);font-size:0.85rem;">No B5 responses recorded — self-awareness gap requires the post-game questions.</div>`}
-    </div>
-
-    ${valuesHTML ? `
-    <!-- Values -->
-    <div style="padding:1.5rem 1.25rem;border-bottom:0.5px solid var(--border);">
-      <p class="section-label">What drives you at work</p>
-      ${valuesHTML}
-    </div>` : ''}
-
-    <!-- Quote -->
-    <div style="padding:1.5rem 1.25rem;">
-      <div class="summary-card"><p>${buildQuote(dims)}</p></div>
-      <button class="btn btn-secondary btn-full" style="margin-top:1rem;" onclick="switchReportTab('brief')">← Back to brief</button>
-    </div>
-  `;
+  // ── Quote ──
+  document.getElementById('rpt-quote').textContent = buildQuote(dims);
 }
 
 // ── Full report helper functions ──
@@ -4978,8 +5337,27 @@ function buildSubRoleDetail(dims, profile) {
   return profileDetails[profile.subLabel] || "Your specific combination of scores points to a profile with genuine strengths and specific limitations — both worth understanding in full.";
 }
 
+// ── Context tiles (thrive / grind) — now uses getDim5Scores ──
+function buildContextTiles(dims) {
+  const d5 = getDim5Scores(dims);
+  const thrive=[], grind=[];
+  if(d5.risk>0.60)  { thrive.push("Early-stage and high-uncertainty roles"); thrive.push("Real ownership over outcomes"); }
+  else              { thrive.push("Structured roles with a clear brief"); grind.push("Open-ended mandates with shifting scope"); }
+  if(d5.command>0.65) { thrive.push("High-stakes environments that need a steady hand"); }
+  else if(d5.command<0.40) { thrive.push("Fast-moving, action-first environments"); grind.push("Slow consensus and committee processes"); }
+  if(d5.social>0.65)  { thrive.push("Trust-based teams and collaborative cultures"); grind.push("Zero-sum, highly political environments"); }
+  else if(d5.social<0.35) { thrive.push("Solo or small autonomous work"); grind.push("Heavy coalition-building and org politics"); }
+  if(d5.adapt>0.65) { thrive.push("Cross-functional and rapidly shifting contexts"); grind.push("Rigid, procedure-heavy institutions"); }
+  else if(d5.adapt<0.40) { grind.push("Constant context-switching without depth"); }
+  if(dims.D7>0.65) { thrive.push("Exploration-heavy roles (research, new markets)"); }
+  if(!thrive.length) thrive.push("Environments where reliability is valued", "Roles with defined expectations");
+  if(!grind.length)  grind.push("Environments that punish consistency", "High-noise, low-feedback roles");
+  return { thrive: thrive.slice(0,3), grind: grind.slice(0,3) };
+}
+
 function buildDynamics(dims) {
   const d1=dims.D1, d2=dims.D2, d3=dims.D3, d4=dims.D4, d5=dims.D5, d6=dims.D6, d7=dims.D7, v1=dims.V1, v2=dims.V2, v5=dims.V5;
+  const ag=dims.Agency||0.5, sr=dims.SelfReg||0.5, so=dims.SocialOr||0.5, ad=dims.Adapt||0.5;
 
   // As a manager
   let mgr;
@@ -5005,7 +5383,19 @@ function buildDynamics(dims) {
   else if(d3>0.65) sub="You give managers the benefit of the doubt early. That generosity means you're easy to onboard and fast to trust. It also means you absorb more than you should before flagging problems.";
   else sub="You work well within clear expectations and deliver reliably. Where you add less is in environments with high ambiguity and no clear brief.";
 
-  return {manager:mgr, peer, subordinate:sub};
+  // As an entrepreneur
+  let entre;
+  if(ag>0.65&&ad>0.60) entre="You have the risk appetite for the bet and the context-reading to shift when the market tells you something. Those two together are what investor due diligence is actually trying to find. Use that.";
+  else if(ag>0.65&&sr<0.40) entre="Fast trigger, high conviction — you'll move before others finish the analysis. The upside is speed. The watch-out: early-stage companies collapse on operational consistency, not ideas, and that's not your natural mode.";
+  else if(ag>0.65&&so>0.60) entre="Bold enough to start something and people-oriented enough to build a team that stays. The founding risk for you isn't the market — it's scaling past the point where you know everyone personally.";
+  else if(ag>0.65) entre="The appetite is there. Your game scores show genuine risk tolerance, not performed confidence. The question is whether you can sustain ambiguity when it lasts 24 months, not 24 days.";
+  else if(ag<0.40&&sr>0.65) entre="You'd be exceptional as a co-founder who keeps the company together while someone else takes the bets. The 'steady hand' role is underrated and often the difference between a company that survives and one that doesn't.";
+  else if(ag<0.40) entre="Founding is possible but the sustained uncertainty will be uncomfortable in a way it won't be for others. Your profile fits a second-in-command or operator role in a startup better than the primary founder seat.";
+  else if(so>0.65) entre="Socially, you're built for founding — people trust you early, which matters enormously for hiring. The gap to watch: being too consensus-oriented in a context that sometimes needs a hard unilateral call.";
+  else if(ad>0.65) entre="You read context and shift — that's the core skill for the early stage, where the product and market are different every six months. The limitation: you may adapt to signals that should have been ignored.";
+  else entre="Moderately set up for founding. You have enough appetite for uncertainty and enough range to build a team. The ceiling depends on how well you sustain the ambiguity when it extends past the point you expected.";
+
+  return {manager:mgr, peer, subordinate:sub, entrepreneur:entre};
 }
 
 function buildStruggles(dims, profile) {

@@ -615,7 +615,33 @@
 
     /* ═══ BAZAAR ═══ */
     :root { --co-a:#2563EB; --co-b:#7C3AED; --co-c:#D97706; }
-    /* ── BAZAAR GAME UI ── */
+    /* Dark P&L stats panel */
+    .bz-stats-dark {
+      background: #0F1923;
+      border-radius: 10px;
+      padding: 10px 14px;
+      min-width: 150px;
+    }
+    .bz-stats-dark .bz-stat-key { color: rgba(255,255,255,0.42); }
+    .bz-stats-dark .bz-stat-val { color: #ffffff; }
+    .bz-stats-dark .bz-stat-net-pos { color: #34d399 !important; }
+    .bz-stats-dark .bz-stat-net-neg { color: #f87171 !important; }
+    /* Expanded mini history table */
+    .bz-mini-table .bz-group-row th {
+      padding: 3px 6px 2px;
+      font-size: 9px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .05em;
+      border-bottom: none;
+      text-align: center;
+    }
+    .bz-mini-table .bz-sub-row th {
+      padding: 2px 5px 4px;
+      font-size: 8px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .04em;
+      color: var(--text-hint);
+      border-bottom: 0.5px solid var(--border-strong);
+    }
+    .bz-mini-table td { padding: 2px 5px; }
     .bz-header{position:sticky;top:0;z-index:20;background:rgba(250,250,247,0.97);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border-strong);padding:.75rem 1.5rem;}
     @media(prefers-color-scheme:dark){.bz-header{background:rgba(23,23,26,.97);}}
     .bz-header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
@@ -1720,8 +1746,8 @@
       <div class="bz-fund-tag">Bazaar · ₹99L fund · ₹9L/yr</div>
     </div>
     <div class="bz-header-body">
-      <!-- Left: cumulative P&L stats -->
-      <div class="bz-stats-col">
+      <!-- Left: cumulative P&L stats — dark card -->
+      <div class="bz-stats-dark">
         <div class="bz-stat-row">
           <span class="bz-stat-key">Deployed</span>
           <span class="bz-stat-val" id="bz-pnl-deployed">₹0L</span>
@@ -1730,9 +1756,9 @@
           <span class="bz-stat-key">Returned</span>
           <span class="bz-stat-val" id="bz-pnl-returned">₹0L</span>
         </div>
-        <div class="bz-stat-row">
-          <span class="bz-stat-key" style="color:var(--text-muted);">Net P&amp;L</span>
-          <span class="bz-stat-val" id="bz-pnl-net" style="color:var(--text-hint);">—</span>
+        <div class="bz-stat-row" style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.1);">
+          <span class="bz-stat-key" style="color:rgba(255,255,255,0.62);font-weight:800;">Net P&amp;L</span>
+          <span class="bz-stat-val" id="bz-pnl-net" style="color:rgba(255,255,255,0.38);">—</span>
         </div>
       </div>
       <!-- Column divider -->
@@ -1740,15 +1766,24 @@
       <!-- Right: scrollable round history — visible from round 2 onwards -->
       <div class="bz-hist-col">
         <div id="bz-hist-col-empty" class="bz-hist-col-label">No history yet</div>
-        <div id="bz-hist-col-scroll" style="display:none; max-height:80px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--border-strong) transparent;">
+        <div id="bz-hist-col-scroll" style="display:none; max-height:80px; overflow-y:auto; overflow-x:auto; scrollbar-width:thin; scrollbar-color:var(--border-strong) transparent;">
           <table class="bz-mini-table">
-            <thead><tr>
-              <th>Yr</th>
-              <th style="color:var(--co-a)">Aakash</th>
-              <th style="color:var(--co-b)">Bharat</th>
-              <th style="color:var(--co-c)">Carnation</th>
-              <th>Net</th>
-            </tr></thead>
+            <thead>
+              <tr class="bz-group-row">
+                <th></th>
+                <th colspan="3" style="color:var(--co-a);border-bottom:2px solid var(--co-a);text-align:center;">Aakash</th>
+                <th colspan="3" style="color:var(--co-b);border-bottom:2px solid var(--co-b);text-align:center;">Bharat</th>
+                <th colspan="3" style="color:var(--co-c);border-bottom:2px solid var(--co-c);text-align:center;">Carnation</th>
+                <th style="color:var(--text-muted);text-align:center;">Year P&amp;L</th>
+              </tr>
+              <tr class="bz-sub-row">
+                <th style="text-align:left;">Yr</th>
+                <th>Inv</th><th>Ret</th><th>P/L</th>
+                <th>Inv</th><th>Ret</th><th>P/L</th>
+                <th>Inv</th><th>Ret</th><th>P/L</th>
+                <th>Net</th>
+              </tr>
+            </thead>
             <tbody id="bz-mini-tbody"></tbody>
           </table>
         </div>
@@ -1757,23 +1792,6 @@
   </div>
   <!-- 3-COL CARDS -->
   <div class="bz-cards-grid" id="bz-cards-grid"></div>
-  <!-- History table + accumulation note -->
-  <div class="bz-history-section" id="bz-history-section" style="display:none;">
-    <div class="bz-history-note">Each year's ₹9L is invested fresh — returns don't carry over. P&amp;L is cumulative across all years.</div>
-    <div class="bz-history-title">Year-by-year performance</div>
-    <div class="bz-hist-scroll">
-      <table class="bz-hist-table" id="bz-hist-table">
-        <thead><tr>
-          <th>Yr</th>
-          <th style="color:var(--co-a)">A in</th><th style="color:var(--co-a)">A net</th>
-          <th style="color:var(--co-b)">B in</th><th style="color:var(--co-b)">B net</th>
-          <th style="color:var(--co-c)">C in</th><th style="color:var(--co-c)">C net</th>
-          <th>Total</th>
-        </tr></thead>
-        <tbody id="bz-hist-body"></tbody>
-      </table>
-    </div>
-  </div>
   <div style="height:130px;"></div>
   <!-- BOTTOM BAR -->
   <div class="bz-bottom-bar">
@@ -3304,15 +3322,6 @@ function bzRenderCards() {
     const a = bzAllocation[co.id];
     const hasAlloc = a > 0;
     const amtColor = hasAlloc ? co.color : 'var(--text-hint)';
-    let lastHTML;
-    if (lastH) {
-      const net = lastH.returns[co.id].net;
-      const sign = net >= 0 ? '+' : '−';
-      const col = net > 0 ? 'var(--teal)' : net < 0 ? 'var(--red)' : 'var(--text-hint)';
-      lastHTML = `<div class="bz-co-last"><div class="bz-co-last-val" style="color:${col};">${sign}₹${Math.abs(net).toFixed(1)}L</div><div class="bz-co-last-lbl">Last year</div></div>`;
-    } else {
-      lastHTML = `<div class="bz-co-last"><div class="bz-co-last-val" style="color:var(--text-hint);">—</div><div class="bz-co-last-lbl">No data yet</div></div>`;
-    }
     return `<div class="bz-co-card ${co.cssClass}${hasAlloc?' has-alloc':''}" id="bz-co-card-${co.id}">
       <div class="bz-co-stripe"></div>
       <div class="bz-co-body">
@@ -3321,7 +3330,6 @@ function bzRenderCards() {
           <div class="bz-co-sector">${co.sector}</div>
           <div class="bz-co-desc">${co.desc}</div>
         </div>
-        ${lastHTML}
         <div class="bz-spark-wrap"><canvas class="bz-spark-canvas" id="bz-spark-${co.id}" height="30"></canvas></div>
         <div class="bz-allocator">
           <button class="bz-alloc-btn" id="bz-btn-minus-${co.id}" onclick="bzChangeAlloc('${co.id}',-1)">−</button>

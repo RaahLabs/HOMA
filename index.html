@@ -94,7 +94,6 @@
       .wide-canvas::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
       .container { max-width: 640px; margin: 0 auto; padding: 0 2rem 4rem; }
       .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-      .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
       /* Result cohort tiles — 2×2 grid saves vertical space (rule added below after base style) */
     }
     @media (max-width: 767px) {
@@ -102,7 +101,6 @@
       .wide-canvas { padding: 1.25rem; }
       .container { max-width: 100%; padding: 0 1.25rem 4rem; }
       .dash-grid { display: flex; flex-direction: column; gap: 10px; }
-      .report-grid { display: flex; flex-direction: column; }
     }
 
     /* ═══════════════════════════════════════════════
@@ -514,10 +512,7 @@
       @page { margin:1.5cm; size:A4 portrait; }
     }
 
-    /* ── Old compat (still referenced in legacy buildFullD8) ── */
-    .gap-card { background:var(--amber-light); border:.5px solid rgba(186,117,23,.2); border-radius:var(--radius); padding:1rem 1.125rem; margin-bottom:10px; }
-    .gap-label { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--amber-dark); margin-bottom:5px; }
-    .gap-text  { font-size:.82rem; color:var(--text-muted); line-height:1.75; }
+
     /* ═══ RANG ═══ */
     .rang-word-display { display:flex; align-items:center; justify-content:center; min-height:90px; user-select:none; margin-bottom:4px; }
     #rang-progress-bar { width:100%; height:3px; background:var(--border); border-radius:2px; overflow:hidden; margin-bottom:1.75rem; }
@@ -683,19 +678,6 @@
     .bz-co-sector{font-size:11px;color:var(--text-hint);line-height:1.45;}
     .bz-co-desc{font-size:11px;color:var(--text-muted);line-height:1.5;margin-top:4px;opacity:0.8;}
     /* History table */
-    .bz-history-section{padding:0 1.5rem 0;margin-top:-4px;}
-    .bz-history-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-hint);margin-bottom:6px;}
-    .bz-history-note{font-size:10px;color:var(--text-hint);margin-bottom:8px;line-height:1.5;border-left:2px solid var(--border-strong);padding-left:8px;}
-    .bz-hist-scroll{max-height:140px;overflow-y:auto;border:0.5px solid var(--border-strong);border-radius:var(--radius);scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;}
-    .bz-hist-scroll::-webkit-scrollbar{width:3px;}
-    .bz-hist-scroll::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:3px;}
-    .bz-hist-table{width:100%;border-collapse:collapse;font-size:11px;font-family:'DM Mono',monospace;}
-    .bz-hist-table thead{position:sticky;top:0;z-index:2;background:var(--surface);}
-    .bz-hist-table th{padding:5px 8px;text-align:right;font-size:10px;font-weight:600;color:var(--text-hint);border-bottom:0.5px solid var(--border-strong);white-space:nowrap;}
-    .bz-hist-table th:first-child{text-align:left;}
-    .bz-hist-table td{padding:4px 8px;text-align:right;border-bottom:0.5px solid var(--border);line-height:1.3;}
-    .bz-hist-table td:first-child{text-align:left;font-weight:600;color:var(--text-muted);}
-    .bz-hist-table tbody tr:last-child td{border-bottom:none;}
     /* Improved P&L strip */
     /* bz-pnl-* classes removed — replaced by .bz-stats-col/.bz-stat-* */
     /* Idle detection overlay */
@@ -705,9 +687,6 @@
     .idle-headline{font-size:1.2rem;font-weight:700;margin:0;color:var(--text);}
     .idle-sub{font-size:0.87rem;color:var(--text-muted);margin:0;line-height:1.65;}
     .idle-ghost-btn{width:100%;padding:12px;border:0.5px solid var(--border-strong);border-radius:var(--radius);background:var(--surface);cursor:pointer;font-family:inherit;font-size:0.9rem;color:var(--text);}
-    .bz-co-last{display:flex;align-items:baseline;gap:5px;}
-    .bz-co-last-val{font-family:'DM Mono',monospace;font-size:19px;font-weight:700;line-height:1;}
-    .bz-co-last-lbl{font-size:10px;color:var(--text-hint);text-transform:uppercase;letter-spacing:.05em;}
     .bz-spark-wrap{height:30px;border-radius:6px;overflow:hidden;background:var(--surface);}
     .bz-spark-canvas{width:100%;height:30px;display:block;}
     .bz-allocator{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:4px;}
@@ -1121,7 +1100,7 @@
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap;gap:12px;">
       <div>
         <p id="dash-greet" style="font-size:1.35rem;font-weight:500;margin-bottom:4px;"></p>
-        <p style="color:var(--text-muted);font-size:0.88rem;">Complete all 6 games to unlock your full career profile.</p>
+        <p style="color:var(--text-muted);font-size:0.88rem;">Complete all 7 games to unlock your full career profile.</p>
       </div>
       <div id="dash-profile-btn-wrap" style="display:none;">
         <button class="btn btn-primary" onclick="renderReport()">See your profile →</button>
@@ -3317,7 +3296,6 @@ function bzRenderAll() {
 }
 
 function bzRenderCards() {
-  const lastH = bzHistory.length > 0 ? bzHistory[bzHistory.length - 1] : null;
   document.getElementById('bz-cards-grid').innerHTML = BZ_COMPANIES.map(co => {
     const a = bzAllocation[co.id];
     const hasAlloc = a > 0;
@@ -3446,7 +3424,10 @@ function bzUpdatePnL() {
   const ne = document.getElementById('bz-pnl-net');
   if (de) de.textContent = '₹' + bzTotalDeployed.toFixed(1) + 'L';
   if (re) re.textContent = '₹' + bzTotalReturned.toFixed(1) + 'L';
-  if (ne) { ne.textContent = (net >= 0 ? '+' : '') + '₹' + net.toFixed(1) + 'L'; ne.style.color = net > 0 ? 'var(--teal)' : net < 0 ? 'var(--red)' : 'var(--text-hint)'; }
+  if (ne) {
+    ne.textContent = (net >= 0 ? '+' : '') + '₹' + net.toFixed(1) + 'L';
+    ne.style.color = net > 0 ? '#34d399' : net < 0 ? '#f87171' : 'rgba(255,255,255,0.38)';
+  }
 }
 
 function bzExecuteTrade() {
@@ -3545,38 +3526,28 @@ function bzCloseOverlay() {
 
 function bzRenderHistory() {
   const hasBz = bzHistory.length > 0;
-  const nf = n => (n >= 0 ? '+' : '\u2212') + '\u20b9' + Math.abs(n).toFixed(1) + 'L';
-  const nc = n => n > 0 ? 'color:var(--teal)' : n < 0 ? 'color:var(--red)' : 'color:var(--text-hint)';
+  const fv  = n => '₹' + Math.abs(n).toFixed(1) + 'L';
+  const fpnl = n => (n >= 0 ? '+' : '−') + '₹' + Math.abs(n).toFixed(1) + 'L';
+  const nc  = n => n > 0 ? 'color:var(--teal)' : n < 0 ? 'color:var(--red)' : 'color:var(--text-hint)';
 
-  // ── Mini header table (always in sticky header — primary history view) ───
+  // ── Expanded mini header table ──────────────────────────────────────────
   const emptyEl  = document.getElementById('bz-hist-col-empty');
   const scrollEl = document.getElementById('bz-hist-col-scroll');
   const miniBody = document.getElementById('bz-mini-tbody');
   if (emptyEl)  emptyEl.style.display  = hasBz ? 'none'  : 'block';
   if (scrollEl) scrollEl.style.display = hasBz ? 'block' : 'none';
   if (miniBody && hasBz) {
-    miniBody.innerHTML = bzHistory.map(h => `<tr>
-      <td>Y${h.round + 1}</td>
-      <td style="${nc(h.returns.A.net)}">${nf(h.returns.A.net)}</td>
-      <td style="${nc(h.returns.B.net)}">${nf(h.returns.B.net)}</td>
-      <td style="${nc(h.returns.C.net)}">${nf(h.returns.C.net)}</td>
-      <td style="${nc(h.net)};font-weight:600">${nf(h.net)}</td>
-    </tr>`).join('');
+    miniBody.innerHTML = bzHistory.map(h => {
+      const ra = h.returns.A, rb = h.returns.B, rc = h.returns.C;
+      return `<tr>
+        <td style="color:var(--text-hint);font-size:9px;">Y${h.round + 1}</td>
+        <td>${fv(ra.invested)}</td><td>${fv(ra.returned)}</td><td style="${nc(ra.net)}">${fpnl(ra.net)}</td>
+        <td>${fv(rb.invested)}</td><td>${fv(rb.returned)}</td><td style="${nc(rb.net)}">${fpnl(rb.net)}</td>
+        <td>${fv(rc.invested)}</td><td>${fv(rc.returned)}</td><td style="${nc(rc.net)}">${fpnl(rc.net)}</td>
+        <td style="${nc(h.net)};font-weight:700">${fpnl(h.net)}</td>
+      </tr>`;
+    }).join('');
     if (scrollEl) scrollEl.scrollTop = scrollEl.scrollHeight;
-  }
-
-  // ── Bottom detail table (alloc + returns per company, for scrollers) ─────
-  const sec = document.getElementById('bz-history-section');
-  const bod = document.getElementById('bz-hist-body');
-  if (sec) sec.style.display = hasBz ? 'block' : 'none';
-  if (bod && hasBz) {
-    bod.innerHTML = bzHistory.map(h => `<tr>
-      <td>Y${h.round + 1}</td>
-      <td>₹${h.alloc.A}L</td><td style="${nc(h.returns.A.net)}">${nf(h.returns.A.net)}</td>
-      <td>₹${h.alloc.B}L</td><td style="${nc(h.returns.B.net)}">${nf(h.returns.B.net)}</td>
-      <td>₹${h.alloc.C}L</td><td style="${nc(h.returns.C.net)}">${nf(h.returns.C.net)}</td>
-      <td style="${nc(h.net)};font-weight:600">${nf(h.net)}</td>
-    </tr>`).join('');
   }
 }
 
@@ -4550,29 +4521,7 @@ const BLOCK_D={'low-low':"On fairness and what drives you — outcomes-focused. 
 const BLOCK_E={'low-low':"You exploit what works and are not in a rush to grow. Once you find something that delivers, you stay.",'low-mid':"You exploit what works and are ambitious about getting more from it. Deep rather than wide.",'low-high':"You exploit known opportunities aggressively. Being the best at what you do is more interesting than exploring.",'mid-low':"You sample enough to know the landscape and commit enough to extract value.",'mid-mid':"You balance exploration and exploitation with ambition behind both.",'mid-high':"Ambitious and adaptive — you keep looking for better options even when something is working.",'high-low':"You explore actively even when something is working. Curious rather than hungry. That keeps you ahead of changes.",'high-mid':"You explore actively and have real ambition behind the search. Looking for the better thing and will recognise it.",'high-high':"Ambitious explorer — you keep sampling even when you have found something good, and move fast when you find better."};
 const BLOCK_F={'low':"One thing worth flagging: the gap between how you see yourself and what your choices show is notable. Data, not verdict.",'mid':"",'high':"Your self-model is accurate. What you said about yourself and what your choices showed closely align."};
 
-function buildHeadline(dims){
-  const D1=b(dims,'D1'),D2=b(dims,'D2'),D3=b(dims,'D3'),D5=b(dims,'D5'),D6=b(dims,'D6'),D7=b(dims,'D7'),V1=b(dims,'V1'),V2=b(dims,'V2');
-  if(D1==='high'&&D3==='high') return"Bold, trusting, and hard to rattle — three things that rarely come together.";
-  if(D1==='high'&&D2==='high') return"High appetite, clean brakes — you take risk deliberately without losing your head.";
-  if(D1==='high'&&D3==='low')  return"You take risk on your own terms, rarely waiting for group buy-in.";
-  if(D3==='high'&&D6==='high') return"You build real trust and hold the line on fairness — a combination rarer than either alone.";
-  if(D5==='high'&&D2==='high') return"Focused and deliberate — you filter noise and hold the line simultaneously.";
-  if(D6==='high'&&V1==='high') return"Principled and meaning-driven — the two things you will not compromise on tend to be the same thing.";
-  if(D7==='high'&&D3==='high') return"Curious and trusting — you explore widely and bring people along while you do it.";
-  if(D1==='low'&&D5==='high')  return"You protect the downside and filter noise. A specific kind of reliability that compounds over time.";
-  if(V1==='high'&&V2==='high') return"Ambitious about meaningful work — you want to go somewhere and want it to matter when you get there.";
-  return"A profile that resists simple labels — which usually means something more interesting is going on.";
-}
 
-function buildSummary(dims){
-  const a=BLOCK_A[`${b(dims,'D1')}-${b(dims,'D2')}`]||'';
-  const bk=BLOCK_B[`${b(dims,'D3')}-${b(dims,'D4')}`]||'';
-  const c=BLOCK_C[b(dims,'D5')]||'';
-  const d=BLOCK_D[`${b(dims,'D6')}-${b(dims,'V1')}`]||'';
-  const e=BLOCK_E[`${b(dims,'D7')}-${b(dims,'V2')}`]||'';
-  const f=b(dims,'D8')!=='mid'?(' '+BLOCK_F[b(dims,'D8')]):'';
-  return [a,bk,c,d,e].filter(Boolean).join(' ')+f;
-}
 
 function buildQuote(dims){
   const keys=['D1','D2','D3','D5','D6','D7'];
@@ -4612,38 +4561,6 @@ function assignProfile(dims) {
   return {...p, subLabel:sub.sub, subDesc:sub.desc};
 }
 
-const ROLE_FAMILIES_SHORT = [
-  {name:'Sales & Business Development',icon:'🤝',dims:{D3:0.6,D4:0.5,D1:0.45},
-   why:d=>{const p=[];if(d.D3>0.60)p.push("trust-building");if(d.D4>0.55)p.push("context-reading");if(d.D1>0.55)p.push("risk appetite");return p.length?p.join(", ")+" make this a natural fit.":"relationship-driven roles suit this profile.";},
-   caution:d=>d.D6>0.65?"High fairness threshold may slow commercial negotiation.":null},
-  {name:'HR & People Operations',icon:'👥',dims:{D3:0.6,D6:0.5,V5:0.6},
-   why:d=>{const p=[];if(d.D3>0.60)p.push("people trust you");if(d.D6>0.55)p.push("fairness instinct");if(d.V5>0.55)p.push("genuine others-orientation");return p.length?p.join(", ")+".":"people-focused roles suit this profile.";},
-   caution:d=>d.D2<0.40?"Reactive decisions complicate performance conversations.":null},
-  {name:'Strategy & Consulting',icon:'🧭',dims:{D5:0.6,D7:0.5,D2:0.55},
-   why:d=>{const p=[];if(d.D5>0.60)p.push("maintains accuracy under noisy data");if(d.D7>0.55)p.push("explores widely before concluding");if(d.D3>0.50)p.push("reads the room, not just the deck");return p.length?p.join(", ")+".":"analytical advisory roles suit this profile.";},
-   caution:d=>d.D6>0.65?"Fairness instinct can slow delivery of hard truths.":null},
-  {name:'Finance & Investment',icon:'📈',dims:{D2:0.6,D1:0.5,D5:0.55},
-   why:d=>{const p=[];if(d.D1>0.50)p.push("risk appetite");if(d.D2>0.60)p.push("deliberateness");if(d.D5>0.55)p.push("analytical discipline under pressure");return p.length?p.join(", ")+".":"finance roles suit this profile.";},
-   caution:d=>d.D3>0.70?"High trust baseline can be a liability in adversarial deal contexts.":null},
-  {name:'Product Management',icon:'📱',dims:{D4:0.55,D5:0.55,D3:0.50},
-   why:d=>{const p=[];if(d.D4>0.55)p.push("reads stakeholders accurately");if(d.D5>0.55)p.push("maintains clarity when teams pull in different directions");if(d.D3>0.50)p.push("engineers give you the real problems");return p.length?p.join(", ")+".":"product roles suit this profile.";},
-   caution:d=>d.D6>0.65?"Fairness instinct can slow decisive calls.":null},
-  {name:'Technology & Engineering',icon:'🔧',dims:{D5:0.65,D2:0.60,D7:0.50},
-   why:d=>{const p=[];if(d.D5>0.65)p.push("cognitive precision");if(d.D2>0.60)p.push("deliberate decisions");if(d.D7>0.55)p.push("exploration keeps you current");return p.length?p.join(", ")+".":"technical roles suit this profile.";},
-   caution:d=>d.D4<0.40?"Low context sensitivity makes cross-functional work draining.":null},
-  {name:'Entrepreneurship & Founding',icon:'🚀',dims:{D1:0.65,D7:0.60,D3:0.50},
-   why:d=>{const p=[];if(d.D1>0.65)p.push("risk appetite for uncertain outcomes");if(d.D7>0.60)p.push("active exploration");if(d.D3>0.50&&d.V5>0.45)p.push("builds teams people want to be part of");return p.length?p.join(", ")+".":"founding roles suit this profile.";},
-   caution:d=>d.D2<0.40?"Fast trigger can create avoidable crises in early-stage environments.":null},
-];
-
-function scoreRole(r,dims) {
-  let s=0;
-  Object.entries(r.dims).forEach(([k,min])=>{const a=dims[k]||0.5;s+=a>=min?(a-min+0.1):-(min-a);});
-  return s;
-}
-function getTopRoles(dims,n=3) {
-  return ROLE_FAMILIES_SHORT.map(r=>({...r,score:scoreRole(r,dims)})).sort((a,b)=>b.score-a.score).slice(0,n);
-}
 
 function getPostGameTeaser(gameCode, result) {
   const teasers = {
@@ -4941,15 +4858,6 @@ function getMazdoorWitty(personaName, v) {
 // ═══════════════════════════════════════════════════════════
 // REPORT RENDER
 // ═══════════════════════════════════════════════════════════
-const DIM_META_REPORT = [
-  {key:'D1',label:'Risk appetite',           lo:'Protects downside',     hi:'Seeks upside'},
-  {key:'D2',label:'Impulse control',         lo:'Acts on instinct',      hi:'Deliberate hold-back'},
-  {key:'D3',label:'Negotiation approach',    lo:'Cautious settler',      hi:'Bold negotiator'},
-  {key:'D4',label:'Context shapes you',      lo:'Consistent regardless', hi:'Adapts to situation'},
-  {key:'D5',label:'Focus under pressure',    lo:'Noise gets through',    hi:'Filters cleanly'},
-  {key:'D6',label:'Your fairness line',      lo:'Takes the deal',        hi:'Walks on principle'},
-  {key:'D7',label:'Exploring vs exploiting', lo:'Exploits what works',   hi:'Explores actively'},
-];
 
 // ═══════════════════════════════════════════════════════════
 // REPORT v3 — 5-DIMENSION ENGINE
@@ -5305,69 +5213,6 @@ function renderFullReport() {
 
 // ── Full report helper functions ──
 
-function buildSubRoleDetail(dims, profile) {
-  const details = {
-    'The Founder': {
-      'The Calculated Bet': "You move fast but you've done the thinking first. The bets look impulsive from outside and aren't. That gap between perception and reality is actually an edge.",
-      'The Mission-Driven': "You're not optimising for the exit. That limits some paths and opens others. The people you attract will be self-selecting for the same thing.",
-      'The Instinctive': "You act before the map is complete and adjust after. Some of your best outcomes came from that. So did some of the avoidable ones.",
-      'The Founder': "Risk appetite plus exploratory instinct is a specific combination. The gap to watch: tolerance for the operational grind that sits between the ideas."
-    },
-    'The Operator': {
-      'The Quiet Engine': "You run the system the same way regardless of who is watching. That consistency is rare and compounds in organisations that have learned to depend on unpredictable people.",
-      'The Principled One': "You run the process correctly even when the shortcut is faster and nobody would notice. People who have worked with you have noticed.",
-      'The Improver': "You run the current system and look for a better one simultaneously. Most people can only do one of these at a time.",
-      'The Operator': "Deliberate, consistent, and hard to rattle. The limitation to know: high-ambiguity environments where the rulebook doesn't exist yet will feel uncomfortable."
-    },
-    'The Connector': {
-      'The Bridge Builder': "You connect people and hold the line on fairness simultaneously. Those two things pull against each other in most organisations.",
-      'The Open Door': "You extend trust before it has been earned. That gets taken advantage of occasionally. The alternative — waiting until trust is proven — costs more in aggregate.",
-      'The Diplomatic One': "You build trust deliberately rather than on impulse. People feel considered rather than charmed.",
-      'The Connector': "Trust and context-sensitivity together. The limitation: you may smooth over conflicts that needed to surface."
-    },
-    'The Analyst': {
-      'The Deep Diver': "Very deep on very few things. The limitation is switching costs — moving from one domain to another is genuinely expensive for you.",
-      'The Pattern Reader': "You explore widely and analyse rigorously. The combination is less common than either skill alone.",
-      'The Principled Voice': "You will not massage findings. That creates friction at times. It also means your output is trusted in a way that adjusted output never is.",
-      'The Analyst': "Cognitive precision plus deliberateness. The environment needs to give you enough time — forced fast decisions are where this profile underperforms."
-    },
-    'The Negotiator': {
-      'The Fair Closer': "You negotiate toward fair, not maximum. Deals close and relationships survive. The limitation: leaves value on the table in adversarial contexts.",
-      'The Deliberate One': "You have the patience to let silence work. Most people fill silence. You don't.",
-      'The Negotiator': "Fairness plus measured risk. You get good deals without burning the relationship. That combination scales."
-    },
-    'The Executor': {
-      'The Quiet Finisher': "You deliver without needing the applause. The limitation: credit goes elsewhere more often than it should.",
-      'The Trusted Pair': "You deliver and people know it. That reputation is its own compounding asset.",
-      'The Executor': "You commit and follow through. The limitation: environments with constant pivots and changing priorities are genuinely draining."
-    },
-    'The Maverick': {
-      'The Calculated One': "Big bets, thought through. The distinction matters — this is not recklessness with a good outcome.",
-      'The Curious Bet': "You explore first and bet second. That sequence reduces the bad outcomes even when the bets are large.",
-      'The Maverick': "High appetite, independent. The limitation: dependence on others' systems and timelines creates friction."
-    },
-    'The Empath-Leader': {
-      'The Steady Hand': "Warmth without reactive decisions — that combination is rarer than either alone.",
-      'The Room Reader': "You adapt to each person in a way most people can't. The cost: it requires energy that isn't always visible.",
-      'The Empath-Leader': "Trust plus fairness plus others-orientation. The limitation: difficulty with people who don't reciprocate — the pattern eventually drains."
-    },
-    'The Technician': {
-      'The Deep Expert': "You know one thing at a level almost nobody else does. The limitation: breadth feels like dilution.",
-      'The Learning Machine': "High standards that keep moving. You are harder on your own work than anyone else will be.",
-      'The Technician': "Cognitive control plus deliberateness. The limitation: visible impatience with people who haven't put in the same time."
-    },
-    'The Strategist': {
-      'The Systems Thinker': "You map how things connect before deciding where to move. That takes longer at the front end and saves considerably more at the back.",
-      'The Opportunity Finder': "You scan widely and move when you find something. The limitation: can mistake novelty for opportunity.",
-      'The Strategist': "Exploration plus cognitive control. The gap to watch: getting stuck in the analysis when the situation needs a decision."
-    },
-    'The Grounded Professional': {
-      'The Steady Contributor': "Balanced across dimensions — reliable and hard to rattle. The limitation: difficult to differentiate in competitive environments where extremes get noticed."
-    }
-  };
-  const profileDetails = details[profile.label] || {};
-  return profileDetails[profile.subLabel] || "Your specific combination of scores points to a profile with genuine strengths and specific limitations — both worth understanding in full.";
-}
 
 // ── Context tiles (thrive / grind) — now uses getDim5Scores ──
 function buildContextTiles(dims) {
@@ -5533,45 +5378,7 @@ function buildFullD8(dims) {
   });
 }
 
-function buildValuesSection(dims, mazdoor) {
-  if(!mazdoor || !mazdoor.vScores) return '';
-  const v = mazdoor.vScores;
-  const pairs = [
-    {label:'Money vs Meaning',    lo:'Money-driven',     hi:'Meaning-driven',    val:v.V1},
-    {label:'Ambition vs Comfort', lo:'Comfort-seeking',  hi:'Ambition-seeking',  val:v.V2},
-    {label:'Security vs Adventure',lo:'Security-seeking',hi:'Adventure-seeking', val:v.V3},
-    {label:'Prestige vs Authenticity',lo:'Prestige-oriented',hi:'Authenticity-led',val:v.V4},
-    {label:'Self vs Others',      lo:'Self-focused',     hi:'Others-oriented',   val:v.V5},
-  ];
-  return pairs.map(p=>{
-    const pct=Math.round(p.val*100);
-    const side=pct>=65?p.hi:pct<=35?p.lo:'Balanced';
-    const col=pct>=65?'var(--teal)':pct<=35?'var(--amber-dark)':'var(--text-muted)';
-    return `<div style="margin-bottom:14px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:0.82rem;font-weight:600;">${p.label}</span>
-        <span style="font-size:0.76rem;color:${col};font-weight:500;">${side}</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--text-hint);margin-bottom:3px;"><span>${p.lo}</span><span>${p.hi}</span></div>
-      <div style="height:6px;border-radius:3px;background:var(--surface);position:relative;">
-        <div style="position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);box-shadow:0 1px 4px rgba(0,0,0,0.15);left:${pct}%;transition:left 1s ease;"></div>
-      </div>
-    </div>`;
-  }).join('');
-}
 
-function buildAvoidReason(role, dims) {
-  const gaps = [];
-  Object.entries(role.dims).forEach(([k,min])=>{
-    const actual = dims[k]||0.5;
-    if(actual < min-0.10) {
-      const labels = {D1:'risk appetite',D2:'deliberateness',D3:'trust-building',D4:'context-sensitivity',D5:'focus under pressure',D6:'fairness instinct',D7:'exploratory tendency',V1:'meaning-orientation',V2:'ambition',V5:'others-orientation'};
-      gaps.push(labels[k]||k);
-    }
-  });
-  if(!gaps.length) return "Your scores are close to the threshold for this role — it's not a clear fit but it's not a hard no either.";
-  return `Your scores on ${gaps.join(' and ')} sit below what this role typically demands. That gap creates sustained friction, not occasional difficulty.`;
-}
 
 // Override dashboard profile button to render report
 

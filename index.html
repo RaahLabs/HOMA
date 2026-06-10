@@ -59,9 +59,9 @@
         min-height: 100vh;
         background: var(--bg-desktop);
       }
-      /* ── Desktop: full viewport coverage — no dead margins ── */
+      /* ── Desktop: 10% margin each side → 80vw × 80vh content area ── */
       .game-canvas {
-        max-width: min(860px, 97vw);
+        max-width: min(680px, 80vw);
         width: 100%;
         margin: 0 auto;
         background: var(--card);
@@ -69,7 +69,7 @@
         box-shadow: var(--shadow-float);
         padding: 1.75rem;
         position: relative;
-        max-height: calc(100vh - 56px - 1.5rem);
+        max-height: 80vh;
         overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: var(--border-strong) transparent;
@@ -78,13 +78,13 @@
       .game-canvas::-webkit-scrollbar-track { background: transparent; }
       .game-canvas::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
       .wide-canvas {
-        max-width: min(1280px, 98vw);
+        max-width: min(960px, 80vw);
         margin: 0 auto;
         background: var(--card);
         border-radius: var(--radius-xl);
         box-shadow: var(--shadow-float);
         padding: 1.75rem;
-        max-height: calc(100vh - 56px - 1.5rem);
+        max-height: 80vh;
         overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: var(--border-strong) transparent;
@@ -92,8 +92,8 @@
       .wide-canvas::-webkit-scrollbar { width: 4px; }
       .wide-canvas::-webkit-scrollbar-track { background: transparent; }
       .wide-canvas::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
-      /* Screens: full edge-to-edge coverage */
-      .screen.active { display:flex; align-items:flex-start; justify-content:center; padding: 0.75rem 1rem; height:calc(100vh - 56px); box-sizing:border-box; overflow:hidden; }
+      /* Screens: 10% padding each side → content in middle 80% */
+      .screen.active { display:block; padding: 10vh 10vw; min-height:calc(100vh - 56px); box-sizing:border-box; }
       /* Two-column intro layout on desktop */
       .intro-layout {
         display: grid;
@@ -283,11 +283,11 @@
     /* ═══ RESULT MOMENT SCREENS ═══ */
     .result-canvas {
       display: flex; flex-direction: column;
-      min-height: calc(100vh - 56px - 1.5rem);
+      min-height: calc(100vh - 68px);
       justify-content: space-between;
       /* override game-canvas max-height for result screens */
-      max-height: calc(100vh - 56px - 1.5rem) !important;
-      overflow-y: auto !important;
+      max-height: none !important;
+      overflow-y: visible !important;
     }
     .result-moment {
       flex: 1; display: flex; flex-direction: column;
@@ -1108,7 +1108,7 @@
      DASHBOARD
 ═══════════════════════════════════════════════ -->
 <div id="screen-dashboard" class="screen">
-  <div style="max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 2rem;width:100%;">
+  <div style="max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 2rem;max-height:calc(100vh - 68px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;">
     <div style="margin-bottom:1.5rem;">
       <p id="dash-greet" style="font-size:1.35rem;font-weight:500;margin-bottom:4px;"></p>
       <p style="color:var(--text-muted);font-size:0.88rem;">Complete all 7 games to unlock your full career profile.</p>
@@ -3591,7 +3591,7 @@ function bzExecuteTrade() {
     returns[co.id] = {multiplier: mult, invested, returned, net};
     roundReturned += returned;
   });
-  const roundNet = parseFloat((BZ_COMPANIES.reduce((s,co)=>s+returns[co.id].net,0)).toFixed(2));
+  const roundNet = parseFloat((roundReturned - BZ_DEPLOY_PER_ROUND).toFixed(2));
   bzTotalDeployed  += BZ_DEPLOY_PER_ROUND;
   bzTotalReturned  += parseFloat(roundReturned.toFixed(2));
   bzHistory.push({round: bzRoundNum, alloc: {...bzAllocation}, returns, net: roundNet});
@@ -3689,13 +3689,12 @@ function bzRenderHistory() {
   if (miniBody && hasBz) {
     miniBody.innerHTML = bzHistory.map(h => {
       const ra = h.returns.A, rb = h.returns.B, rc = h.returns.C;
-      const rowNet=parseFloat((ra.net+rb.net+rc.net).toFixed(2));
       return `<tr>
         <td style="color:var(--text-hint);font-size:9px;">Y${h.round + 1}</td>
         <td>${fv(ra.invested)}</td><td>${fv(ra.returned)}</td><td style="${nc(ra.net)}">${fpnl(ra.net)}</td>
         <td>${fv(rb.invested)}</td><td>${fv(rb.returned)}</td><td style="${nc(rb.net)}">${fpnl(rb.net)}</td>
         <td>${fv(rc.invested)}</td><td>${fv(rc.returned)}</td><td style="${nc(rc.net)}">${fpnl(rc.net)}</td>
-        <td style="${nc(rowNet)};font-weight:700">${fpnl(rowNet)}</td>
+        <td style="${nc(h.net)};font-weight:700">${fpnl(h.net)}</td>
       </tr>`;
     }).join('');
     if (scrollEl) scrollEl.scrollTop = scrollEl.scrollHeight;

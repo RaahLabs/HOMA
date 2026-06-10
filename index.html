@@ -59,17 +59,17 @@
         min-height: 100vh;
         background: var(--bg-desktop);
       }
+      /* ── Desktop: 10% margin each side → 80vw × 80vh content area ── */
       .game-canvas {
-        max-width: 680px;
+        max-width: min(680px, 80vw);
         width: 100%;
-        margin: 1rem auto;
+        margin: 0 auto;
         background: var(--card);
         border-radius: var(--radius-xl);
         box-shadow: var(--shadow-float);
         padding: 1.75rem;
-        position: relative;   /* needed for mb-story-overlay absolute positioning */
-        /* Clamp to viewport so page never scrolls; content scrolls inside the card */
-        max-height: calc(100vh - 68px);
+        position: relative;
+        max-height: 80vh;
         overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: var(--border-strong) transparent;
@@ -78,13 +78,13 @@
       .game-canvas::-webkit-scrollbar-track { background: transparent; }
       .game-canvas::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
       .wide-canvas {
-        max-width: 960px;
-        margin: 1rem auto;
+        max-width: min(960px, 80vw);
+        margin: 0 auto;
         background: var(--card);
         border-radius: var(--radius-xl);
         box-shadow: var(--shadow-float);
         padding: 1.75rem;
-        max-height: calc(100vh - 68px);
+        max-height: 80vh;
         overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: var(--border-strong) transparent;
@@ -92,13 +92,25 @@
       .wide-canvas::-webkit-scrollbar { width: 4px; }
       .wide-canvas::-webkit-scrollbar-track { background: transparent; }
       .wide-canvas::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
-      .container { max-width: 640px; margin: 0 auto; padding: 0 2rem 4rem; }
+      /* Screens: 10% padding each side → content in middle 80% */
+      .screen.active { display:block; padding: 10vh 10vw; min-height:calc(100vh - 56px); box-sizing:border-box; }
+      /* Two-column intro layout on desktop */
+      .intro-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.75rem;
+        align-items: start;
+      }
+      .intro-left  { display:flex; flex-direction:column; gap:1rem; }
+      .intro-right { display:flex; flex-direction:column; gap:1rem; }
+      .container { max-width: min(640px, 80vw); margin: 0 auto; padding: 0 0 4rem; }
       .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-      /* Result cohort tiles — 2×2 grid saves vertical space (rule added below after base style) */
     }
     @media (max-width: 767px) {
-      .game-canvas { padding: 1.25rem; }
-      .wide-canvas { padding: 1.25rem; }
+      .game-canvas { padding: 1.25rem; max-height:calc(100vh - 56px); }
+      .wide-canvas { padding: 1.25rem; max-height:calc(100vh - 56px); }
+      .screen.active { padding: 0; min-height:calc(100vh - 56px); }
+      .intro-layout { grid-template-columns: 1fr; gap:1rem; }
       .container { max-width: 100%; padding: 0 1.25rem 4rem; }
       .dash-grid { display: flex; flex-direction: column; gap: 10px; }
     }
@@ -766,15 +778,15 @@
     .mz-scene-setter { font-size:13px;color:var(--text-hint);font-style:italic;margin-bottom:12px;line-height:1.7; }
     .mz-scenario-text { font-size:16px;color:var(--text);line-height:1.85; }
     .mz-choices-header { font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-hint);margin-bottom:10px; }
-    .mz-choices-area { display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem; }
-    .mz-choice-btn { background:var(--card);border:0.5px solid var(--border-strong);border-radius:var(--radius);padding:1rem 1.125rem;cursor:pointer;transition:all 0.15s;text-align:left;font-family:'DM Sans',sans-serif;-webkit-tap-highlight-color:transparent; }
+    .mz-choices-area { display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.25rem; }
+    .mz-choice-btn { background:var(--card);border:0.5px solid var(--border-strong);border-radius:var(--radius);padding:0.8rem 0.9rem;cursor:pointer;transition:all 0.15s;text-align:left;font-family:'DM Sans',sans-serif;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;height:100%; }
     .mz-choice-btn:hover { border-color:var(--amber);background:var(--amber-light);transform:translateY(-1px); }
     .mz-choice-btn:active { transform:scale(0.99); }
     .mz-choice-btn.disabled { pointer-events:none; }
     .mz-choice-btn.selected { border-color:var(--amber)!important;background:var(--amber-light)!important; }
     .mz-choice-btn.faded { opacity:0.22; }
-    .mz-choice-letter { font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-hint);margin-bottom:4px; }
-    .mz-choice-text { font-size:15px;color:var(--text);line-height:1.65; }
+    .mz-choice-letter { font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-hint);margin-bottom:5px; }
+    .mz-choice-text { font-size:13px;color:var(--text);line-height:1.6; }
     .mz-outcome-strip { background:var(--teal-light);border:0.5px solid rgba(15,110,86,0.2);border-radius:var(--radius);padding:1rem 1.125rem;margin-bottom:1.25rem;display:none; }
     @keyframes mzFadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
     .mz-outcome-strip.visible { display:block;animation:mzFadeUp 0.4s ease-out; }
@@ -1103,7 +1115,7 @@
         <p style="color:var(--text-muted);font-size:0.88rem;">Complete all 7 games to unlock your full career profile.</p>
       </div>
       <div id="dash-profile-btn-wrap" style="display:none;">
-        <button class="btn btn-primary" onclick="renderReport()">See your profile →</button>
+        <button class="btn btn-primary" onclick="renderReport()">Proceed →</button>
       </div>
     </div>
 
@@ -1152,7 +1164,7 @@
     <div class="card" style="margin-bottom:1rem;background:var(--amber-light);border-color:rgba(186,117,23,0.25);">
       <div style="display:flex;gap:12px;align-items:flex-start;">
         <span style="font-size:1.2rem;flex-shrink:0;">⏱</span>
-        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;"><strong style="color:var(--text);">Each round is timed.</strong> If you do not respond before the timer ends, your current earnings for that balloon will be automatically collected and the game moves on. There are no right or wrong strategies — the challenge is deciding how much risk you're willing to take.</p>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;"><strong style="color:var(--text);">Each round is timed.</strong> If you do not respond before the timer ends, your current earnings for that balloon will be automatically collected and the game moves on.</p>
       </div>
     </div>
     <div class="stat-grid stat-grid-3" style="margin-bottom:1.5rem;">
@@ -1429,15 +1441,15 @@
     <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:1rem;">
       <div style="display:flex;gap:12px;align-items:flex-start;padding:1rem;background:var(--surface);border-radius:var(--radius);">
         <span style="font-size:1.1rem;flex-shrink:0;">🎲</span>
-        <div><span style="font-size:0.88rem;font-weight:500;">Round 1 — Choose between two monetary options.</span><span style="font-size:0.88rem;color:var(--text-muted);"> Select the option you prefer.</span></div>
+        <div><span style="font-size:0.88rem;font-weight:500;">Round 1 — Pick your odds.</span><span style="font-size:0.88rem;color:var(--text-muted);"> Each question offers two options: one certain, one a gamble. No tricks — just choose what you'd actually take.</span></div>
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start;padding:1rem;background:var(--surface);border-radius:var(--radius);">
         <span style="font-size:1.1rem;flex-shrink:0;">🏷️</span>
-        <div><span style="font-size:0.88rem;font-weight:500;">Round 2 — Same choices, different framing.</span><span style="font-size:0.88rem;color:var(--text-muted);"> You may also see recommendations. You're free to follow them or ignore them — make the decision you genuinely prefer.</span></div>
+        <div><span style="font-size:0.88rem;font-weight:500;">Round 2 — Same numbers, different words.</span><span style="font-size:0.88rem;color:var(--text-muted);"> The options are mathematically identical to Round 1 — but now framed as gains or losses. Watch if your gut shifts.</span></div>
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start;padding:1rem;background:var(--surface);border-radius:var(--radius);">
         <span style="font-size:1.1rem;flex-shrink:0;">🤝</span>
-        <div><span style="font-size:0.88rem;font-weight:500;">Round 3 — Another person has ₹100.</span><span style="font-size:0.88rem;color:var(--text-muted);"> They decide how much to offer you. Accept and you both keep your shares. Reject and both of you receive nothing. There are no right or wrong answers.</span></div>
+        <div><span style="font-size:0.88rem;font-weight:500;">Round 3 — Someone else decides your share.</span><span style="font-size:0.88rem;color:var(--text-muted);"> Another player has ₹100 and offers you a cut. Accept and you both keep your shares. Reject and neither of you gets anything. What's your threshold?</span></div>
       </div>
     </div>
     <div class="card" style="margin-bottom:1rem;background:var(--amber-light);border-color:rgba(186,117,23,0.25);">
@@ -2836,14 +2848,14 @@ function rangEndGame() {
 
 // ═══════════════════════════════════════════════════════════
 const RUK_SVG = {
-  coin:`<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" fill="#d97706"/><circle cx="50" cy="50" r="35" fill="none" stroke="#fcd34d" stroke-width="3.5"/><text x="50" y="58" text-anchor="middle" font-size="28" fill="#fef3c7" font-family="sans-serif" font-weight="700">₹</text></svg>`,
-  bomb:`<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="57" r="32" fill="#374151"/><circle cx="50" cy="57" r="26" fill="#1f2937"/><path d="M50 26 Q55 20 62 14" stroke="#6b7280" stroke-width="3.5" stroke-linecap="round" fill="none"/><circle cx="64" cy="12" r="5.5" fill="#f59e0b"/><ellipse cx="40" cy="48" rx="8" ry="5" fill="white" opacity="0.12" transform="rotate(-30 40 48)"/></svg>`,
-  circle:`<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="40" fill="#0F6E56" opacity=".18" stroke="#0F6E56" stroke-width="3"/><circle cx="50" cy="50" r="30" fill="#0F6E56" opacity=".8"/></svg>`,
-  square:`<svg viewBox="0 0 100 100" fill="none"><rect x="10" y="10" width="80" height="80" rx="10" fill="#A32D2D" opacity=".18" stroke="#A32D2D" stroke-width="3"/><rect x="20" y="20" width="60" height="60" rx="7" fill="#A32D2D" opacity=".75"/></svg>`,
-  triangle:`<svg viewBox="0 0 100 100" fill="none"><polygon points="50,10 90,85 10,85" fill="#7c3aed" opacity=".18" stroke="#7c3aed" stroke-width="3" stroke-linejoin="round"/><polygon points="50,22 80,78 20,78" fill="#7c3aed" opacity=".75"/></svg>`,
-  bird:`<svg viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="55" rx="20" ry="13" fill="#1d4ed8"/><circle cx="68" cy="48" r="11" fill="#1d4ed8"/><path d="M78 48 L86 46 L78 52Z" fill="#d97706"/><path d="M50 48 Q35 26 18 32 Q30 42 50 48Z" fill="#2563eb"/><circle cx="70" cy="46" r="2.5" fill="white"/><circle cx="70.5" cy="46" r="1.2" fill="#111"/></svg>`,
-  plane:`<svg viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="50" rx="34" ry="10" fill="#4b5563" transform="rotate(-20 50 50)"/><path d="M42 44 Q38 22 22 24 Q34 38 42 50Z" fill="#6b7280"/><path d="M58 56 Q62 78 78 76 Q66 62 58 50Z" fill="#6b7280"/></svg>`,
-  rocket:`<svg viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="42" rx="14" ry="22" fill="#6b7280"/><path d="M36 58 Q30 72 32 82 Q50 70 68 82 Q70 72 64 58Z" fill="#4b5563"/><path d="M36 42 Q28 30 30 18 Q40 10 50 8 Q60 10 70 18 Q72 30 64 42Z" fill="#9ca3af"/><circle cx="50" cy="36" r="7" fill="#e0f2fe" opacity=".6"/><path d="M44 78 Q50 88 56 78" fill="#f59e0b" opacity=".8"/></svg>`,
+  coin:`<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" fill="#d97706"/><circle cx="50" cy="50" r="34" fill="none" stroke="#fcd34d" stroke-width="3"/><text x="50" y="58" text-anchor="middle" font-size="26" fill="#fef3c7" font-family="sans-serif" font-weight="700">₹</text></svg>`,
+  bomb:`<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="56" r="33" fill="#374151"/><circle cx="50" cy="56" r="26" fill="#1f2937"/><path d="M50 24 Q56 18 63 12" stroke="#6b7280" stroke-width="3.5" stroke-linecap="round" fill="none"/><circle cx="65" cy="10" r="6" fill="#f59e0b"/><ellipse cx="40" cy="48" rx="8" ry="5" fill="white" opacity="0.12" transform="rotate(-30 40 48)"/></svg>`,
+  circle:`<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="42" fill="#0D9488" opacity=".15"/><circle cx="50" cy="50" r="34" fill="#0D9488"/></svg>`,
+  square:`<svg viewBox="0 0 100 100" fill="none"><rect x="8" y="8" width="84" height="84" rx="12" fill="#0D9488" opacity=".15"/><rect x="18" y="18" width="64" height="64" rx="9" fill="#0D9488"/></svg>`,
+  triangle:`<svg viewBox="0 0 100 100" fill="none"><polygon points="50,8 92,86 8,86" fill="#0D9488" opacity=".15" stroke="#0D9488" stroke-width="0" stroke-linejoin="round"/><polygon points="50,20 82,80 18,80" fill="#0D9488"/></svg>`,
+  bird:`<svg viewBox="0 0 100 100" fill="none"><ellipse cx="52" cy="58" rx="22" ry="14" fill="#F97316"/><circle cx="70" cy="50" r="13" fill="#F97316"/><path d="M82 50 L92 47 L82 55Z" fill="#ea580c"/><path d="M52 50 Q36 28 18 34 Q30 44 52 50Z" fill="#fb923c"/><circle cx="72" cy="47" r="3" fill="white"/><circle cx="72.5" cy="47" r="1.5" fill="#111"/></svg>`,
+  plane:`<svg viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="50" rx="36" ry="11" fill="#F97316" transform="rotate(-20 50 50)"/><path d="M42 43 Q38 20 20 22 Q32 38 42 52Z" fill="#fb923c"/><path d="M58 57 Q62 80 80 78 Q68 62 58 48Z" fill="#fb923c"/><circle cx="50" cy="50" r="7" fill="#ea580c"/></svg>`,
+  rocket:`<svg viewBox="0 0 100 100" fill="none"><path d="M50 12 Q62 12 70 30 L72 68 Q72 76 50 82 Q28 76 28 68 L30 30 Q38 12 50 12Z" fill="#F97316"/><path d="M28 68 Q20 76 22 88 Q35 80 50 82 Q65 80 78 88 Q80 76 72 68Z" fill="#ea580c"/><circle cx="50" cy="40" r="10" fill="#fed7aa" opacity=".5"/><ellipse cx="50" cy="40" rx="5" ry="5" fill="#fff" opacity=".4"/></svg>`,
   blank:`<svg viewBox="0 0 100 100" fill="none"></svg>`,
 };
 const RUK_BLOCKS=[
@@ -2859,7 +2871,7 @@ const RUK_ITI_MIN=600, RUK_ITI_MAX=900;
 
 function buildRukBlock(blk,startIdx) {
   const go=Math.round(10*blk.goRatio), nogo=10-go;
-  const goTrials=Array(go).fill(0).map(()=>({isGo:true,stim:blk.goStims[0],block:blk.id}));
+  const goTrials=Array(go).fill(0).map((_,i)=>({isGo:true,stim:blk.goStims[i%blk.goStims.length],block:blk.id}));
   // Distribute nogo trials evenly across all nogoStims
   const nogoTrials=Array(nogo).fill(0).map((_,i)=>({isGo:false,stim:blk.nogoStims[i%blk.nogoStims.length],block:blk.id}));
   const trials=[...goTrials,...nogoTrials];
@@ -2899,7 +2911,7 @@ function rukShowBlockOverlay(blk,cb) {
   document.getElementById('ruk-ov-rule').textContent=blk.rule;
   const prev=document.getElementById('ruk-ov-preview');
   if(!blk.isSwitch) {
-    const goCell=`<div class="stim-preview-cell">${RUK_SVG[blk.goStims[0]]||''}<div class="stim-preview-label go-label">TAP ✓</div></div>`;
+    const goCell=blk.goStims.map(s=>`<div class="stim-preview-cell">${RUK_SVG[s]||''}<div class="stim-preview-label go-label">TAP ✓</div></div>`).join('');
     const nogoCells=blk.nogoStims.map(s=>`<div class="stim-preview-cell">${RUK_SVG[s]||''}<div class="stim-preview-label nogo-label">DON'T TAP ✗</div></div>`).join('');
     prev.innerHTML=goCell+nogoCells;
   } else {
@@ -2926,7 +2938,7 @@ function rukRunDirect() {
   document.getElementById('ruk-trial-num').textContent=rukIdx+1;
   document.getElementById('ruk-prog').style.width=((rukIdx+1)/40*100)+'%';
   document.getElementById('ruk-block-label').textContent=RUK_BLOCKS[bi]?.shortLabel||'';
-  document.getElementById('ruk-rule-hint').textContent=RUK_BLOCKS[bi]?.isSwitch?'⚡ Rules flipped':'Tap '+RUK_BLOCKS[bi]?.goStims[0]+' · Hold back '+RUK_BLOCKS[bi]?.nogoStims.join(' & ');
+  const _rb=RUK_BLOCKS[bi];if(_rb) document.getElementById('ruk-rule-hint').textContent=_rb.isSwitch?'⚡ Rules reversed — what was right is now wrong':'Tap '+_rb.goStims.join(' & ')+' · Hold back '+_rb.nogoStims.join(' & ');
   document.getElementById('ruk-feedback').textContent=''; document.getElementById('ruk-feedback').style.opacity='0';
   document.getElementById('ruk-stim-wrap').innerHTML=RUK_SVG[t.stim]||RUK_SVG.blank;
   rukTapGuard=performance.now()+150;
@@ -3742,7 +3754,7 @@ function mzSelectChoice(idx) {
   if(choice.branch&&id==='s6'){const pp={high_others:['p1','p2','p5'],high_self:['p3','p4','p6']};const press=shuffleArr([...(pp[choice.branch]||pp.high_others)]).slice(0,3);mzSequenceIds=[...mzSequenceIds.slice(0,6),...press,'s10','s11','s12'];}
   setTimeout(()=>{document.getElementById('mz-outcome-text').textContent=choice.outcome;document.getElementById('mz-outcome-strip').classList.add('visible');},350);
   const isLast=mzCurrentIdx>=11;
-  setTimeout(()=>{const btn=document.getElementById('mz-next-btn');btn.textContent=isLast?'See your profile →':`Chapter ${mzCurrentIdx+2} →`;document.getElementById('mz-next-btn-area').classList.add('visible');},1600);
+  setTimeout(()=>{const btn=document.getElementById('mz-next-btn');btn.textContent=isLast?'Proceed →':`Chapter ${mzCurrentIdx+2} →`;document.getElementById('mz-next-btn-area').classList.add('visible');},1600);
 }
 
 function mzAdvanceScenario() {
@@ -4198,7 +4210,7 @@ function mbEndStorylineWithOutcome(emoji,title,line) {
   const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
   set('mb-done-emoji',emoji); set('mb-done-title',title); set('mb-done-line',line);
   if(isLast){
-    set('mb-between-btn','See your profile →');
+    set('mb-between-btn','Proceed →');
     const nc=document.getElementById('mb-next-card'); if(nc) nc.style.display='none';
   } else {
     const next=STORYLINE_DEFS[mbStorylineIdx+1];
@@ -5218,17 +5230,44 @@ function renderFullReport() {
 function buildContextTiles(dims) {
   const d5 = getDim5Scores(dims);
   const thrive=[], grind=[];
-  if(d5.risk>0.60)  { thrive.push("Early-stage and high-uncertainty roles"); thrive.push("Real ownership over outcomes"); }
-  else              { thrive.push("Structured roles with a clear brief"); grind.push("Open-ended mandates with shifting scope"); }
-  if(d5.command>0.65) { thrive.push("High-stakes environments that need a steady hand"); }
-  else if(d5.command<0.40) { thrive.push("Fast-moving, action-first environments"); grind.push("Slow consensus and committee processes"); }
-  if(d5.social>0.65)  { thrive.push("Trust-based teams and collaborative cultures"); grind.push("Zero-sum, highly political environments"); }
-  else if(d5.social<0.35) { thrive.push("Solo or small autonomous work"); grind.push("Heavy coalition-building and org politics"); }
-  if(d5.adapt>0.65) { thrive.push("Cross-functional and rapidly shifting contexts"); grind.push("Rigid, procedure-heavy institutions"); }
-  else if(d5.adapt<0.40) { grind.push("Constant context-switching without depth"); }
-  if(dims.D7>0.65) { thrive.push("Exploration-heavy roles (research, new markets)"); }
-  if(!thrive.length) thrive.push("Environments where reliability is valued", "Roles with defined expectations");
-  if(!grind.length)  grind.push("Environments that punish consistency", "High-noise, low-feedback roles");
+
+  if(d5.risk > 0.60) {
+    thrive.push("Early-stage or undefined scope — you read uncertainty as interesting, not threatening");
+    thrive.push("Roles with real ownership: P&L, product, founding — where outcomes trace back to your decisions");
+  } else {
+    thrive.push("Structured roles with a clear brief, defined deliverables, and measurable success");
+    grind.push("Open-ended mandates where the goal shifts before the work is done");
+  }
+
+  if(d5.command > 0.65) {
+    thrive.push("High-pressure, high-stakes environments that need someone who doesn't spiral when it counts");
+  } else if(d5.command < 0.40) {
+    thrive.push("Fast-moving environments where instinct and speed beat deliberation");
+    grind.push("Slow consensus processes that require sustained patience across weeks of negotiation");
+  }
+
+  if(d5.social > 0.65) {
+    thrive.push("Trust-based teams where the culture is built on transparency — you strengthen it and it sustains you");
+    grind.push("Zero-sum or deeply political environments where people hoard information");
+  } else if(d5.social < 0.35) {
+    thrive.push("Independent or small-team work where results matter more than coalition");
+    grind.push("Roles that require constant buy-in, alignment meetings, and managing up");
+  }
+
+  if(d5.adapt > 0.65) {
+    thrive.push("Cross-functional, pivoting, or multi-context roles — you don't need stability to perform");
+    grind.push("Rigid, procedure-heavy institutions where yesterday's process is tomorrow's process");
+  } else if(d5.adapt < 0.40) {
+    grind.push("Roles that require constant context-switching without ever building depth");
+  }
+
+  if(dims.D7 > 0.65) {
+    thrive.push("Exploration-heavy work: research, new market entry, building from scratch");
+  }
+
+  if(!thrive.length) thrive.push("Environments where reliability is valued above all", "Roles with defined scope and stable expectations");
+  if(!grind.length)  grind.push("Environments that actively punish consistency", "High-noise, low-feedback roles with unclear success criteria");
+
   return { thrive: thrive.slice(0,3), grind: grind.slice(0,3) };
 }
 

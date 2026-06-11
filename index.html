@@ -93,7 +93,7 @@
       .wide-canvas::-webkit-scrollbar-track { background: transparent; }
       .wide-canvas::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
       /* Screens: full edge-to-edge coverage */
-      .screen.active { display:block; padding: 0.75rem 1rem; height:calc(100vh - 56px); box-sizing:border-box; overflow:hidden; }
+      .screen.active { display:block; padding: 0.75rem 1rem; min-height:calc(100vh - 56px); box-sizing:border-box; }
       /* Two-column intro layout on desktop */
       .intro-layout {
         display: grid;
@@ -104,65 +104,7 @@
       .intro-left  { display:flex; flex-direction:column; gap:1rem; }
       .intro-right { display:flex; flex-direction:column; gap:1rem; }
       .container { max-width: min(640px, 80vw); margin: 0 auto; padding: 0 0 4rem; }
-      /* Intro screens: full viewport width, no card frame */
-      [id$="-intro"] .game-canvas {
-        max-width: 100%;
-        width: 100%;
-        background: transparent;
-        border-radius: 0;
-        box-shadow: none;
-        padding: 1.75rem 3rem;
-        max-height: none;
-        overflow: visible;
-      }
-      /* Intro screens: 3-column layout on desktop */
-      .intro-layout-3 { display:grid; grid-template-columns:0.85fr 1fr 1.1fr; gap:3rem; align-items:start; }
-      .intro-identity { display:flex; flex-direction:column; gap:0.5rem; }
-      .intro-identity .game-intro-para { margin-bottom:0; }
-      .intro-rules { display:flex; flex-direction:column; gap:0.625rem; }
-      .intro-rules .btn { margin-top:auto; }
-
-      /* Ruk game: 2-column layout on desktop */
-      .ruk-play-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; align-items:center; margin-top:0.75rem; }
-      .ruk-game-col { display:flex; flex-direction:column; }
-      .ruk-info-col { display:flex; flex-direction:column; gap:0.875rem; justify-content:center; }
-      .ruk-info-col .ruk-stat-bar { margin-bottom:0; }
-      .ruk-info-col .ruk-dots { margin:0; }
-
-      /* Dum play: 2-column layout on desktop */
-      .dum-play-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.75rem; align-items:center; margin-top:0.75rem; }
-      .dum-balloon-col { display:flex; align-items:center; justify-content:center; }
-      .dum-action-col { display:flex; flex-direction:column; }
-
-      /* Bazaar intro: tighten to prevent overflow on compact laptops */
-      #screen-bazaar-intro .game-canvas { padding:1.25rem 1.5rem; }
-      #screen-bazaar-intro .card { padding:0.875rem; }
-      #screen-bazaar-intro .game-intro-para { margin-bottom:0.625rem; }
-      .dash-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-
-      /* Mazdoor: viewport-height, 2-col layout — story left, choices right, zero scroll */
-      #screen-mazdoor-game.screen.active { height:calc(100vh - 56px); overflow:hidden; display:flex; flex-direction:column; padding:0; }
-      #screen-mazdoor-game.screen.active .mz-game-top { flex-shrink:0; }
-      #screen-mazdoor-game .mz-story-area {
-        flex:1; overflow:hidden; display:grid;
-        grid-template-columns:1.1fr 0.9fr;
-        grid-template-areas:"story hdr" "story choices" "story outcome" "story nextbtn";
-        grid-template-rows:auto 1fr auto auto;
-        gap:0 1.25rem; padding:0.875rem 1.25rem;
-      }
-      #screen-mazdoor-game .mz-story-card { grid-area:story; overflow:hidden; margin:0; height:100%; }
-      #screen-mazdoor-game .mz-scenario-text { font-size:14px; line-height:1.65; }
-      #screen-mazdoor-game .mz-scene-setter { margin-bottom:6px; }
-      #screen-mazdoor-game .mz-choices-header { grid-area:hdr; margin:0 0 8px; }
-      #screen-mazdoor-game .mz-choices-area { grid-area:choices; align-self:start; margin-bottom:0; }
-      #screen-mazdoor-game .mz-outcome-strip { grid-area:outcome; }
-      #screen-mazdoor-game #mz-next-btn-area { grid-area:nextbtn; align-self:end; margin:0; }
-
-      /* Bazaar: viewport-height, cards fill middle, bottom bar in flow, zero scroll */
-      #screen-bazaar-game.screen.active { height:calc(100vh - 56px); overflow:hidden; display:flex; flex-direction:column; }
-      #screen-bazaar-game.screen.active .bz-header { flex-shrink:0; }
-      #screen-bazaar-game.screen.active .bz-cards-grid { flex:1; overflow:hidden; align-content:center; }
-      #screen-bazaar-game.screen.active .bz-bottom-bar { position:relative; left:auto; bottom:auto; transform:none; width:100%; max-width:100%; flex-shrink:0; padding-bottom:12px; }
+      .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     }
     @media (max-width: 767px) {
       .game-canvas { padding: 1.25rem; max-height:calc(100vh - 56px); }
@@ -178,9 +120,7 @@
     ═══════════════════════════════════════════════ */
     .nav {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 0 1.5rem;
-      height: 56px;
-      box-sizing: border-box;
+      padding: 1rem 1.5rem;
       border-bottom: 0.5px solid var(--border);
       background: var(--bg-desktop);
       position: sticky; top: 0; z-index: 50;
@@ -285,7 +225,7 @@
     ═══════════════════════════════════════════════ */
     .game-card {
       background: var(--card); border: 0.5px solid var(--border);
-      border-radius: var(--radius-lg); padding: 0.875rem;
+      border-radius: var(--radius-lg); padding: 1.25rem;
       box-shadow: var(--shadow-card);
     }
     .game-card.highlight { border: 1.5px solid var(--amber); cursor: pointer; }
@@ -343,7 +283,7 @@
     /* ═══ RESULT MOMENT SCREENS ═══ */
     .result-canvas {
       display: flex; flex-direction: column;
-      height: calc(100vh - 56px - 1.5rem);
+      min-height: calc(100vh - 56px - 1.5rem);
       justify-content: space-between;
       /* override game-canvas max-height for result screens */
       max-height: calc(100vh - 56px - 1.5rem) !important;
@@ -368,6 +308,20 @@
     /* ═══════════════════════════════════════════════
        REPORT STYLES
     ═══════════════════════════════════════════════ */
+    /* ── Report mode toggle ── */
+    .rpt-mode-bar { display:flex; gap:8px; padding:1rem 1.25rem 0; background:var(--card); }
+    .rpt-mode-btn {
+      flex:1; padding:9px 12px; border-radius:var(--radius);
+      border:0.5px solid var(--border); background:transparent;
+      font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:500;
+      color:var(--text-muted); cursor:pointer; transition:all 0.18s;
+    }
+    .rpt-mode-btn:hover { border-color:var(--amber); color:var(--text); }
+    .rpt-mode-btn.active {
+      background:var(--amber-light); border-color:var(--amber);
+      color:var(--amber-dark); font-weight:600;
+    }
+
     /* ═══ REPORT v3 — 5-DIM TILE SYSTEM ═══ */
     .rpt-canvas { padding: 0 !important; }
 
@@ -644,6 +598,8 @@
     .stim-preview-row { display:flex; justify-content:center; gap:28px; margin-bottom:1.5rem; }
     .stim-preview-cell { text-align:center; }
     .stim-preview-cell svg { width:60px; height:60px; }
+    .stim-preview-cell.sp-sm svg { width:38px; height:38px; }
+    .stim-preview-cell.sp-sm .stim-preview-label { font-size:10px; }
     .stim-preview-label { font-size:12px; margin-top:6px; font-weight:500; }
     .go-label { color:#0F6E56; } .nogo-label { color:#A32D2D; }
 
@@ -702,11 +658,11 @@
       text-align: center;
     }
     .bz-mini-table .bz-sub-row th {
-      padding: 2px 3px 4px;
-      font-size: 7px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .02em;
+      padding: 2px 5px 4px;
+      font-size: 8px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .04em;
       color: var(--text-hint);
-      border-bottom: 0.5px solid var(--border); white-space:nowrap;
+      border-bottom: 0.5px solid var(--border-strong);
     }
     .bz-mini-table td { padding: 2px 5px; }
     .bz-header{position:sticky;top:0;z-index:20;background:rgba(250,250,247,0.97);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border-strong);padding:.75rem 1.5rem;}
@@ -716,8 +672,7 @@
     .bz-fund-tag{font-size:12px;color:var(--text-hint);}
     /* Bazaar header — desktop dashboard layout */
     .bz-header-body {
-      display:grid; grid-template-columns:auto 1px 1fr; gap:0 14px; align-items:start;
-      border-top:0.5px solid var(--border-strong); padding:0.625rem 1.5rem;
+      display:grid; grid-template-columns:auto 1px 1fr; gap:0 14px; align-items:start; margin-top:8px;
     }
     .bz-stats-col { display:flex; flex-direction:column; gap:4px; min-width:148px; }
     .bz-stat-row { display:flex; justify-content:space-between; align-items:center; gap:16px; }
@@ -1170,13 +1125,13 @@
 ═══════════════════════════════════════════════ -->
 <div id="screen-dashboard" class="screen">
   <div style="max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 2rem;width:100%;">
-    <div style="margin-bottom:0.875rem;">
+    <div style="margin-bottom:1.5rem;">
       <p id="dash-greet" style="font-size:1.35rem;font-weight:500;margin-bottom:4px;"></p>
       <p style="color:var(--text-muted);font-size:0.88rem;">Complete all 7 games to unlock your full career profile.</p>
     </div>
 
     <!-- Progress -->
-    <div style="margin-bottom:1.25rem;">
+    <div style="margin-bottom:2rem;">
       <div style="display:flex;justify-content:space-between;font-size:0.76rem;color:var(--text-muted);margin-bottom:6px;">
         <span>Overall progress</span><span id="prog-txt">0 / 7 games</span>
       </div>
@@ -1205,12 +1160,11 @@
       <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
       <span class="pill">Game 1 of 7</span>
     </div>
-    <div class="intro-layout-3">
-          <div class="intro-identity">
+    <div class="intro-layout">
+      <div class="intro-left">
         <div class="game-name-hindi">🎈 Dum</div>
         <div class="game-name-sub">dum — breath, guts</div>
-        <p class="game-intro-para">Earn as much as possible. Pump the balloon to earn money — but if it bursts, you lose everything from that round. Collect any time before it pops.</p></div>
-    <div class="intro-rules">
+        <p class="game-intro-para">Earn as much as possible. Pump the balloon to earn money — but if it bursts, you lose everything from that round. Collect any time before it pops.</p>
         <div class="card" style="background:var(--amber-light);border-color:rgba(186,117,23,0.25);">
           <div style="display:flex;gap:10px;align-items:flex-start;">
             <span style="font-size:1.1rem;flex-shrink:0;">⏱</span>
@@ -1222,7 +1176,7 @@
       </div>
       <div class="intro-right">
         <div style="display:flex;justify-content:center;margin-bottom:1rem;">
-          <svg width="120" height="146" viewBox="0 0 90 110"><ellipse cx="45" cy="46" rx="36" ry="42" fill="#dc2626"/><ellipse cx="31" cy="28" rx="13" ry="9" fill="#fca5a5" opacity="0.55"/><path d="M45 88 Q42 98 45 104" stroke="#991b1b" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+          <svg width="72" height="88" viewBox="0 0 90 110"><ellipse cx="45" cy="46" rx="36" ry="42" fill="#dc2626"/><ellipse cx="31" cy="28" rx="13" ry="9" fill="#fca5a5" opacity="0.55"/><path d="M45 88 Q42 98 45 104" stroke="#991b1b" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
         </div>
         <div class="card">
           <p style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-hint);margin-bottom:10px;">Three types of balloons</p>
@@ -1247,44 +1201,34 @@
 ═══════════════════════════════════════════════ -->
 <div id="screen-dum-play" class="screen gd-dum">
   <div class="game-canvas">
-    <!-- Full-width header -->
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
       <span style="font-size:0.82rem;color:var(--text-muted);">Balloon <span id="g-num">1</span> of 30</span>
       <span style="font-size:0.82rem;color:var(--text-muted);">Banked: <strong id="g-banked" style="color:var(--text);">₹0</strong></span>
     </div>
-    <div class="progress-track" style="margin-bottom:0.875rem;"><div id="g-prog" class="progress-fill" style="width:3.33%;"></div></div>
+    <div class="progress-track" style="margin-bottom:1rem;"><div id="g-prog" class="progress-fill" style="width:3.33%;"></div></div>
     <div id="g-timer-track"><div id="g-timer-fill" style="background:var(--amber);"></div></div>
-    <!-- 2-column play area -->
-    <div class="dum-play-grid">
-      <!-- LEFT: balloon visual -->
-      <div class="dum-balloon-col">
-        <div style="display:flex;justify-content:center;align-items:center;position:relative;min-height:200px;">
-          <div id="balloon-wrap">
-            <svg width="130" height="165" viewBox="0 0 110 140">
-              <ellipse id="b-body" cx="55" cy="58" rx="44" ry="52" fill="#EF9F27"/>
-              <ellipse id="b-shine" cx="38" cy="35" rx="15" ry="10" fill="#FAC775" opacity="0.5"/>
-              <path id="b-string" d="M55 110 Q52 122 55 128" stroke="#BA7517" stroke-width="2" fill="none" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div id="g-boom" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:72px;line-height:1;">💥</div>
-        </div>
+    <div style="display:flex;justify-content:center;min-height:180px;align-items:center;position:relative;margin-bottom:0.75rem;">
+      <div id="balloon-wrap">
+        <svg width="110" height="140" viewBox="0 0 110 140">
+          <ellipse id="b-body" cx="55" cy="58" rx="44" ry="52" fill="#EF9F27"/>
+          <ellipse id="b-shine" cx="38" cy="35" rx="15" ry="10" fill="#FAC775" opacity="0.5"/>
+          <path id="b-string" d="M55 110 Q52 122 55 128" stroke="#BA7517" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
       </div>
-      <!-- RIGHT: decision panel -->
-      <div class="dum-action-col">
-        <div style="margin-bottom:10px;"><span id="g-badge"></span></div>
-        <div style="margin-bottom:1rem;">
-          <div style="font-size:0.76rem;color:var(--text-muted);margin-bottom:4px;">This balloon worth &nbsp;<span id="g-reward-hint" style="font-weight:500;color:var(--text);"></span></div>
-          <div id="g-earn" style="font-size:2.6rem;font-weight:500;color:var(--amber);line-height:1.05;">₹0</div>
-          <div style="font-size:0.76rem;color:var(--text-muted);margin-top:4px;">Pumps: <span id="g-pumps">0</span></div>
-        </div>
-        <button id="g-pbtn" class="btn btn-secondary btn-full" style="padding:18px;font-size:1.05rem;margin-bottom:8px;" onclick="dumPump()">Pump 🎈</button>
-        <button id="g-cbtn" class="btn btn-secondary btn-full" style="padding:12px;" onclick="dumCollect()">Collect ₹<span id="g-camt">0</span></button>
-        <div class="color-legend" style="margin-top:12px;">
-          <span><span class="color-dot" style="background:#dc2626;"></span>Red ₹5</span>
-          <span><span class="color-dot" style="background:#d97706;"></span>Gold ₹3</span>
-          <span><span class="color-dot" style="background:#3b82f6;"></span>Blue ₹2</span>
-        </div>
-      </div>
+      <div id="g-boom" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:60px;line-height:1;">💥</div>
+    </div>
+    <div style="text-align:center;margin-bottom:8px;"><span id="g-badge"></span></div>
+    <div style="text-align:center;margin-bottom:1.25rem;">
+      <div style="font-size:0.76rem;color:var(--text-muted);margin-bottom:4px;">This balloon worth &nbsp;<span id="g-reward-hint" style="font-weight:500;color:var(--text);"></span></div>
+      <div id="g-earn" style="font-size:2.4rem;font-weight:500;color:var(--amber);line-height:1.1;">₹0</div>
+      <div style="font-size:0.76rem;color:var(--text-muted);margin-top:5px;">Pumps: <span id="g-pumps">0</span></div>
+    </div>
+    <button id="g-pbtn" class="btn btn-secondary btn-full" style="padding:20px;font-size:1.1rem;margin-bottom:10px;" onclick="dumPump()">Pump 🎈</button>
+    <button id="g-cbtn" class="btn btn-secondary btn-full" style="padding:14px;" onclick="dumCollect()">Collect ₹<span id="g-camt">0</span></button>
+    <div class="color-legend" style="margin-top:14px;">
+      <span><span class="color-dot" style="background:#dc2626;"></span>Red ₹5</span>
+      <span><span class="color-dot" style="background:#d97706;"></span>Gold ₹3</span>
+      <span><span class="color-dot" style="background:#3b82f6;"></span>Blue ₹2</span>
     </div>
   </div>
 </div>
@@ -1321,12 +1265,11 @@
       <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
       <span class="pill">Game 2 of 7</span>
     </div>
-    <div class="intro-layout-3">
-          <div class="intro-identity">
+    <div class="intro-layout">
+      <div class="intro-left">
         <div class="game-name-hindi">🎨 Rang</div>
         <div class="game-name-sub">rang — colour, signal, identity</div>
-        <p class="game-intro-para">Each trial shows a word in a colour. The instruction tells you to pick based on the <strong>word</strong> or the <strong>colour it's displayed in</strong> — they won't always match. Stay accurate while instructions keep changing.</p></div>
-    <div class="intro-rules">
+        <p class="game-intro-para">Each trial shows a word in a colour. The instruction tells you to pick based on the <strong>word</strong> or the <strong>colour it's displayed in</strong> — they won't always match. Stay accurate while instructions keep changing.</p>
         <div class="card" style="background:var(--amber-light);border-color:rgba(186,117,23,0.25);">
           <div style="display:flex;gap:10px;align-items:flex-start;">
             <span style="font-size:1rem;flex-shrink:0;">⏱</span>
@@ -1417,12 +1360,11 @@
       <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
       <span class="pill">Game 3 of 7</span>
     </div>
-    <div class="intro-layout-3">
-          <div class="intro-identity">
+    <div class="intro-layout">
+      <div class="intro-left">
         <div class="game-name-hindi">⚡ Ruk</div>
         <div class="game-name-sub">ruk — stop</div>
-        <p class="game-intro-para">Four rounds of tap-or-hold. Each round tells you exactly what to tap and what to stop for. The shapes change. In round 4, the rules reverse completely.</p></div>
-    <div class="intro-rules">
+        <p class="game-intro-para">Four rounds of tap-or-hold. Each round tells you exactly what to tap and what to stop for. The shapes change. In round 4, the rules reverse completely.</p>
         <div class="card" style="background:var(--amber-light);border-color:rgba(186,117,23,0.25);">
           <div style="display:flex;gap:10px;align-items:flex-start;">
             <span style="font-size:1rem;flex-shrink:0;">👇</span>
@@ -1487,34 +1429,24 @@
 <!-- RUK GAME -->
 <div id="screen-ruk-game" class="screen gd-ruk">
   <div class="game-canvas">
-    <!-- Full-width header -->
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
       <span style="font-size:0.82rem;color:var(--text-muted);">Trial <span id="ruk-trial-num">1</span> of 40</span>
       <span id="ruk-block-label" style="font-size:0.7rem;font-weight:600;color:var(--amber);letter-spacing:.05em;text-transform:uppercase;"></span>
     </div>
     <div class="progress-track" style="margin-bottom:0.75rem;"><div id="ruk-prog" class="progress-fill" style="width:0%;"></div></div>
     <div id="ruk-timer-track"><div id="ruk-timer-fill"></div></div>
-    <!-- 2-column play area -->
-    <div class="ruk-play-grid">
-      <!-- LEFT: game action -->
-      <div class="ruk-game-col">
-        <div class="ruk-arena" id="ruk-arena">
-          <div class="ruk-stim-wrap" id="ruk-stim-wrap"></div>
-        </div>
-        <div class="ruk-feedback-strip" id="ruk-feedback"></div>
-        <button class="ruk-tap-btn" id="ruk-tap-btn" onclick="rukTap()">TAP</button>
-      </div>
-      <!-- RIGHT: status panel -->
-      <div class="ruk-info-col">
-        <div class="ruk-stat-bar">
-          <div class="ruk-stat-cell"><div class="ruk-stat-val" id="ruk-score-display" style="color:var(--text);">0</div><div class="ruk-stat-lbl">score</div></div>
-          <div class="ruk-stat-cell"><div class="ruk-stat-val" id="ruk-hits-display" style="color:#0F6E56;">0</div><div class="ruk-stat-lbl">hits</div></div>
-          <div class="ruk-stat-cell"><div class="ruk-stat-val" id="ruk-fa-display" style="color:#A32D2D;">0</div><div class="ruk-stat-lbl">false alarms</div></div>
-        </div>
-        <div class="ruk-dots" id="ruk-dots"></div>
-        <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;" id="ruk-rule-hint"></p>
-      </div>
+    <div class="ruk-stat-bar">
+      <div class="ruk-stat-cell"><div class="ruk-stat-val" id="ruk-score-display" style="color:var(--text);">0</div><div class="ruk-stat-lbl">score</div></div>
+      <div class="ruk-stat-cell"><div class="ruk-stat-val" id="ruk-hits-display" style="color:#0F6E56;">0</div><div class="ruk-stat-lbl">hits</div></div>
+      <div class="ruk-stat-cell"><div class="ruk-stat-val" id="ruk-fa-display" style="color:#A32D2D;">0</div><div class="ruk-stat-lbl">false alarms</div></div>
     </div>
+    <div class="ruk-dots" id="ruk-dots"></div>
+    <div class="ruk-arena" id="ruk-arena">
+      <div class="ruk-stim-wrap" id="ruk-stim-wrap"></div>
+    </div>
+    <div class="ruk-feedback-strip" id="ruk-feedback"></div>
+    <button class="ruk-tap-btn" id="ruk-tap-btn" onclick="rukTap()">TAP</button>
+    <p style="font-size:0.76rem;color:var(--text-hint);text-align:center;margin-top:10px;" id="ruk-rule-hint"></p>
   </div>
 </div>
 
@@ -1555,12 +1487,11 @@
       <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
       <span class="pill">Game 4 of 7</span>
     </div>
-    <div class="intro-layout-3">
-          <div class="intro-identity">
+    <div class="intro-layout">
+      <div class="intro-left">
         <div class="game-name-hindi">⚖️ Saudaa</div>
         <div class="game-name-sub">saudaa — deal, bargain</div>
-        <p class="game-intro-para">Three rounds of decisions. Real stakes, no right answers. No math required — just pick what you'd actually do.</p></div>
-    <div class="intro-rules">
+        <p class="game-intro-para">Three rounds of decisions. Real stakes, no right answers. No math required — just pick what you'd actually do.</p>
         <div class="card" style="background:var(--amber-light);border-color:rgba(186,117,23,0.25);">
           <div style="display:flex;gap:10px;align-items:flex-start;">
             <span style="font-size:1rem;flex-shrink:0;">⏱</span>
@@ -1667,12 +1598,11 @@
       <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
       <span class="pill">Game 5 of 7</span>
     </div>
-    <div class="intro-layout-3">
-          <div class="intro-identity">
+    <div class="intro-layout">
+      <div class="intro-left">
         <div class="game-name-hindi">🤝 Mol Bhav</div>
         <div class="game-name-sub">mōl bhāv — negotiation, value, worth</div>
-        <p class="game-intro-para">Three real-world negotiation situations. Accept the offer, counter it, or walk away — whatever feels most natural. A deal closes when both sides agree. No deal if rounds run out.</p></div>
-    <div class="intro-rules">
+        <p class="game-intro-para">Three real-world negotiation situations. Accept the offer, counter it, or walk away — whatever feels most natural. A deal closes when both sides agree. No deal if rounds run out.</p>
         <div class="card" style="background:var(--surface);border:0.5px solid var(--border);">
           <p style="font-size:0.78rem;color:var(--text-hint);line-height:1.75;font-style:italic;">There are no right or wrong strategies. Negotiate, accept quickly, hold your position, or walk away — whatever you'd actually do.</p>
         </div>
@@ -1855,12 +1785,11 @@
       <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
       <span class="pill">Game 6 of 7</span>
     </div>
-    <div class="intro-layout-3">
-          <div class="intro-identity">
+    <div class="intro-layout">
+      <div class="intro-left">
         <div class="game-name-hindi">📊 Bazaar</div>
         <div class="game-name-sub">bazaar — the market, where nothing stays still</div>
-        <p class="game-intro-para">You're an investor with ₹9L to deploy each year across three companies. Allocate however you want — all in one, or split. Watch the returns, find the pattern. The market will shift mid-way.</p></div>
-    <div class="intro-rules">
+        <p class="game-intro-para">You're an investor with ₹9L to deploy each year across three companies. Allocate however you want — all in one, or split. Watch the returns, find the pattern. The market will shift mid-way.</p>
         <div class="card" style="background:var(--surface);border:0.5px solid var(--border);">
           <div style="display:flex;flex-direction:column;gap:6px;">
             <div style="display:flex;gap:10px;font-size:0.82rem;border-bottom:0.5px solid var(--border);padding-bottom:6px;"><span style="font-family:'DM Mono',monospace;font-weight:600;color:var(--amber);width:26px;flex-shrink:0;">₹9L</span><span style="color:var(--text-muted);line-height:1.5;">to invest each year, split across three companies</span></div>
@@ -1905,60 +1834,60 @@
 
 <!-- BAZAAR GAME -->
 <div id="screen-bazaar-game" class="screen gd-bazaar" style="padding:0;">
-  <!-- TOP BAR: year + fund only — no P&L here -->
+  <!-- STICKY HEADER — desktop dashboard layout -->
   <div class="bz-header">
     <div class="bz-header-top">
       <div class="bz-year-badge">Year <span id="bz-hdr-year">1</span> of 11</div>
       <div class="bz-fund-tag">Bazaar · ₹99L fund · ₹9L/yr</div>
     </div>
+    <div class="bz-header-body">
+      <!-- Left: cumulative P&L stats — dark card -->
+      <div class="bz-stats-dark">
+        <div class="bz-stat-row">
+          <span class="bz-stat-key">Deployed</span>
+          <span class="bz-stat-val" id="bz-pnl-deployed">₹0L</span>
+        </div>
+        <div class="bz-stat-row">
+          <span class="bz-stat-key">Returned</span>
+          <span class="bz-stat-val" id="bz-pnl-returned">₹0L</span>
+        </div>
+        <div class="bz-stat-row" style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.1);">
+          <span class="bz-stat-key" style="color:rgba(255,255,255,0.62);font-weight:800;">Net P&amp;L</span>
+          <span class="bz-stat-val" id="bz-pnl-net" style="color:rgba(255,255,255,0.38);">—</span>
+        </div>
+      </div>
+      <!-- Column divider -->
+      <div class="bz-col-div"></div>
+      <!-- Right: scrollable round history — visible from round 2 onwards -->
+      <div class="bz-hist-col">
+        <div id="bz-hist-col-empty" class="bz-hist-col-label">No history yet</div>
+        <div id="bz-hist-col-scroll" style="display:none; max-height:80px; overflow-y:auto; overflow-x:auto; scrollbar-width:thin; scrollbar-color:var(--border-strong) transparent;">
+          <table class="bz-mini-table">
+            <thead>
+              <tr class="bz-group-row">
+                <th></th>
+                <th colspan="3" style="color:var(--co-a);border-bottom:2px solid var(--co-a);text-align:center;">Aakash</th>
+                <th colspan="3" style="color:var(--co-b);border-bottom:2px solid var(--co-b);text-align:center;">Bharat</th>
+                <th colspan="3" style="color:var(--co-c);border-bottom:2px solid var(--co-c);text-align:center;">Carnation</th>
+                <th style="color:var(--text-muted);text-align:center;">Year P&amp;L</th>
+              </tr>
+              <tr class="bz-sub-row">
+                <th style="text-align:left;">Yr</th>
+                <th>Inv</th><th>Ret</th><th>P/L</th>
+                <th>Inv</th><th>Ret</th><th>P/L</th>
+                <th>Inv</th><th>Ret</th><th>P/L</th>
+                <th>Net</th>
+              </tr>
+            </thead>
+            <tbody id="bz-mini-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-  <!-- COMPANY TILES — first, most prominent -->
+  <!-- 3-COL CARDS -->
   <div class="bz-cards-grid" id="bz-cards-grid"></div>
-  <!-- P&L SECTION: stats + history — appears after Year 1 completes -->
-  <div class="bz-header-body" id="bz-pnl-body" style="display:none;">
-    <!-- Left: cumulative P&L stats -->
-    <div class="bz-stats-dark">
-      <div class="bz-stat-row">
-        <span class="bz-stat-key">Deployed</span>
-        <span class="bz-stat-val" id="bz-pnl-deployed">₹0L</span>
-      </div>
-      <div class="bz-stat-row">
-        <span class="bz-stat-key">Returned</span>
-        <span class="bz-stat-val" id="bz-pnl-returned">₹0L</span>
-      </div>
-      <div class="bz-stat-row" style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.1);">
-        <span class="bz-stat-key" style="color:rgba(255,255,255,0.62);font-weight:800;">Net P&amp;L</span>
-        <span class="bz-stat-val" id="bz-pnl-net" style="color:rgba(255,255,255,0.38);">—</span>
-      </div>
-    </div>
-    <!-- Column divider -->
-    <div class="bz-col-div"></div>
-    <!-- History table — grows year by year, no scroll -->
-    <div class="bz-hist-col">
-      <div id="bz-hist-col-empty" class="bz-hist-col-label">No history yet</div>
-      <div id="bz-hist-col-scroll" style="display:none; overflow-x:auto; scrollbar-width:thin; scrollbar-color:var(--border-strong) transparent;">
-        <table class="bz-mini-table">
-          <thead>
-            <tr class="bz-group-row">
-              <th></th>
-              <th colspan="3" style="color:var(--co-a);border-bottom:2px solid var(--co-a);text-align:center;">Aakash</th>
-              <th colspan="3" style="color:var(--co-b);border-bottom:2px solid var(--co-b);text-align:center;">Bharat</th>
-              <th colspan="3" style="color:var(--co-c);border-bottom:2px solid var(--co-c);text-align:center;">Carnation</th>
-              <th style="color:var(--text-muted);text-align:center;">Year P&amp;L</th>
-            </tr>
-            <tr class="bz-sub-row">
-              <th style="text-align:left;">Yr</th>
-              <th style="text-align:left;">Yr</th>
-              <th>Invested</th><th>Returned</th><th>Profit/Loss</th>
-              <th>Invested</th><th>Returned</th><th>Profit/Loss</th>
-              <th>Invested</th><th>Returned</th><th>Profit/Loss</th>
-              <th>Net P&amp;L</th>
-          </thead>
-          <tbody id="bz-mini-tbody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+  <div style="height:130px;"></div>
   <!-- BOTTOM BAR -->
   <div class="bz-bottom-bar">
     <div class="bz-pips" id="bz-alloc-pips"></div>
@@ -2020,12 +1949,11 @@
       <button class="back-btn" onclick="enterDashboard()">← Dashboard</button>
       <span class="pill">Game 7 of 7</span>
     </div>
-    <div class="intro-layout-3">
-          <div class="intro-identity">
+    <div class="intro-layout">
+      <div class="intro-left">
         <div class="game-name-hindi">💼 Corporate Mazdoor</div>
         <div class="game-name-sub">mazdoor — the worker, the one in the arena</div>
-        <p class="game-intro-para">A workplace journey — 12 scenarios, each one a real situation. Choose what you'd actually do. Your choices shape what comes next, creating a path unique to you.</p></div>
-    <div class="intro-rules">
+        <p class="game-intro-para">A workplace journey — 12 scenarios, each one a real situation. Choose what you'd actually do. Your choices shape what comes next, creating a path unique to you.</p>
         <div class="card" style="background:var(--surface);border:0.5px solid var(--border);">
           <p style="font-size:0.78rem;color:var(--text-hint);line-height:1.75;font-style:italic;">No right or wrong answers. No scoring visible. Just what you'd genuinely do.</p>
         </div>
@@ -2137,6 +2065,12 @@
 <div id="screen-report" class="screen">
   <div class="game-canvas result-canvas rpt-canvas">
 
+    <!-- ── MODE TOGGLE ── -->
+    <div class="rpt-mode-bar">
+      <button class="rpt-mode-btn active" id="rpt-mode-student" onclick="setRptMode('student')">🎓 Student / Early career</button>
+      <button class="rpt-mode-btn"        id="rpt-mode-pro"     onclick="setRptMode('pro')">💼 Professional / Evaluator</button>
+    </div>
+
     <!-- ── HERO ── -->
     <div class="rpt-hero">
       <div class="rpt-hero-your-spirit">Your spirit animal is</div>
@@ -2159,8 +2093,8 @@
       <div class="rpt-cta-card">
         <div class="rpt-cta-eyebrow">Full Profile</div>
         <div class="rpt-cta-headline">The complete picture</div>
-        <div class="rpt-cta-body">Type narrative · Manager · Peer · Subordinate · Entrepreneur · What you struggle with · Where you thrive</div>
-        <button class="btn btn-primary btn-full rpt-unlock-btn" onclick="unlockFullReport()">
+        <div class="rpt-cta-body" id="rpt-cta-body">Type narrative · Manager · Peer · Subordinate · Entrepreneur · What you struggle with · Where you thrive</div>
+        <button class="btn btn-primary btn-full rpt-unlock-btn" id="rpt-unlock-btn" onclick="unlockFullReport()">
           See full profile →
         </button>
         <p class="rpt-cta-note">One-time · No subscription · Yours forever</p>
@@ -2170,22 +2104,22 @@
     <!-- ── FULL REPORT (hidden until unlocked) ── -->
     <div id="rpt-full" style="display:none;">
 
-      <!-- Type narrative (3 short punchy paragraphs) -->
+      <!-- Type narrative -->
       <div class="rpt-section">
-        <div class="rpt-section-label">Your profile</div>
+        <div class="rpt-section-label" id="rpt-label-profile">Your profile</div>
         <div class="rpt-narrative-card" id="rpt-narrative"></div>
       </div>
 
-      <!-- Dynamics tiles: manager / peer / subordinate / entrepreneur -->
+      <!-- Dynamics tiles -->
       <div class="rpt-section">
-        <div class="rpt-section-label">How you show up</div>
+        <div class="rpt-section-label" id="rpt-label-dynamics">How you show up</div>
         <div id="rpt-dynamics"></div>
       </div>
 
-      <!-- Struggles (red tiles) -->
+      <!-- Struggles -->
       <div class="rpt-section">
-        <div class="rpt-section-label">Watch out for</div>
-        <div class="rpt-struggles-note">Not softened. Worth reading.</div>
+        <div class="rpt-section-label" id="rpt-label-struggles">Watch out for</div>
+        <div class="rpt-struggles-note" id="rpt-struggles-note">Not softened. Worth reading.</div>
         <div id="rpt-struggles"></div>
       </div>
 
@@ -2198,7 +2132,7 @@
 
       <!-- Context fit -->
       <div class="rpt-section">
-        <div class="rpt-section-label">Where you thrive</div>
+        <div class="rpt-section-label" id="rpt-label-context">Where you thrive</div>
         <div id="rpt-context-tiles"></div>
       </div>
 
@@ -2450,9 +2384,9 @@ function enterDashboard() {
       return `<div class="game-card done dash-card-done">
         <div class="game-card-header">
           <div style="flex:1;min-width:0;">
-            <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#10B981;margin-bottom:3px;">✓ Complete</div>
-            <div style="font-size:0.95rem;font-weight:600;margin-bottom:2px;">${g.emoji} ${g.name}</div>
-            <div style="font-size:0.72rem;color:#065F46;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${g.scoreLabel(scoreData)}</div>
+            <div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#10B981;margin-bottom:4px;">✓ Complete</div>
+            <div style="font-size:1.1rem;font-weight:600;margin-bottom:3px;">${g.emoji} ${g.name}</div>
+            <div style="font-size:0.76rem;color:#065F46;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${g.scoreLabel(scoreData)}</div>
           </div>
           <button class="btn btn-outline btn-sm" style="flex-shrink:0;font-size:0.72rem;padding:6px 10px;" onclick="showScreen('${g.screen}')">Replay</button>
         </div>
@@ -2461,7 +2395,7 @@ function enterDashboard() {
       return `<div class="game-card highlight" onclick="showScreen('${g.screen}')">
         <div class="game-card-header">
           <div>
-            <div class="pill" style="margin-bottom:5px;">Game ${i+1} of 7 · Up next</div>
+            <div class="pill" style="margin-bottom:8px;">Game ${i+1} of 7 · Up next</div>
             <div style="font-size:1.25rem;font-weight:500;margin-bottom:2px;">${g.emoji} ${g.name}</div>
           </div>
           <button class="btn btn-primary btn-sm" style="flex-shrink:0;" onclick="event.stopPropagation();showScreen('${g.screen}')">Play →</button>
@@ -2882,13 +2816,15 @@ function idleReplay() {
   document.getElementById('idle-overlay').style.display = 'none';
   const g = _idleReplayCode;
   _idleReplayCode = null; _idleResumeFn = null;
-  rangIdleConsec = 0; rukIdleConsec = 0;
-  _rangIdleChecked = false; _rukIdleChecked = false;
+  rangIdleConsec = 0; rukIdleConsec = 0; b2IdleStreak = 0;
+  _rangIdleChecked = false; _rukIdleChecked = false; _dumIdleChecked = false;
   if (g === 'FER') {
     TIMEOUT_MS = RANG_WINDOW_BASE; rangResults = []; rangIdx = 0;
     showScreen('rang-game'); rangRenderTrial();
   } else if (g === 'GNG') {
     startRuk();
+  } else if (g === 'BART') {
+    startDumGame();
   }
 }
 
@@ -3768,11 +3704,6 @@ function bzRenderHistory() {
   const fpnl = n => (n >= 0 ? '+' : '−') + '₹' + Math.abs(n).toFixed(1) + 'L';
   const nc  = n => n > 0 ? 'color:var(--teal)' : n < 0 ? 'color:var(--red)' : 'color:var(--text-hint)';
 
-  // ── Show P&L section after Year 1 ──────────────────────────────────────
-  if (hasBz) {
-    const pnl = document.getElementById('bz-pnl-body');
-    if (pnl) pnl.style.display = 'grid';
-  }
   // ── Expanded mini header table ──────────────────────────────────────────
   const emptyEl  = document.getElementById('bz-hist-col-empty');
   const scrollEl = document.getElementById('bz-hist-col-scroll');
@@ -4666,19 +4597,30 @@ function getDimensionScores(scores, b5self) {
   // O ↔ D7  (open = explores)
   // C ↔ D2  (conscientious = controlled)
   // N ↔ 1-D1 (neurotic = risk-averse)
+  // ── TIPI self-perception ──────────────────────────────────────────────────
   // E ↔ D3  (extraverted = assertive negotiator)
   // A ↔ D6  (agreeable = fairness-oriented)
+  // N ↔ D2_stress  (neurotic = more errors under cognitive load in hard Ruk block)
+  const gv2 = gng && gng.behaviorVector ? gng.behaviorVector : {};
+  // D2_stress: 1 - block4_accuracy (hardest GNG block = rules-reversed + high NoGo density)
+  // Fallback: invert D2 if block4_accuracy unavailable (both neuroticism proxies)
+  const D2_stress = gng
+    ? clamp01(1 - (typeof gv2.block4_accuracy === 'number' ? gv2.block4_accuracy : (1 - clamp01(D2))))
+    : clamp01(1 - clamp01(D2));
+
   const d8Pairs = [
-    {label:'O vs D7', beh:D7,   self:tipiO},
-    {label:'C vs D2', beh:D2,   self:tipiC},
-    {label:'N vs D1', beh:1-D1, self:tipiN},
-    {label:'E vs D3', beh:D3,   self:tipiE},
-    {label:'A vs D6', beh:D6,   self:tipiA},
+    {label:'O vs D7',      beh: D7,        self: tipiO, w: 0.22},
+    {label:'C vs D2',      beh: D2,        self: tipiC, w: 0.22},
+    {label:'N vs D2_stress',beh: D2_stress, self: tipiN, w: 0.18},
+    {label:'E vs D3',      beh: D3,        self: tipiE, w: 0.13},
+    {label:'A vs D6',      beh: D6,        self: tipiA, w: 0.25},
   ].filter(p => p.self !== null);
 
   let D8 = 0.5;
   if(d8Pairs.length) {
-    D8 = clamp01(d8Pairs.reduce((s,p) => s + Math.abs(p.beh - p.self), 0) / d8Pairs.length);
+    // Confidence-weighted gap: A↔D6 and O↔D7 are strongest proxies; E↔D3 is weakest
+    const totalW = d8Pairs.reduce((s,p) => s + p.w, 0);
+    D8 = clamp01(d8Pairs.reduce((s,p) => s + Math.abs(p.beh - p.self) * p.w, 0) / totalW);
   }
   // High D8 = large gap between self-perception and behaviour = lower self-awareness
 
@@ -4721,6 +4663,7 @@ function getDimensionScores(scores, b5self) {
 
   return { D1:D1f, D2:clamp01(D2), D3:clamp01(D3), D4:D4f,
            D5:clamp01(D5), D6:D6f, D7:D7f, D8:clamp01(D8),
+           D2_stress,
            V1, V2, V3, V4, V5,
            tipi: {E:tipiE, A:tipiA, C:tipiC, N:tipiN, O:tipiO},
            d8Detail: d8Pairs,
@@ -5204,15 +5147,31 @@ function getDim5Scores(dims) {
   const scores = user && user.scores || [];
   const mb = scores.find(s => s.game === 'MOL_BHAV');
   const mbv = mb && mb.behaviorVector ? mb.behaviorVector : {};
-  const rejection_fold    = clamp01(typeof mbv.rejection_fold    === 'number' ? mbv.rejection_fold    : 0.5);
-  const anchor_aggression = clamp01(typeof mbv.anchor_aggression === 'number' ? mbv.anchor_aggression : 0.5);
+  const rejection_fold = clamp01(typeof mbv.rejection_fold === 'number' ? mbv.rejection_fold : 0.5);
 
   const risk    = clamp01(dims.D1*0.60 + dims.D7*0.25 + dims.D4*0.15);
   const command = clamp01(dims.D2*0.55 + dims.D5*0.40 + clamp01(1-rejection_fold)*0.05);
-  const social  = clamp01(dims.D6*0.80 + clamp01(1-anchor_aggression)*0.20);
+  // Social Wiring: D6 (Ultimatum fairness, 75%) + V5 from Mazdoor (others-orientation, 25%)
+  // V5 defaults to 0.5 if Mazdoor not played — neutral, same as the old D3_anchor fallback
+  const social  = clamp01(dims.D6*0.75 + dims.V5*0.25);
   const adapt   = clamp01(dims.D4*0.60 + dims.D7*0.40);
   const aware   = clamp01(1 - dims.D8);
   return { risk, command, social, adapt, aware };
+}
+
+// ═══════════════════════════════════════════════════════════
+// REPORT MODE — student | pro
+// ═══════════════════════════════════════════════════════════
+let rptMode = 'student'; // default
+
+function setRptMode(mode) {
+  rptMode = mode;
+  document.getElementById('rpt-mode-student').classList.toggle('active', mode === 'student');
+  document.getElementById('rpt-mode-pro').classList.toggle('active', mode === 'pro');
+  // Re-render everything
+  const full = document.getElementById('rpt-full');
+  if(full) { full.style.display = 'none'; full.dataset.rendered = ''; }
+  renderReport();
 }
 
 function renderReport() {
@@ -5275,16 +5234,17 @@ function renderReport() {
 
   // ── TIPI comparison (always shown) ──
   const TIPI_TRAITS = [
-    { key:'O', label:'Curiosity',      sub:'Openness to new experiences',    beh: dims.D7,        self: dims.tipi.O },
-    { key:'C', label:'Discipline',     sub:'Organisation & conscientiousness',beh: dims.D2,        self: dims.tipi.C },
-    { key:'N', label:'Calmness',       sub:'Stability under pressure',        beh: clamp01(1-dims.D1), self: dims.tipi.N === null ? null : clamp01(1 - (dims.tipi.N||0.5)) },
-    { key:'E', label:'Assertiveness',  sub:'Drive & social confidence',       beh: dims.D3,        self: dims.tipi.E },
-    { key:'A', label:'Cooperation',    sub:'Fairness & agreeableness',        beh: dims.D6,        self: dims.tipi.A },
+    { key:'O', label:'Curiosity',           sub:'Openness to new experiences',       beh: dims.D7,                     self: dims.tipi.O },
+    { key:'C', label:'Discipline',          sub:'Organisation & conscientiousness',  beh: dims.D2,                     self: dims.tipi.C },
+    // N displayed as Composure (both inverted so higher bar = more composed)
+    { key:'N', label:'Composure',           sub:'Staying stable under cognitive load', beh: clamp01(1 - dims.D2_stress), self: dims.tipi.N === null ? null : clamp01(1 - (dims.tipi.N||0.5)) },
+    { key:'E', label:'Assertiveness',       sub:'Drive & social confidence',         beh: dims.D3,                     self: dims.tipi.E },
+    { key:'A', label:'Cooperation',         sub:'Fairness & agreeableness',          beh: dims.D6,                     self: dims.tipi.A },
   ];
   const GAP_NOTES = {
     O: p => p.self > p.beh+0.15 ? '⚡ You explore less than you think' : p.beh > p.self+0.15 ? '⚡ More curious in practice than you believe' : '✓ Aligned',
     C: p => p.self > p.beh+0.15 ? '⚡ Self-image of discipline outpaces actual control' : p.beh > p.self+0.15 ? '⚡ More disciplined than you give yourself credit for' : '✓ Aligned',
-    N: p => p.self > p.beh+0.15 ? '⚡ You see yourself as calmer than choices show' : p.beh > p.self+0.15 ? '⚡ More composed under pressure than you think' : '✓ Aligned',
+    N: p => p.self > p.beh+0.15 ? '⚡ You see yourself as composed — stress errors say otherwise' : p.beh > p.self+0.15 ? '⚡ You see yourself as anxious — you held up better under pressure' : '✓ Aligned',
     E: p => p.self > p.beh+0.15 ? '⚡ Self-image is bolder than negotiation data' : p.beh > p.self+0.15 ? '⚡ More assertive in practice than self-assessment' : '✓ Aligned',
     A: p => p.self > p.beh+0.15 ? '⚡ You see yourself as more cooperative than choices show' : p.beh > p.self+0.15 ? '⚡ Fairer in practice than your self-assessment' : '✓ Aligned',
   };
@@ -5327,6 +5287,15 @@ function renderReport() {
     </div>`;
 
   showScreen('report');
+
+  // ── CTA text driven by mode ──
+  const isPro = (rptMode === 'pro');
+  const ctaBody = document.getElementById('rpt-cta-body');
+  const ctaBtn  = document.getElementById('rpt-unlock-btn');
+  if(ctaBody) ctaBody.textContent = isPro
+    ? 'Behavioral summary · Subordinate · Peer · Manager · Entrepreneur read · Interview probes · Deployment conditions'
+    : 'Type narrative · In your first role · In a team · Leadership potential · As a founder · Struggles · Where you thrive';
+  if(ctaBtn) ctaBtn.textContent = isPro ? 'See full assessment →' : 'See full profile →';
 }
 
 function scrollToTop() {
@@ -5354,8 +5323,8 @@ function unlockFullReport() {
   if(canvas) setTimeout(() => canvas.scrollTo({top:canvas.scrollHeight, behavior:'smooth'}), 100);
 }
 
-// ── Gradient-driven narrative: 5 levels × 5 dims + interplay ──
-function buildTypeNarrative(dims) {
+// ── Gradient-driven narrative: student (first-person) + professional (third-person evaluative) ──
+function buildTypeNarrative(dims, isPro) {
   const d5 = getDim5Scores(dims);
   const lvl = id => {
     const def = DIM5_DEFS.find(d => d.id === id);
@@ -5364,49 +5333,114 @@ function buildTypeNarrative(dims) {
   };
   const rL=lvl('risk'), cL=lvl('command'), sL=lvl('social'), aL=lvl('adapt'), wL=lvl('aware');
 
-  // Para 1: Risk + Command interplay
-  let p1 = DIM5_DEFS[0].nar[rL];
-  const diff = rL - cL;
-  if(diff >= 2)            p1 += " The appetite runs ahead of the control mechanisms — producing speed and sometimes avoidable errors.";
-  else if(diff <= -2)      p1 += " The control is stronger than the risk appetite — there's capacity here that isn't being fully used.";
-  else if(rL >= 3 && cL >= 3) p1 += " The combination of high risk appetite and strong control is rarer than either trait alone.";
-  else if(rL <= 1 && cL <= 1) p1 += " Both risk appetite and impulse control sit at the cautious end — producing a consistent, predictable profile.";
+  if(isPro) {
+    // ── Professional: third-person evaluative ──
+    const RNar = [
+      "This profile defaults to risk minimisation. Novel, undefined outcomes receive caution rather than curiosity. Predictable environments with bounded downside will bring out the best of this individual.",
+      "Risk appetite is present but constrained — this individual moves when the downside is defined. Open-ended exposure makes them wait for more data. Expect measured rather than bold bets.",
+      "A calculated behavioral profile. Neither the boldest nor the most conservative. Deliberates before committing, which produces reliable decisions and occasionally misses time-sensitive windows.",
+      "Risk appetite is real and behaviorally demonstrated, not performed. This individual moves into uncertain territory with intent. Losses are processed as information rather than threats.",
+      "This profile engages most fully at the frontier. High uncertainty generates engagement rather than avoidance. The riskier the problem, the sharper the focus.",
+    ];
+    const CNar = [
+      "Acts on instinct. The gap between impulse and action is small — fast decisions, occasionally ahead of the full picture. Manages well under speed; less so under process.",
+      "Self-regulation is intentional, not automatic. This individual controls their responses when they consciously decide to — which means the control can slip under novel or high-pressure conditions.",
+      "Regulation holds in familiar environments. Novel or sustained pressure can get through it. Performance is stable in known contexts; watch for degradation in new ones.",
+      "Holds when others don't. Restraint is a default, not an achievement. This individual can be relied on to make considered decisions even in high-pressure situations.",
+      "Exceptional behaviorally-measured control under cognitive load. Rarely acts before deciding. The data shows consistent performance even in the highest-difficulty conditions.",
+    ];
+    const SNar = [
+      "Independent orientation. Others' outcomes carry low weight in this individual's decision-making. Optimises for their own result first. Effective in competitive or solo contexts; creates friction in consensus-required ones.",
+      "Pragmatic social stance. Considers others when the cost is low. Will prioritise their own outcome when stakes are higher. Functional in most team settings; not a natural coalition builder.",
+      "Fairness threshold is active. This individual pushes back on outcomes that feel wrong — not loudly, but consistently. People around them tend to read them as reliable and even-handed.",
+      "Relationship-oriented decision-maker. Won't extract value from people they'll work with again. Builds trust as a pattern, not a tactic. Long-term team cohesion is a strength.",
+      "Strongly people-anchored. How others experience outcomes registers as real data for this individual. High trust-building capacity. May absorb more interpersonal weight than is sustainable.",
+    ];
 
-  // Para 2: Social Wiring + command/risk tensions
-  let p2 = DIM5_DEFS[2].nar[sL];
-  if(sL >= 3 && cL <= 1)       p2 += " Worth noting: the openness to others can run ahead of your own judgment when decisions need to be fast.";
-  else if(sL <= 1 && cL >= 3)  p2 += " The independent orientation and strong self-control compound — you're consistent and genuinely hard to read.";
-  else if(sL >= 3 && rL >= 3)  p2 += " People-orientation plus risk appetite means you can carry others with you into uncertain territory.";
+    let p1 = RNar[rL];
+    const diff = rL - cL;
+    if(diff >= 2)            p1 += " The risk appetite outruns the control mechanisms — creates speed but also avoidable errors.";
+    else if(diff <= -2)      p1 += " Control exceeds risk appetite — capacity that isn't being fully used.";
+    else if(rL >= 3 && cL >= 3) p1 += " High risk appetite combined with strong control is a rare and high-value combination.";
 
-  // Para 3: Adaptability + Self-Awareness
-  let p3 = DIM5_DEFS[3].nar[aL];
-  if(wL <= 1)                   p3 += " The self-awareness data adds texture here — the gap between your self-image and your choices is large enough to be the thing most worth examining.";
-  else if(wL >= 3)              p3 += " The self-awareness data supports this — your self-model and your choices are well-aligned.";
-  else if(aL >= 3 && wL >= 3)  p3 += " High adaptability and accurate self-awareness together suggest someone who reads both the room and themselves clearly.";
+    let p2 = SNar[sL];
+    if(sL >= 3 && cL <= 1)   p2 += " The people-orientation can run ahead of their own judgment when speed is required.";
+    else if(sL <= 1 && cL >= 3) p2 += " Independent orientation paired with strong control produces a consistent, low-noise profile.";
+    else if(sL >= 3 && rL >= 3) p2 += " Combines risk appetite with people orientation — can carry a team into uncertain territory.";
 
-  return [p1, p2, p3];
+    let p3 = ["Applies the same approach regardless of context. Predictable. Occasionally misaligned with what the situation actually needs.",
+              "Adapts when evidence is overwhelming. Not first to pivot — which means rarely wrong when they do. Reliable in stable or moderately shifting environments.",
+              "Reads context and adjusts with a beat of lag. Reliable without being rigid. Suitable for environments with moderate change velocity.",
+              "Updates while others are still diagnosing. Context-shift detection is above average. Effective in environments requiring continuous recalibration.",
+              "Each situation receives a fresh approach. High contextual flexibility. Best deployed in roles requiring frequent pivots or cross-functional breadth."][aL];
+    if(wL <= 1)  p3 += " Note: self-perception and behavioral data diverge meaningfully — gap worth exploring in assessment conversation.";
+    else if(wL >= 3) p3 += " Self-model and behavioral data are well-aligned — high coherence between how this individual sees themselves and how they act.";
+
+    return [p1, CNar[cL], p2, p3];  // 4 paragraphs for pro
+
+  } else {
+    // ── Student: first-person developmental ──
+    let p1 = DIM5_DEFS[0].nar[rL];
+    const diff = rL - cL;
+    if(diff >= 2)            p1 += " The appetite runs ahead of the control mechanisms — producing speed and sometimes avoidable errors.";
+    else if(diff <= -2)      p1 += " The control is stronger than the risk appetite — there's capacity here that isn't being fully used.";
+    else if(rL >= 3 && cL >= 3) p1 += " The combination of high risk appetite and strong control is rarer than either trait alone.";
+    else if(rL <= 1 && cL <= 1) p1 += " Both risk appetite and impulse control sit at the cautious end — producing a consistent, predictable profile.";
+
+    let p2 = DIM5_DEFS[2].nar[sL];
+    if(sL >= 3 && cL <= 1)   p2 += " Worth knowing: the openness to others can run ahead of your own judgment when decisions need to be fast.";
+    else if(sL <= 1 && cL >= 3) p2 += " The independent orientation and strong self-control compound — you're consistent and genuinely hard to read.";
+    else if(sL >= 3 && rL >= 3) p2 += " People-orientation plus risk appetite means you can carry others with you into uncertain territory.";
+
+    let p3 = DIM5_DEFS[3].nar[aL];
+    if(wL <= 1)  p3 += " The self-awareness data adds texture here — the gap between your self-image and your choices is large enough to be the thing most worth examining.";
+    else if(wL >= 3) p3 += " The self-awareness data supports this — your self-model and your choices are well-aligned.";
+
+    return [p1, p2, p3];
+  }
 }
 
 function renderFullReport() {
   const scores = user && user.scores || [];
   const dims   = getDimensionScores(scores, user.b5self || {});
   const profile = assignProfile(dims);
-  const dynamics = buildDynamics(dims);
+  const isPro   = (rptMode === 'pro');
+
+  // ── Section labels ──
+  const L = isPro ? {
+    profile:  'Behavioral profile',
+    dynamics: 'In team contexts',
+    struggles:'Risk areas to probe',
+    note:     'For evaluators. Based on behavioral patterns, not self-report.',
+    context:  'Optimal deployment conditions',
+  } : {
+    profile:  'Your profile',
+    dynamics: 'How you show up',
+    struggles:'Watch out for',
+    note:     'Not softened. Worth reading.',
+    context:  'Where you thrive',
+  };
+  document.getElementById('rpt-label-profile').textContent   = L.profile;
+  document.getElementById('rpt-label-dynamics').textContent  = L.dynamics;
+  document.getElementById('rpt-label-struggles').textContent = L.struggles;
+  document.getElementById('rpt-struggles-note').textContent  = L.note;
+  document.getElementById('rpt-label-context').textContent   = L.context;
+  const dynamics = buildDynamics(dims, isPro);
   const struggles = buildStruggles(dims, profile);
   const d8Cards   = buildFullD8(dims);
   const ctx       = buildContextTiles(dims);
 
   // ── Narrative ──
-  const narParas = buildTypeNarrative(dims);
+  const narParas = buildTypeNarrative(dims, isPro);
   document.getElementById('rpt-narrative').innerHTML =
     narParas.map(p => `<p>${p}</p>`).join('');
 
   // ── Dynamics tiles ──
   const DYN = [
-    {cls:'mgr',   role:'As a Manager',       text: dynamics.manager},
-    {cls:'peer',  role:'As a Peer',           text: dynamics.peer},
-    {cls:'sub',   role:'As a Subordinate',    text: dynamics.subordinate},
-    {cls:'entre', role:'As an Entrepreneur',  text: dynamics.entrepreneur},
+    {cls:'mgr',   ...dynamics.manager},
+    {cls:'peer',  ...dynamics.peer},
+    {cls:'sub',   ...dynamics.subordinate},
+    {cls:'entre', ...dynamics.entrepreneur},
   ];
   document.getElementById('rpt-dynamics').innerHTML = DYN.map(d =>
     `<div class="rpt-dyn-tile ${d.cls}">
@@ -5503,47 +5537,112 @@ function buildContextTiles(dims) {
   return { thrive: thrive.slice(0,3), grind: grind.slice(0,3) };
 }
 
-function buildDynamics(dims) {
-  const d1=dims.D1, d2=dims.D2, d3=dims.D3, d4=dims.D4, d5=dims.D5, d6=dims.D6, d7=dims.D7, v1=dims.V1, v2=dims.V2, v5=dims.V5;
-  const ag=dims.Agency||0.5, sr=dims.SelfReg||0.5, so=dims.SocialOr||0.5, ad=dims.Adapt||0.5;
+function buildDynamics(dims, isPro) {
+  const d1=dims.D1,d2=dims.D2,d3=dims.D3,d4=dims.D4,d5=dims.D5,d6=dims.D6,d7=dims.D7,v5=dims.V5;
+  const ag=dims.Agency||0.5,sr=dims.SelfReg||0.5,so=dims.SocialOr||0.5,ad=dims.Adapt||0.5;
 
-  // As a manager
-  let mgr;
-  if(d3>0.65&&v5>0.55) mgr="You give autonomy before people ask for it. The team you build tends to have high initiative because you've modelled it. The limitation: people who need more structure don't always tell you, and you don't always notice.";
-  else if(d2>0.65&&d5>0.60) mgr="You set a high bar and hold it consistently. Your team knows exactly where they stand. The limitation: the standard can feel punishing in environments where people are still learning.";
-  else if(d1>0.60&&d7>0.55) mgr="You push the team toward the edge of what's possible. The ones who thrive under you are the ones who wanted to be pushed. The ones who didn't will have moved on.";
-  else if(d6>0.65) mgr="You run a fair room — credit lands where it belongs, the process is transparent. People trust you because you've been consistent about it.";
-  else mgr="You manage through the work itself — by being present in it, setting the standard by doing it, and expecting the same. It works for the right kind of person on the team.";
+  // ── Text branches (neutral core, framed per mode below) ──
+  let mgrT,peerT,subT,entT;
 
-  // As a peer
-  let peer;
-  if(d3>0.65&&d4>0.55) peer="You read the room well and people feel it. Colleagues trust you with the real problem, not the official version. The limitation: you carry more context than you should sometimes.";
-  else if(d1>0.60&&d2>0.60) peer="You move fast and think clearly — the person colleagues bring the stuck problems to. The limitation: you can make people feel slow, even when you're not trying to.";
-  else if(d6>0.65&&v5>0.55) peer="You're the one who flags when something isn't right. Not loudly — but consistently. That builds a specific kind of reputation over time.";
-  else if(d5>0.65) peer="You're the person in the room who has actually read the document. That sounds unremarkable until you're in a meeting where nobody else has.";
-  else peer="You show up consistently and do the work. Peers notice reliability in a way they often don't articulate until it's gone.";
+  if(d3>0.65&&v5>0.55) mgrT=[
+    "You give autonomy before people ask for it. The team you build has high initiative because you've modelled it. The limitation: people who need structure don't always tell you, and you don't always notice.",
+    "Delegates before being asked. Teams built by this individual tend to run with initiative. Watch-out: lower-autonomy reports may drift without noticing.",
+  ];
+  else if(d2>0.65&&d5>0.60) mgrT=[
+    "You set a high bar and hold it consistently. Your team knows exactly where they stand. The limitation: the standard can feel punishing in environments where people are still learning.",
+    "High-standard manager. Consistent. Team knows where they stand. The limitation is the bar — it can feel punishing to people who are still developing.",
+  ];
+  else if(d1>0.60&&d7>0.55) mgrT=[
+    "You push the team toward the edge of what's possible. The ones who thrive under you wanted to be pushed. The ones who didn't will have moved on.",
+    "Pushes the team hard. Those who want to be challenged will perform. Those who don't will leave. Churn risk exists in lower-autonomy team members.",
+  ];
+  else if(d6>0.65) mgrT=[
+    "You run a fair room — credit lands where it belongs, the process is transparent. People trust you because you've been consistent about it.",
+    "Fair and transparent manager. Credit distribution is accurate. Trust builds reliably across the team.",
+  ];
+  else mgrT=[
+    "You manage through the work itself — by being present in it, setting the standard by doing it, and expecting the same. It works for the right kind of person on the team.",
+    "Leads by example, through the work. High performer, moderate explainer. Works well with self-sufficient reports; less effective with those who need coaching.",
+  ];
 
-  // As a subordinate
-  let sub;
-  if(d1>0.60&&d7>0.55) sub="You push back when something doesn't make sense, explore alternatives before committing, and move fast once you've decided. Managers who like being challenged find you energising. Managers who don't will find you difficult.";
-  else if(d2>0.65&&d5>0.60) sub="You do exactly what you said you'd do, when you said you'd do it. That sounds like the floor — it's actually rare. Managers learn to trust your output without checking it.";
-  else if(d6>0.65) sub="You will raise the concern once, clearly, and then let the decision be made. You don't overplay it and you don't pretend you didn't notice.";
-  else if(d3>0.65) sub="You give managers the benefit of the doubt early. That generosity means you're easy to onboard and fast to trust. It also means you absorb more than you should before flagging problems.";
-  else sub="You work well within clear expectations and deliver reliably. Where you add less is in environments with high ambiguity and no clear brief.";
+  if(d3>0.65&&d4>0.55) peerT=[
+    "You read the room well and people feel it. Colleagues bring you the real problem, not the official version. The limitation: you carry more context for others than you should sometimes.",
+    "High contextual awareness. Peers bring real problems, not sanitised ones. May absorb too much interpersonal weight.",
+  ];
+  else if(d1>0.60&&d2>0.60) peerT=[
+    "You move fast and think clearly — the person colleagues bring stuck problems to. The limitation: you can make people feel slow, even when you're not trying to.",
+    "High-signal peer. Fast, sharp. The person others go to when stuck. Creates an implicit performance gap that may cause friction.",
+  ];
+  else if(d6>0.65&&v5>0.55) peerT=[
+    "You're the one who flags when something isn't right. Not loudly — but consistently. That builds a specific kind of reputation over time.",
+    "Consistent flagging of problems. Not confrontational, but persistent. Builds a reputation for reliability and honest signalling.",
+  ];
+  else if(d5>0.65) peerT=[
+    "You're the person in the room who has actually read the document. That sounds unremarkable until you're in a meeting where nobody else has.",
+    "Prepared. Thorough. The one in the room who actually read the brief. Elevates the quality of team discussions.",
+  ];
+  else peerT=[
+    "You show up consistently and do the work. Peers notice reliability in a way they don't always articulate until it's gone.",
+    "Consistent and reliable. Peers value this more than they express. The absence of this profile is noticed faster than the presence.",
+  ];
 
-  // As an entrepreneur
-  let entre;
-  if(ag>0.65&&ad>0.60) entre="You have the risk appetite for the bet and the context-reading to shift when the market tells you something. Those two together are what investor due diligence is actually trying to find. Use that.";
-  else if(ag>0.65&&sr<0.40) entre="Fast trigger, high conviction — you'll move before others finish the analysis. The upside is speed. The watch-out: early-stage companies collapse on operational consistency, not ideas, and that's not your natural mode.";
-  else if(ag>0.65&&so>0.60) entre="Bold enough to start something and people-oriented enough to build a team that stays. The founding risk for you isn't the market — it's scaling past the point where you know everyone personally.";
-  else if(ag>0.65) entre="The appetite is there. Your game scores show genuine risk tolerance, not performed confidence. The question is whether you can sustain ambiguity when it lasts 24 months, not 24 days.";
-  else if(ag<0.40&&sr>0.65) entre="You'd be exceptional as a co-founder who keeps the company together while someone else takes the bets. The 'steady hand' role is underrated and often the difference between a company that survives and one that doesn't.";
-  else if(ag<0.40) entre="Founding is possible but the sustained uncertainty will be uncomfortable in a way it won't be for others. Your profile fits a second-in-command or operator role in a startup better than the primary founder seat.";
-  else if(so>0.65) entre="Socially, you're built for founding — people trust you early, which matters enormously for hiring. The gap to watch: being too consensus-oriented in a context that sometimes needs a hard unilateral call.";
-  else if(ad>0.65) entre="You read context and shift — that's the core skill for the early stage, where the product and market are different every six months. The limitation: you may adapt to signals that should have been ignored.";
-  else entre="Moderately set up for founding. You have enough appetite for uncertainty and enough range to build a team. The ceiling depends on how well you sustain the ambiguity when it extends past the point you expected.";
+  if(d1>0.60&&d7>0.55) subT=[
+    "You push back when something doesn't make sense, explore alternatives before committing, and move fast once decided. Managers who like challenge find you energising. Managers who don't will find you difficult.",
+    "Challenges briefs before committing. High independent judgment. High value for managers who want push-back; significant friction with directive styles.",
+  ];
+  else if(d2>0.65&&d5>0.60) subT=[
+    "You do exactly what you said you'd do, when you said you'd do it. That sounds like the floor — it's actually rare. Managers learn to trust your output without checking it.",
+    "Reliable delivery. Managers learn quickly they do not need to verify this individual's output. Rare and highly valued in execution-heavy roles.",
+  ];
+  else if(d6>0.65) subT=[
+    "You raise the concern once, clearly, and then let the decision be made. You don't overplay it and don't pretend you didn't notice.",
+    "Raises concerns once, clearly, then accepts the decision. Low noise. High integrity. Easy to manage.",
+  ];
+  else if(d3>0.65) subT=[
+    "You give managers the benefit of the doubt early. That generosity means you're easy to onboard and fast to trust. It also means you absorb more than you should before flagging problems.",
+    "Extends trust to managers quickly. Easy onboarding. Risk: may absorb too much before escalating — managers should create explicit check-in points.",
+  ];
+  else subT=[
+    "You work well within clear expectations and deliver reliably. Where you add less is in environments with high ambiguity and no clear brief.",
+    "Performs well in defined roles with clear briefs. Decreasing effectiveness as ambiguity increases. Best deployed in structured contexts.",
+  ];
 
-  return {manager:mgr, peer, subordinate:sub, entrepreneur:entre};
+  if(ag>0.65&&ad>0.60) entT=[
+    "You have the risk appetite for the bet and the context-reading to shift when the market tells you something. Those two together are what investor due diligence is actually trying to find.",
+    "Risk appetite is behaviorally demonstrated, not self-reported. Combined with above-average adaptability — a meaningful founding profile.",
+  ];
+  else if(ag>0.65&&sr<0.40) entT=[
+    "Fast trigger, high conviction. You'll move before others finish the analysis. The upside is speed. The watch-out: operational consistency isn't your natural mode.",
+    "High conviction, fast mover. Strong vision profile. Execution and operational consistency will need a complementary co-founder or strong COO.",
+  ];
+  else if(ag>0.65&&so>0.60) entT=[
+    "Bold enough to start something and people-oriented enough to build a team that stays. The founding risk isn't the market — it's scaling past the point where you know everyone personally.",
+    "Combines risk appetite with high people-orientation. Strong early-team builder. Scaling challenge: maintaining culture past the point of direct relationship.",
+  ];
+  else if(ag>0.65) entT=[
+    "The risk appetite is there. The question is whether you can sustain the ambiguity when it lasts 24 months, not 24 days.",
+    "Risk appetite is genuine. Resilience to sustained ambiguity is the open question — not assessable from a single session.",
+  ];
+  else if(ag<0.40&&sr>0.65) entT=[
+    "You'd be exceptional as a co-founder who keeps the company together while someone else takes the bets. That role is underrated.",
+    "Low primary-founder fit. High operator/co-founder fit. Would stabilise an early-stage team significantly. Best paired with a high-agency founder.",
+  ];
+  else if(ag<0.40) entT=[
+    "The sustained uncertainty of founding will be uncomfortable in a way it won't be for others. A second-in-command role fits this profile better than the primary seat.",
+    "Below-threshold risk appetite for a primary founder role. Strong operator profile. Best deployed as COO, VP, or execution lead.",
+  ];
+  else entT=[
+    "Moderately positioned for founding. Enough appetite for uncertainty and enough range to build a team. The ceiling depends on sustaining the ambiguity when it extends past what was expected.",
+    "Moderate founding profile. Sufficient risk appetite and social range to start something. Ceiling depends on ambiguity tolerance under real conditions.",
+  ];
+
+  const i = isPro ? 1 : 0;
+  return {
+    manager:     { role: isPro ? 'As a manager'       : 'When you lead',       text: mgrT[i]  },
+    peer:        { role: isPro ? 'As a peer'           : 'In a team',           text: peerT[i] },
+    subordinate: { role: isPro ? 'As a subordinate'   : 'In your first role',  text: subT[i]  },
+    entrepreneur:{ role: isPro ? 'Entrepreneurial fit' : 'As a founder',        text: entT[i]  },
+  };
 }
 
 function buildStruggles(dims, profile) {
@@ -5603,12 +5702,12 @@ function buildFullD8(dims) {
       behLo:'reactive — impulse errors came through in Ruk and Rang',
       behHi:'deliberate — held back cleanly when the signal said don\'t go',
     },
-    'N vs D1':{
-      trait:'Emotional reactivity (Neuroticism)', behLabel:'Risk appetite (inverted)',
-      selfLo:'calm, emotionally stable',
-      selfHi:'anxious, easily unsettled',
-      behLo:'bold — real risk tolerance, recovered from losses quickly',
-      behHi:'loss-sensitive — pulled back after setbacks, protected the downside',
+    'N vs D2_stress':{
+      trait:'Emotional reactivity (Neuroticism)', behLabel:'Composure under cognitive load',
+      selfLo:'calm, emotionally stable, hard to rattle',
+      selfHi:'anxious, easily unsettled, sensitive to pressure',
+      behLo:'stress-reactive — accuracy dropped meaningfully on the hardest Ruk block',
+      behHi:'composed under load — accuracy held even when rules reversed and NoGo density peaked',
     },
     'E vs D3':{
       trait:'Extraversion', behLabel:'Negotiation assertiveness',
@@ -5675,6 +5774,7 @@ let b2Balloons=[],b2Idx=0,b2Banked=0,b2Trials=[];
 let b2Pumps=0,b2Color='',b2Active=false,b2BalloonStart=0;
 let b2PumpRTs=[],b2LastActionAt=0;
 let b2TimerTimeout=null,b2TimerWarning=null;
+let b2IdleStreak=0,_dumIdleChecked=false;
 
 const ri=(lo,hi)=>Math.floor(Math.random()*(hi-lo+1))+lo;
 const rf=(lo,hi)=>lo+Math.random()*(hi-lo);
@@ -5713,6 +5813,7 @@ function getAdaptiveN(baseN){
 
 function startDumGame(){
   b2Balloons=generateSession();b2Idx=0;b2Banked=0;b2Trials=[];b2Pumps=0;b2Active=false;
+  b2IdleStreak=0;_dumIdleChecked=false;
   showScreen('dum-play');setTimeout(dumSetupBalloon,300);
 }
 
@@ -5768,12 +5869,19 @@ function dumStopTimer(){
 
 function dumOnTimerExpired(){
   if(!b2Active)return;
-  if(b2Pumps===0){b2Active=false;const balloon=b2Balloons[b2Idx];b2Trials.push({...balloon,pumps:0,popped:false,earned:0,pumpRTs:[],totalTime:B2.DECISION_MS,timeout:true});b2Idx++;dumSetupBalloon();}
-  else{dumDoCollect(true);}
+  if(b2Pumps===0){
+    b2Active=false;
+    const balloon=b2Balloons[b2Idx];
+    b2Trials.push({...balloon,pumps:0,popped:false,earned:0,pumpRTs:[],totalTime:B2.DECISION_MS,timeout:true});
+    b2Idx++; b2IdleStreak++;
+    if(b2IdleStreak>=3){ b2IdleStreak=0; idleShowPause(()=>dumSetupBalloon()); }
+    else { dumSetupBalloon(); }
+  } else { b2IdleStreak=0; dumDoCollect(true); }
 }
 
 function dumPump(){
   if(!b2Active)return;
+  b2IdleStreak=0;
   const balloon=b2Balloons[b2Idx];const cfg=B2.COLORS[b2Color];
   const rt=Date.now()-b2LastActionAt;b2PumpRTs.push(rt);b2LastActionAt=Date.now();
   if(b2Pumps===0)document.getElementById('g-cbtn').classList.add('collect-ready');
@@ -5850,6 +5958,12 @@ const ARCHETYPE_INFO={
 
 function dumEndGame(){
   clearTimeout(b2TimerTimeout);clearTimeout(b2TimerWarning);
+  if(!_dumIdleChecked){
+    _dumIdleChecked=true;
+    const blanks=b2Trials.filter(t=>t.timeout&&t.pumps===0).length;
+    if(b2Trials.length>0&&blanks/b2Trials.length>=0.40){idleShowReplay('BART',()=>dumEndGame());return;}
+  }
+  _dumIdleChecked=false;
   const vector=computeBehaviorVector(b2Trials);const archetype=getArchetype(vector);const info=ARCHETYPE_INFO[archetype];
   const pops=b2Trials.filter(t=>t.popped).length;const timeouts=b2Trials.filter(t=>t.timeout).length;
   const allRel=b2Trials.map(t=>t.adjustedN>0?t.pumps/t.adjustedN:0);

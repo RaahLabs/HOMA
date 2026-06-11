@@ -104,8 +104,19 @@
       .intro-left  { display:flex; flex-direction:column; gap:1rem; }
       .intro-right { display:flex; flex-direction:column; gap:1rem; }
       .container { max-width: min(640px, 80vw); margin: 0 auto; padding: 0 0 4rem; }
+      /* Intro screens: full viewport width, no card frame */
+      [id$="-intro"] .game-canvas {
+        max-width: 100%;
+        width: 100%;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 1.75rem 3rem;
+        max-height: none;
+        overflow: visible;
+      }
       /* Intro screens: 3-column layout on desktop */
-      .intro-layout-3 { display:grid; grid-template-columns:0.75fr 1fr 1fr; gap:1.5rem; align-items:start; }
+      .intro-layout-3 { display:grid; grid-template-columns:0.85fr 1fr 1.1fr; gap:3rem; align-items:start; }
       .intro-identity { display:flex; flex-direction:column; gap:0.5rem; }
       .intro-identity .game-intro-para { margin-bottom:0; }
       .intro-rules { display:flex; flex-direction:column; gap:0.625rem; }
@@ -1209,7 +1220,7 @@
       </div>
       <div class="intro-right">
         <div style="display:flex;justify-content:center;margin-bottom:1rem;">
-          <svg width="72" height="88" viewBox="0 0 90 110"><ellipse cx="45" cy="46" rx="36" ry="42" fill="#dc2626"/><ellipse cx="31" cy="28" rx="13" ry="9" fill="#fca5a5" opacity="0.55"/><path d="M45 88 Q42 98 45 104" stroke="#991b1b" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+          <svg width="120" height="146" viewBox="0 0 90 110"><ellipse cx="45" cy="46" rx="36" ry="42" fill="#dc2626"/><ellipse cx="31" cy="28" rx="13" ry="9" fill="#fca5a5" opacity="0.55"/><path d="M45 88 Q42 98 45 104" stroke="#991b1b" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
         </div>
         <div class="card">
           <p style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-hint);margin-bottom:10px;">Three types of balloons</p>

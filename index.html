@@ -105,30 +105,6 @@
       .intro-right { display:flex; flex-direction:column; gap:1rem; }
       .container { max-width: min(640px, 80vw); margin: 0 auto; padding: 0 0 4rem; }
       .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-      /* Mazdoor: viewport-height, 2-col layout — story left, choices right, zero scroll */
-      #screen-mazdoor-game { height:calc(100vh - 56px); overflow:hidden; display:flex; flex-direction:column; padding:0; }
-      #screen-mazdoor-game .mz-game-top { flex-shrink:0; }
-      #screen-mazdoor-game .mz-story-area {
-        flex:1; overflow:hidden; display:grid;
-        grid-template-columns:1.1fr 0.9fr;
-        grid-template-areas:"story hdr" "story choices" "story outcome" "story nextbtn";
-        grid-template-rows:auto 1fr auto auto;
-        gap:0 1.25rem; padding:0.875rem 1.25rem;
-      }
-      #screen-mazdoor-game .mz-story-card { grid-area:story; overflow:hidden; margin:0; height:100%; }
-      #screen-mazdoor-game .mz-scenario-text { font-size:14px; line-height:1.65; }
-      #screen-mazdoor-game .mz-scene-setter { margin-bottom:6px; }
-      #screen-mazdoor-game .mz-choices-header { grid-area:hdr; margin:0 0 8px; }
-      #screen-mazdoor-game .mz-choices-area { grid-area:choices; align-self:start; margin-bottom:0; }
-      #screen-mazdoor-game .mz-outcome-strip { grid-area:outcome; }
-      #screen-mazdoor-game #mz-next-btn-area { grid-area:nextbtn; align-self:end; margin:0; }
-
-      /* Bazaar: viewport-height, cards fill middle, bottom bar in flow, zero scroll */
-      #screen-bazaar-game { height:calc(100vh - 56px); overflow:hidden; display:flex; flex-direction:column; }
-      #screen-bazaar-game .bz-header { flex-shrink:0; }
-      #screen-bazaar-game .bz-cards-grid { flex:1; overflow:hidden; align-content:center; }
-      #screen-bazaar-game .bz-bottom-bar { position:relative; left:auto; bottom:auto; transform:none; width:100%; max-width:100%; flex-shrink:0; padding-bottom:12px; }
     }
     @media (max-width: 767px) {
       .game-canvas { padding: 1.25rem; max-height:calc(100vh - 56px); }
@@ -608,6 +584,8 @@
     .stim-preview-row { display:flex; justify-content:center; gap:28px; margin-bottom:1.5rem; }
     .stim-preview-cell { text-align:center; }
     .stim-preview-cell svg { width:60px; height:60px; }
+    .stim-preview-cell.sp-sm svg { width:38px; height:38px; }
+    .stim-preview-cell.sp-sm .stim-preview-label { font-size:10px; }
     .stim-preview-label { font-size:12px; margin-top:6px; font-weight:500; }
     .go-label { color:#0F6E56; } .nogo-label { color:#A32D2D; }
 
@@ -1869,7 +1847,7 @@
       <!-- Right: scrollable round history — visible from round 2 onwards -->
       <div class="bz-hist-col">
         <div id="bz-hist-col-empty" class="bz-hist-col-label">No history yet</div>
-        <div id="bz-hist-col-scroll" style="display:none; overflow-x:auto; scrollbar-width:thin; scrollbar-color:var(--border-strong) transparent;">
+        <div id="bz-hist-col-scroll" style="display:none; max-height:80px; overflow-y:auto; overflow-x:auto; scrollbar-width:thin; scrollbar-color:var(--border-strong) transparent;">
           <table class="bz-mini-table">
             <thead>
               <tr class="bz-group-row">
@@ -1895,6 +1873,7 @@
   </div>
   <!-- 3-COL CARDS -->
   <div class="bz-cards-grid" id="bz-cards-grid"></div>
+  <div style="height:130px;"></div>
   <!-- BOTTOM BAR -->
   <div class="bz-bottom-bar">
     <div class="bz-pips" id="bz-alloc-pips"></div>
@@ -2817,13 +2796,15 @@ function idleReplay() {
   document.getElementById('idle-overlay').style.display = 'none';
   const g = _idleReplayCode;
   _idleReplayCode = null; _idleResumeFn = null;
-  rangIdleConsec = 0; rukIdleConsec = 0;
-  _rangIdleChecked = false; _rukIdleChecked = false;
+  rangIdleConsec = 0; rukIdleConsec = 0; b2IdleStreak = 0;
+  _rangIdleChecked = false; _rukIdleChecked = false; _dumIdleChecked = false;
   if (g === 'FER') {
     TIMEOUT_MS = RANG_WINDOW_BASE; rangResults = []; rangIdx = 0;
     showScreen('rang-game'); rangRenderTrial();
   } else if (g === 'GNG') {
     startRuk();
+  } else if (g === 'BART') {
+    startDumGame();
   }
 }
 
@@ -4596,19 +4577,30 @@ function getDimensionScores(scores, b5self) {
   // O ↔ D7  (open = explores)
   // C ↔ D2  (conscientious = controlled)
   // N ↔ 1-D1 (neurotic = risk-averse)
+  // ── TIPI self-perception ──────────────────────────────────────────────────
   // E ↔ D3  (extraverted = assertive negotiator)
   // A ↔ D6  (agreeable = fairness-oriented)
+  // N ↔ D2_stress  (neurotic = more errors under cognitive load in hard Ruk block)
+  const gv2 = gng && gng.behaviorVector ? gng.behaviorVector : {};
+  // D2_stress: 1 - block4_accuracy (hardest GNG block = rules-reversed + high NoGo density)
+  // Fallback: invert D2 if block4_accuracy unavailable (both neuroticism proxies)
+  const D2_stress = gng
+    ? clamp01(1 - (typeof gv2.block4_accuracy === 'number' ? gv2.block4_accuracy : (1 - clamp01(D2))))
+    : clamp01(1 - clamp01(D2));
+
   const d8Pairs = [
-    {label:'O vs D7', beh:D7,   self:tipiO},
-    {label:'C vs D2', beh:D2,   self:tipiC},
-    {label:'N vs D1', beh:1-D1, self:tipiN},
-    {label:'E vs D3', beh:D3,   self:tipiE},
-    {label:'A vs D6', beh:D6,   self:tipiA},
+    {label:'O vs D7',      beh: D7,        self: tipiO, w: 0.22},
+    {label:'C vs D2',      beh: D2,        self: tipiC, w: 0.22},
+    {label:'N vs D2_stress',beh: D2_stress, self: tipiN, w: 0.18},
+    {label:'E vs D3',      beh: D3,        self: tipiE, w: 0.13},
+    {label:'A vs D6',      beh: D6,        self: tipiA, w: 0.25},
   ].filter(p => p.self !== null);
 
   let D8 = 0.5;
   if(d8Pairs.length) {
-    D8 = clamp01(d8Pairs.reduce((s,p) => s + Math.abs(p.beh - p.self), 0) / d8Pairs.length);
+    // Confidence-weighted gap: A↔D6 and O↔D7 are strongest proxies; E↔D3 is weakest
+    const totalW = d8Pairs.reduce((s,p) => s + p.w, 0);
+    D8 = clamp01(d8Pairs.reduce((s,p) => s + Math.abs(p.beh - p.self) * p.w, 0) / totalW);
   }
   // High D8 = large gap between self-perception and behaviour = lower self-awareness
 
@@ -4651,6 +4643,7 @@ function getDimensionScores(scores, b5self) {
 
   return { D1:D1f, D2:clamp01(D2), D3:clamp01(D3), D4:D4f,
            D5:clamp01(D5), D6:D6f, D7:D7f, D8:clamp01(D8),
+           D2_stress,
            V1, V2, V3, V4, V5,
            tipi: {E:tipiE, A:tipiA, C:tipiC, N:tipiN, O:tipiO},
            d8Detail: d8Pairs,
@@ -5134,12 +5127,13 @@ function getDim5Scores(dims) {
   const scores = user && user.scores || [];
   const mb = scores.find(s => s.game === 'MOL_BHAV');
   const mbv = mb && mb.behaviorVector ? mb.behaviorVector : {};
-  const rejection_fold    = clamp01(typeof mbv.rejection_fold    === 'number' ? mbv.rejection_fold    : 0.5);
-  const anchor_aggression = clamp01(typeof mbv.anchor_aggression === 'number' ? mbv.anchor_aggression : 0.5);
+  const rejection_fold = clamp01(typeof mbv.rejection_fold === 'number' ? mbv.rejection_fold : 0.5);
 
   const risk    = clamp01(dims.D1*0.60 + dims.D7*0.25 + dims.D4*0.15);
   const command = clamp01(dims.D2*0.55 + dims.D5*0.40 + clamp01(1-rejection_fold)*0.05);
-  const social  = clamp01(dims.D6*0.80 + clamp01(1-anchor_aggression)*0.20);
+  // Social Wiring: D6 (Ultimatum fairness, 75%) + V5 from Mazdoor (others-orientation, 25%)
+  // V5 defaults to 0.5 if Mazdoor not played — neutral, same as the old D3_anchor fallback
+  const social  = clamp01(dims.D6*0.75 + dims.V5*0.25);
   const adapt   = clamp01(dims.D4*0.60 + dims.D7*0.40);
   const aware   = clamp01(1 - dims.D8);
   return { risk, command, social, adapt, aware };
@@ -5205,16 +5199,17 @@ function renderReport() {
 
   // ── TIPI comparison (always shown) ──
   const TIPI_TRAITS = [
-    { key:'O', label:'Curiosity',      sub:'Openness to new experiences',    beh: dims.D7,        self: dims.tipi.O },
-    { key:'C', label:'Discipline',     sub:'Organisation & conscientiousness',beh: dims.D2,        self: dims.tipi.C },
-    { key:'N', label:'Calmness',       sub:'Stability under pressure',        beh: clamp01(1-dims.D1), self: dims.tipi.N === null ? null : clamp01(1 - (dims.tipi.N||0.5)) },
-    { key:'E', label:'Assertiveness',  sub:'Drive & social confidence',       beh: dims.D3,        self: dims.tipi.E },
-    { key:'A', label:'Cooperation',    sub:'Fairness & agreeableness',        beh: dims.D6,        self: dims.tipi.A },
+    { key:'O', label:'Curiosity',           sub:'Openness to new experiences',       beh: dims.D7,                     self: dims.tipi.O },
+    { key:'C', label:'Discipline',          sub:'Organisation & conscientiousness',  beh: dims.D2,                     self: dims.tipi.C },
+    // N displayed as Composure (both inverted so higher bar = more composed)
+    { key:'N', label:'Composure',           sub:'Staying stable under cognitive load', beh: clamp01(1 - dims.D2_stress), self: dims.tipi.N === null ? null : clamp01(1 - (dims.tipi.N||0.5)) },
+    { key:'E', label:'Assertiveness',       sub:'Drive & social confidence',         beh: dims.D3,                     self: dims.tipi.E },
+    { key:'A', label:'Cooperation',         sub:'Fairness & agreeableness',          beh: dims.D6,                     self: dims.tipi.A },
   ];
   const GAP_NOTES = {
     O: p => p.self > p.beh+0.15 ? '⚡ You explore less than you think' : p.beh > p.self+0.15 ? '⚡ More curious in practice than you believe' : '✓ Aligned',
     C: p => p.self > p.beh+0.15 ? '⚡ Self-image of discipline outpaces actual control' : p.beh > p.self+0.15 ? '⚡ More disciplined than you give yourself credit for' : '✓ Aligned',
-    N: p => p.self > p.beh+0.15 ? '⚡ You see yourself as calmer than choices show' : p.beh > p.self+0.15 ? '⚡ More composed under pressure than you think' : '✓ Aligned',
+    N: p => p.self > p.beh+0.15 ? '⚡ You see yourself as composed — stress errors say otherwise' : p.beh > p.self+0.15 ? '⚡ You see yourself as anxious — you held up better under pressure' : '✓ Aligned',
     E: p => p.self > p.beh+0.15 ? '⚡ Self-image is bolder than negotiation data' : p.beh > p.self+0.15 ? '⚡ More assertive in practice than self-assessment' : '✓ Aligned',
     A: p => p.self > p.beh+0.15 ? '⚡ You see yourself as more cooperative than choices show' : p.beh > p.self+0.15 ? '⚡ Fairer in practice than your self-assessment' : '✓ Aligned',
   };
@@ -5533,12 +5528,12 @@ function buildFullD8(dims) {
       behLo:'reactive — impulse errors came through in Ruk and Rang',
       behHi:'deliberate — held back cleanly when the signal said don\'t go',
     },
-    'N vs D1':{
-      trait:'Emotional reactivity (Neuroticism)', behLabel:'Risk appetite (inverted)',
-      selfLo:'calm, emotionally stable',
-      selfHi:'anxious, easily unsettled',
-      behLo:'bold — real risk tolerance, recovered from losses quickly',
-      behHi:'loss-sensitive — pulled back after setbacks, protected the downside',
+    'N vs D2_stress':{
+      trait:'Emotional reactivity (Neuroticism)', behLabel:'Composure under cognitive load',
+      selfLo:'calm, emotionally stable, hard to rattle',
+      selfHi:'anxious, easily unsettled, sensitive to pressure',
+      behLo:'stress-reactive — accuracy dropped meaningfully on the hardest Ruk block',
+      behHi:'composed under load — accuracy held even when rules reversed and NoGo density peaked',
     },
     'E vs D3':{
       trait:'Extraversion', behLabel:'Negotiation assertiveness',
@@ -5605,6 +5600,7 @@ let b2Balloons=[],b2Idx=0,b2Banked=0,b2Trials=[];
 let b2Pumps=0,b2Color='',b2Active=false,b2BalloonStart=0;
 let b2PumpRTs=[],b2LastActionAt=0;
 let b2TimerTimeout=null,b2TimerWarning=null;
+let b2IdleStreak=0,_dumIdleChecked=false;
 
 const ri=(lo,hi)=>Math.floor(Math.random()*(hi-lo+1))+lo;
 const rf=(lo,hi)=>lo+Math.random()*(hi-lo);
@@ -5643,6 +5639,7 @@ function getAdaptiveN(baseN){
 
 function startDumGame(){
   b2Balloons=generateSession();b2Idx=0;b2Banked=0;b2Trials=[];b2Pumps=0;b2Active=false;
+  b2IdleStreak=0;_dumIdleChecked=false;
   showScreen('dum-play');setTimeout(dumSetupBalloon,300);
 }
 
@@ -5698,12 +5695,19 @@ function dumStopTimer(){
 
 function dumOnTimerExpired(){
   if(!b2Active)return;
-  if(b2Pumps===0){b2Active=false;const balloon=b2Balloons[b2Idx];b2Trials.push({...balloon,pumps:0,popped:false,earned:0,pumpRTs:[],totalTime:B2.DECISION_MS,timeout:true});b2Idx++;dumSetupBalloon();}
-  else{dumDoCollect(true);}
+  if(b2Pumps===0){
+    b2Active=false;
+    const balloon=b2Balloons[b2Idx];
+    b2Trials.push({...balloon,pumps:0,popped:false,earned:0,pumpRTs:[],totalTime:B2.DECISION_MS,timeout:true});
+    b2Idx++; b2IdleStreak++;
+    if(b2IdleStreak>=3){ b2IdleStreak=0; idleShowPause(()=>dumSetupBalloon()); }
+    else { dumSetupBalloon(); }
+  } else { b2IdleStreak=0; dumDoCollect(true); }
 }
 
 function dumPump(){
   if(!b2Active)return;
+  b2IdleStreak=0;
   const balloon=b2Balloons[b2Idx];const cfg=B2.COLORS[b2Color];
   const rt=Date.now()-b2LastActionAt;b2PumpRTs.push(rt);b2LastActionAt=Date.now();
   if(b2Pumps===0)document.getElementById('g-cbtn').classList.add('collect-ready');
@@ -5780,6 +5784,12 @@ const ARCHETYPE_INFO={
 
 function dumEndGame(){
   clearTimeout(b2TimerTimeout);clearTimeout(b2TimerWarning);
+  if(!_dumIdleChecked){
+    _dumIdleChecked=true;
+    const blanks=b2Trials.filter(t=>t.timeout&&t.pumps===0).length;
+    if(b2Trials.length>0&&blanks/b2Trials.length>=0.40){idleShowReplay('BART',()=>dumEndGame());return;}
+  }
+  _dumIdleChecked=false;
   const vector=computeBehaviorVector(b2Trials);const archetype=getArchetype(vector);const info=ARCHETYPE_INFO[archetype];
   const pops=b2Trials.filter(t=>t.popped).length;const timeouts=b2Trials.filter(t=>t.timeout).length;
   const allRel=b2Trials.map(t=>t.adjustedN>0?t.pumps/t.adjustedN:0);

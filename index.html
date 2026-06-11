@@ -93,7 +93,7 @@
       .wide-canvas::-webkit-scrollbar-track { background: transparent; }
       .wide-canvas::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
       /* Screens: full edge-to-edge coverage */
-      .screen.active { display:block; padding: 0.75rem 1rem; min-height:calc(100vh - 56px); box-sizing:border-box; }
+      .screen.active { display:block; padding: 0.75rem 1rem; height:calc(100vh - 56px); box-sizing:border-box; overflow:hidden; }
       /* Two-column intro layout on desktop */
       .intro-layout {
         display: grid;
@@ -178,7 +178,9 @@
     ═══════════════════════════════════════════════ */
     .nav {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1rem 1.5rem;
+      padding: 0 1.5rem;
+      height: 56px;
+      box-sizing: border-box;
       border-bottom: 0.5px solid var(--border);
       background: var(--bg-desktop);
       position: sticky; top: 0; z-index: 50;
@@ -341,7 +343,7 @@
     /* ═══ RESULT MOMENT SCREENS ═══ */
     .result-canvas {
       display: flex; flex-direction: column;
-      min-height: calc(100vh - 56px - 1.5rem);
+      height: calc(100vh - 56px - 1.5rem);
       justify-content: space-between;
       /* override game-canvas max-height for result screens */
       max-height: calc(100vh - 56px - 1.5rem) !important;

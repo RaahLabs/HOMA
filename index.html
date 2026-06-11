@@ -108,7 +108,7 @@
       #screen-bazaar-intro .game-canvas { padding:1.25rem 1.5rem; }
       #screen-bazaar-intro .card { padding:0.875rem; }
       #screen-bazaar-intro .game-intro-para { margin-bottom:0.625rem; }
-      .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .dash-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
 
       /* Mazdoor: viewport-height, 2-col layout — story left, choices right, zero scroll */
       #screen-mazdoor-game.screen.active { height:calc(100vh - 56px); overflow:hidden; display:flex; flex-direction:column; padding:0; }
@@ -253,7 +253,7 @@
     ═══════════════════════════════════════════════ */
     .game-card {
       background: var(--card); border: 0.5px solid var(--border);
-      border-radius: var(--radius-lg); padding: 1.25rem;
+      border-radius: var(--radius-lg); padding: 0.875rem;
       box-shadow: var(--shadow-card);
     }
     .game-card.highlight { border: 1.5px solid var(--amber); cursor: pointer; }
@@ -670,11 +670,11 @@
       text-align: center;
     }
     .bz-mini-table .bz-sub-row th {
-      padding: 2px 5px 4px;
-      font-size: 8px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .04em;
+      padding: 2px 3px 4px;
+      font-size: 7px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .02em;
       color: var(--text-hint);
-      border-bottom: 0.5px solid var(--border-strong);
+      border-bottom: 0.5px solid var(--border); white-space:nowrap;
     }
     .bz-mini-table td { padding: 2px 5px; }
     .bz-header{position:sticky;top:0;z-index:20;background:rgba(250,250,247,0.97);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border-strong);padding:.75rem 1.5rem;}
@@ -1138,13 +1138,13 @@
 ═══════════════════════════════════════════════ -->
 <div id="screen-dashboard" class="screen">
   <div style="max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 2rem;width:100%;">
-    <div style="margin-bottom:1.5rem;">
+    <div style="margin-bottom:0.875rem;">
       <p id="dash-greet" style="font-size:1.35rem;font-weight:500;margin-bottom:4px;"></p>
       <p style="color:var(--text-muted);font-size:0.88rem;">Complete all 7 games to unlock your full career profile.</p>
     </div>
 
     <!-- Progress -->
-    <div style="margin-bottom:2rem;">
+    <div style="margin-bottom:1.25rem;">
       <div style="display:flex;justify-content:space-between;font-size:0.76rem;color:var(--text-muted);margin-bottom:6px;">
         <span>Overall progress</span><span id="prog-txt">0 / 7 games</span>
       </div>
@@ -1890,11 +1890,11 @@
             </tr>
             <tr class="bz-sub-row">
               <th style="text-align:left;">Yr</th>
-              <th>Inv</th><th>Ret</th><th>P/L</th>
-              <th>Inv</th><th>Ret</th><th>P/L</th>
-              <th>Inv</th><th>Ret</th><th>P/L</th>
-              <th>Net</th>
-            </tr>
+              <th style="text-align:left;">Yr</th>
+              <th>Invested</th><th>Returned</th><th>Profit/Loss</th>
+              <th>Invested</th><th>Returned</th><th>Profit/Loss</th>
+              <th>Invested</th><th>Returned</th><th>Profit/Loss</th>
+              <th>Net P&amp;L</th>
           </thead>
           <tbody id="bz-mini-tbody"></tbody>
         </table>
@@ -2391,9 +2391,9 @@ function enterDashboard() {
       return `<div class="game-card done dash-card-done">
         <div class="game-card-header">
           <div style="flex:1;min-width:0;">
-            <div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#10B981;margin-bottom:4px;">✓ Complete</div>
-            <div style="font-size:1.1rem;font-weight:600;margin-bottom:3px;">${g.emoji} ${g.name}</div>
-            <div style="font-size:0.76rem;color:#065F46;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${g.scoreLabel(scoreData)}</div>
+            <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#10B981;margin-bottom:3px;">✓ Complete</div>
+            <div style="font-size:0.95rem;font-weight:600;margin-bottom:2px;">${g.emoji} ${g.name}</div>
+            <div style="font-size:0.72rem;color:#065F46;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${g.scoreLabel(scoreData)}</div>
           </div>
           <button class="btn btn-outline btn-sm" style="flex-shrink:0;font-size:0.72rem;padding:6px 10px;" onclick="showScreen('${g.screen}')">Replay</button>
         </div>
@@ -2402,7 +2402,7 @@ function enterDashboard() {
       return `<div class="game-card highlight" onclick="showScreen('${g.screen}')">
         <div class="game-card-header">
           <div>
-            <div class="pill" style="margin-bottom:8px;">Game ${i+1} of 7 · Up next</div>
+            <div class="pill" style="margin-bottom:5px;">Game ${i+1} of 7 · Up next</div>
             <div style="font-size:1.25rem;font-weight:500;margin-bottom:2px;">${g.emoji} ${g.name}</div>
           </div>
           <button class="btn btn-primary btn-sm" style="flex-shrink:0;" onclick="event.stopPropagation();showScreen('${g.screen}')">Play →</button>

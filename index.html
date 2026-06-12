@@ -115,12 +115,20 @@
         max-height: none;
         overflow: visible;
       }
-      /* Intro screens: 3-column layout on desktop */
-      .intro-layout-3 { display:grid; grid-template-columns:0.85fr 1fr 1.1fr; gap:3rem; align-items:start; }
-      .intro-identity { display:flex; flex-direction:column; gap:0.5rem; }
+      /* Intro screens: 2-box layout — left (2fr) stacks identity+rules, right (1fr) is preview */
+      .intro-layout-3 {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-areas: "identity right" "rules right";
+        grid-template-rows: auto 1fr;
+        gap: 1.5rem 3rem;
+        align-items: start;
+      }
+      .intro-identity { grid-area: identity; display:flex; flex-direction:column; gap:0.5rem; }
       .intro-identity .game-intro-para { margin-bottom:0; }
-      .intro-rules { display:flex; flex-direction:column; gap:0.625rem; }
+      .intro-rules { grid-area: rules; display:flex; flex-direction:column; gap:0.625rem; }
       .intro-rules .btn { margin-top:auto; }
+      .intro-right { grid-area: right; }
 
       /* Ruk game: 2-column layout on desktop */
       .ruk-play-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; align-items:center; margin-top:0.75rem; }
